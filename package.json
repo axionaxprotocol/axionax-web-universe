@@ -1,0 +1,8 @@
+{
+  "name": "axionax-web-universe",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm --recursive --parallel --stream run dev",
+    "build": "pnpm --recursive run build"
+  }
+}

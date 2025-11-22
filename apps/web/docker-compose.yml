@@ -1,0 +1,125 @@
+version: '3.8'
+
+services:
+  # Web Frontend
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: axionax-web
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    networks:
+      - axionax-network
+
+  # Block Explorer Backend (Placeholder - ต้องเพิ่ม implementation)
+  explorer-api:
+    image: node:20-alpine
+    container_name: axionax-explorer-api
+    restart: unless-stopped
+    working_dir: /app
+    command: sh -c "echo 'Explorer API placeholder - implement your backend here' && sleep infinity"
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+    networks:
+      - axionax-network
+    # volumes:
+    #   - ./explorer-backend:/app
+
+  # Faucet Backend (Placeholder - ต้องเพิ่ม implementation)
+  faucet-api:
+    image: node:20-alpine
+    container_name: axionax-faucet-api
+    restart: unless-stopped
+    working_dir: /app
+    command: sh -c "echo 'Faucet API placeholder - implement your backend here' && sleep infinity"
+    ports:
+      - "3002:3002"
+    environment:
+      - NODE_ENV=production
+      - PORT=3002
+    networks:
+      - axionax-network
+    # volumes:
+    #   - ./faucet-backend:/app
+
+  # RPC Node (Placeholder - ต้องเพิ่ม implementation)
+  rpc-node:
+    image: alpine:latest
+    container_name: axionax-rpc
+    restart: unless-stopped
+    command: sh -c "echo 'AxionAX RPC Node placeholder - implement your node here' && sleep infinity"
+    ports:
+      - "8545:8545"
+      - "8546:8546"
+    environment:
+      - NETWORK=testnet
+    networks:
+      - axionax-network
+    # volumes:
+    #   - ./node-data:/data
+    #   - ./node-config:/config
+
+  # Nginx Reverse Proxy
+  nginx:
+    image: nginx:alpine
+    container_name: axionax-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+      - ./nginx/logs:/var/log/nginx
+    depends_on:
+      - web
+      - explorer-api
+      - faucet-api
+      - rpc-node
+    networks:
+      - axionax-network
+
+  # PostgreSQL Database (สำหรับ Explorer & Faucet)
+  postgres:
+    image: postgres:16-alpine
+    container_name: axionax-postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=axionax
+      - POSTGRES_USER=axionax
+      - POSTGRES_PASSWORD=change_this_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - axionax-network
+
+  # Redis (สำหรับ caching & rate limiting)
+  redis:
+    image: redis:7-alpine
+    container_name: axionax-redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - axionax-network
+
+networks:
+  axionax-network:
+    driver: bridge
+
+volumes:
+  postgres-data:
+  redis-data:

@@ -1,0 +1,238 @@
+name: Integration Tests
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  schedule:
+    # Run daily at 2 AM UTC
+    - cron: '0 2 * * *'
+
+jobs:
+  sdk-integration-tests:
+    name: SDK Integration Tests
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+    
+    steps:
+      - name: Checkout SDK
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build SDK
+        run: npm run build
+      
+      - name: Run unit tests
+        run: npm test
+      
+      - name: Run integration tests against testnet
+        env:
+          RPC_URL: https://rpc.axionax.org
+          CHAIN_ID: 1001
+        run: npm run test:integration
+        timeout-minutes: 10
+      
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results-${{ matrix.node-version }}
+          path: |
+            coverage/
+            test-results/
+  
+  contract-integration-tests:
+    name: Contract Integration Tests
+    runs-on: ubuntu-latest
+    needs: sdk-integration-tests
+    
+    steps:
+      - name: Checkout SDK
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build SDK
+        run: npm run build
+      
+      - name: Run contract integration tests
+        env:
+          RPC_URL: https://rpc.axionax.org
+          CHAIN_ID: 1001
+          TEST_CONTRACT_ADDRESS: ${{ secrets.TEST_CONTRACT_ADDRESS }}
+          TEST_PRIVATE_KEY: ${{ secrets.TEST_PRIVATE_KEY }}
+        run: npm run test:contract
+        timeout-minutes: 15
+      
+      - name: Upload contract test results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: contract-test-results
+          path: test-results/
+  
+  cross-repo-integration:
+    name: Cross-Repo Integration
+    runs-on: ubuntu-latest
+    
+    services:
+      # Optionally run a local node for testing
+      axionax-node:
+        image: ghcr.io/axionaxprotocol/axionax-core:latest
+        ports:
+          - 8545:8545
+          - 8546:8546
+        options: >-
+          --health-cmd "curl -f http://localhost:8545/health || exit 1"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    
+    steps:
+      - name: Checkout SDK
+        uses: actions/checkout@v4
+        with:
+          path: axionax-sdk-ts
+      
+      - name: Checkout Web
+        uses: actions/checkout@v4
+        with:
+          repository: axionaxprotocol/axionax-web
+          path: axionax-web
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+      
+      - name: Build and link SDK
+        working-directory: axionax-sdk-ts
+        run: |
+          npm ci
+          npm run build
+          npm link
+      
+      - name: Install and link Web dependencies
+        working-directory: axionax-web
+        run: |
+          npm ci
+          npm link @axionax/sdk
+      
+      - name: Test SDK integration in Web
+        working-directory: axionax-web
+        env:
+          RPC_URL: http://localhost:8545
+          CHAIN_ID: 1001
+        run: npm run test:integration
+      
+      - name: Upload cross-repo test results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: cross-repo-results
+          path: |
+            axionax-sdk-ts/test-results/
+            axionax-web/test-results/
+  
+  performance-tests:
+    name: Performance & Load Tests
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule' || github.event_name == 'push' && github.ref == 'refs/heads/main'
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build SDK
+        run: npm run build
+      
+      - name: Run performance tests
+        env:
+          RPC_URL: https://rpc.axionax.org
+          TEST_DURATION: 60
+        run: npm run test:performance
+        timeout-minutes: 10
+      
+      - name: Generate performance report
+        run: npm run report:performance
+      
+      - name: Upload performance results
+        uses: actions/upload-artifact@v3
+        with:
+          name: performance-results
+          path: performance-results/
+      
+      - name: Comment PR with performance metrics
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = fs.readFileSync('performance-results/summary.md', 'utf8');
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `## Performance Test Results\n\n${report}`
+            });
+  
+  notify-results:
+    name: Notify Test Results
+    runs-on: ubuntu-latest
+    needs: [sdk-integration-tests, contract-integration-tests, cross-repo-integration]
+    if: always()
+    
+    steps:
+      - name: Check test results
+        id: test-results
+        run: |
+          if [ "${{ needs.sdk-integration-tests.result }}" == "success" ] && \
+             [ "${{ needs.contract-integration-tests.result }}" == "success" ] && \
+             [ "${{ needs.cross-repo-integration.result }}" == "success" ]; then
+            echo "status=success" >> $GITHUB_OUTPUT
+          else
+            echo "status=failure" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Send Discord notification
+        if: always()
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        run: |
+          if [ "${{ steps.test-results.outputs.status }}" == "success" ]; then
+            curl -H "Content-Type: application/json" \
+              -d '{"content":"✅ Integration tests passed for `${{ github.ref_name }}`"}' \
+              $DISCORD_WEBHOOK
+          else
+            curl -H "Content-Type: application/json" \
+              -d '{"content":"❌ Integration tests failed for `${{ github.ref_name }}`\nCheck: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"}' \
+              $DISCORD_WEBHOOK
+          fi
