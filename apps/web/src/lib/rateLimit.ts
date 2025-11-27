@@ -53,7 +53,7 @@ export function createRateLimiter(config: Partial<RateLimitConfig> = {}) {
     if (clientData.count >= finalConfig.maxRequests) {
       // Rate limit exceeded
       const retryAfter = Math.ceil((clientData.resetTime - now) / 1000);
-      
+
       return NextResponse.json(
         {
           error: 'Too many requests',
@@ -75,7 +75,7 @@ export function createRateLimiter(config: Partial<RateLimitConfig> = {}) {
     // Increment counter
     clientData.count++;
     rateLimitStore.set(identifier, clientData);
-    
+
     return null; // Allow request
   };
 }

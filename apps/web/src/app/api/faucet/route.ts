@@ -62,7 +62,7 @@ async function sendTokens(address: string): Promise<string> {
     });
 
     // Wait for transaction to be mined (optional, but good for confirmation)
-    // await tx.wait(); 
+    // await tx.wait();
 
     return tx.hash;
   } catch (error) {

@@ -71,7 +71,7 @@ export async function GET(request: NextRequest) {
     const currentBlock = await getCurrentBlockNumber();
 
     if (currentBlock === 0) {
-       return NextResponse.json(
+      return NextResponse.json(
         { error: 'Failed to fetch chain data' },
         { status: 500 }
       );

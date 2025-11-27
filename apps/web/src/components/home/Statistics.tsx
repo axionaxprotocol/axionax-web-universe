@@ -11,13 +11,27 @@ interface LiveStats {
   validators: number;
 }
 
+interface StatsApiResponse {
+  blockNumber: number;
+  services: {
+    healthy: number;
+  };
+  uptime: {
+    hours: number;
+  };
+  deployment: number;
+  validators: {
+    online: number;
+  };
+}
+
 // Fetch real-time stats from Server API
 const fetchStats = async (): Promise<LiveStats> => {
   const response = await fetch('/api/stats');
   if (!response.ok) {
     throw new Error('Failed to fetch stats');
   }
-  const data = await response.json();
+  const data = (await response.json()) as StatsApiResponse;
 
   return {
     blocks: data.blockNumber,

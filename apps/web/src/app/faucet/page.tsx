@@ -30,7 +30,7 @@ const requestTokens = async (address: string): Promise<FaucetResponse> => {
     body: JSON.stringify({ address }),
   });
 
-  const data = await response.json();
+  const data = (await response.json()) as FaucetResponse;
 
   if (!response.ok) {
     throw new Error(data.message || 'Faucet request failed');
