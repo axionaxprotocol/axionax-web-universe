@@ -27,7 +27,7 @@ services:
     environment:
       - NODE_ENV=production
       - PORT=3001
-      - RPC_URL=http://rpc-node:8545
+      - RPC_URL=http://217.76.61.116:8545
     depends_on:
       - rpc-node
     networks:
