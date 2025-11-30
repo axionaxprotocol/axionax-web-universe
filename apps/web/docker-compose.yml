@@ -47,13 +47,13 @@ services:
     networks:
       - axionax-network
 
-  # Faucet Backend (Placeholder - ต้องเพิ่ม implementation)
+  # Faucet Backend
   faucet-api:
-    image: node:20-alpine
+    build:
+      context: ../../apps/faucet-api
+      dockerfile: Dockerfile
     container_name: axionax-faucet-api
     restart: unless-stopped
-    working_dir: /app
-    command: sh -c "echo 'Faucet API placeholder - implement your backend here' && sleep infinity"
     ports:
       - "3002:3002"
     environment:
@@ -61,8 +61,6 @@ services:
       - PORT=3002
     networks:
       - axionax-network
-    # volumes:
-    #   - ./faucet-backend:/app
 
   # RPC Node (Mock Implementation)
   rpc-node:
@@ -91,6 +89,7 @@ services:
       - ./nginx/conf.d:/etc/nginx/conf.d:ro
       - ./nginx/ssl:/etc/nginx/ssl:ro
       - ./nginx/logs:/var/log/nginx
+      - /etc/letsencrypt:/etc/letsencrypt:ro
     depends_on:
       - web
       - marketplace
