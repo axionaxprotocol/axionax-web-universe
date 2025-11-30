@@ -4,8 +4,8 @@ services:
   # Web Frontend
   web:
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ../../
+      dockerfile: apps/web/Dockerfile
     container_name: axionax-web
     restart: unless-stopped
     ports:

@@ -1,41 +1,31 @@
-# Use Node.js LTS
 FROM node:20-alpine AS base
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN corepack enable
 
-# Install dependencies only when needed
-FROM base AS deps
-RUN apk add --no-cache libc6-compat
-WORKDIR /app
-
-# Copy package files
-COPY package.json package-lock.json* ./
-# Use npm install if package-lock.json doesn't exist, otherwise use npm ci
-RUN if [ -f package-lock.json ]; then npm ci; else npm install; fi
-
-# Build the application
+# Rebuild the source code only when needed
 FROM base AS builder
 WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+RUN pnpm install --frozen-lockfile
+# Build only the web app (and its dependencies)
+RUN pnpm --filter @axionax/web build
 
-# Build Next.js
-RUN npm run build
-
-# Production image
+# Production image, copy all the files and run next
 FROM base AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
 
-# Create user
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-# Copy built application
-COPY --from=builder /app/out ./out
-COPY --from=builder /app/public ./public
-
-# For serving static files, we'll use a simple HTTP server
+# Install serve to run the static export
 RUN npm install -g serve
+
+# Copy the build output from the builder stage
+# Adjust path if output is different (e.g. dist) but Next.js export usually uses 'out'
+COPY --from=builder /app/apps/web/out ./out
 
 USER nextjs
 
@@ -43,5 +33,4 @@ EXPOSE 3000
 
 ENV PORT=3000
 
-# Start the application
 CMD ["serve", "-s", "out", "-l", "3000"]
