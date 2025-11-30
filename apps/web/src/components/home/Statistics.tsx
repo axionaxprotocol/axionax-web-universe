@@ -184,9 +184,9 @@ export default function Statistics(): React.JSX.Element {
     <section className="section bg-dark-900/50 border-y border-dark-800">
       <div className="container-custom">
         <div className="text-center mb-12">
-          <h2 className="gradient-text mb-4">Live Testnet Metrics</h2>
+          <h2 className="gradient-text mb-4">Live Testnet Metrics v2.0</h2>
           <p className="text-dark-400 text-lg">
-            Real-time status from VPS 217.216.109.5
+            Real-time status from VPS 217.216.109.5 (Active)
           </p>
         </div>
 
@@ -215,20 +215,20 @@ export default function Statistics(): React.JSX.Element {
             <h3 className="text-lg font-semibold text-dark-200">
               Service Health
             </h3>
-            <span className="text-sm text-green-400">
-              ✅ All systems operational
+            <span className={`text-sm ${stats.services > 0 ? 'text-green-400' : 'text-red-400'}`}>
+              {stats.services > 0 ? '✅ All systems operational' : '❌ Systems degraded'}
             </span>
           </div>
           <div className="space-y-3">
             <div className="flex items-center gap-3">
               <div className="w-full bg-dark-800 rounded-full h-2">
                 <div
-                  className="bg-green-500 h-2 rounded-full"
-                  style={{ width: '100%' }}
+                  className={`${stats.services > 0 ? 'bg-green-500' : 'bg-red-500'} h-2 rounded-full`}
+                  style={{ width: `${(stats.services / 9) * 100}%` }}
                 ></div>
               </div>
               <span className="text-sm text-dark-400 whitespace-nowrap">
-                100%
+                {Math.round((stats.services / 9) * 100)}%
               </span>
             </div>
             <div className="flex flex-wrap gap-2 text-xs">
