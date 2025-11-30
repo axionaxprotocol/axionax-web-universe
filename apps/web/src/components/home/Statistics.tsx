@@ -49,7 +49,7 @@ export default function Statistics(): React.JSX.Element {
   const { data: stats, isLoading } = useQuery<LiveStats>({
     queryKey: ['live-stats'],
     queryFn: fetchStats,
-    refetchInterval: 5000, // Refresh every 5 seconds
+    refetchInterval: 2000, // Refresh every 2 seconds for real-time feel
     initialData: {
       blocks: 0,
       services: 9,
