@@ -15,22 +15,23 @@ services:
     networks:
       - axionax-network
 
-  # Block Explorer Backend (Placeholder - ต้องเพิ่ม implementation)
+  # Block Explorer Backend (Mock Implementation)
   explorer-api:
-    image: node:20-alpine
+    build:
+      context: ../../apps/mock-explorer-api
+      dockerfile: Dockerfile
     container_name: axionax-explorer-api
     restart: unless-stopped
-    working_dir: /app
-    command: sh -c "echo 'Explorer API placeholder - implement your backend here' && sleep infinity"
     ports:
       - "3001:3001"
     environment:
       - NODE_ENV=production
       - PORT=3001
+      - RPC_URL=http://rpc-node:8545
+    depends_on:
+      - rpc-node
     networks:
       - axionax-network
-    # volumes:
-    #   - ./explorer-backend:/app
 
   # Faucet Backend (Placeholder - ต้องเพิ่ม implementation)
   faucet-api:
@@ -49,22 +50,19 @@ services:
     # volumes:
     #   - ./faucet-backend:/app
 
-  # RPC Node (Placeholder - ต้องเพิ่ม implementation)
+  # RPC Node (Mock Implementation)
   rpc-node:
-    image: alpine:latest
+    build:
+      context: ../../apps/mock-rpc
+      dockerfile: Dockerfile
     container_name: axionax-rpc
     restart: unless-stopped
-    command: sh -c "echo 'AxionAX RPC Node placeholder - implement your node here' && sleep infinity"
     ports:
       - "8545:8545"
-      - "8546:8546"
     environment:
-      - NETWORK=testnet
+      - PORT=8545
     networks:
       - axionax-network
-    # volumes:
-    #   - ./node-data:/data
-    #   - ./node-config:/config
 
   # Nginx Reverse Proxy
   nginx:
