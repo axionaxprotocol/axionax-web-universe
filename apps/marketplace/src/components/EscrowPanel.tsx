@@ -4,8 +4,9 @@ import {
   createClient, 
   EscrowStatus, 
   EscrowTransaction,
-  AxionaxConfig 
+  AXIONAX_TESTNET_CONFIG 
 } from '@axionax/sdk';
+import { ethers } from 'ethers';
 
 interface EscrowPanelProps {
   jobId: string;
@@ -13,18 +14,44 @@ interface EscrowPanelProps {
   className?: string;
 }
 
-const defaultConfig: AxionaxConfig = {
-  rpcUrl: 'https://rpc.axionax.network', // Example URL
-  chainId: 1234,
-};
-
 export const EscrowPanel: React.FC<EscrowPanelProps> = ({ 
   jobId, 
   client: propClient,
   className = ''
 }) => {
-  const [client] = useState<AxionaxClient>(() => propClient || createClient(defaultConfig));
+  const [client, setClient] = useState<AxionaxClient>(() => propClient || createClient({
+    ...AXIONAX_TESTNET_CONFIG,
+    rpcUrl: AXIONAX_TESTNET_CONFIG.rpcUrls[0],
+    chainId: AXIONAX_TESTNET_CONFIG.chainIdDecimal,
+  }));
   const [escrowState, setEscrowState] = useState<EscrowTransaction | null>(null);
+
+  useEffect(() => {
+    if (propClient) {
+      setClient(propClient);
+      return;
+    }
+
+    const initClient = async () => {
+      if (typeof window !== 'undefined' && (window as any).ethereum) {
+        try {
+          const provider = new ethers.BrowserProvider((window as any).ethereum);
+          const signer = await provider.getSigner();
+          const newClient = createClient({
+            ...AXIONAX_TESTNET_CONFIG,
+            rpcUrl: AXIONAX_TESTNET_CONFIG.rpcUrls[0],
+            chainId: AXIONAX_TESTNET_CONFIG.chainIdDecimal,
+            provider,
+            signer
+          });
+          setClient(newClient);
+        } catch (e) {
+          console.error("Failed to initialize wallet client", e);
+        }
+      }
+    };
+    initClient();
+  }, [propClient]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [amount, setAmount] = useState<string>('0');

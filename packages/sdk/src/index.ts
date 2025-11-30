@@ -5,6 +5,11 @@
  */
 
 import { ethers } from 'ethers';
+import EscrowABI from './abis/Escrow.json';
+import { ESCROW_CONTRACT_ADDRESS } from './config';
+
+export * from './config';
+export * from './browser';
 
 /**
  * SDK Error classes for better error handling
@@ -159,6 +164,7 @@ export interface AxionaxConfig {
   chainId: number;
   privateKey?: string;
   provider?: ethers.Provider;
+  signer?: ethers.Signer;
 }
 
 /**
@@ -172,7 +178,9 @@ export class AxionaxClient {
   constructor(config: AxionaxConfig) {
     this._config = config;
     this.provider = this.initializeProvider(config);
-    this.signer = this.initializeSigner(config);
+    this.initializeSigner(config).then(signer => {
+      this.signer = signer;
+    });
   }
 
   get config(): AxionaxConfig {
@@ -192,9 +200,20 @@ export class AxionaxClient {
   /**
    * Initialize signer from config
    */
-  private initializeSigner(config: AxionaxConfig): ethers.Signer | undefined {
+  private async initializeSigner(config: AxionaxConfig): Promise<ethers.Signer | undefined> {
+    if (config.signer) {
+      return config.signer;
+    }
     if (config.privateKey) {
       return new ethers.Wallet(config.privateKey, this.provider);
+    }
+    // If provider is a BrowserProvider, we might be able to get a signer
+    if (config.provider && config.provider instanceof ethers.BrowserProvider) {
+      try {
+        return await config.provider.getSigner();
+      } catch {
+        // Ignore if cannot get signer
+      }
     }
     return undefined;
   }
@@ -238,8 +257,10 @@ export class AxionaxClient {
     const signer = this.requireSigner('deposit escrow');
     this.validateJobId(jobId);
 
-    // TODO: Implement actual smart contract deposit call
-    
+    const contract = new ethers.Contract(ESCROW_CONTRACT_ADDRESS, EscrowABI, signer);
+    const tx = await contract.deposit(jobId, { value: amount });
+    await tx.wait();
+
     return {
       jobId,
       amount,
@@ -247,7 +268,7 @@ export class AxionaxClient {
       payer: await signer.getAddress(),
       createdAt: new Date(),
       updatedAt: new Date(),
-      txHash: '0xmock_deposit_tx_hash_' + Date.now()
+      txHash: tx.hash
     };
   }
 
@@ -258,17 +279,19 @@ export class AxionaxClient {
     const signer = this.requireSigner('release escrow');
     this.validateJobId(jobId);
 
-    // TODO: Implement actual smart contract release call
+    const contract = new ethers.Contract(ESCROW_CONTRACT_ADDRESS, EscrowABI, signer);
+    const tx = await contract.release(jobId);
+    await tx.wait();
 
     return {
       jobId,
-      amount: BigInt(0), // In real scenario, fetch from contract
+      amount: BigInt(0), // Would need to fetch latest state
       status: EscrowStatus.Released,
       payer: await signer.getAddress(),
-      payee: '0xmock_worker_address', // In real scenario, this would be the assigned worker
-      createdAt: new Date(), // Original creation date would be fetched
+      payee: undefined, // Would need to fetch
+      createdAt: new Date(),
       updatedAt: new Date(),
-      txHash: '0xmock_release_tx_hash_' + Date.now()
+      txHash: tx.hash
     };
   }
 
@@ -279,16 +302,18 @@ export class AxionaxClient {
     const signer = this.requireSigner('refund escrow');
     this.validateJobId(jobId);
 
-    // TODO: Implement actual smart contract refund call
+    const contract = new ethers.Contract(ESCROW_CONTRACT_ADDRESS, EscrowABI, signer);
+    const tx = await contract.refund(jobId);
+    await tx.wait();
 
     return {
       jobId,
-      amount: BigInt(0), // In real scenario, fetch from contract
+      amount: BigInt(0), // Would need to fetch latest state
       status: EscrowStatus.Refunded,
       payer: await signer.getAddress(),
-      createdAt: new Date(), // Original creation date would be fetched
+      createdAt: new Date(),
       updatedAt: new Date(),
-      txHash: '0xmock_refund_tx_hash_' + Date.now()
+      txHash: tx.hash
     };
   }
 
@@ -298,10 +323,33 @@ export class AxionaxClient {
   async getEscrowStatus(jobId: string): Promise<EscrowTransaction | null> {
     this.validateJobId(jobId);
     
-    // TODO: Implement actual smart contract call to get status
+    const contract = new ethers.Contract(ESCROW_CONTRACT_ADDRESS, EscrowABI, this.provider);
     
-    // Return null to simulate that no escrow has been created yet
-    return null;
+    try {
+      const result = await contract.getEscrow(jobId);
+      
+      // Map numeric status to enum
+      const statusMap = [
+        EscrowStatus.Pending,
+        EscrowStatus.Deposited,
+        EscrowStatus.Released,
+        EscrowStatus.Refunded,
+        EscrowStatus.Disputed
+      ];
+
+      return {
+        jobId: result.jobId,
+        amount: result.amount,
+        status: statusMap[result.status] || EscrowStatus.Pending,
+        payer: result.payer,
+        payee: result.worker !== ethers.ZeroAddress ? result.worker : undefined,
+        createdAt: new Date(Number(result.createdAt) * 1000),
+        updatedAt: new Date(), // Contract might not store updatedAt
+      };
+    } catch (error) {
+      // Return null if escrow not found (or handle specific error)
+      return null;
+    }
   }
 
   /**

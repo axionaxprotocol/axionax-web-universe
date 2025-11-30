@@ -31,6 +31,7 @@ graph TD
     end
     
     subgraph "Blockchain / Network"
+        InfraNode[Infra Node (217.216.109.5)]
         RPC[Validator Nodes]
         Contract[Smart Contracts]
     end
@@ -39,6 +40,7 @@ graph TD
     User --> Marketplace
     
     Website --> Web3Lib
+    Web3Lib -->|Ethers.js| InfraNode
     Web3Lib -->|Ethers.js| RPC
     
     Marketplace --> SDK
@@ -118,3 +120,19 @@ Marketplace พึ่งพา SDK เป็นหลักในเรื่อ
 
 4.  **Shared UI Components**:
     *   พิจารณาสร้าง workspace `packages/ui` สำหรับเก็บ Component กลาง (เช่น ปุ่ม, การ์ด) เพื่อให้ดีไซน์ของ Web และ Marketplace เป็นไปในทิศทางเดียวกัน
+
+---
+
+## 6. โครงสร้างพื้นฐานเครือข่าย (Network Infrastructure)
+
+จากการตรวจสอบเพิ่มเติม พบว่าโครงสร้างพื้นฐานของเครือข่ายมีการแยกหน้าที่ชัดเจน:
+
+*   **Infrastructure Node (`217.216.109.5`)**:
+    *   **Role**: เป็นศูนย์กลางการให้บริการ (Gateway)
+    *   **Services**: Webservice, RPC Gateway, Faucet API, Explorer API, และอื่นๆ
+    *   เป็นจุดเชื่อมต่อหลักสำหรับ Frontend (เช่น `apps/web` ดึง Metrics จากที่นี่)
+
+*   **Validator Nodes**:
+    *   `217.76.61.116` (EU Region)
+    *   `46.250.244.4` (AU Region)
+    *   **Role**: ทำหน้าที่ Consensus และสร้าง Block (Blockchain Core)
