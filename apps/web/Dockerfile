@@ -9,7 +9,7 @@ WORKDIR /app
 COPY . .
 RUN pnpm install --frozen-lockfile
 # Build only the web app (and its dependencies)
-RUN pnpm --filter @axionax/web build
+RUN pnpm --filter @axionax/website build
 
 # Production image, copy all the files and run next
 FROM base AS runner
