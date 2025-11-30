@@ -15,6 +15,20 @@ services:
     networks:
       - axionax-network
 
+  # Marketplace Frontend
+  marketplace:
+    build:
+      context: ../../
+      dockerfile: apps/marketplace/Dockerfile
+    container_name: axionax-marketplace
+    restart: unless-stopped
+    ports:
+      - "3002:3002"
+    environment:
+      - NODE_ENV=production
+    networks:
+      - axionax-network
+
   # Block Explorer Backend (Mock Implementation)
   explorer-api:
     build:
@@ -79,6 +93,7 @@ services:
       - ./nginx/logs:/var/log/nginx
     depends_on:
       - web
+      - marketplace
       - explorer-api
       - faucet-api
       - rpc-node
