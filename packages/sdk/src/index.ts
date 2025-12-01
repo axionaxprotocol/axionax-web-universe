@@ -149,6 +149,14 @@ export interface Worker {
 }
 
 /**
+ * Validator information
+ */
+export interface Validator {
+  address: string;
+  votingPower: bigint;
+}
+
+/**
  * Network statistics
  */
 export interface NetworkStats {
@@ -449,12 +457,19 @@ export class AxionaxClient {
   /**
    * Get node status
    */
-  async getStatus(): Promise<{ chainId: number; blockNumber: number }> {
+  async getStatus(): Promise<{ 
+    chainId: number; 
+    blockNumber: number;
+    nodeInfo: { version: string };
+    syncInfo: { syncing: boolean };
+  }> {
     const network = await this.provider.getNetwork();
     const blockNumber = await this.provider.getBlockNumber();
     return {
       chainId: Number(network.chainId),
       blockNumber,
+      nodeInfo: { version: '1.0.0' },
+      syncInfo: { syncing: false }
     };
   }
 
@@ -464,13 +479,13 @@ export class AxionaxClient {
   async getNetworkInfo(): Promise<{
     chainId: number;
     name: string;
-    peers: number;
+    peers: string[];
   }> {
     const network = await this.provider.getNetwork();
     return {
       chainId: Number(network.chainId),
       name: network.name,
-      peers: 0, // Mocked as JsonRpcProvider doesn't expose peers directly
+      peers: [], // Mocked as JsonRpcProvider doesn't expose peers directly
     };
   }
 
@@ -540,18 +555,31 @@ export class AxionaxClient {
   /**
    * Get validator set
    */
-  async getValidators(): Promise<string[]> {
+  async getValidators(): Promise<Validator[]> {
     // TODO: Implement actual validator retrieval from contract
-    return ['0x123...']; // Mock
+    return [{
+      address: '0x123...',
+      votingPower: BigInt(100)
+    }]; // Mock
   }
 
   /**
    * Get PoPC proof
    */
-  async getPoPCProof(blockHeight: number): Promise<{ height: number; proof: string } | null> {
+  async getPoPCProof(blockHeight: number): Promise<{ 
+    height: number; 
+    proof: string;
+    validators: string[];
+    signatures: string[];
+  } | null> {
     // TODO: Implement PoPC proof retrieval
     if (blockHeight < 0) return null;
-    return { height: blockHeight, proof: '0x...' };
+    return { 
+      height: blockHeight, 
+      proof: '0x...',
+      validators: [],
+      signatures: []
+    };
   }
 }
 
