@@ -5,8 +5,10 @@
  */
 
 import { ethers } from 'ethers';
-import EscrowABI from './abis/Escrow.json';
+import EscrowArtifact from '@axionax/contracts/artifacts/contracts/Escrow.sol/EscrowManager.json';
 import { ESCROW_CONTRACT_ADDRESS } from './config';
+
+const EscrowABI = EscrowArtifact.abi;
 
 export * from './config';
 export * from './browser';

@@ -2,8 +2,11 @@
   "name": "@axionax/sdk",
   "version": "1.0.0",
   "description": "Official TypeScript SDK for axionax protocol",
-  "main": "src/index.ts",
-  "types": "src/index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "homepage": "https://axionax.org",
   "repository": {
     "type": "git",
@@ -37,6 +40,7 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
+    "@axionax/contracts": "workspace:*",
     "ethers": "^6.15.0",
     "viem": "^2.0.0"
   }
