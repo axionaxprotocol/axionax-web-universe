@@ -3,6 +3,7 @@ import Footer from '@/components/layout/Footer';
 import Hero from '@/components/home/Hero';
 import Features from '@/components/home/Features';
 import QuickAccess from '@/components/home/QuickAccess';
+import ValidatorStatus from '@/components/home/ValidatorStatus';
 import Statistics from '@/components/home/Statistics';
 import Technology from '@/components/home/Technology';
 import Roadmap from '@/components/home/Roadmap';
@@ -15,6 +16,7 @@ export default function Home() {
       <main>
         <Hero />
         <QuickAccess />
+        <ValidatorStatus />
         <Features />
         <Statistics />
         <Technology />

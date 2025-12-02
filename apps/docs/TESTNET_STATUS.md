@@ -1,8 +1,8 @@
 # axionax Testnet Status
 
-> **Last Updated**: November 15, 2025  
-> **Version**: v1.7.0-testnet  
-> **Phase**: Phase 1 Complete ✅ | Phase 2 In Progress 🔄
+> **Last Updated**: December 2, 2025  
+> **Version**: v1.8.0-testnet  
+> **Phase**: Phase 2 Active ✅ | 2 Validators Live 🟢
 
 ---
 
@@ -11,93 +11,117 @@
 ### Network Details
 - **Chain ID**: 86137 (0x15079)
 - **Native Token**: AXX (18 decimals)
-- **RPC Endpoint**: http://217.216.109.5:8545
-- **WebSocket**: ws://217.216.109.5:8546
-- **Explorer**: http://217.216.109.5:3000/explorer
-- **Faucet**: http://217.216.109.5:3000/faucet
-- **Website**: http://217.216.109.5:3000
+- **Consensus**: Proof of Probabilistic Checking (PoPC)
+- **Block Time**: ~3 seconds
 
-### VPS Infrastructure
-- **Provider**: Contabo
-- **Location**: Europe
-- **Instance**: vmi2895217 @ 217.216.109.5
-- **Resources**:
-  - RAM: 8GB (87% free, 1GB used)
-  - CPU: 4 vCPU AMD EPYC
-  - Disk: 72GB (27% used, 53GB free)
-  - Uptime: 8+ days
-  - Load Average: 0.10-0.15
+### Public Endpoints
+- **RPC Endpoint**: https://rpc.axionax.org (load balanced)
+- **WebSocket**: wss://rpc.axionax.org
+- **Explorer**: https://explorer.axionax.org
+- **Faucet**: https://faucet.axionax.org
+- **Website**: https://axionax.org
+- **Monitoring**: https://monitor.axionax.org
 
----
+### Validator Nodes (2 Active)
 
-## 📊 Service Status (9 Services)
+| Validator | Location | IP | RPC Port | P2P Port | Status |
+|-----------|----------|-----|----------|----------|--------|
+| **Validator EU** | Europe | 217.76.61.116 | 8545 | 30303 | ✅ Running |
+| **Validator AU** | Australia | 46.250.244.4 | 8545 | 30303 | ✅ Running |
 
-| Service | Status | Port | Health | Uptime |
-|---------|--------|------|---------|---------|
-| **PostgreSQL** | ✅ Running | 5432 | Healthy | 4 hours |
-| **Redis** | ✅ Running | 6379 | Healthy | 4 hours |
-| **Nginx/SSL** | ✅ Running | 80/443 | Healthy | 4 hours |
-| **Mock RPC** | 🟡 Needs Rebuild | 8545/8546 | Degraded | 4 hours |
-| **Grafana** | 🔴 Missing | 3030 | Down | - |
-| **Prometheus** | ✅ Running | 9090 | Healthy | 3 days |
-| **Website** | ✅ Running | 3000 | Healthy | 4 hours |
-| **Explorer API** | ✅ Running | 3001 | Healthy | 4 hours |
-| **Faucet API** | ✅ Running | 3002 | Healthy | 4 hours |
+### Direct RPC Access
+```bash
+# Validator EU (Primary)
+curl -X POST -H "Content-Type: application/json" \\
+  --data '{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":1}' \\
+  http://217.76.61.116:8545
 
-### Current Issues
-1. **Mock RPC** 🟡 Priority: HIGH
-   - Container runs Alpine placeholder instead of Node.js mock server
-   - Need to rebuild with proper Ethereum JSON-RPC 2.0 implementation
-   - Affects: Website statistics, Explorer API, Faucet API
-
-2. **Grafana** 🔴 Priority: MEDIUM
-   - Container missing from deployment
-   - Need to start Grafana service for monitoring dashboards
+# Validator AU (Backup)
+curl -X POST -H "Content-Type: application/json" \\
+  --data '{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":1}' \\
+  http://46.250.244.4:8545
+```
 
 ---
 
-## ✅ Phase 1: Infrastructure Complete (100%)
+## 📊 Service Status
 
-### Deployment Achievements
-- [x] VPS provisioned and configured
-- [x] Docker Compose infrastructure deployed
-- [x] PostgreSQL database operational
-- [x] Redis cache operational
-- [x] Nginx reverse proxy with SSL ready
-- [x] Website deployed with MetaMask integration
-- [x] Explorer API endpoints working
-- [x] Faucet API endpoints working
-- [x] Prometheus metrics collection
-- [x] Automated backups configured (daily 2AM UTC)
-- [x] Real-time statistics API (`/api/stats`)
+| Service | Status | Endpoint | Description |
+|---------|--------|----------|-------------|
+| **Validator EU** | ✅ Running | 217.76.61.116:8545 | Primary validator node |
+| **Validator AU** | ✅ Running | 46.250.244.4:8545 | Secondary validator node |
+| **RPC Gateway** | ✅ Running | rpc.axionax.org | Load-balanced RPC endpoint |
+| **Website** | ✅ Running | axionax.org | Main website |
+| **Explorer** | ✅ Running | explorer.axionax.org | Block explorer |
+| **Faucet** | ✅ Running | faucet.axionax.org | Real AXX token distribution |
+| **Grafana** | ✅ Running | monitor.axionax.org | Monitoring dashboard |
+| **Prometheus** | ✅ Running | Internal | Metrics collection |
 
-### Website Features
-- **MetaMask Integration**: Auto-configuration for Chain ID 86137
-- **Real-time Stats**: Block height, services count, uptime (updates every 5s)
-- **Service Health Dashboard**: Visual status of all 9 services
-- **Explorer UI**: Browse blocks and transactions
-- **Faucet UI**: Request testnet AXX tokens (1 AXX per request, 60min cooldown)
-- **Responsive Design**: Mobile-friendly dark theme
+---
 
-### API Endpoints
-#### Explorer API (Port 3001)
-- `GET /health` - Service health check
-- `GET /api/stats` - Real-time network statistics
-- `GET /api/blocks/latest` - Latest block number
-- `GET /api/blocks/:number` - Get block by number
-- `GET /api/tx/:hash` - Get transaction by hash
-- `GET /api/account/:address` - Get account balance
+## ✅ Phase 2 Progress
 
-#### Faucet API (Port 3002)
-- `GET /health` - Service health check
-- `GET /api/info` - Faucet configuration (chain ID, amount, cooldown)
-- `POST /api/request` - Request testnet tokens
-- `GET /api/balance/:address` - Check account balance
+### Completed
+- [x] 2 Validator nodes deployed and synced
+- [x] Real PoPC consensus running
+- [x] Peer discovery working (validators connected)
+- [x] Load-balanced RPC endpoint
+- [x] Real faucet transactions (ethers.js integration)
+- [x] SSL certificates for all subdomains
+- [x] Monitoring with Prometheus & Grafana
+- [x] Website updated with validator status
 
-### Monitoring & Operations
-- **Prometheus Alerts**:
-  - ServiceDown: Triggers after 2min downtime
-  - HighMemoryUsage: <10% available for 5min
+### In Progress
+- [ ] Additional validator recruitment
+- [ ] Genesis ceremony documentation
+- [ ] Staking UI implementation
+- [ ] Governance portal
+
+---
+
+## 🔧 MetaMask Configuration
+
+Add axionax Testnet to MetaMask:
+
+| Setting | Value |
+|---------|-------|
+| **Network Name** | Axionax Testnet |
+| **RPC URL** | https://rpc.axionax.org |
+| **Chain ID** | 86137 |
+| **Currency Symbol** | AXX |
+| **Block Explorer** | https://explorer.axionax.org |
+
+---
+
+## 📈 Network Statistics
+
+Current network metrics (live from validators):
+- **Block Height**: ~264,000+ blocks
+- **Validators**: 2 active
+- **Peer Count**: 1 (validators connected)
+- **Target TPS**: 45,000+
+- **Finality**: <0.5 seconds
+
+---
+
+## 🚀 Getting Started
+
+### 1. Get Test Tokens
+```bash
+curl -X POST -H "Content-Type: application/json" \\
+  -d '{"address":"0xYourWalletAddress"}' \\
+  https://faucet.axionax.org/faucet
+```
+
+### 2. Check Balance
+```bash
+curl -X POST -H "Content-Type: application/json" \\
+  --data '{"jsonrpc":"2.0","method":"eth_getBalance","params":["0xYourAddress","latest"],"id":1}' \\
+  https://rpc.axionax.org
+```
+
+### 3. Run Your Own Node
+See [VPS_VALIDATOR_SETUP.md](./VPS_VALIDATOR_SETUP.md) for detailed instructions.
   - HighDiskUsage: <20% available for 5min
 - **Automated Backups**:
   - Daily at 2:00 AM UTC via cron

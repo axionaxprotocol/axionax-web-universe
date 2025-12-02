@@ -17,7 +17,7 @@ export default function Hero(): React.JSX.Element {
           <div className="mb-8 animate-fade-in-up">
             <span className="inline-flex items-center gap-2 px-4 py-2 bg-primary-500/10 border border-primary-500/20 rounded-full text-primary-400 text-sm font-medium">
               <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-              Testnet Live • 11 Services Running • Chain ID 86137
+              Testnet Live • 2 Validators • Chain ID 86137
             </span>
           </div>
 
@@ -99,10 +99,10 @@ export default function Hero(): React.JSX.Element {
             </div>
             <div className="group text-center p-4 rounded-xl bg-dark-900/50 border border-dark-800 hover:border-secondary-500/50 hover:bg-dark-900 transition-all duration-300 cursor-default">
               <div className="text-3xl md:text-4xl font-bold gradient-text mb-2 group-hover:scale-110 transition-transform">
-                11
+                2
               </div>
               <div className="text-sm text-dark-400 group-hover:text-dark-300 transition-colors">
-                Services Running
+                Validators Live
               </div>
             </div>
             <div className="group text-center p-4 rounded-xl bg-dark-900/50 border border-dark-800 hover:border-primary-500/50 hover:bg-dark-900 transition-all duration-300 cursor-default">
