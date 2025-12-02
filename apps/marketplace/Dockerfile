@@ -8,6 +8,8 @@ FROM base AS builder
 WORKDIR /app
 COPY . .
 RUN pnpm install --frozen-lockfile
+# Build SDK first (dependency of marketplace)
+RUN pnpm --filter @axionax/sdk build
 # Build only the marketplace app
 RUN pnpm --filter @axionax/marketplace build
 
