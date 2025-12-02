@@ -2,6 +2,7 @@
 import Footer from '@/components/layout/Footer';
 import Hero from '@/components/home/Hero';
 import Features from '@/components/home/Features';
+import QuickAccess from '@/components/home/QuickAccess';
 import Statistics from '@/components/home/Statistics';
 import Technology from '@/components/home/Technology';
 import Roadmap from '@/components/home/Roadmap';
@@ -13,6 +14,7 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
+        <QuickAccess />
         <Features />
         <Statistics />
         <Technology />

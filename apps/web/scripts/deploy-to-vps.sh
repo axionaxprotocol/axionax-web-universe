@@ -39,6 +39,23 @@ rsync -avz --delete \
 # Update nginx configuration if needed
 echo -e "${YELLOW}Updating nginx configuration...${NC}"
 ssh ${VPS_USER}@${VPS_IP} << 'ENDSSH'
+
+# 1. Firewall Hardening (UFW)
+echo "🔒 Configuring Firewall..."
+ufw allow 22/tcp
+ufw allow 80/tcp
+ufw allow 443/tcp
+# Allow internal communication (optional, adjust subnet as needed)
+# ufw allow from 10.0.0.0/8
+# Block external access to direct RPC/API ports (they are proxied via Nginx)
+ufw deny 8545/tcp
+ufw deny 3000/tcp
+ufw deny 3001/tcp
+# Enable UFW if not already enabled (non-interactive)
+ufw --force enable
+
+# 2. Idempotent Nginx Setup
+echo "⚙️ Configuring Nginx..."
 # Create nginx config for axionax web with SSL
 cat > /etc/nginx/sites-available/axionax-web << 'EOF'
 # HTTP - Redirect to HTTPS
@@ -111,13 +128,17 @@ server {
 }
 EOF
 
-# Enable site
+# Enable site (Idempotent: ln -sf forces overwrite)
 ln -sf /etc/nginx/sites-available/axionax-web /etc/nginx/sites-enabled/
 
-# Test and reload nginx
-nginx -t && systemctl reload nginx
-
-echo "✅ Nginx configured and reloaded"
+# Test and reload nginx only if config is valid
+if nginx -t; then
+    systemctl reload nginx
+    echo "✅ Nginx configured and reloaded"
+else
+    echo "❌ Nginx configuration failed! Not reloading."
+    exit 1
+fi
 ENDSSH
 
 echo ""

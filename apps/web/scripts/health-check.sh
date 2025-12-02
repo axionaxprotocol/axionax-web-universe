@@ -30,6 +30,21 @@ if [[ $RPC_RESPONSE == *"result"* ]]; then
     BLOCK_HEX=$(echo $RPC_RESPONSE | grep -o '"result":"[^"]*"' | cut -d'"' -f4)
     BLOCK_NUM=$((BLOCK_HEX))
     echo -e "${GREEN}✅ RPC is responding. Current Block: ${BLOCK_NUM}${NC}"
+    
+    # 2.1 Verify Block Production (Wait 5s)
+    echo -e "${YELLOW}    Verifying block production (waiting 5s)...${NC}"
+    sleep 5
+    RPC_RESPONSE_2=$(curl -s -X POST -H "Content-Type: application/json" -d '{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":1}' http://localhost:8545)
+    BLOCK_HEX_2=$(echo $RPC_RESPONSE_2 | grep -o '"result":"[^"]*"' | cut -d'"' -f4)
+    BLOCK_NUM_2=$((BLOCK_HEX_2))
+    
+    if [ "$BLOCK_NUM_2" -gt "$BLOCK_NUM" ]; then
+         echo -e "${GREEN}    ✅ Block height increased: ${BLOCK_NUM} -> ${BLOCK_NUM_2}${NC}"
+    elif [ "$BLOCK_NUM_2" -eq "$BLOCK_NUM" ]; then
+         echo -e "${YELLOW}    ⚠️ Block height unchanged (Chain might be slow or stalled). Check logs.${NC}"
+    else
+         echo -e "${RED}    ❌ Block height regression! Database corruption possible.${NC}"
+    fi
 else
     echo -e "${RED}❌ RPC Failed: ${RPC_RESPONSE}${NC}"
 fi

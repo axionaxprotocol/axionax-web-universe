@@ -17,7 +17,7 @@ export default function Hero(): React.JSX.Element {
           <div className="mb-8 animate-fade-in-up">
             <span className="inline-flex items-center gap-2 px-4 py-2 bg-primary-500/10 border border-primary-500/20 rounded-full text-primary-400 text-sm font-medium">
               <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-              Testnet 100% Deployed • 9/9 Services Live
+              Testnet Live • 11 Services Running • Chain ID 86137
             </span>
           </div>
 
@@ -45,24 +45,26 @@ export default function Hero(): React.JSX.Element {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12 animate-fade-in-up animation-delay-600">
-            <Button variant="primary" size="lg" className="text-lg">
-              Get Started
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                aria-label="Arrow right icon"
-                role="img"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M13 7l5 5m0 0l-5 5m5-5H6"
-                />
-              </svg>
-            </Button>
+            <Link href="/faucet">
+              <Button variant="primary" size="lg" className="text-lg">
+                Get Test Tokens
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-label="Arrow right icon"
+                  role="img"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M13 7l5 5m0 0l-5 5m5-5H6"
+                  />
+                </svg>
+              </Button>
+            </Link>
             <Link href="/docs">
               <Button variant="outline" size="lg" className="text-lg">
                 Read Documentation
@@ -97,26 +99,26 @@ export default function Hero(): React.JSX.Element {
             </div>
             <div className="group text-center p-4 rounded-xl bg-dark-900/50 border border-dark-800 hover:border-secondary-500/50 hover:bg-dark-900 transition-all duration-300 cursor-default">
               <div className="text-3xl md:text-4xl font-bold gradient-text mb-2 group-hover:scale-110 transition-transform">
-                9/9
+                11
               </div>
               <div className="text-sm text-dark-400 group-hover:text-dark-300 transition-colors">
-                Services Live
+                Services Running
               </div>
             </div>
             <div className="group text-center p-4 rounded-xl bg-dark-900/50 border border-dark-800 hover:border-primary-500/50 hover:bg-dark-900 transition-all duration-300 cursor-default">
               <div className="text-3xl md:text-4xl font-bold gradient-text mb-2 group-hover:scale-110 transition-transform">
-                2d+
+                45K+
               </div>
               <div className="text-sm text-dark-400 group-hover:text-dark-300 transition-colors">
-                Uptime
+                Target TPS
               </div>
             </div>
             <div className="group text-center p-4 rounded-xl bg-dark-900/50 border border-dark-800 hover:border-secondary-500/50 hover:bg-dark-900 transition-all duration-300 cursor-default">
               <div className="text-3xl md:text-4xl font-bold gradient-text mb-2 group-hover:scale-110 transition-transform">
-                100%
+                &lt;0.5s
               </div>
               <div className="text-sm text-dark-400 group-hover:text-dark-300 transition-colors">
-                Deployed
+                Finality
               </div>
             </div>
           </div>

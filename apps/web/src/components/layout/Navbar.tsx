@@ -12,6 +12,7 @@ export default function Navbar(): React.JSX.Element {
     { name: 'Home', href: '/' },
     { name: 'Explorer', href: '/explorer' },
     { name: 'Faucet', href: '/faucet' },
+    { name: 'Marketplace', href: 'https://axionax.org:3003' },
     { name: 'Docs', href: '/docs' },
     { name: 'GitHub', href: 'https://github.com/axionaxprotocol' },
   ];
