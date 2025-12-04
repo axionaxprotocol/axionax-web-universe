@@ -1,6 +1,6 @@
 {
   "name": "@axionax/sdk",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Official TypeScript SDK for axionax protocol",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -17,7 +17,9 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "jest --config jest.integration.config.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
     "lint": "eslint src --ext .ts",
     "format": "prettier --write src/**/*.ts"
   },
@@ -31,13 +33,12 @@
   "author": "axionax protocol Team <team@axionax.org>",
   "license": "MIT",
   "devDependencies": {
-    "@types/jest": "^30.0.0",
     "@types/node": "^20.0.0",
+    "@vitest/coverage-v8": "^1.0.0",
     "eslint": "^8.0.0",
-    "jest": "^29.0.0",
     "prettier": "^3.0.0",
-    "ts-jest": "^29.4.5",
-    "typescript": "^5.0.0"
+    "typescript": "^5.0.0",
+    "vitest": "^1.0.0"
   },
   "dependencies": {
     "@axionax/contracts": "workspace:*",

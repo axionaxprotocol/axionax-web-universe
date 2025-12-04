@@ -1,7 +1,14 @@
 /**
- * axionax SDK - TypeScript Client
+ * axionax SDK v2.0 - TypeScript Client
  *
  * Official TypeScript SDK for interacting with axionax protocol
+ * 
+ * Features:
+ * - Full contract interaction (Token, Staking, Governance, Escrow)
+ * - Event subscription system
+ * - Gas estimation and optimization
+ * - EIP-1559 support
+ * - Wallet integration
  */
 
 import { ethers } from 'ethers';
@@ -10,8 +17,12 @@ import { ESCROW_CONTRACT_ADDRESS } from './config';
 
 const EscrowABI = EscrowArtifact.abi;
 
+// Export all modules
 export * from './config';
 export * from './browser';
+export * from './contracts';
+export * from './events';
+export * from './gas';
 
 /**
  * SDK Error classes for better error handling
