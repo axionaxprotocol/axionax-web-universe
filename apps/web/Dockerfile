@@ -7,12 +7,8 @@ RUN corepack enable
 FROM base AS builder
 WORKDIR /app
 COPY . .
-RUN pnpm install --frozen-lockfile
-# Build contracts first (generates artifacts)
-RUN pnpm --filter @axionax/contracts build
-# Build SDK (depends on contracts artifacts)
-RUN pnpm --filter @axionax/sdk build
-# Build only the web app (and its dependencies)
+RUN pnpm install --frozen-lockfile --ignore-scripts
+# Build only the web app (skip contracts/SDK for frontend-only build)
 RUN pnpm --filter @axionax/website build
 
 # Production image, copy all the files and run next
