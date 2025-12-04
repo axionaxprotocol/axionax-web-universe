@@ -111,78 +111,77 @@ export default function Faucet(): React.JSX.Element {
   };
 
   return (
-    <div className="min-h-screen bg-dark-950">
+    <div className="min-h-screen bg-deep-space relative">
+      {/* Stars background */}
+      <div className="stars" />
+      
       <Navbar />
-      <main className="container-custom py-16">
+      <main className="container-custom py-24 relative z-10">
         <div className="max-w-2xl mx-auto">
           <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold gradient-text mb-4">
-              Testnet Faucet
+            <h1 className="text-4xl font-bold mb-4">
+              <span className="text-horizon">💧 Testnet Faucet</span>
             </h1>
-            <p className="text-dark-400 text-lg">
-              Get free testnet AXX tokens for development and testing
+            <p className="text-starlight/70 text-lg">
+              Get free testnet <span className="text-horizon-gold">AXX</span> tokens for development and testing
             </p>
           </div>
 
           {/* Faucet Balance Card */}
-          <Card className="mb-6 bg-gradient-to-r from-primary-500/10 to-secondary-500/10 border-primary-500/20">
+          <div className="card-cosmic mb-6 bg-gradient-to-r from-horizon-orange/10 via-horizon-purple/10 to-horizon-blue/10">
             <CardContent className="py-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-dark-400 text-sm mb-1">Faucet Balance</p>
-                  <p className="text-3xl font-bold text-white">
+                  <p className="text-starlight/50 text-sm mb-1">🏦 Faucet Balance</p>
+                  <p className="text-3xl font-bold text-horizon-gold">
                     {isLoadingInfo ? '...' : formatBalance(faucetInfo?.balance || '0')} AXX
                   </p>
                 </div>
                 <div className="text-right">
-                  <p className="text-dark-400 text-sm mb-1">Per Request</p>
-                  <p className="text-2xl font-bold text-primary-400">{FAUCET_AMOUNT} AXX</p>
+                  <p className="text-starlight/50 text-sm mb-1">Per Request</p>
+                  <p className="text-2xl font-bold text-horizon-orange">{FAUCET_AMOUNT} AXX</p>
                 </div>
               </div>
             </CardContent>
-          </Card>
+          </div>
 
-          <Card className="mb-6">
+          <div className="card-cosmic mb-6">
             <CardHeader>
-              <CardTitle>Claim Testnet Tokens</CardTitle>
+              <CardTitle className="text-horizon-blue">🚀 Claim Testnet Tokens</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium mb-2">
+                  <label className="block text-sm font-medium text-starlight/70 mb-2">
                     Your Wallet Address
                   </label>
-                  <Input
+                  <input
                     type="text"
                     placeholder="0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb4"
                     value={address}
                     onChange={(e) => setAddress(e.target.value.trim())}
-                    className="w-full font-mono"
+                    className="w-full px-4 py-3 bg-void border border-horizon-purple/30 rounded-lg text-starlight placeholder-starlight/30 focus:outline-none focus:border-horizon-orange focus:shadow-horizon-sm font-mono transition-all"
                     disabled={mutation.isPending}
                   />
                   {address && !isValidAddress(address) && (
-                    <p className="text-red-400 text-sm mt-2">
-                      Invalid Ethereum address format
+                    <p className="text-horizon-pink text-sm mt-2">
+                      ⚠️ Invalid Ethereum address format
                     </p>
                   )}
                 </div>
 
-                <Button
-                  variant="primary"
-                  className="w-full"
+                <button
+                  className="btn-horizon w-full text-lg"
                   onClick={handleClaim}
-                  isLoading={mutation.isPending}
-                  disabled={
-                    mutation.isPending || !address || !isValidAddress(address)
-                  }
+                  disabled={mutation.isPending || !address || !isValidAddress(address)}
                 >
                   {mutation.isPending
-                    ? 'Processing...'
-                    : `Claim ${FAUCET_AMOUNT} AXX`}
-                </Button>
+                    ? '⏳ Processing...'
+                    : `🎁 Claim ${FAUCET_AMOUNT} AXX`}
+                </button>
 
                 {mutation.isError && (
-                  <div className="p-4 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400">
+                  <div className="p-4 rounded-lg bg-horizon-pink/10 border border-horizon-pink/30 text-horizon-pink">
                     ❌{' '}
                     {mutation.error instanceof Error
                       ? mutation.error.message
@@ -191,50 +190,50 @@ export default function Faucet(): React.JSX.Element {
                 )}
 
                 {lastSuccess && (
-                  <div className="p-4 rounded-lg bg-green-500/10 border border-green-500/20 text-green-400 space-y-2">
+                  <div className="p-4 rounded-lg bg-green-500/10 border border-green-500/30 text-green-400 space-y-2">
                     <div>✅ {lastSuccess.message}</div>
                     {lastSuccess.txHash && (
-                      <div className="text-sm font-mono break-all">
+                      <div className="text-sm font-mono break-all text-green-300">
                         TX: {lastSuccess.txHash}
                       </div>
                     )}
-                    <div className="text-xs text-green-300">
-                      Check your wallet in a few seconds
+                    <div className="text-xs text-green-300/70">
+                      Check your wallet in a few seconds 🚀
                     </div>
                   </div>
                 )}
               </div>
             </CardContent>
-          </Card>
+          </div>
 
           {/* Recent Transactions */}
           {recentTxs.length > 0 && (
-            <Card className="mb-6">
+            <div className="card-cosmic mb-6">
               <CardHeader>
-                <CardTitle>Recent Transactions</CardTitle>
+                <CardTitle className="text-horizon-purple">📋 Recent Transactions</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
                   {recentTxs.map((tx, i) => (
-                    <div key={i} className="flex items-center justify-between p-3 bg-dark-900 rounded-lg">
+                    <div key={i} className="flex items-center justify-between p-3 bg-void rounded-lg border border-horizon-purple/20 hover:border-horizon-orange/30 transition-all">
                       <div className="flex items-center gap-3">
-                        <div className={`w-2 h-2 rounded-full ${tx.status === 'confirmed' ? 'bg-green-500' : 'bg-yellow-500 animate-pulse'}`} />
+                        <div className={`w-2 h-2 rounded-full ${tx.status === 'confirmed' ? 'bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.5)]' : 'bg-horizon-gold animate-pulse'}`} />
                         <div>
-                          <p className="text-sm font-mono text-dark-300">
+                          <p className="text-sm font-mono text-starlight/70">
                             {tx.to.slice(0, 10)}...{tx.to.slice(-8)}
                           </p>
-                          <p className="text-xs text-dark-500">
+                          <p className="text-xs text-starlight/40">
                             {new Date(tx.timestamp).toLocaleTimeString()}
                           </p>
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className="text-sm font-bold text-primary-400">+{tx.amount} AXX</p>
+                        <p className="text-sm font-bold text-horizon-gold">+{tx.amount} AXX</p>
                         <a
                           href={`https://explorer.axionax.org/tx/${tx.txHash}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-xs text-dark-500 hover:text-primary-400"
+                          className="text-xs text-starlight/40 hover:text-horizon-blue"
                         >
                           View TX →
                         </a>
@@ -243,53 +242,53 @@ export default function Faucet(): React.JSX.Element {
                   ))}
                 </div>
               </CardContent>
-            </Card>
+            </div>
           )}
 
-          <Card>
+          <div className="card-cosmic">
             <CardHeader>
-              <CardTitle>Faucet Information</CardTitle>
+              <CardTitle className="text-horizon">📚 Faucet Information</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4 text-dark-400">
+              <div className="space-y-4 text-starlight/60">
                 <div className="flex items-start gap-3">
-                  <div className="text-primary-500 mt-1">•</div>
+                  <div className="text-horizon-orange mt-1">💰</div>
                   <div>
-                    <strong className="text-white">Amount:</strong>{' '}
+                    <strong className="text-starlight">Amount:</strong>{' '}
                     {FAUCET_AMOUNT} AXX per request
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="text-primary-500 mt-1">•</div>
+                  <div className="text-horizon-purple mt-1">⏰</div>
                   <div>
-                    <strong className="text-white">Cooldown:</strong> 24 hours
+                    <strong className="text-starlight">Cooldown:</strong> 24 hours
                     between requests
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="text-primary-500 mt-1">•</div>
+                  <div className="text-horizon-blue mt-1">🔗</div>
                   <div>
-                    <strong className="text-white">Network:</strong> Axionax
+                    <strong className="text-starlight">Network:</strong> Axionax
                     Testnet (Chain ID: 86137)
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="text-primary-500 mt-1">•</div>
+                  <div className="text-horizon-pink mt-1">🧪</div>
                   <div>
-                    <strong className="text-white">Purpose:</strong> For testing
+                    <strong className="text-starlight">Purpose:</strong> For testing
                     and development only
                   </div>
                 </div>
               </div>
             </CardContent>
-          </Card>
+          </div>
 
           <div className="mt-8 text-center">
-            <p className="text-dark-500 text-sm">
-              Need more tokens? Join our{' '}
+            <p className="text-starlight/40 text-sm">
+              🌌 Need more tokens? Join our{' '}
               <a
                 href="https://discord.gg/axionax"
-                className="text-primary-400 hover:text-primary-300"
+                className="text-horizon-blue hover:text-horizon-purple transition-colors"
               >
                 Discord
               </a>{' '}

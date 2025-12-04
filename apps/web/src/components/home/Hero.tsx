@@ -2,52 +2,97 @@ import React from 'react';
 import Button from '@/components/ui/Button';
 import Link from 'next/link';
 
-// Hero component - Landing page hero section
+// Hero component - Landing page hero section with Black Hole / Event Horizon theme
 export default function Hero(): React.JSX.Element {
   return (
-    <section className="section relative overflow-hidden">
-      {/* Background Effects */}
-      <div className="absolute inset-0 bg-gradient-radial from-primary-900/20 via-dark-950 to-dark-950" />
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-500/10 rounded-full blur-3xl animate-float" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary-500/10 rounded-full blur-3xl animate-float animation-delay-400" />
+    <section className="section relative overflow-hidden min-h-screen flex items-center">
+      {/* Stars background */}
+      <div className="stars" />
+      
+      {/* Black Hole Animation */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        {/* Outer event horizon ring */}
+        <div 
+          className="absolute w-[700px] h-[700px] rounded-full opacity-20"
+          style={{ animation: 'spin 60s linear infinite' }}
+        >
+          <div 
+            className="absolute inset-0 rounded-full"
+            style={{ background: 'conic-gradient(from 0deg, #ff6b35, #ffa500, #ff006e, #9d4edd, #00d4ff, #ff6b35)' }}
+          />
+        </div>
+        
+        {/* Middle event horizon ring */}
+        <div 
+          className="absolute w-[500px] h-[500px] rounded-full opacity-30"
+          style={{ animation: 'spin 40s linear infinite reverse' }}
+        >
+          <div 
+            className="absolute inset-0 rounded-full"
+            style={{ background: 'conic-gradient(from 90deg, #ff006e, #ffa500, #ff6b35, #00d4ff, #9d4edd, #ff006e)' }}
+          />
+        </div>
+        
+        {/* Inner event horizon ring */}
+        <div 
+          className="absolute w-[300px] h-[300px] rounded-full opacity-40"
+          style={{ animation: 'spin 20s linear infinite' }}
+        >
+          <div 
+            className="absolute inset-0 rounded-full"
+            style={{ background: 'conic-gradient(from 180deg, #00d4ff, #9d4edd, #ff006e, #ffa500, #ff6b35, #00d4ff)' }}
+          />
+        </div>
+        
+        {/* Black hole center - the singularity */}
+        <div 
+          className="absolute w-[150px] h-[150px] rounded-full bg-void"
+          style={{ boxShadow: '0 0 100px 60px rgba(0,0,0,0.95), 0 0 150px 100px rgba(0,0,0,0.8)' }}
+        />
+        
+        {/* Gravitational lensing effect */}
+        <div className="absolute w-[180px] h-[180px] rounded-full border border-horizon-purple/20 animate-pulse" />
+        <div className="absolute w-[220px] h-[220px] rounded-full border border-horizon-orange/10 animate-pulse" style={{ animationDelay: '0.5s' }} />
+      </div>
 
       <div className="container-custom relative z-10">
         <div className="max-w-4xl mx-auto text-center">
           {/* Badge */}
           <div className="mb-8 animate-fade-in-up">
-            <span className="inline-flex items-center gap-2 px-4 py-2 bg-primary-500/10 border border-primary-500/20 rounded-full text-primary-400 text-sm font-medium">
-              <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+            <span className="inline-flex items-center gap-2 px-4 py-2 bg-space-dust/50 border border-horizon-purple/30 rounded-full text-starlight text-sm font-medium backdrop-blur-sm">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-horizon-orange opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-horizon-gold"></span>
+              </span>
               Testnet Live • 2 Validators • Chain ID 86137
             </span>
           </div>
 
           {/* Main Heading */}
           <h1 className="mb-6 animate-fade-in-up animation-delay-200">
-            High-Performance
+            <span className="text-starlight">Welcome to the</span>
             <br />
-            <span className="gradient-text">Layer-1 Blockchain</span>
+            <span className="text-horizon text-glow">Event Horizon</span>
           </h1>
 
           {/* Description */}
-          <p className="text-xl md:text-2xl text-dark-300 mb-10 max-w-3xl mx-auto animate-fade-in-up animation-delay-400 leading-relaxed">
-            axionax is powered by{' '}
-            <span className="text-primary-400 font-semibold">
+          <p className="text-xl md:text-2xl text-starlight/70 mb-10 max-w-3xl mx-auto animate-fade-in-up animation-delay-400 leading-relaxed">
+            <span className="text-horizon-blue font-semibold">Axionax</span> — powered by{' '}
+            <span className="text-horizon-orange font-semibold">
               Proof of Probabilistic Checking
             </span>{' '}
-            (PoPC) consensus, enabling{' '}
-            <span className="text-secondary-400 font-medium">
-              decentralized computing
+            (PoPC) consensus. Where blockchain meets the cosmos with{' '}
+            <span className="text-horizon-purple font-medium">
+              infinite scalability
             </span>{' '}
-            and{' '}
-            <span className="text-secondary-400 font-medium">AI workloads</span>{' '}
-            with unprecedented efficiency.
+            beyond the singularity.
           </p>
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12 animate-fade-in-up animation-delay-600">
             <Link href="/faucet">
-              <Button variant="primary" size="lg" className="text-lg">
-                Get Test Tokens
+              <button className="btn-horizon text-lg px-8 py-4 flex items-center gap-2">
+                🚀 Get Test Tokens
                 <svg
                   className="w-5 h-5"
                   fill="none"
@@ -63,67 +108,85 @@ export default function Hero(): React.JSX.Element {
                     d="M13 7l5 5m0 0l-5 5m5-5H6"
                   />
                 </svg>
-              </Button>
+              </button>
             </Link>
             <Link href="/docs">
+              <Button variant="secondary" size="lg" className="text-lg">
+                📚 Read Documentation
+              </Button>
+            </Link>
+            <Link href="/explorer">
               <Button variant="outline" size="lg" className="text-lg">
-                Read Documentation
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  aria-label="Documentation icon"
-                  role="img"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-                  />
-                </svg>
+                🔭 Explorer
               </Button>
             </Link>
           </div>
 
           {/* Quick Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto animate-fade-in-up animation-delay-800">
-            <div className="group text-center p-4 rounded-xl bg-dark-900/50 border border-dark-800 hover:border-primary-500/50 hover:bg-dark-900 transition-all duration-300 cursor-default">
-              <div className="text-3xl md:text-4xl font-bold gradient-text mb-2 group-hover:scale-110 transition-transform">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto animate-fade-in-up animation-delay-800">
+            <div className="card-cosmic text-center p-4 hover:shadow-horizon-sm transition-all duration-300 cursor-default group">
+              <div className="text-2xl md:text-3xl font-bold text-horizon-gold mb-2 group-hover:scale-110 transition-transform">
                 86137
               </div>
-              <div className="text-sm text-dark-400 group-hover:text-dark-300 transition-colors">
-                Testnet Chain ID
+              <div className="text-sm text-starlight/60">
+                Chain ID
               </div>
             </div>
-            <div className="group text-center p-4 rounded-xl bg-dark-900/50 border border-dark-800 hover:border-secondary-500/50 hover:bg-dark-900 transition-all duration-300 cursor-default">
-              <div className="text-3xl md:text-4xl font-bold gradient-text mb-2 group-hover:scale-110 transition-transform">
+            <div className="card-cosmic text-center p-4 hover:shadow-horizon-sm transition-all duration-300 cursor-default group">
+              <div className="text-2xl md:text-3xl font-bold text-horizon-blue mb-2 group-hover:scale-110 transition-transform">
                 2
               </div>
-              <div className="text-sm text-dark-400 group-hover:text-dark-300 transition-colors">
+              <div className="text-sm text-starlight/60">
                 Validators Live
               </div>
             </div>
-            <div className="group text-center p-4 rounded-xl bg-dark-900/50 border border-dark-800 hover:border-primary-500/50 hover:bg-dark-900 transition-all duration-300 cursor-default">
-              <div className="text-3xl md:text-4xl font-bold gradient-text mb-2 group-hover:scale-110 transition-transform">
+            <div className="card-cosmic text-center p-4 hover:shadow-horizon-sm transition-all duration-300 cursor-default group">
+              <div className="text-2xl md:text-3xl font-bold text-horizon-orange mb-2 group-hover:scale-110 transition-transform">
                 45K+
               </div>
-              <div className="text-sm text-dark-400 group-hover:text-dark-300 transition-colors">
+              <div className="text-sm text-starlight/60">
                 Target TPS
               </div>
             </div>
-            <div className="group text-center p-4 rounded-xl bg-dark-900/50 border border-dark-800 hover:border-secondary-500/50 hover:bg-dark-900 transition-all duration-300 cursor-default">
-              <div className="text-3xl md:text-4xl font-bold gradient-text mb-2 group-hover:scale-110 transition-transform">
+            <div className="card-cosmic text-center p-4 hover:shadow-horizon-sm transition-all duration-300 cursor-default group">
+              <div className="text-2xl md:text-3xl font-bold text-horizon-purple mb-2 group-hover:scale-110 transition-transform">
                 &lt;0.5s
               </div>
-              <div className="text-sm text-dark-400 group-hover:text-dark-300 transition-colors">
+              <div className="text-sm text-starlight/60">
                 Finality
+              </div>
+            </div>
+          </div>
+          
+          {/* Network Info */}
+          <div className="mt-12 card-cosmic max-w-md mx-auto animate-fade-in-up animation-delay-800">
+            <h3 className="text-horizon-gold font-semibold mb-3 flex items-center justify-center gap-2">
+              🌌 Add to MetaMask
+            </h3>
+            <div className="space-y-2 text-sm text-left">
+              <div className="flex justify-between">
+                <span className="text-starlight/60">Network:</span>
+                <span className="text-starlight font-mono">Axionax Testnet</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-starlight/60">RPC URL:</span>
+                <span className="text-horizon-blue font-mono text-xs">https://rpc.axionax.org</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-starlight/60">Chain ID:</span>
+                <span className="text-horizon-purple font-mono">86137</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-starlight/60">Symbol:</span>
+                <span className="text-horizon-gold font-mono">AXX</span>
               </div>
             </div>
           </div>
         </div>
       </div>
+      
+      {/* Bottom gradient fade */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-deep-space to-transparent" />
     </section>
   );
 }

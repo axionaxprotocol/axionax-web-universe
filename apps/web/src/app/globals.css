@@ -1,19 +1,43 @@
-﻿@tailwind base;
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  :root {
-    --font-inter: "Inter", system-ui, -apple-system, sans-serif;
-    --font-fira-code: "Fira Code", "Courier New", monospace;
-  }
+/* Cosmic Black Hole Theme Variables */
+:root {
+  --font-inter: "Inter", system-ui, -apple-system, sans-serif;
+  --font-fira-code: "Fira Code", "Courier New", monospace;
+  
+  /* Black Hole Core */
+  --void: #000000;
+  --deep-space: #0a0a0f;
+  --black-hole: #12121a;
+  --space-dust: #1a1a2e;
+  
+  /* Event Horizon */
+  --horizon-orange: #ff6b35;
+  --horizon-gold: #ffa500;
+  --horizon-purple: #9d4edd;
+  --horizon-blue: #00d4ff;
+  --horizon-pink: #ff006e;
+  
+  /* Cosmic */
+  --nebula: #7b2cbf;
+  --plasma: #e040fb;
+  --starlight: #f0f0ff;
+}
 
+@layer base {
   * {
-    @apply border-dark-700;
+    @apply border-space-dust;
   }
 
   body {
-    @apply bg-dark-950 text-dark-100 antialiased;
+    @apply bg-deep-space text-starlight antialiased;
+    background: 
+      radial-gradient(ellipse at top right, rgba(123, 44, 191, 0.15) 0%, transparent 50%),
+      radial-gradient(ellipse at bottom left, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at center, #000000 0%, #0a0a0f 50%, #12121a 100%);
+    background-attachment: fixed;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -47,27 +71,61 @@
   }
 
   .btn-primary {
-    @apply bg-gradient-primary text-white hover:shadow-lg hover:shadow-primary-500/50 hover:scale-105;
+    @apply bg-gradient-primary text-white hover:shadow-horizon hover:scale-105;
+  }
+  
+  /* Event Horizon glow button */
+  .btn-horizon {
+    @apply relative px-6 py-3 font-semibold rounded-xl overflow-hidden transition-all duration-300 text-white;
+    background: linear-gradient(135deg, var(--horizon-orange), var(--horizon-purple));
+    box-shadow: 0 0 20px rgba(255, 107, 53, 0.5), 0 0 40px rgba(157, 78, 221, 0.3);
+  }
+  
+  .btn-horizon:hover {
+    box-shadow: 0 0 30px rgba(255, 107, 53, 0.7), 0 0 60px rgba(157, 78, 221, 0.5), 0 0 80px rgba(0, 212, 255, 0.3);
+    transform: translateY(-2px);
   }
 
   .btn-secondary {
-    @apply bg-dark-800 text-dark-100 border border-dark-700 hover:bg-dark-700 hover:border-dark-600;
+    @apply bg-black-hole text-starlight border border-horizon-purple/30 hover:bg-space-dust hover:border-horizon-purple/50 hover:shadow-plasma;
   }
 
   .btn-outline {
-    @apply border-2 border-primary-500 text-primary-400 hover:bg-primary-500 hover:text-white;
+    @apply border-2 border-horizon-orange text-horizon-orange hover:bg-horizon-orange hover:text-white;
   }
 
   .card {
-    @apply bg-dark-900 rounded-xl border border-dark-800 p-6 transition-all duration-200;
+    @apply bg-black-hole/80 rounded-xl border border-horizon-purple/20 p-6 transition-all duration-200 backdrop-blur-sm;
   }
 
   .card-hover {
-    @apply card hover:border-primary-500/50 hover:shadow-lg hover:shadow-primary-500/10 hover:-translate-y-1;
+    @apply card hover:border-horizon-orange/50 hover:shadow-horizon-sm hover:-translate-y-1;
+  }
+  
+  /* Card with cosmic border glow */
+  .card-cosmic {
+    @apply relative rounded-2xl overflow-hidden p-6;
+    background: rgba(18, 18, 26, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(157, 78, 221, 0.2);
+  }
+  
+  .card-cosmic::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(255, 107, 53, 0.5), rgba(157, 78, 221, 0.3), rgba(0, 212, 255, 0.2));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
   }
 
   .input {
-    @apply w-full px-4 py-3 bg-dark-900 border border-dark-700 rounded-lg text-dark-100 placeholder-dark-500 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all;
+    @apply w-full px-4 py-3 bg-black-hole border border-horizon-purple/30 rounded-lg text-starlight placeholder-dark-400 focus:outline-none focus:border-horizon-orange focus:ring-2 focus:ring-horizon-orange/20 transition-all;
   }
 
   .badge {
@@ -79,15 +137,15 @@
   }
 
   .badge-warning {
-    @apply bg-yellow-500/10 text-yellow-400 border border-yellow-500/20;
+    @apply bg-horizon-gold/10 text-horizon-gold border border-horizon-gold/20;
   }
 
   .badge-error {
-    @apply bg-red-500/10 text-red-400 border border-red-500/20;
+    @apply bg-horizon-pink/10 text-horizon-pink border border-horizon-pink/20;
   }
 
   .badge-info {
-    @apply bg-blue-500/10 text-blue-400 border border-blue-500/20;
+    @apply bg-horizon-blue/10 text-horizon-blue border border-horizon-blue/20;
   }
 
   .container-custom {
@@ -99,15 +157,52 @@
   }
 
   .code-block {
-    @apply bg-dark-900 rounded-lg p-4 overflow-x-auto font-mono text-sm border border-dark-800;
+    @apply bg-void rounded-lg p-4 overflow-x-auto font-mono text-sm border border-horizon-purple/20;
   }
 
   .gradient-text {
     @apply bg-gradient-primary bg-clip-text text-transparent;
   }
+  
+  /* Horizon gradient text */
+  .text-horizon {
+    background: linear-gradient(90deg, var(--horizon-orange), var(--horizon-gold), var(--horizon-pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .text-glow {
+    text-shadow: 0 0 10px var(--horizon-orange), 0 0 20px var(--horizon-purple);
+  }
 
   .loading-spinner {
-    @apply animate-spin rounded-full border-2 border-dark-700 border-t-primary-500;
+    @apply animate-spin rounded-full border-2 border-space-dust border-t-horizon-orange;
+  }
+  
+  /* Stars background effect */
+  .stars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background-image: 
+      radial-gradient(2px 2px at 20px 30px, white, transparent),
+      radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
+      radial-gradient(1px 1px at 90px 40px, white, transparent),
+      radial-gradient(2px 2px at 160px 120px, rgba(255,255,255,0.9), transparent),
+      radial-gradient(1px 1px at 230px 80px, white, transparent),
+      radial-gradient(2px 2px at 300px 150px, rgba(255,255,255,0.7), transparent),
+      radial-gradient(1px 1px at 370px 50px, white, transparent),
+      radial-gradient(2px 2px at 450px 180px, rgba(255,255,255,0.8), transparent),
+      radial-gradient(1px 1px at 520px 90px, white, transparent),
+      radial-gradient(2px 2px at 600px 200px, rgba(255,255,255,0.6), transparent);
+    background-size: 650px 250px;
+    animation: twinkle 4s ease-in-out infinite;
+    z-index: 0;
+    opacity: 0.7;
   }
 }
 
@@ -142,7 +237,7 @@
   }
 
   .hover-glow:hover {
-    box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+    box-shadow: 0 0 20px rgba(255, 107, 53, 0.4), 0 0 40px rgba(157, 78, 221, 0.2);
   }
 
   .scroll-smooth {
@@ -150,27 +245,40 @@
   }
 }
 
+/* Cosmic scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-dark-900;
+  background: var(--deep-space);
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-dark-700 rounded-full;
+  background: linear-gradient(180deg, var(--horizon-orange), var(--horizon-purple));
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-dark-600;
+  background: linear-gradient(180deg, var(--horizon-gold), var(--horizon-pink));
 }
 
 ::selection {
-  @apply bg-primary-500/30 text-white;
+  @apply bg-horizon-purple/30 text-white;
 }
 
 :focus-visible {
-  @apply outline-none ring-2 ring-primary-500 ring-offset-2 ring-offset-dark-950;
+  @apply outline-none ring-2 ring-horizon-orange ring-offset-2 ring-offset-deep-space;
+}
+
+/* Keyframes */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 0.4; }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }

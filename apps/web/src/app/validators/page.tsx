@@ -97,150 +97,154 @@ export default function ValidatorsPage(): React.JSX.Element {
   const highestBlock = validators?.[0]?.blockHeight || 0;
 
   return (
-    <div className="min-h-screen bg-dark-950">
+    <div className="min-h-screen bg-deep-space relative">
+      {/* Stars background */}
+      <div className="stars" />
+      
       <Navbar />
-      <main className="container-custom py-16">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold gradient-text mb-4">
-            Validator Leaderboard
+      <main className="container-custom py-24 relative z-10">
+        <div className="mb-8 text-center">
+          <h1 className="text-4xl font-bold mb-4">
+            <span className="text-horizon">⚡ Validator Leaderboard</span>
           </h1>
-          <p className="text-dark-400 text-lg">
-            Live status of all axionax testnet validators
+          <p className="text-starlight/70 text-lg">
+            Live status of all <span className="text-horizon-blue">Axionax</span> testnet validators
           </p>
         </div>
 
         {/* Stats Overview */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <Card>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+          <div className="card-cosmic hover:shadow-horizon-sm transition-all duration-300">
             <CardHeader>
-              <CardTitle className="text-primary-400 text-sm">Online Validators</CardTitle>
+              <CardTitle className="text-horizon-orange text-sm">🟢 Online Validators</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-3xl font-bold">
-                <span className={onlineCount === totalCount ? 'text-green-400' : 'text-yellow-400'}>
+                <span className={onlineCount === totalCount ? 'text-green-400' : 'text-horizon-gold'}>
                   {onlineCount}
                 </span>
-                <span className="text-dark-500">/{totalCount}</span>
+                <span className="text-starlight/30">/{totalCount}</span>
               </div>
             </CardContent>
-          </Card>
+          </div>
 
-          <Card>
+          <div className="card-cosmic hover:shadow-horizon-sm transition-all duration-300">
             <CardHeader>
-              <CardTitle className="text-primary-400 text-sm">Highest Block</CardTitle>
+              <CardTitle className="text-horizon-purple text-sm">⛓️ Highest Block</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold text-white">
+              <div className="text-3xl font-bold text-horizon-gold">
                 #{highestBlock.toLocaleString()}
               </div>
             </CardContent>
-          </Card>
+          </div>
 
-          <Card>
+          <div className="card-cosmic hover:shadow-horizon-sm transition-all duration-300">
             <CardHeader>
-              <CardTitle className="text-primary-400 text-sm">Avg Latency</CardTitle>
+              <CardTitle className="text-horizon-blue text-sm">📡 Avg Latency</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-3xl font-bold">
-                <span className={avgLatency < 200 ? 'text-green-400' : avgLatency < 500 ? 'text-yellow-400' : 'text-red-400'}>
+                <span className={avgLatency < 200 ? 'text-green-400' : avgLatency < 500 ? 'text-horizon-gold' : 'text-horizon-pink'}>
                   {Math.round(avgLatency)}
                 </span>
-                <span className="text-dark-500 text-lg">ms</span>
+                <span className="text-starlight/30 text-lg">ms</span>
               </div>
             </CardContent>
-          </Card>
+          </div>
 
-          <Card>
+          <div className="card-cosmic hover:shadow-horizon-sm transition-all duration-300">
             <CardHeader>
-              <CardTitle className="text-primary-400 text-sm">Network</CardTitle>
+              <CardTitle className="text-horizon-pink text-sm">🌐 Network</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-white">
+              <div className="text-2xl font-bold text-starlight">
                 Testnet v1.0
               </div>
-              <div className="text-sm text-dark-400">Chain ID: 4918</div>
+              <div className="text-sm text-starlight/50">Chain ID: 86137</div>
             </CardContent>
-          </Card>
+          </div>
         </div>
 
         {/* Validator List */}
-        <Card>
+        <div className="card-cosmic">
           <CardHeader className="flex flex-row items-center justify-between">
-            <CardTitle>Validators</CardTitle>
+            <CardTitle className="text-horizon">🛡️ Validators</CardTitle>
             <button
               onClick={() => refetch()}
-              className="px-4 py-2 bg-dark-800 hover:bg-dark-700 rounded-lg text-sm text-dark-300 transition-colors"
+              className="px-4 py-2 bg-void hover:bg-space-dust border border-horizon-purple/30 hover:border-horizon-orange/50 rounded-lg text-sm text-starlight/70 transition-all hover:shadow-horizon-sm"
             >
               ↻ Refresh
             </button>
           </CardHeader>
           <CardContent>
             {isLoading ? (
-              <div className="text-center py-8 text-dark-400">
-                Loading validators...
+              <div className="text-center py-8 text-starlight/50">
+                <div className="loading-spinner w-8 h-8 mx-auto mb-2"></div>
+                Loading validators from the cosmos...
               </div>
             ) : (
               <div className="space-y-4">
                 {validators?.map((validator, index) => (
                   <div
                     key={validator.ip}
-                    className="flex flex-col lg:flex-row lg:items-center justify-between p-6 bg-dark-900 rounded-lg border border-dark-800 hover:border-primary-500/50 transition-colors gap-4"
+                    className="flex flex-col lg:flex-row lg:items-center justify-between p-6 bg-void rounded-xl border border-horizon-purple/20 hover:border-horizon-orange/50 hover:shadow-horizon-sm transition-all duration-300 gap-4"
                   >
                     <div className="flex items-center gap-4">
-                      <div className="text-3xl">{validator.flag}</div>
+                      <div className="text-4xl">{validator.flag}</div>
                       <div>
                         <div className="flex items-center gap-2">
-                          <span className="font-bold text-lg text-white">{validator.name}</span>
+                          <span className="font-bold text-lg text-starlight">{validator.name}</span>
                           {index === 0 && (
-                            <span className="px-2 py-0.5 bg-yellow-500/20 text-yellow-400 text-xs rounded-full">
+                            <span className="px-2 py-0.5 bg-horizon-gold/20 text-horizon-gold text-xs rounded-full border border-horizon-gold/30">
                               👑 Leader
                             </span>
                           )}
                         </div>
-                        <div className="text-dark-400 text-sm">{validator.location}</div>
+                        <div className="text-starlight/50 text-sm">{validator.location}</div>
                       </div>
                     </div>
 
                     <div className="flex flex-wrap items-center gap-6 text-sm">
                       <div className="flex items-center gap-2">
                         <div className={`w-3 h-3 rounded-full ${
-                          validator.status === 'online' ? 'bg-green-500 animate-pulse' : 
-                          validator.status === 'syncing' ? 'bg-yellow-500 animate-pulse' : 
-                          'bg-red-500'
+                          validator.status === 'online' ? 'bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.5)]' : 
+                          validator.status === 'syncing' ? 'bg-horizon-gold animate-pulse' : 
+                          'bg-horizon-pink'
                         }`}></div>
                         <span className={`font-medium ${
                           validator.status === 'online' ? 'text-green-400' : 
-                          validator.status === 'syncing' ? 'text-yellow-400' : 
-                          'text-red-400'
+                          validator.status === 'syncing' ? 'text-horizon-gold' : 
+                          'text-horizon-pink'
                         }`}>
                           {validator.status.charAt(0).toUpperCase() + validator.status.slice(1)}
                         </span>
                       </div>
 
                       <div>
-                        <span className="text-dark-500">Block:</span>
-                        <span className="ml-1 font-mono text-white">#{validator.blockHeight.toLocaleString()}</span>
+                        <span className="text-starlight/40">Block:</span>
+                        <span className="ml-1 font-mono text-horizon-purple">#{validator.blockHeight.toLocaleString()}</span>
                       </div>
 
                       <div>
-                        <span className="text-dark-500">Latency:</span>
+                        <span className="text-starlight/40">Latency:</span>
                         <span className={`ml-1 font-mono ${
                           validator.latency < 200 ? 'text-green-400' : 
-                          validator.latency < 500 ? 'text-yellow-400' : 
-                          'text-red-400'
+                          validator.latency < 500 ? 'text-horizon-gold' : 
+                          'text-horizon-pink'
                         }`}>
                           {validator.status === 'online' ? `${validator.latency}ms` : '-'}
                         </span>
                       </div>
 
                       <div>
-                        <span className="text-dark-500">Uptime:</span>
+                        <span className="text-starlight/40">Uptime:</span>
                         <span className="ml-1 text-green-400">{validator.uptime}</span>
                       </div>
 
                       <div className="hidden md:block">
-                        <span className="text-dark-500">RPC:</span>
-                        <code className="ml-1 text-xs text-dark-400 bg-dark-800 px-2 py-1 rounded">
+                        <span className="text-starlight/40">RPC:</span>
+                        <code className="ml-1 text-xs text-starlight/50 bg-void border border-horizon-purple/20 px-2 py-1 rounded">
                           {validator.ip}:8545
                         </code>
                       </div>
@@ -250,14 +254,14 @@ export default function ValidatorsPage(): React.JSX.Element {
               </div>
             )}
           </CardContent>
-        </Card>
+        </div>
 
         {/* Info Section */}
-        <div className="mt-8 p-6 bg-dark-900/50 rounded-lg border border-dark-800">
-          <h3 className="font-semibold text-primary-400 mb-2">📡 Want to become a validator?</h3>
-          <p className="text-dark-400 text-sm">
-            Join the axionax testnet as a validator! Check our{' '}
-            <a href="https://docs.axionax.com/validators" className="text-primary-400 hover:underline">
+        <div className="mt-8 card-cosmic bg-gradient-to-r from-horizon-orange/5 via-horizon-purple/5 to-horizon-blue/5">
+          <h3 className="font-semibold text-horizon mb-2">📡 Want to become a validator?</h3>
+          <p className="text-starlight/60 text-sm">
+            Join the <span className="text-horizon-blue">Axionax</span> testnet as a validator! Check our{' '}
+            <a href="https://docs.axionax.com/validators" className="text-horizon-orange hover:text-horizon-gold transition-colors">
               validator documentation
             </a>{' '}
             to get started. Validators earn rewards for securing the network and processing transactions.

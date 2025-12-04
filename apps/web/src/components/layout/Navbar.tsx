@@ -5,41 +5,50 @@ import Link from 'next/link';
 import ConnectButton from '@/components/wallet/ConnectButton';
 import ThemeToggle from '@/components/ui/ThemeToggle';
 
-// Navbar component - Main navigation bar with mobile menu
+// Navbar component - Main navigation bar with cosmic black hole theme
 export default function Navbar(): React.JSX.Element {
   const [isOpen, setIsOpen] = useState(false);
 
   const navigation = [
-    { name: 'Home', href: '/' },
-    { name: 'Explorer', href: '/explorer' },
-    { name: 'Faucet', href: '/faucet' },
-    { name: 'Validators', href: '/validators' },
-    { name: 'Marketplace', href: 'https://axionax.org:3003' },
-    { name: 'Docs', href: '/docs' },
-    { name: 'GitHub', href: 'https://github.com/axionaxprotocol' },
+    { name: '🏠 Home', href: '/' },
+    { name: '🔭 Explorer', href: '/explorer' },
+    { name: '💧 Faucet', href: '/faucet' },
+    { name: '⚡ Validators', href: '/validators' },
+    { name: '🛒 Marketplace', href: 'https://axionax.org:3003' },
+    { name: '📚 Docs', href: '/docs' },
   ];
 
   return (
-    <nav className="sticky top-0 z-50 bg-dark-950/80 backdrop-blur-custom border-b border-dark-800">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-deep-space/80 backdrop-blur-xl border-b border-horizon-purple/20">
       <div className="container-custom">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2 group">
-            <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center font-bold text-white group-hover:scale-110 transition-transform duration-300">
-              AX
+          {/* Logo with black hole effect */}
+          <Link href="/" className="flex items-center space-x-3 group">
+            <div className="relative">
+              <div className="w-10 h-10 rounded-full bg-void shadow-horizon-sm group-hover:shadow-horizon transition-shadow duration-300">
+                <div 
+                  className="absolute inset-1 rounded-full border border-horizon-orange/50"
+                  style={{ animation: 'spin 10s linear infinite' }}
+                />
+                <div 
+                  className="absolute inset-2 rounded-full border border-horizon-purple/50"
+                  style={{ animation: 'spin 7s linear infinite reverse' }}
+                />
+                <div className="absolute inset-3 rounded-full bg-void" />
+              </div>
             </div>
-            <span className="text-xl font-bold gradient-text group-hover:opacity-80 transition-opacity">
-              axionax
+            <span className="text-xl font-bold text-horizon">
+              Axionax
             </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-1">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className="relative text-dark-300 hover:text-white transition-all duration-300 group"
+                className="px-4 py-2 rounded-lg text-starlight/70 hover:text-starlight hover:bg-horizon-purple/10 transition-all duration-200"
                 target={item.href.startsWith('http') ? '_blank' : undefined}
                 rel={
                   item.href.startsWith('http')
@@ -48,7 +57,6 @@ export default function Navbar(): React.JSX.Element {
                 }
               >
                 {item.name}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-primary group-hover:w-full transition-all duration-300" />
               </Link>
             ))}
           </div>
@@ -62,7 +70,7 @@ export default function Navbar(): React.JSX.Element {
           {/* Mobile menu button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 rounded-lg hover:bg-dark-800 transition-colors"
+            className="md:hidden p-2 rounded-lg text-starlight hover:bg-horizon-purple/20 transition-colors"
             aria-label="Toggle menu"
           >
             <svg
@@ -85,13 +93,13 @@ export default function Navbar(): React.JSX.Element {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="md:hidden py-4 border-t border-dark-800 animate-fade-in">
-            <div className="flex flex-col space-y-4">
+          <div className="md:hidden py-4 border-t border-horizon-purple/20 animate-fade-in">
+            <div className="flex flex-col space-y-2">
               {navigation.map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="text-dark-300 hover:text-white transition-colors px-4 py-2"
+                  className="text-starlight/70 hover:text-starlight hover:bg-horizon-purple/10 transition-colors px-4 py-3 rounded-lg"
                   onClick={() => setIsOpen(false)}
                   target={item.href.startsWith('http') ? '_blank' : undefined}
                   rel={
@@ -103,7 +111,7 @@ export default function Navbar(): React.JSX.Element {
                   {item.name}
                 </Link>
               ))}
-              <div className="px-4 flex items-center gap-3">
+              <div className="px-4 pt-4 flex items-center gap-3 border-t border-horizon-purple/20">
                 <ThemeToggle />
                 <ConnectButton />
               </div>
