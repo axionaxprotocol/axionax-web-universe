@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { useMutation } from '@tanstack/react-query';
+import { useState, useEffect } from 'react';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import Card, { CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
@@ -13,18 +13,40 @@ interface FaucetResponse {
   message: string;
   txHash?: string;
   amount?: string;
+  blockNumber?: number;
 }
 
-const FAUCET_AMOUNT = '10'; // 10 AXX per request
+interface FaucetInfo {
+  address: string;
+  balance: string;
+  symbol: string;
+}
+
+interface RecentTx {
+  txHash: string;
+  to: string;
+  amount: string;
+  timestamp: number;
+  status: 'pending' | 'confirmed';
+}
+
+const FAUCET_AMOUNT = '100'; // 100 AXX per request
 
 // Validate Ethereum address format
 const isValidAddress = (addr: string): boolean => {
   return /^0x[a-fA-F0-9]{40}$/.test(addr);
 };
 
+// Fetch faucet wallet balance
+const fetchFaucetInfo = async (): Promise<FaucetInfo> => {
+  const response = await fetch('https://faucet.axionax.org/balance');
+  if (!response.ok) throw new Error('Failed to fetch faucet info');
+  return (await response.json()) as FaucetInfo;
+};
+
 // Request tokens from faucet
 const requestTokens = async (address: string): Promise<FaucetResponse> => {
-  const response = await fetch('/api/faucet', {
+  const response = await fetch('https://faucet.axionax.org/faucet', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ address }),
@@ -42,12 +64,30 @@ const requestTokens = async (address: string): Promise<FaucetResponse> => {
 export default function Faucet(): React.JSX.Element {
   const [address, setAddress] = useState('');
   const [lastSuccess, setLastSuccess] = useState<FaucetResponse | null>(null);
+  const [recentTxs, setRecentTxs] = useState<RecentTx[]>([]);
+
+  // Fetch faucet balance
+  const { data: faucetInfo, isLoading: isLoadingInfo } = useQuery({
+    queryKey: ['faucetInfo'],
+    queryFn: fetchFaucetInfo,
+    refetchInterval: 30000, // Refresh every 30 seconds
+  });
 
   const mutation = useMutation({
     mutationFn: requestTokens,
     onSuccess: (data) => {
       setLastSuccess(data);
       setAddress(''); // Clear input on success
+      // Add to recent transactions
+      if (data.txHash) {
+        setRecentTxs(prev => [{
+          txHash: data.txHash!,
+          to: address,
+          amount: data.amount || FAUCET_AMOUNT,
+          timestamp: Date.now(),
+          status: 'confirmed'
+        }, ...prev.slice(0, 4)]);
+      }
     },
   });
 
@@ -63,6 +103,13 @@ export default function Faucet(): React.JSX.Element {
     mutation.mutate(address);
   };
 
+  const formatBalance = (balance: string) => {
+    const num = parseFloat(balance);
+    if (num >= 1000000) return `${(num / 1000000).toFixed(2)}M`;
+    if (num >= 1000) return `${(num / 1000).toFixed(2)}K`;
+    return num.toFixed(2);
+  };
+
   return (
     <div className="min-h-screen bg-dark-950">
       <Navbar />
@@ -73,9 +120,27 @@ export default function Faucet(): React.JSX.Element {
               Testnet Faucet
             </h1>
             <p className="text-dark-400 text-lg">
-              Get free testnet AX tokens for development and testing
+              Get free testnet AXX tokens for development and testing
             </p>
           </div>
+
+          {/* Faucet Balance Card */}
+          <Card className="mb-6 bg-gradient-to-r from-primary-500/10 to-secondary-500/10 border-primary-500/20">
+            <CardContent className="py-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-dark-400 text-sm mb-1">Faucet Balance</p>
+                  <p className="text-3xl font-bold text-white">
+                    {isLoadingInfo ? '...' : formatBalance(faucetInfo?.balance || '0')} AXX
+                  </p>
+                </div>
+                <div className="text-right">
+                  <p className="text-dark-400 text-sm mb-1">Per Request</p>
+                  <p className="text-2xl font-bold text-primary-400">{FAUCET_AMOUNT} AXX</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
 
           <Card className="mb-6">
             <CardHeader>
@@ -141,6 +206,45 @@ export default function Faucet(): React.JSX.Element {
               </div>
             </CardContent>
           </Card>
+
+          {/* Recent Transactions */}
+          {recentTxs.length > 0 && (
+            <Card className="mb-6">
+              <CardHeader>
+                <CardTitle>Recent Transactions</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  {recentTxs.map((tx, i) => (
+                    <div key={i} className="flex items-center justify-between p-3 bg-dark-900 rounded-lg">
+                      <div className="flex items-center gap-3">
+                        <div className={`w-2 h-2 rounded-full ${tx.status === 'confirmed' ? 'bg-green-500' : 'bg-yellow-500 animate-pulse'}`} />
+                        <div>
+                          <p className="text-sm font-mono text-dark-300">
+                            {tx.to.slice(0, 10)}...{tx.to.slice(-8)}
+                          </p>
+                          <p className="text-xs text-dark-500">
+                            {new Date(tx.timestamp).toLocaleTimeString()}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-sm font-bold text-primary-400">+{tx.amount} AXX</p>
+                        <a
+                          href={`https://explorer.axionax.org/tx/${tx.txHash}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-xs text-dark-500 hover:text-primary-400"
+                        >
+                          View TX →
+                        </a>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          )}
 
           <Card>
             <CardHeader>

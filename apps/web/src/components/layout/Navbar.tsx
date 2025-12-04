@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import ConnectButton from '@/components/wallet/ConnectButton';
+import ThemeToggle from '@/components/ui/ThemeToggle';
 
 // Navbar component - Main navigation bar with mobile menu
 export default function Navbar(): React.JSX.Element {
@@ -12,6 +13,7 @@ export default function Navbar(): React.JSX.Element {
     { name: 'Home', href: '/' },
     { name: 'Explorer', href: '/explorer' },
     { name: 'Faucet', href: '/faucet' },
+    { name: 'Validators', href: '/validators' },
     { name: 'Marketplace', href: 'https://axionax.org:3003' },
     { name: 'Docs', href: '/docs' },
     { name: 'GitHub', href: 'https://github.com/axionaxprotocol' },
@@ -51,8 +53,9 @@ export default function Navbar(): React.JSX.Element {
             ))}
           </div>
 
-          {/* Connect Wallet Button */}
-          <div className="hidden md:block">
+          {/* Connect Wallet Button & Theme Toggle */}
+          <div className="hidden md:flex items-center gap-3">
+            <ThemeToggle />
             <ConnectButton />
           </div>
 
@@ -100,7 +103,8 @@ export default function Navbar(): React.JSX.Element {
                   {item.name}
                 </Link>
               ))}
-              <div className="px-4">
+              <div className="px-4 flex items-center gap-3">
+                <ThemeToggle />
                 <ConnectButton />
               </div>
             </div>
