@@ -11,7 +11,7 @@ RUN pnpm install --frozen-lockfile --ignore-scripts
 # Build only the web app (standalone mode for API routes)
 RUN pnpm --filter @axionax/web build
 # Deploy with all dependencies to a separate folder (resolves pnpm symlinks)
-RUN pnpm --filter @axionax/web deploy --prod /app/deployed
+RUN pnpm --filter @axionax/web deploy --prod --legacy /app/deployed
 
 # Production image using standalone output  
 FROM base AS runner
