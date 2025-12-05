@@ -57,7 +57,10 @@ async function sendTokens(address: string): Promise<string> {
   }
 
   try {
-    const provider = new ethers.JsonRpcProvider(RPC_URL);
+    // Disable batching - validator node doesn't support batch requests
+    const provider = new ethers.JsonRpcProvider(RPC_URL, undefined, {
+      batchMaxCount: 1,
+    });
     const wallet = new ethers.Wallet(PRIVATE_KEY, provider);
 
     // Create transaction

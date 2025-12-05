@@ -25,7 +25,11 @@ interface BlocksResponse {
 
 // Use EU validator as primary RPC endpoint
 const RPC_URL = process.env.RPC_URL || 'http://217.76.61.116:8545';
-const provider = new ethers.JsonRpcProvider(RPC_URL);
+
+// Disable batching - validator node doesn't support batch requests
+const provider = new ethers.JsonRpcProvider(RPC_URL, undefined, {
+  batchMaxCount: 1, // Disable batching
+});
 
 async function getBlock(blockNumber: number): Promise<Block | null> {
   try {
