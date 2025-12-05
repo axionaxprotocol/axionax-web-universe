@@ -1,3 +1,5 @@
 packages:
   - "apps/*"
   - "packages/*"
+  - "core-universe/apps/*"
+  - "core-universe/packages/*"
