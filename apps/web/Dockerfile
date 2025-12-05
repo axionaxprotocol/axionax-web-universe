@@ -10,8 +10,8 @@ COPY . .
 RUN pnpm install --frozen-lockfile --ignore-scripts
 # Build only the web app (standalone mode for API routes)
 RUN pnpm --filter @axionax/web build
-# Resolve symlinks in node_modules for production
-RUN cp -rL /app/node_modules /app/node_modules_resolved
+# Resolve symlinks in node_modules for production (ignore broken links)
+RUN cp -rL /app/node_modules /app/node_modules_resolved 2>/dev/null || true
 
 # Production image using standalone output  
 FROM base AS runner
