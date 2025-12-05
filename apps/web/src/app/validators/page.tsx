@@ -18,12 +18,21 @@ interface ValidatorInfo {
   flag: string;
 }
 
+// Use relative URLs for proxy - works with both dev and production
+const getProxyUrl = (endpoint: string) => {
+  if (typeof window !== 'undefined') {
+    // In browser, use relative URL (goes through nginx proxy)
+    return endpoint;
+  }
+  return endpoint;
+};
+
 const VALIDATORS: Omit<ValidatorInfo, 'status' | 'blockHeight' | 'latency'>[] = [
   {
     name: 'Validator EU',
     location: 'Europe (Netherlands)',
     ip: '217.76.61.116',
-    rpcUrl: 'http://217.76.61.116:8545',
+    rpcUrl: '/api/rpc/eu', // Proxied through nginx
     uptime: '99.9%',
     flag: '🇳🇱',
   },
@@ -31,7 +40,7 @@ const VALIDATORS: Omit<ValidatorInfo, 'status' | 'blockHeight' | 'latency'>[] = 
     name: 'Validator AU',
     location: 'Asia-Pacific (Australia)',
     ip: '46.250.244.4',
-    rpcUrl: 'http://46.250.244.4:8545',
+    rpcUrl: '/api/rpc/au', // Proxied through nginx
     uptime: '99.8%',
     flag: '🇦🇺',
   },

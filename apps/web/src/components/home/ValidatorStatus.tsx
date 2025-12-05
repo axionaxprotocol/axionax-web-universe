@@ -13,18 +13,18 @@ interface ValidatorInfo {
 }
 
 const VALIDATORS = [
-  { name: 'Validator EU', location: 'Europe', ip: '217.76.61.116', port: 8545 },
-  { name: 'Validator AU', location: 'Australia', ip: '46.250.244.4', port: 8545 },
+  { name: 'Validator EU', location: 'Europe', ip: '217.76.61.116', rpcUrl: '/api/rpc/eu' },
+  { name: 'Validator AU', location: 'Australia', ip: '46.250.244.4', rpcUrl: '/api/rpc/au' },
 ];
 
-async function fetchValidatorInfo(ip: string, port: number): Promise<{
+async function fetchValidatorInfo(rpcUrl: string): Promise<{
   blockHeight: number | null;
   peerCount: number | null;
   latency: number;
 }> {
   const startTime = Date.now();
   try {
-    const response = await fetch(`http://${ip}:${port}`, {
+    const response = await fetch(rpcUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -38,7 +38,7 @@ async function fetchValidatorInfo(ip: string, port: number): Promise<{
     const blockHeight = parseInt(data.result, 16);
     
     // Get peer count
-    const peerResponse = await fetch(`http://${ip}:${port}`, {
+    const peerResponse = await fetch(rpcUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -49,7 +49,7 @@ async function fetchValidatorInfo(ip: string, port: number): Promise<{
       }),
     });
     const peerData = await peerResponse.json();
-    const peerCount = parseInt(peerData.result, 16);
+    const peerCount = peerData.result ? parseInt(peerData.result, 16) : 0;
     
     return {
       blockHeight,
@@ -68,7 +68,9 @@ async function fetchValidatorInfo(ip: string, port: number): Promise<{
 export default function ValidatorStatus(): React.JSX.Element {
   const [validators, setValidators] = useState<ValidatorInfo[]>(
     VALIDATORS.map(v => ({
-      ...v,
+      name: v.name,
+      location: v.location,
+      ip: v.ip,
       blockHeight: null,
       peerCount: null,
       status: 'checking' as const,
@@ -80,9 +82,11 @@ export default function ValidatorStatus(): React.JSX.Element {
     const fetchAll = async () => {
       const results = await Promise.all(
         VALIDATORS.map(async (v) => {
-          const info = await fetchValidatorInfo(v.ip, v.port);
+          const info = await fetchValidatorInfo(v.rpcUrl);
           return {
-            ...v,
+            name: v.name,
+            location: v.location,
+            ip: v.ip,
             blockHeight: info.blockHeight,
             peerCount: info.peerCount,
             status: info.blockHeight !== null ? 'online' : 'offline',
