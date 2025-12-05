@@ -1,6 +1,6 @@
 {
   "name": "axionax-mock-rpc",
-  "version": "1.0.0",
+  "version": "1.8.0",
   "description": "Mock JSON-RPC server for Axionax Testnet",
   "main": "server.js",
   "scripts": {

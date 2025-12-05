@@ -1,0 +1,17 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 Discord Community
+    url: https://discord.gg/axionax
+    about: Join our Discord for questions and discussions
+  
+  - name: 📚 Documentation
+    url: https://docs.axionax.org
+    about: Check our documentation for guides and tutorials
+  
+  - name: ❓ GitHub Discussions
+    url: https://github.com/axionaxprotocol/axionax-web-universe/discussions
+    about: Ask questions and share ideas with the community
+  
+  - name: 🔒 Security Vulnerability
+    url: https://github.com/axionaxprotocol/axionax-web-universe/security/advisories/new
+    about: Report security vulnerabilities privately (DO NOT create a public issue)

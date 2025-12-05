@@ -40,42 +40,46 @@ Build the most transparent, secure, and performant Layer-1 blockchain for decent
 
 ---
 
-### Phase 2: v1.7 Network & State (Q1 2026)
+### Phase 2: v1.7-v1.8 Network & Infrastructure (Q4 2025 - Q1 2026)
 
-**Status**: 🟡 In Progress
+**Status**: ✅ Complete (Infrastructure) + 🔄 In Progress (Enhancement)
 
-**Goal**: Implement network layer, state management, and RPC server
+**Goal**: Deploy testnet infrastructure and achieve protocol compliance
 
-#### Q1 2026 (Jan - Mar)
+#### Q4 2025 - Q1 2026 (Oct - Mar)
 
-**Month 1: Network & State Implementation**
-- [ ] Testnet genesis configuration
-- [ ] Deploy initial validator nodes (10-20)
-- [ ] RPC infrastructure setup
-- [ ] Block explorer deployment
-- [ ] Testnet faucet
-- [ ] Monitoring and alerting systems
+**Infrastructure Deployment** ✅
+- [x] Testnet genesis configuration
+- [x] Deploy initial validator infrastructure
+- [x] RPC infrastructure setup (Mock + Real nodes)
+- [x] Block explorer deployment (axionax-web)
+- [x] Testnet faucet
+- [x] Monitoring and alerting systems (Grafana + Prometheus)
+- [x] All 9 services operational (100% deployment)
 
-**Month 2-3: Public Testnet Launch**
-- [ ] Public testnet launch announcement
-- [ ] Onboard external validators (target: 50+)
-- [ ] Onboard worker nodes (target: 100+)
-- [ ] Run test compute jobs
-- [ ] Stress testing and optimization
-- [ ] Community feedback collection
-- [ ] Bug fixes and improvements
+**Protocol v1.8.0 Compliance** ✅
+- [x] PoPC parameters verified (s=1000, confidence=0.99)
+- [x] ASR configuration (K=64, max_quota=12.5%)
+- [x] VRF delay implementation (k≥2 blocks)
+- [x] Architecture compliance documentation
+- [x] Full documentation update to v1.8.0
+
+**In Progress** 🔄
+- [ ] Enhanced RPC methods implementation
+- [ ] Smart contract examples and templates
+- [ ] Advanced Grafana dashboards
+- [ ] External validator onboarding (target: 50+)
+- [ ] Community engagement and feedback
 
 **Deliverables**:
-- ✅ Functional testnet with v1.5 features
-- ✅ PoPC consensus operational
-- ✅ ASR auto-selection working
-- ✅ Posted Price Controller active
-- ✅ DeAI Sentinel MVP monitoring
-- ✅ 50+ validator nodes
-- ✅ 100+ worker nodes
+- ✅ Functional testnet infrastructure (9/9 services)
+- ✅ Protocol v1.8.0 fully compliant
+- ✅ Documentation complete and up-to-date
+- ✅ Monitoring and health check systems
+- 🔄 Enhanced features in development
 ---
 
-### Phase 3: v1.8 Production DA & Governance (Q2 2026)
+### Phase 3: v1.9 Production Features & Security (Q2 2026)
 
 **Status**: 📅 Planned
 
@@ -331,6 +335,6 @@ This roadmap is living document. We follow agile principles:
 
 ---
 
-**Last Updated**: 2025-10-24 | v1.6.0
+**Last Updated**: 2025-12-05 | v1.8.0-testnet
 
 **Next Review**: 2026-01-15

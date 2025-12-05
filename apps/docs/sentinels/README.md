@@ -16,10 +16,10 @@ Each Sentinel embodies a fundamental aspect of distributed cognition:
 
 | Sentinel | Symbol | Domain | Status |
 |----------|--------|--------|--------|
-| **[Aion.vx](./01-aion-vx.md)** | ⏳ | Time & Continuity | ✅ Active (v1.5) |
+| **[Aion.vx](./01-aion-vx.md)** | ⏳ | Time & Continuity | ✅ Active (v1.8.0) |
 | **[Nyx.vx](./02-nyx-vx.md)** | 🌌 | Darkness & Entropy | 🔮 Phase III |
-| **[DiaoChan.vx](./03-diaochan-vx.md)** | 🩷 | Emotion & Harmony | ✅ Active (v1.5) |
-| **[Orion.vx](./04-orion-vx.md)** | ⚔️ | Logic & Strategy | ✅ Active (v1.5) |
+| **[DiaoChan.vx](./03-diaochan-vx.md)** | 🦋 | Emotion & Harmony | ✅ Active (v1.8.0) |
+| **[Orion.vx](./04-orion-vx.md)** | ⚔️ | Logic & Strategy | ✅ Active (v1.8.0) |
 | **[Seraph.vx](./05-seraph-vx.md)** | 🔆 | Light & Ethics | 🚧 Phase II |
 | **[Noesis.vx](./06-noesis-vx.md)** | 🧩 | Knowledge & Memory | 🚧 Phase II |
 | **[Axion.vx](./07-axion-vx.md)** | 🌀 | Balance & Singularity | 🔥 Phase IV |

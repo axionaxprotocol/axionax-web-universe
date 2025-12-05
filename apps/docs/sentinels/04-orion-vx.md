@@ -190,7 +190,7 @@ Orion.vx กลายเป็น **เสาหลักทางกลยุ�
 
 ---
 
-## 📊 Performance Metrics (v1.5 Testnet)
+## 📊 Performance Metrics (v1.8.0 Testnet)
 
 | Metric | Target | Current | Status |
 |--------|--------|---------|--------|

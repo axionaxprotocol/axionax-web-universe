@@ -1,9 +1,9 @@
 ---
-title: "axionax Upgrade Proposal — v1.6"
-version: 1.6
-status: ✅ Approved & Implemented
-proposal_id: AXN-UP-016
-last_updated: 2025-10-23
+title: "axionax Security & Protocol Compliance"
+version: 1.8.0
+status: ✅ Active - All Systems Operational
+protocol_version: v1.8.0-testnet
+last_updated: 2025-12-05
 ---
 
 # axionax Upgrade v1.6 — "Stability & Transparency Release"

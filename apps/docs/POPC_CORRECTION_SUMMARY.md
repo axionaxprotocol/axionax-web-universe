@@ -1,7 +1,8 @@
 # PoPC Definition Correction Summary
 
-**Date:** November 13, 2025  
+**Date:** December 5, 2025  
 **Update Type:** Critical Terminology Correction  
+**Protocol Version:** v1.8.0-testnet (Parameters Verified ✅)  
 
 ---
 

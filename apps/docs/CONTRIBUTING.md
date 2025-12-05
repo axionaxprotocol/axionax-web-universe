@@ -1,5 +1,7 @@
 # Contributing to axionax Core
 
+**Last Updated**: December 5, 2025 | **Version**: v1.8.0-testnet
+
 Thank you for your interest in contributing to axionax! This document provides guidelines and instructions for contributing to the project.
 
 ## 🌟 Ways to Contribute

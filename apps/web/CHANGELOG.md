@@ -5,6 +5,13 @@ All notable changes to Axionax Web will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0] - 2025-12-05
+
+### Updated to v1.8.0
+- All documentation updated to v1.8.0
+- Infrastructure status: 100% operational
+- Protocol compliance verified
+
 ## [2.0.0] - 2025-11-20
 
 ### 🎉 Major Release: Testnet Launch

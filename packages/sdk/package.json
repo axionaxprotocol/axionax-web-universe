@@ -1,6 +1,6 @@
 {
   "name": "@axionax/sdk",
-  "version": "2.0.0",
+  "version": "1.8.0",
   "description": "Official TypeScript SDK for axionax protocol",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

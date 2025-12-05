@@ -1,6 +1,6 @@
 {
   "name": "axionax-faucet-api",
-  "version": "2.0.0",
+  "version": "1.8.0",
   "description": "Real Faucet API for Axionax Testnet - Connected to Validators",
   "main": "server.js",
   "scripts": {

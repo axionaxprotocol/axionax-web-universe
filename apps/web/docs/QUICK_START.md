@@ -2,7 +2,8 @@
 
 Get the axionax Protocol web interface running in under 5 minutes.
 
-**Last Updated**: November 13, 2025
+**Last Updated**: December 5, 2025  
+**Protocol Version**: v1.8.0-testnet
 
 ---
 

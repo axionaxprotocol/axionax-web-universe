@@ -1,6 +1,6 @@
 {
   "name": "axionax-mock-explorer-api",
-  "version": "1.0.0",
+  "version": "1.8.0",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"

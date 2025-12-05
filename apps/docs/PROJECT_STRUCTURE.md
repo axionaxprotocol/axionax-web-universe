@@ -1,6 +1,7 @@
-# axionax Core v1.6 - Project Structure
+# axionax Core v1.8.0 - Project Structure
 
-Updated: November 1, 2025
+Updated: December 5, 2025  
+Protocol: v1.8.0-testnet (Fully Compliant)
 
 ## Directory Overview
 
@@ -8,14 +9,15 @@ Updated: November 1, 2025
 axionax-core/
 ├── docs/                             # 📚 All project documentation
 │   ├── API_REFERENCE.md              # Complete API documentation
-│   ├── ARCHITECTURE.md               # Architecture overview
+│   ├── ARCHITECTURE.md               # Architecture overview (v1.8.0)
+│   ├── ARCHITECTURE_COMPLIANCE_v1.8.0.md # Protocol compliance report
 │   ├── BUILD.md                      # Build and development guide
 │   ├── CONTRIBUTING.md               # Contribution guidelines
 │   ├── GETTING_STARTED.md            # Getting started guide
 │   ├── GOVERNANCE.md                 # DAO governance
 │   ├── INTEGRATION_*.md              # Integration guides
-│   ├── NEW_ARCHITECTURE.md           # v1.6 multi-language architecture
-│   ├── PROJECT_COMPLETION.md         # v1.6 completion summary
+│   ├── NEW_ARCHITECTURE.md           # Multi-language architecture
+│   ├── PROJECT_COMPLETION.md         # Completion summary
 │   ├── QUICKSTART.md                 # Quick start guide
 │   ├── ROADMAP.md                    # Development roadmap
 │   ├── SECURITY*.md                  # Security documentation

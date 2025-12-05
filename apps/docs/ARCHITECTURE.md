@@ -1,12 +1,14 @@
-# axionax protocol — Architecture Overview v1.5 (Breakdown)
+# axionax protocol — Architecture Overview v1.8.0 (Breakdown)
 
-เอกสารนี้แยกสถาปัตยกรรม axionax ออกเป็นส่วนย่อยตามสรุปเวอร์ชัน 1.5 เพื่อให้เห็นภาพรวมและรายละเอียดของแต่ละองค์ประกอบได้ชัดเจนขึ้น
+เอกสารนี้แยกสถาปัตยกรรม axionax ออกเป็นส่วนย่อยตามสรุปเวอร์ชัน 1.8.0 เพื่อให้เห็นภาพรวมและรายละเอียดของแต่ละองค์ประกอบได้ชัดเจนขึ้น
+
+**Last Updated**: December 5, 2025 | **Protocol Version**: v1.8.0-testnet
 
 - วงจร L1 แบบบูรณาการ: Execute → Validate PoPC → Data Availability → Settlement
-- ระบบตลาดที่ขับเคลื่อนโดยโปรโตคอล: ASR และ Posted Price Controller
-- ความปลอดภัยและความโปร่งใส: Delayed VRF, DA Pre-commit, Stratified + Adaptive Sampling, Replica Diversity, Fraud-Proof Window
+- ระบบตลาดที่ขับเคลื่อนโดยโปรโตคอล: ASR (K=64) และ Posted Price Controller
+- ความปลอดภัยและความโปร่งใส: Delayed VRF (k≥2), DA Pre-commit, Stratified + Adaptive Sampling (s=1000), Replica Diversity, Fraud-Proof Window (3600s)
 - ระบบ DeAI และการกำกับดูแลด้วย DAO
-- พารามิเตอร์หลักและเวิร์กโฟลว์ v1.5
+- พารามิเตอร์หลักและเวิร์กโฟลว์ v1.8.0 (✅ Fully Compliant - see ARCHITECTURE_COMPLIANCE_v1.8.0.md)
 
 ---
 

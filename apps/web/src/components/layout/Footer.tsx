@@ -135,7 +135,7 @@ export default function Footer(): React.JSX.Element {
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-dark-800 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
           <p className="text-dark-500 text-sm">
-            © {new Date().getFullYear()} axionax Protocol. All rights reserved.
+            © {new Date().getFullYear()} axionax Protocol v1.8.0. All rights reserved.
           </p>
           <div className="flex space-x-6">
             <a

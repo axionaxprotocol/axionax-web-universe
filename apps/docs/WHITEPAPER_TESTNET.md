@@ -1,9 +1,9 @@
 # Axionax Protocol White Paper v.testnet
 ## The Next-Generation Layer-1 Blockchain Protocol
 
-**Version:** Testnet v0.9.0  
-**Date:** November 13, 2025  
-**Status:** Testnet Launch Q1 2026  
+**Version:** v1.8.0-testnet  
+**Date:** December 5, 2025  
+**Status:** Testnet Active - Protocol Compliant ✅  
 
 ---
 
@@ -1093,7 +1093,8 @@ max_gas_per_tx: 10M
 ---
 
 **Document Version**: v0.9.0 (Testnet Release)  
-**Last Updated**: November 13, 2025  
+**Last Updated**: December 5, 2025  
+**Protocol**: v1.8.0-testnet (Fully Compliant)  
 **License**: Creative Commons BY-NC-SA 4.0  
 
 © 2025 Axionax Protocol. All rights reserved.

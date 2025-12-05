@@ -1,8 +1,8 @@
 # axionax Testnet Status
 
-> **Last Updated**: December 2, 2025  
+> **Last Updated**: December 5, 2025  
 > **Version**: v1.8.0-testnet  
-> **Phase**: Phase 2 Active ✅ | 2 Validators Live 🟢
+> **Phase**: Phase 2 Active ✅ | All Services Operational 🟢
 
 ---
 

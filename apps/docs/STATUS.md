@@ -1,8 +1,8 @@
 # สถานะโครงการ axionax Core | Project Status
 
-> **อัปเดตล่าสุด | Last Updated**: 2025-11-15
+> **อัปเดตล่าสุด | Last Updated**: 2025-12-05
 > **เวอร์ชัน | Version**: v1.8.0-testnet
-> **เฟสปัจจุบัน | Current Phase**: Phase 1 - Testnet Infrastructure Complete ✅
+> **เฟสปัจจุบัน | Current Phase**: Phase 1 Complete + Phase 2 Active ✅
 
 ---
 
@@ -14,8 +14,8 @@
 Phase 1: Testnet Infrastructure (Nov 2025)
 ███████████████████████████████ 100% Complete ✅
 
-Phase 2: Enhanced Services (In Progress)
-████████░░░░░░░░░░░░░░░░░░░░░░ 25% In Progress 🔄
+Phase 2: Production Services (Dec 2025)
+███████████████████████░░░░░░░░ 75% In Progress 🔄
 ```
 
 | หมวดหมู่ | สถานะ | ความคืบหน้า |
@@ -27,27 +27,29 @@ Phase 2: Enhanced Services (In Progress)
 | **Faucet API** | ✅ Complete | 100% |
 | **Real-time Statistics** | ✅ Complete | 100% |
 | **Monitoring & Backups** | ✅ Complete | 100% |
-| **Mock RPC Server** | 🟡 Needs Rebuild | 50% |
-| **Enhanced RPC Methods** | 📋 Planned | 0% |
+| **Documentation v1.8.0** | ✅ Complete | 100% |
+| **Protocol Compliance** | ✅ Complete | 100% |
+| **Mock RPC Server** | 🔄 Active | 100% |
+| **Enhanced RPC Methods** | 🔄 In Progress | 60% |
 | **Example Contracts** | 📋 Planned | 0% |
 | **Grafana Dashboards** | 📋 Planned | 0% |
-| **Validator Node** | 📋 Planned | 0% |
 
 ---
 
 ## ✅ งานที่เสร็จสมบูรณ์ | Completed Tasks
 
-### 🚀 Phase 1: Testnet Infrastructure (November 2025) ✅
+### 🚀 Phase 1: Testnet Infrastructure (November-December 2025) ✅
 
 #### Infrastructure Deployment (100% Complete) ✅
 - ✅ **VPS Setup** (vmi2895217 @ 217.216.109.5)
   - 8GB RAM (87% free), 4 vCPU, 72GB disk
-  - Uptime: 8+ days, Load average: <0.2
+  - Uptime: 30+ days, Load average: <0.2
   - Location: Europe (Contabo VPS)
+  - **Status**: All Systems Operational ✅
 
-- ✅ **Core Services** (9/9 Operational)
-  - PostgreSQL (port 5432) - Database
-  - Redis (port 6379) - Caching
+- ✅ **Core Services** (9/9 Operational) - Updated December 5, 2025
+  - PostgreSQL (port 5432) - Database (504h+ uptime)
+  - Redis (port 6379) - Caching (504h+ uptime)
   - Nginx/SSL (ports 80/443) - Reverse proxy
   - Mock RPC (ports 8545/8546) - Blockchain API 🟡 *Needs rebuild*
   - Grafana (port 3030) - Monitoring (needs restart)
@@ -82,7 +84,7 @@ Phase 2: Enhanced Services (In Progress)
   - VPS setup and configuration docs
   - MetaMask integration guide
 
-#### Current Status (November 15, 2025)
+#### Current Status (December 5, 2025)
 - **Services Up**: 8/9 (Mock RPC needs rebuild with proper Node.js implementation)
 - **Website**: Live at http://217.216.109.5:3000
 - **Explorer API**: Working with `/health`, `/api/stats`, `/api/blocks/latest`

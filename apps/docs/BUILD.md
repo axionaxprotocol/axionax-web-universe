@@ -1,7 +1,8 @@
 # axionax Core - Build and Development Guide
 
 > **Version**: v1.8.0+ (Rust + Python + TypeScript)  
-> **Last Updated**: November 15, 2025
+> **Last Updated**: December 5, 2025  
+> **Protocol Version**: v1.8.0-testnet
 
 ## Prerequisites
 
@@ -92,7 +93,7 @@ npm run build
 ```bash
 cargo build --release --features "version-info"
 # Or set environment variables
-export AXIONAX_VERSION="v1.6.0"
+export AXIONAX_VERSION="v1.8.0"
 export AXIONAX_COMMIT=$(git rev-parse --short HEAD)
 cargo build --release
 ```
@@ -101,7 +102,7 @@ cargo build --release
 
 ```bash
 ./target/release/axionax-core --version
-# Should output: axionax-core v1.6.0
+# Should output: axionax-core v1.8.0
 
 # Test Python modules
 cd deai
@@ -115,9 +116,10 @@ npm test
 
 Expected output:
 ```
-axionax Core v1.6.0
+axionax Core v1.8.0
+Protocol:   v1.8.0-testnet (Compliant ✅)
 Git Commit: abc1234
-Built:      2025-11-01
+Built:      2025-12-05
 Rust:       1.75.0
 Python:     3.10.x
 Node.js:    18.x.x
@@ -151,7 +153,7 @@ make build-all
 ### Build Docker Image
 
 ```bash
-docker build -t axionax-core:v1.6.0 .
+docker build -t axionax-core:v1.8.0 .
 ```
 
 ### Run in Docker
@@ -159,7 +161,7 @@ docker build -t axionax-core:v1.6.0 .
 ```bash
 docker run -p 8545:8545 -p 30303:30303 \
   -v $(pwd)/data:/home/axionax/.axionax \
-  axionax-core:v1.6.0
+  axionax-core:v1.8.0
 ```
 
 ### Using Docker Compose

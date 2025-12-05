@@ -3,20 +3,20 @@ layout: default
 title: axionax protocol Documentation
 ---
 
-# axionax protocol v1.5
+# axionax protocol v1.8.0
 **Decentralized Compute Network with Proof-of-Probabilistic-Checking**
 
 Welcome to the official documentation for axionax protocol - a next-generation decentralized compute infrastructure powered by novel consensus mechanisms.
 
-## 🏗️ Testnet Infrastructure Status (November 13, 2025)
+## 🏗️ Testnet Infrastructure Status (December 5, 2025)
 
-**Deployment Progress: 78% Complete (7/9 Services Operational)**
+**Deployment Progress: 100% Complete (All Services Operational)**
 
 | Category | Status | Details |
 |----------|--------|---------|
 | **Infrastructure** | ✅ 5/5 Healthy | PostgreSQL, Redis, Nginx/SSL, RPC Node |
 | **Monitoring** | ✅ 2/2 Healthy | Grafana v12.2.1, Prometheus |
-| **Applications** | 🔧 0/2 Debugging | Explorer API, Faucet API |
+| **Applications** | ✅ 2/2 Healthy | Explorer API, Faucet API |
 
 **VPS**: vmi2895217 (217.216.109.5) • **Chain ID**: 888 • **Network**: axionax-testnet-1
 
@@ -71,14 +71,15 @@ python3 tests/integration_simple.py
 
 ### Architecture & Design
 - [Architecture Overview](../ARCHITECTURE.md)
+- [Architecture Compliance v1.8.0](./ARCHITECTURE_COMPLIANCE_v1.8.0.md)
 - [New Architecture](../NEW_ARCHITECTURE.md)
 - [Project Structure](../PROJECT_STRUCTURE.md)
 
-### Core Modules (v1.5)
-- **PoPC** - Proof-of-Probabilistic-Checking Consensus
-- **ASR** - Auto-Selection Router
-- **PPC** - Posted Price Controller
-- **DA** - Data Availability Subsystem
+### Core Modules (v1.8.0)
+- **PoPC** - Proof-of-Probabilistic-Checking Consensus (sample_size=1000, confidence=0.99)
+- **ASR** - Auto-Selection Router (K=64, max_quota=12.5%)
+- **PPC** - Posted Price Controller (utilization-based pricing)
+- **DA** - Data Availability Subsystem (erasure coding with replication)
 
 ### Development
 - [API Reference](./API_REFERENCE.md)
@@ -102,10 +103,10 @@ python3 tests/integration_simple.py
 ## 🔗 Resources
 - [GitHub Repository](https://github.com/axionaxprotocol/axionax-core)
 - [Open Issues](https://github.com/axionaxprotocol/axionax-core/issues)
-- [v1.5 Testnet Milestone](https://github.com/axionaxprotocol/axionax-core/milestone/1)
+- [v1.8.0 Testnet Milestone](https://github.com/axionaxprotocol/axionax-core/milestone/1)
 
 ## 📜 License
 axionax protocol is open source software. See [LICENSE](../LICENSE) and [LICENSE NOTICE](../LICENSE_NOTICE.md) for details.
 
 ---
-*Documentation for axionax protocol v1.5 Testnet*
+*Documentation for axionax protocol v1.8.0 Testnet - Last Updated: December 5, 2025*

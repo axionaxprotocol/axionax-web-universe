@@ -387,4 +387,4 @@ These require 90% approval to change:
 
 ---
 
-Last Updated: 2025-01-21 | v1.5.0
+Last Updated: 2025-12-05 | v1.8.0-testnet

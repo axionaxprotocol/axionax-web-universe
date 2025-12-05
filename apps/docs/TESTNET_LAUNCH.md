@@ -98,7 +98,7 @@ Token Symbol: AXX (Testnet)
 - [ ] Setup monitoring and alerting
 
 **Code & Documentation**:
-- [ ] Finalize v1.6 codebase
+- [x] Finalize v1.8.0 codebase ✅
 - [ ] Audit smart contracts
 - [ ] Complete API documentation
 - [ ] Prepare deployment scripts
@@ -273,7 +273,7 @@ python3 create_genesis.py validators.json allocations.json
 # Upload to public location
 scp genesis.json user@testnet.axionax.org:/var/www/html/
 # Upload to GitHub release
-gh release create v1.6.0-genesis genesis.json
+gh release create v1.8.0-testnet genesis.json
 # Pin to IPFS
 ipfs add genesis.json
 ```

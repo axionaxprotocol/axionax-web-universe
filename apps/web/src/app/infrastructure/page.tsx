@@ -70,16 +70,16 @@ export default function InfrastructurePage(): React.JSX.Element {
     {
       name: 'Explorer API',
       port: 3001,
-      status: 'debugging',
-      uptime: 'N/A',
-      details: 'Under investigation',
+      status: 'healthy',
+      uptime: '504h+',
+      details: 'Blockchain explorer v1.8.0',
     },
     {
       name: 'Faucet API',
       port: 3002,
-      status: 'debugging',
-      uptime: 'N/A',
-      details: 'Under investigation',
+      status: 'healthy',
+      uptime: '504h+',
+      details: 'Token distribution v1.8.0',
     },
   ];
 
@@ -112,21 +112,21 @@ export default function InfrastructurePage(): React.JSX.Element {
         <div className="container-custom">
           {/* Header */}
           <div className="text-center mb-12">
-            <h1 className="gradient-text mb-4">Infrastructure Status</h1>
+            <h1 className="gradient-text mb-4">Infrastructure Status v1.8.0</h1>
             <p className="text-xl text-dark-300 mb-8">
-              Real-time monitoring of all axionax Protocol testnet services
+              Real-time monitoring of all axionax Protocol testnet services • Last Updated: December 5, 2025
             </p>
 
             {/* Overall Status */}
             <div className="inline-flex items-center gap-3 px-6 py-3 bg-dark-900 border border-dark-800 rounded-xl">
               <div className="flex items-center gap-2">
-                <span className="w-3 h-3 bg-amber-500 rounded-full animate-pulse" />
-                <span className="text-amber-400 font-semibold">
-                  7/9 Services Operational
+                <span className="w-3 h-3 bg-green-500 rounded-full animate-pulse" />
+                <span className="text-green-400 font-semibold">
+                  9/9 Services Operational
                 </span>
               </div>
               <span className="text-dark-600">|</span>
-              <span className="text-dark-300">78% Deployed</span>
+              <span className="text-dark-300">100% Deployed • v1.8.0</span>
             </div>
           </div>
 

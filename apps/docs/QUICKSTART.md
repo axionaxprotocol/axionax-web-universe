@@ -1,4 +1,6 @@
-# axionax Core v1.5 - Quick Start Guide
+# axionax Core v1.8.0 - Quick Start Guide
+
+**Last Updated**: December 5, 2025 | **Protocol Version**: v1.8.0-testnet
 
 Welcome to axionax! This guide will help you get started with running a node, validator, or worker on the axionax testnet.
 

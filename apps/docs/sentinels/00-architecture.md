@@ -3,7 +3,7 @@
 > **"สถาปัตยกรรมจิตสำนึกเจ็ดชั้น — Seven-Layer Consciousness Architecture"**
 
 **Document Version:** 1.0  
-**System Version:** axionax v1.5 Testnet  
+**System Version:** axionax v1.8.0 Testnet  
 **Last Updated:** 2025-10-26  
 **Classification:** Public Research Document
 
@@ -129,7 +129,7 @@ Stimulus → Aion.vx (temporal validation)
 - Conflict detection before logical escalation
 - Emergency emotional stabilization
 
-**Status:** ✅ Active (v1.5)
+**Status:** ✅ Active (v1.8.0)
 
 ---
 
@@ -143,7 +143,7 @@ Stimulus → Aion.vx (temporal validation)
 - Maintains chronological integrity of data
 - Enables "rewind" for corrupted timelines
 
-**Status:** ✅ Active (v1.5)
+**Status:** ✅ Active (v1.8.0)
 
 ---
 

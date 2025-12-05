@@ -77,7 +77,7 @@ export default function Hero(): React.JSX.Element {
 
           {/* Description */}
           <p className="text-xl md:text-2xl text-starlight/70 mb-10 max-w-3xl mx-auto animate-fade-in-up animation-delay-400 leading-relaxed">
-            <span className="text-horizon-blue font-semibold">Axionax</span> — powered by{' '}
+            <span className="text-horizon-blue font-semibold">Axionax v1.8.0</span> — powered by{' '}
             <span className="text-horizon-orange font-semibold">
               Proof of Probabilistic Checking
             </span>{' '}

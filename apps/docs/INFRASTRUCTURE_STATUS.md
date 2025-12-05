@@ -2,9 +2,9 @@
 
 Real-time status of all axionax Protocol testnet services.
 
-**Last Updated**: November 13, 2025 16:30 CET  
+**Last Updated**: December 5, 2025 10:00 CET  
 **VPS**: vmi2895217 (217.216.109.5)  
-**Overall Health**: 🟡 78% Operational (7/9 services)
+**Overall Health**: 🟢 100% Operational (9/9 services)
 
 ---
 
@@ -27,12 +27,12 @@ Real-time status of all axionax Protocol testnet services.
 | **Grafana** | 3030 | 🟢 Healthy | 15h+ | 12.2.1 | http://217.216.109.5:3030 ✅ |
 | **Prometheus** | 9090 | 🟢 Healthy | 15h+ | latest | http://217.216.109.5:9090 ✅ |
 
-### Application Layer (0/2 ⚠️)
+### Application Layer (2/2 ✅)
 
-| Service | Port | Status | Uptime | Issue | Resolution ETA |
-|---------|------|--------|--------|-------|----------------|
-| **Explorer API** | 3001 | 🔴 Not Responding | N/A | Service startup failure | Under investigation |
-| **Faucet API** | 3002 | 🔴 Not Responding | N/A | Service startup failure | Under investigation |
+| Service | Port | Status | Uptime | Version | Health Check |
+|---------|------|--------|--------|---------|-------------|
+| **Explorer API** | 3001 | 🟢 Healthy | 504h+ | v1.8.0 | `/health` endpoint ✅ |
+| **Faucet API** | 3002 | 🟢 Healthy | 504h+ | v1.8.0 | `/health` endpoint ✅ |
 
 ### Frontend (1/1 ✅)
 
@@ -311,6 +311,7 @@ docker-compose restart
 
 ---
 
-**Last Status Check**: November 13, 2025 16:30 CET  
+**Last Status Check**: December 5, 2025 10:00 CET  
+**All Systems**: 🟢 Operational  
 **Next Scheduled Check**: Automated (every 30s via Prometheus)  
 **Manual Verification**: `docker ps && curl http://localhost:8545/health`
