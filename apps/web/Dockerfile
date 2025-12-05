@@ -9,7 +9,7 @@ WORKDIR /app
 COPY . .
 RUN pnpm install --frozen-lockfile --ignore-scripts
 # Build only the web app (standalone mode for API routes)
-RUN pnpm --filter @axionax/website build
+RUN pnpm --filter @axionax/web build
 
 # Production image using standalone output
 FROM base AS runner
