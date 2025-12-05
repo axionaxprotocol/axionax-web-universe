@@ -1,9 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
+  output: 'standalone',
   reactStrictMode: true,
   transpilePackages: ['@axionax/sdk', '@axionax/ui'],
-  // Disable image optimization, as it's not supported with static export.
+  // Disable image optimization for simpler deployment
   images: {
     unoptimized: true,
   },

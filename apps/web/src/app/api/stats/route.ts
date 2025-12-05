@@ -2,6 +2,10 @@ import { NextRequest, NextResponse } from 'next/server';
 import { moderateRateLimit } from '@/lib/rateLimit';
 import { ethers } from 'ethers';
 
+// Force dynamic rendering - skip static export
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 interface StatsResponse {
   blockNumber: number;
   services: {

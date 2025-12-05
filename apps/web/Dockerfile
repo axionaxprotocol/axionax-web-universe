@@ -8,10 +8,10 @@ FROM base AS builder
 WORKDIR /app
 COPY . .
 RUN pnpm install --frozen-lockfile --ignore-scripts
-# Build only the web app (skip contracts/SDK for frontend-only build)
+# Build only the web app (standalone mode for API routes)
 RUN pnpm --filter @axionax/website build
 
-# Production image, copy all the files and run next
+# Production image using standalone output
 FROM base AS runner
 WORKDIR /app
 
@@ -20,17 +20,16 @@ ENV NODE_ENV=production
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-# Install serve to run the static export
-RUN npm install -g serve
-
-# Copy the build output from the builder stage
-# Adjust path if output is different (e.g. dist) but Next.js export usually uses 'out'
-COPY --from=builder /app/apps/web/out ./out
+# Copy standalone build
+COPY --from=builder /app/apps/web/.next/standalone ./
+COPY --from=builder /app/apps/web/.next/static ./apps/web/.next/static
+COPY --from=builder /app/apps/web/public ./apps/web/public
 
 USER nextjs
 
 EXPOSE 3000
 
 ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
 
-CMD ["serve", "-s", "out", "-l", "3000"]
+CMD ["node", "apps/web/server.js"]
