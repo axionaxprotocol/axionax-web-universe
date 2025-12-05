@@ -22,7 +22,8 @@ interface FaucetResponse {
 const requestLog = new Map<string, number>();
 const COOLDOWN_MS = 24 * 60 * 60 * 1000; // 24 hours
 const FAUCET_AMOUNT = '10'; // 10 AXX
-const RPC_URL = process.env.RPC_URL || 'http://217.216.109.5:8545';
+// Use EU validator as primary RPC endpoint
+const RPC_URL = process.env.RPC_URL || 'http://217.76.61.116:8545';
 const PRIVATE_KEY = process.env.FAUCET_PRIVATE_KEY;
 
 // Validate Ethereum address
