@@ -10,8 +10,6 @@ COPY . .
 RUN pnpm install --frozen-lockfile --ignore-scripts
 # Build only the web app (standalone mode for API routes)
 RUN pnpm --filter @axionax/web build
-# Deploy with all dependencies to a separate folder (resolves pnpm symlinks)
-RUN pnpm --filter @axionax/web deploy --prod --legacy /app/deployed
 
 # Production image using standalone output  
 FROM base AS runner
@@ -24,8 +22,8 @@ RUN adduser --system --uid 1001 nextjs
 
 # Copy standalone build 
 COPY --from=builder /app/apps/web/.next/standalone ./
-# Copy resolved node_modules from pnpm deploy
-COPY --from=builder /app/deployed/node_modules ./node_modules
+# Copy ALL node_modules from root (includes pnpm structure)
+COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/apps/web/.next/static ./apps/web/.next/static
 COPY --from=builder /app/apps/web/public ./apps/web/public
 
