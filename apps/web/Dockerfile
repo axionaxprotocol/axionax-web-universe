@@ -10,11 +10,9 @@ COPY . .
 RUN pnpm install --frozen-lockfile --ignore-scripts
 # Build only the web app (standalone mode for API routes)
 RUN pnpm --filter @axionax/web build
-# Resolve symlinks in node_modules for production (ignore broken links)
-RUN cp -rL /app/node_modules /app/node_modules_resolved 2>/dev/null || true
 
 # Production image using standalone output  
-FROM base AS runner
+FROM node:20-alpine AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
@@ -24,10 +22,11 @@ RUN adduser --system --uid 1001 nextjs
 
 # Copy standalone build 
 COPY --from=builder /app/apps/web/.next/standalone ./
-# Copy resolved node_modules (no symlinks)
-COPY --from=builder /app/node_modules_resolved ./node_modules
 COPY --from=builder /app/apps/web/.next/static ./apps/web/.next/static
 COPY --from=builder /app/apps/web/public ./apps/web/public
+
+# Install only production deps with npm (no symlinks)
+RUN npm install next@14.2.33 react@18.3.1 react-dom@18.3.1 --omit=dev --no-save
 
 USER nextjs
 
