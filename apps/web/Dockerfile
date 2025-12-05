@@ -10,6 +10,13 @@ COPY . .
 RUN pnpm install --frozen-lockfile --ignore-scripts
 # Build only the web app (standalone mode for API routes)
 RUN pnpm --filter @axionax/web build
+# Resolve symlinks for standalone output
+RUN cd /app/apps/web/.next/standalone && \
+    if [ -d "node_modules" ]; then \
+        cp -rL node_modules /tmp/node_modules_resolved && \
+        rm -rf node_modules && \
+        mv /tmp/node_modules_resolved node_modules; \
+    fi
 
 # Production image using standalone output
 FROM base AS runner
@@ -20,7 +27,7 @@ ENV NODE_ENV=production
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-# Copy standalone build
+# Copy standalone build (with resolved symlinks)
 COPY --from=builder /app/apps/web/.next/standalone ./
 COPY --from=builder /app/apps/web/.next/static ./apps/web/.next/static
 COPY --from=builder /app/apps/web/public ./apps/web/public
