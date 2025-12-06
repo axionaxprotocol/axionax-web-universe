@@ -94,6 +94,35 @@ axionax-web-universe/
 
 ---
 
+## 💰 Token Information
+
+### ⚠️ Testnet Configuration (Current)
+
+The testnet uses simplified tokenomics for testing:
+
+- **Token Symbol**: **AXXt** (Axionax Testnet Token)
+- **Total Supply**: 1 Billion AXXt (testnet only)
+- **Network**: Axionax Testnet (Chain ID: 86137)
+- **Faucet**: https://faucet.axionax.org
+- **Purpose**: Testing only - no real value
+
+### 🎯 Mainnet Tokenomics (Planned)
+
+Full specification for production launch:
+
+- **Token Symbol**: **AXX** (Axionax Token)
+- **Total Supply**: 1 Trillion AXX (fixed cap)
+- **Emission**: ~2.25% APY staking rewards
+- **Utilities**: Gas fees, Staking, Governance, Payments
+- **Vesting**: Full schedules for team, investors, foundation
+
+📖 **Learn More:**
+- [Testnet Configuration](apps/docs/TOKENOMICS_TESTNET.md) - Current setup
+- [Mainnet Tokenomics](apps/docs/TOKENOMICS.md) - Full specification
+- [Add Token to MetaMask](apps/docs/ADD_TOKEN_TO_METAMASK.md) - Setup guide
+
+---
+
 ## 🚀 Quick Start
 
 ### Prerequisites

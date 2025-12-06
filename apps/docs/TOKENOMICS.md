@@ -1,14 +1,27 @@
 # axionax Tokenomics
 
+> ⚠️ **IMPORTANT NOTICE**
+> 
+> This document describes the **MAINNET tokenomics** planned for production launch.
+> 
+> **Current Testnet Configuration:**
+> - Testnet uses simplified token model for testing
+> - Total Supply: 1 Billion AXX (for testing)
+> - No vesting implementation (immediate distribution)
+> - See [TOKENOMICS_TESTNET.md](./TOKENOMICS_TESTNET.md) for current testnet configuration
+
 ## Overview
 
 The AXX token is the native utility token of the axionax protocol, designed to align incentives across all network participants while maintaining long-term sustainability and decentralization.
 
-## Token Supply
+## Mainnet Token Supply (Production Plan)
 
+- **Token Symbol**: AXX (Mainnet Token)
+- **Token Name**: Axionax Token
 - **Total Supply**: 1,000,000,000,000 AXX (1 Trillion)
 - **Supply Model**: Fixed cap (no inflation beyond initial distribution)
 - **Precision**: 18 decimals
+- **Network**: Mainnet (Future Launch)
 
 ## Token Utilities
 

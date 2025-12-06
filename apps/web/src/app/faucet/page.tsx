@@ -1,6 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
@@ -62,9 +64,18 @@ const requestTokens = async (address: string): Promise<FaucetResponse> => {
 };
 
 export default function Faucet(): React.JSX.Element {
+  const searchParams = useSearchParams();
   const [address, setAddress] = useState('');
   const [lastSuccess, setLastSuccess] = useState<FaucetResponse | null>(null);
   const [recentTxs, setRecentTxs] = useState<RecentTx[]>([]);
+
+  // Pre-fill address from URL parameter
+  useEffect(() => {
+    const urlAddress = searchParams.get('address');
+    if (urlAddress && isValidAddress(urlAddress)) {
+      setAddress(urlAddress);
+    }
+  }, [searchParams]);
 
   // Fetch faucet balance
   const { data: faucetInfo, isLoading: isLoadingInfo } = useQuery({
@@ -151,6 +162,24 @@ export default function Faucet(): React.JSX.Element {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
+                {/* Quick Link to Create Wallet */}
+                {!address && (
+                  <div className="p-4 rounded-lg bg-primary-500/10 border border-primary-500/30 mb-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-white font-medium">ยังไม่มี Wallet?</p>
+                        <p className="text-sm text-dark-400">สร้าง wallet ใหม่ฟรี!</p>
+                      </div>
+                      <Link
+                        href="/wallet"
+                        className="px-4 py-2 bg-primary-500 hover:bg-primary-600 text-white rounded-lg text-sm transition-colors"
+                      >
+                        👛 สร้าง Wallet
+                      </Link>
+                    </div>
+                  </div>
+                )}
+                
                 <div>
                   <label className="block text-sm font-medium text-starlight/70 mb-2">
                     Your Wallet Address

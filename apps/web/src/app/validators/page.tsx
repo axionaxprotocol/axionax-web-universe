@@ -267,14 +267,25 @@ export default function ValidatorsPage(): React.JSX.Element {
 
         {/* Info Section */}
         <div className="mt-8 card-cosmic bg-gradient-to-r from-horizon-orange/5 via-horizon-purple/5 to-horizon-blue/5">
-          <h3 className="font-semibold text-horizon mb-2">📡 Want to become a validator?</h3>
-          <p className="text-starlight/60 text-sm">
-            Join the <span className="text-horizon-blue">Axionax</span> testnet as a validator! Check our{' '}
-            <a href="https://docs.axionax.com/validators" className="text-horizon-orange hover:text-horizon-gold transition-colors">
-              validator documentation
-            </a>{' '}
-            to get started. Validators earn rewards for securing the network and processing transactions.
+          <h3 className="font-semibold text-horizon mb-4">📡 Want to become a validator?</h3>
+          <p className="text-starlight/60 text-sm mb-4">
+            Join the <span className="text-horizon-blue">Axionax</span> testnet as a Validator, Worker, or RPC Node!
+            Earn rewards for securing the network and processing transactions.
           </p>
+          <div className="flex flex-wrap gap-3">
+            <a 
+              href="/join" 
+              className="px-6 py-3 bg-gradient-to-r from-horizon-orange to-horizon-purple text-white font-semibold rounded-lg hover:shadow-horizon transition-all"
+            >
+              🚀 Join Network
+            </a>
+            <a 
+              href="/docs" 
+              className="px-6 py-3 bg-void border border-horizon-purple/30 text-starlight hover:border-horizon-orange/50 rounded-lg transition-all"
+            >
+              📚 Documentation
+            </a>
+          </div>
         </div>
       </main>
       <Footer />

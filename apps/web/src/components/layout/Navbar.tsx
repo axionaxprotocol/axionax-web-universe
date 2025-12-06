@@ -11,11 +11,13 @@ export default function Navbar(): React.JSX.Element {
 
   const navigation = [
     { name: '🏠 Home', href: '/' },
+    { name: '👛 Wallet', href: '/wallet' },
+    { name: '📊 Dashboard', href: '/dashboard' },
     { name: '🔭 Explorer', href: '/explorer' },
     { name: '💧 Faucet', href: '/faucet' },
     { name: '⚡ Validators', href: '/validators' },
-    { name: '🛒 Marketplace', href: 'https://axionax.org:3003' },
-    { name: '📚 Docs', href: '/docs' },
+    { name: '🚀 Join Network', href: '/join' },
+    { name: '🎁 Airdrop', href: '/airdrop' },
   ];
 
   return (

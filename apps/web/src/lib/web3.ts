@@ -173,3 +173,59 @@ export const formatAddress = (address: string): string => {
   if (!address) return '';
   return `${address.substring(0, 6)}...${address.substring(address.length - 4)}`;
 };
+
+// Add token to MetaMask
+export interface AddTokenParams {
+  address: string;
+  symbol: string;
+  decimals: number;
+  image?: string;
+}
+
+export const addTokenToMetaMask = async (
+  params: AddTokenParams
+): Promise<boolean> => {
+  if (!isMetaMaskInstalled()) {
+    throw new Error('MetaMask is not installed');
+  }
+
+  const { ethereum } = window as unknown as {
+    ethereum?: {
+      request: (args: {
+        method: string;
+        params?: unknown;
+      }) => Promise<unknown>;
+    };
+  };
+
+  try {
+    const wasAdded = (await ethereum?.request({
+      method: 'wallet_watchAsset',
+      params: {
+        type: 'ERC20',
+        options: {
+          address: params.address,
+          symbol: params.symbol,
+          decimals: params.decimals,
+          image: params.image,
+        },
+      },
+    })) as boolean;
+
+    return wasAdded;
+  } catch (error) {
+    console.error('Error adding token to MetaMask:', error);
+    throw error;
+  }
+};
+
+// Add AXX token to MetaMask
+export const addAXXToken = async (
+  tokenAddress: string
+): Promise<boolean> => {
+  return addTokenToMetaMask({
+    address: tokenAddress,
+    symbol: 'AXX',
+    decimals: 18,
+  });
+};

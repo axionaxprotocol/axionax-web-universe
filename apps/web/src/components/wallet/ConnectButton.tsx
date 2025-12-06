@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useWeb3 } from '@/contexts/Web3Context';
-import { formatAddress, isMetaMaskInstalled } from '@/lib/web3';
+import { formatAddress, isMetaMaskInstalled, addAXXToken } from '@/lib/web3';
 import Button from '@/components/ui/Button';
 
 export default function ConnectButton(): React.JSX.Element {
@@ -15,6 +15,7 @@ export default function ConnectButton(): React.JSX.Element {
     disconnect,
   } = useWeb3();
   const [showDropdown, setShowDropdown] = useState(false);
+  const [isAddingToken, setIsAddingToken] = useState(false);
 
   const handleConnect = async (): Promise<void> => {
     if (!isMetaMaskInstalled()) {
@@ -22,6 +23,28 @@ export default function ConnectButton(): React.JSX.Element {
       return;
     }
     await connect();
+  };
+
+  const handleAddToken = async (tokenAddress: string): Promise<void> => {
+    if (!isMetaMaskInstalled()) {
+      alert('โปรดติดตั้ง MetaMask ก่อนใช้งาน');
+      return;
+    }
+    
+    setIsAddingToken(true);
+    try {
+      const wasAdded = await addAXXToken(tokenAddress);
+      if (wasAdded) {
+        alert('เพิ่ม AXX Token ลง MetaMask สำเร็จ! ✅');
+      } else {
+        alert('ผู้ใช้ปฏิเสธการเพิ่ม token');
+      }
+    } catch (error) {
+      console.error('Error adding token:', error);
+      alert('ไม่สามารถเพิ่ม token ได้: ' + (error as Error).message);
+    } finally {
+      setIsAddingToken(false);
+    }
   };
 
   if (isConnecting) {
@@ -163,7 +186,27 @@ export default function ConnectButton(): React.JSX.Element {
             )}
           </div>
 
-          <div className="p-2 border-t border-dark-700">
+          <div className="p-2 border-t border-dark-700 space-y-1">
+            <button
+              onClick={() => void handleAddToken('0x0000000000000000000000000000000000001000')}
+              disabled={isAddingToken}
+              className="w-full px-3 py-2 text-sm text-primary-400 hover:bg-dark-700 rounded-lg transition-colors text-left flex items-center gap-2 disabled:opacity-50"
+            >
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 4v16m8-8H4"
+                />
+              </svg>
+              {isAddingToken ? 'Adding...' : 'Add AXX Token'}
+            </button>
             <button
               onClick={() => {
                 disconnect();
