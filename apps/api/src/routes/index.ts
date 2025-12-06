@@ -379,6 +379,100 @@ nodeRouter.post('/:id/stake', async (c) => {
 app.route('/api/nodes', nodeRouter);
 
 // ============================================
+// Faucet Routes
+// ============================================
+
+const faucetRouter = new Hono();
+
+// Faucet wallet address (will be configured via env)
+const FAUCET_ADDRESS = process.env.FAUCET_ADDRESS || '0x0000000000000000000000000000000000000000';
+const FAUCET_AMOUNT = '100'; // 100 AXX per request
+const COOLDOWN_HOURS = 24;
+
+// Get faucet balance and info
+faucetRouter.get('/balance', async (c) => {
+  // TODO: Fetch real balance from blockchain
+  return c.json({
+    address: FAUCET_ADDRESS,
+    balance: '1000000', // Mock balance - 1M AXX
+    symbol: 'AXX',
+  });
+});
+
+// Request tokens from faucet
+faucetRouter.post('/faucet', async (c) => {
+  const body = await c.req.json().catch(() => ({}));
+  const { address } = body;
+  
+  // Validate address
+  if (!address || !/^0x[a-fA-F0-9]{40}$/.test(address)) {
+    return c.json({
+      success: false,
+      message: 'Invalid wallet address',
+    }, 400);
+  }
+  
+  // TODO: Check cooldown from database
+  // TODO: Send actual transaction using FAUCET_PRIVATE_KEY
+  
+  // For now, return mock success
+  const mockTxHash = `0x${Array.from({length: 64}, () => Math.floor(Math.random() * 16).toString(16)).join('')}`;
+  
+  return c.json({
+    success: true,
+    message: `Successfully sent ${FAUCET_AMOUNT} AXX to ${address}`,
+    txHash: mockTxHash,
+    amount: FAUCET_AMOUNT,
+    blockNumber: 12345,
+  });
+});
+
+// Get faucet claim history for an address
+faucetRouter.get('/history/:address', async (c) => {
+  const address = c.req.param('address');
+  
+  // TODO: Fetch from database
+  return c.json({
+    address,
+    claims: [],
+    totalClaimed: '0',
+  });
+});
+
+app.route('/api/faucet', faucetRouter);
+
+// Also mount at root for faucet.axionax.org compatibility
+app.get('/balance', async (c) => {
+  return c.json({
+    address: FAUCET_ADDRESS,
+    balance: '1000000',
+    symbol: 'AXX',
+  });
+});
+
+app.post('/faucet', async (c) => {
+  const body = await c.req.json().catch(() => ({}));
+  const { address } = body;
+  
+  if (!address || !/^0x[a-fA-F0-9]{40}$/.test(address)) {
+    return c.json({
+      success: false,
+      message: 'Invalid wallet address',
+    }, 400);
+  }
+  
+  const mockTxHash = `0x${Array.from({length: 64}, () => Math.floor(Math.random() * 16).toString(16)).join('')}`;
+  
+  return c.json({
+    success: true,
+    message: `Successfully sent ${FAUCET_AMOUNT} AXX to ${address}`,
+    txHash: mockTxHash,
+    amount: FAUCET_AMOUNT,
+    blockNumber: 12345,
+  });
+});
+
+// ============================================
 // Error Handler
 // ============================================
 

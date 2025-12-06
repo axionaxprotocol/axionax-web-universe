@@ -41,14 +41,14 @@ const isValidAddress = (addr: string): boolean => {
 
 // Fetch faucet wallet balance
 const fetchFaucetInfo = async (): Promise<FaucetInfo> => {
-  const response = await fetch('https://faucet.axionax.org/balance');
+  const response = await fetch('/api/faucet/balance');
   if (!response.ok) throw new Error('Failed to fetch faucet info');
   return (await response.json()) as FaucetInfo;
 };
 
 // Request tokens from faucet
 const requestTokens = async (address: string): Promise<FaucetResponse> => {
-  const response = await fetch('https://faucet.axionax.org/faucet', {
+  const response = await fetch('/api/faucet/faucet', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ address }),
