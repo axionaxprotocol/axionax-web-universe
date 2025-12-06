@@ -430,3 +430,25 @@ export type NewNodeHealthCheck = typeof nodeHealthChecks.$inferInsert;
 
 export type NodeReward = typeof nodeRewards.$inferSelect;
 export type NewNodeReward = typeof nodeRewards.$inferInsert;
+
+// ============================================
+// Faucet Claims Table
+// ============================================
+
+export const faucetClaims = pgTable('faucet_claims', {
+  id: text('id').primaryKey(),
+  address: text('address').notNull(),
+  amount: decimal('amount', { precision: 78, scale: 0 }).notNull(),
+  transactionHash: text('transaction_hash'),
+  ipAddress: text('ip_address'),
+  status: text('status').notNull().default('success'), // pending, success, failed
+  errorMessage: text('error_message'),
+  claimedAt: timestamp('claimed_at').defaultNow().notNull(),
+}, (table) => ({
+  addressIdx: index('faucet_claims_address_idx').on(table.address),
+  claimedAtIdx: index('faucet_claims_claimed_at_idx').on(table.claimedAt),
+  ipAddressIdx: index('faucet_claims_ip_idx').on(table.ipAddress),
+}));
+
+export type FaucetClaim = typeof faucetClaims.$inferSelect;
+export type NewFaucetClaim = typeof faucetClaims.$inferInsert;

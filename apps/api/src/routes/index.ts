@@ -34,6 +34,14 @@ import {
 // Note: Node service will be imported when fully implemented
 // import { ... } from '../services/nodes.js';
 
+import {
+  getFaucetInfo,
+  claimTokens,
+  getClaimHistory,
+  getFaucetStats,
+  canClaim,
+} from '../services/faucet.js';
+
 const app = new Hono();
 
 // Middleware
@@ -384,18 +392,16 @@ app.route('/api/nodes', nodeRouter);
 
 const faucetRouter = new Hono();
 
-// Faucet wallet address (will be configured via env)
-const FAUCET_ADDRESS = process.env.FAUCET_ADDRESS || '0x0000000000000000000000000000000000000000';
-const FAUCET_AMOUNT = '100'; // 100 AXX per request
-const COOLDOWN_HOURS = 24;
-
 // Get faucet balance and info
 faucetRouter.get('/balance', async (c) => {
-  // TODO: Fetch real balance from blockchain
+  const info = await getFaucetInfo();
   return c.json({
-    address: FAUCET_ADDRESS,
-    balance: '1000000', // Mock balance - 1M AXX
-    symbol: 'AXX',
+    address: info.address,
+    balance: info.balanceFormatted,
+    symbol: info.symbol,
+    amountPerRequest: info.amountPerRequest,
+    cooldownHours: info.cooldownHours,
+    isOperational: info.isOperational,
   });
 });
 
@@ -404,72 +410,69 @@ faucetRouter.post('/faucet', async (c) => {
   const body = await c.req.json().catch(() => ({}));
   const { address } = body;
   
-  // Validate address
-  if (!address || !/^0x[a-fA-F0-9]{40}$/.test(address)) {
-    return c.json({
-      success: false,
-      message: 'Invalid wallet address',
-    }, 400);
+  // Get client IP
+  const ipAddress = c.req.header('x-forwarded-for')?.split(',')[0] || 
+                    c.req.header('x-real-ip') ||
+                    'unknown';
+  
+  const result = await claimTokens(address, ipAddress);
+  
+  if (!result.success) {
+    return c.json(result, 400);
   }
   
-  // TODO: Check cooldown from database
-  // TODO: Send actual transaction using FAUCET_PRIVATE_KEY
+  return c.json(result);
+});
+
+// Check if can claim
+faucetRouter.get('/can-claim/:address', async (c) => {
+  const address = c.req.param('address');
+  const ipAddress = c.req.header('x-forwarded-for')?.split(',')[0] || 
+                    c.req.header('x-real-ip');
   
-  // For now, return mock success
-  const mockTxHash = `0x${Array.from({length: 64}, () => Math.floor(Math.random() * 16).toString(16)).join('')}`;
-  
-  return c.json({
-    success: true,
-    message: `Successfully sent ${FAUCET_AMOUNT} AXX to ${address}`,
-    txHash: mockTxHash,
-    amount: FAUCET_AMOUNT,
-    blockNumber: 12345,
-  });
+  const result = await canClaim(address, ipAddress);
+  return c.json(result);
 });
 
 // Get faucet claim history for an address
 faucetRouter.get('/history/:address', async (c) => {
   const address = c.req.param('address');
-  
-  // TODO: Fetch from database
-  return c.json({
-    address,
-    claims: [],
-    totalClaimed: '0',
-  });
+  const history = await getClaimHistory(address);
+  return c.json(history);
+});
+
+// Get faucet statistics
+faucetRouter.get('/stats', async (c) => {
+  const stats = await getFaucetStats();
+  return c.json(stats);
 });
 
 app.route('/api/faucet', faucetRouter);
 
-// Also mount at root for faucet.axionax.org compatibility
+// Also mount at root for direct access
 app.get('/balance', async (c) => {
+  const info = await getFaucetInfo();
   return c.json({
-    address: FAUCET_ADDRESS,
-    balance: '1000000',
-    symbol: 'AXX',
+    address: info.address,
+    balance: info.balanceFormatted,
+    symbol: info.symbol,
   });
 });
 
 app.post('/faucet', async (c) => {
   const body = await c.req.json().catch(() => ({}));
   const { address } = body;
+  const ipAddress = c.req.header('x-forwarded-for')?.split(',')[0] || 
+                    c.req.header('x-real-ip') ||
+                    'unknown';
   
-  if (!address || !/^0x[a-fA-F0-9]{40}$/.test(address)) {
-    return c.json({
-      success: false,
-      message: 'Invalid wallet address',
-    }, 400);
+  const result = await claimTokens(address, ipAddress);
+  
+  if (!result.success) {
+    return c.json(result, 400);
   }
   
-  const mockTxHash = `0x${Array.from({length: 64}, () => Math.floor(Math.random() * 16).toString(16)).join('')}`;
-  
-  return c.json({
-    success: true,
-    message: `Successfully sent ${FAUCET_AMOUNT} AXX to ${address}`,
-    txHash: mockTxHash,
-    amount: FAUCET_AMOUNT,
-    blockNumber: 12345,
-  });
+  return c.json(result);
 });
 
 // ============================================
