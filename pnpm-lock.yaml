@@ -26,6 +26,9 @@ importers:
       '@hono/node-server':
         specifier: ^1.13.7
         version: 1.19.6(hono@4.10.7)
+      '@hono/zod-validator':
+        specifier: ^0.4.2
+        version: 0.4.3(hono@4.10.7)(zod@3.25.76)
       drizzle-orm:
         specifier: ^0.38.2
         version: 0.38.4(@types/react@18.3.27)(postgres@3.4.7)(react@18.3.1)
@@ -1240,6 +1243,12 @@ packages:
     engines: {node: '>=18.14.1'}
     peerDependencies:
       hono: ^4
+
+  '@hono/zod-validator@0.4.3':
+    resolution: {integrity: sha512-xIgMYXDyJ4Hj6ekm9T9Y27s080Nl9NXHcJkOvkXPhubOLj8hZkOL8pDnnXfvCf5xEE8Q4oMFenQUZZREUY2gqQ==}
+    peerDependencies:
+      hono: '>=3.9.0'
+      zod: ^3.19.1
 
   '@humanwhocodes/config-array@0.13.0':
     resolution: {integrity: sha512-DZLEEqFWQFiyK6h5YIeynKx7JlvCYWL0cImfSRXZ9l4Sg2efkFGTuFf6vzXjK1cq6IYkU+Eg/JizXw+TD2vRNw==}
@@ -6808,6 +6817,11 @@ snapshots:
   '@hono/node-server@1.19.6(hono@4.10.7)':
     dependencies:
       hono: 4.10.7
+
+  '@hono/zod-validator@0.4.3(hono@4.10.7)(zod@3.25.76)':
+    dependencies:
+      hono: 4.10.7
+      zod: 3.25.76
 
   '@humanwhocodes/config-array@0.13.0':
     dependencies:
