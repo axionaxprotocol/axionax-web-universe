@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { useMutation, useQuery } from '@tanstack/react-query';
@@ -63,7 +63,8 @@ const requestTokens = async (address: string): Promise<FaucetResponse> => {
   return data;
 };
 
-export default function Faucet(): React.JSX.Element {
+// Inner component that uses searchParams
+function FaucetContent(): React.JSX.Element {
   const searchParams = useSearchParams();
   const [address, setAddress] = useState('');
   const [lastSuccess, setLastSuccess] = useState<FaucetResponse | null>(null);
@@ -328,5 +329,39 @@ export default function Faucet(): React.JSX.Element {
       </main>
       <Footer />
     </div>
+  );
+}
+
+// Loading fallback for Suspense
+function FaucetLoading(): React.JSX.Element {
+  return (
+    <div className="min-h-screen bg-deep-space relative">
+      <div className="stars" />
+      <Navbar />
+      <main className="container-custom py-24 relative z-10">
+        <div className="max-w-2xl mx-auto">
+          <div className="text-center mb-8">
+            <h1 className="text-4xl font-bold mb-4">
+              <span className="text-horizon">💧 Testnet Faucet</span>
+            </h1>
+            <p className="text-starlight/70 text-lg">Loading...</p>
+          </div>
+          <div className="animate-pulse">
+            <div className="h-32 bg-horizon-purple/20 rounded-lg mb-6"></div>
+            <div className="h-64 bg-horizon-purple/20 rounded-lg"></div>
+          </div>
+        </div>
+      </main>
+      <Footer />
+    </div>
+  );
+}
+
+// Main component with Suspense wrapper
+export default function Faucet(): React.JSX.Element {
+  return (
+    <Suspense fallback={<FaucetLoading />}>
+      <FaucetContent />
+    </Suspense>
   );
 }
