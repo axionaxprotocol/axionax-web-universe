@@ -31,8 +31,8 @@ const config = {
   cooldownHours: parseInt(process.env.FAUCET_COOLDOWN_HOURS || '24'),
   dailyLimit: parseInt(process.env.FAUCET_DAILY_LIMIT || '100000'), // Max 100,000 AXXt per day total
   // Simulation mode: records claims without actual blockchain transactions
-  // Use this when RPC doesn't support full Ethereum API
-  simulationMode: process.env.FAUCET_SIMULATION_MODE === 'true' || true, // Default to simulation for now
+  // Set to false now that RPC nodes support full API
+  simulationMode: process.env.FAUCET_SIMULATION_MODE === 'true', // Default to real mode
 };
 
 // Define Axionax Testnet chain
