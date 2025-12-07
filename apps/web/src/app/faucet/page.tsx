@@ -32,7 +32,7 @@ interface RecentTx {
   status: 'pending' | 'confirmed';
 }
 
-const FAUCET_AMOUNT = '100'; // 100 AXX per request
+const FAUCET_AMOUNT = '10,000'; // 10,000 AXXt per request for validator testing
 
 // Validate Ethereum address format
 const isValidAddress = (addr: string): boolean => {
@@ -285,14 +285,14 @@ function FaucetContent(): React.JSX.Element {
                   <div className="text-horizon-orange mt-1">💰</div>
                   <div>
                     <strong className="text-starlight">Amount:</strong>{' '}
-                    {FAUCET_AMOUNT} AXX per request
+                    {FAUCET_AMOUNT} AXXt per request (สำหรับ Validator testing)
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <div className="text-horizon-purple mt-1">⏰</div>
                   <div>
                     <strong className="text-starlight">Cooldown:</strong> 24 hours
-                    between requests
+                    between requests per address
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
@@ -303,10 +303,15 @@ function FaucetContent(): React.JSX.Element {
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="text-horizon-pink mt-1">🧪</div>
+                  <div className="text-horizon-pink mt-1">⚡</div>
                   <div>
-                    <strong className="text-starlight">Purpose:</strong> For testing
-                    and development only
+                    <strong className="text-starlight">Staking:</strong> ใช้ tokens นี้ทดสอบ staking เป็น Validator/Worker
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="text-green-500 mt-1">✨</div>
+                  <div>
+                    <strong className="text-starlight">Mode:</strong> Simulation - Claims บันทึกไว้และจะถูก allocate เมื่อ Mainnet เปิด
                   </div>
                 </div>
               </div>

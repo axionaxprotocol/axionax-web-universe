@@ -26,9 +26,10 @@ const config = {
   rpcUrl: process.env.RPC_URL || 'https://axionax.org/api/rpc/eu',
   chainId: parseInt(process.env.CHAIN_ID || '86137'),
   faucetPrivateKey: process.env.FAUCET_PRIVATE_KEY || '',
-  faucetAmount: process.env.FAUCET_AMOUNT || '100', // 100 AXX
+  // Faucet amount: 10,000 AXXt per day for validators to test staking
+  faucetAmount: process.env.FAUCET_AMOUNT || '10000', // 10,000 AXXt per claim
   cooldownHours: parseInt(process.env.FAUCET_COOLDOWN_HOURS || '24'),
-  dailyLimit: parseInt(process.env.FAUCET_DAILY_LIMIT || '10000'), // Max 10,000 AXX per day
+  dailyLimit: parseInt(process.env.FAUCET_DAILY_LIMIT || '100000'), // Max 100,000 AXXt per day total
   // Simulation mode: records claims without actual blockchain transactions
   // Use this when RPC doesn't support full Ethereum API
   simulationMode: process.env.FAUCET_SIMULATION_MODE === 'true' || true, // Default to simulation for now
