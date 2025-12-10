@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useWeb3 } from '@/contexts/Web3Context';
+import Navbar from '@/components/layout/Navbar';
+import Footer from '@/components/layout/Footer';
 
 interface NodeInfo {
   id: string;
@@ -112,9 +114,11 @@ export default function NodeDashboardPage() {
   };
 
   return (
-    <div className="min-h-screen bg-dark-950 pt-24 pb-16">
-      <div className="container mx-auto px-4">
-        {/* Header */}
+    <div className="min-h-screen bg-dark-950">
+      <Navbar />
+      <main className="pt-24 pb-16">
+        <div className="container mx-auto px-4">
+          {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
           <div>
             <h1 className="text-4xl font-bold text-white mb-2">
@@ -380,7 +384,9 @@ export default function NodeDashboardPage() {
             </a>
           </div>
         </div>
-      </div>
+        </div>
+      </main>
+      <Footer />
     </div>
   );
 }

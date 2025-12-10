@@ -10,6 +10,8 @@ import {
   type ImportedWallet,
 } from '@/lib/wallet-generator';
 import { getBalance, AXIONAX_TESTNET } from '@/lib/web3';
+import Navbar from '@/components/layout/Navbar';
+import Footer from '@/components/layout/Footer';
 
 type TabType = 'create' | 'import-mnemonic' | 'import-key';
 
@@ -169,9 +171,11 @@ export default function WalletPage() {
   const formatAddress = (addr: string) => `${addr.slice(0, 8)}...${addr.slice(-6)}`;
 
   return (
-    <div className="min-h-screen bg-dark-950 pt-24 pb-16">
-      <div className="container mx-auto px-4 max-w-4xl">
-        {/* Header */}
+    <div className="min-h-screen bg-dark-950">
+      <Navbar />
+      <main className="pt-24 pb-16">
+        <div className="container mx-auto px-4 max-w-4xl">
+          {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
             👛 Wallet Manager
@@ -644,7 +648,9 @@ export default function WalletPage() {
             </div>
           </div>
         </div>
-      </div>
+        </div>
+      </main>
+      <Footer />
     </div>
   );
 }

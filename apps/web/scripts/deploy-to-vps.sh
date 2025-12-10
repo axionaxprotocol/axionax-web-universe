@@ -6,6 +6,7 @@ set -e
 
 VPS_IP="217.216.109.5"
 VPS_USER="root"
+# VPS_PASS should be set in environment variable
 REMOTE_DIR="/var/www/axionax"
 LOCAL_OUT_DIR="./out"
 BACKUP_DIR="/var/backups/axionax"
@@ -21,6 +22,17 @@ YELLOW='\033[1;33m'
 RED='\033[0;31m'
 NC='\033[0m'
 
+# Check for password
+if [ -z "$VPS_PASS" ]; then
+    echo -e "${RED}Error: VPS_PASS environment variable is not set.${NC}"
+    echo "Usage: VPS_PASS='your_password' ./scripts/deploy-to-vps.sh"
+    exit 1
+fi
+
+# SSH and RSYNC with sshpass
+SSH_CMD="sshpass -p ${VPS_PASS} ssh -o StrictHostKeyChecking=no"
+RSYNC_CMD="sshpass -p ${VPS_PASS} rsync"
+
 # Check if out directory exists
 if [ ! -d "$LOCAL_OUT_DIR" ]; then
     echo -e "${YELLOW}Building static site...${NC}"
@@ -31,7 +43,7 @@ fi
 
 # Create remote directory and backup
 echo -e "${YELLOW}Setting up remote directory and backup...${NC}"
-ssh ${VPS_USER}@${VPS_IP} << ENDSSH
+$SSH_CMD ${VPS_USER}@${VPS_IP} << ENDSSH
 mkdir -p ${REMOTE_DIR}
 mkdir -p ${BACKUP_DIR}
 
@@ -48,15 +60,16 @@ ENDSSH
 
 # Sync files to VPS
 echo -e "${YELLOW}Uploading files to VPS...${NC}"
-rsync -avz --delete \
+$RSYNC_CMD -avz --delete \
     --exclude='node_modules' \
     --exclude='.git' \
     --exclude='.next' \
+    -e "ssh -o StrictHostKeyChecking=no" \
     ${LOCAL_OUT_DIR}/ ${VPS_USER}@${VPS_IP}:${REMOTE_DIR}/
 
 # Update nginx configuration if needed
 echo -e "${YELLOW}Updating nginx configuration...${NC}"
-ssh ${VPS_USER}@${VPS_IP} << 'ENDSSH'
+$SSH_CMD ${VPS_USER}@${VPS_IP} << 'ENDSSH'
 
 # 1. Firewall Hardening (UFW)
 echo "🔒 Configuring Firewall..."

@@ -18,10 +18,10 @@ export default function Roadmap(): React.JSX.Element {
     {
       phase: 'Q1 2026',
       status: 'active',
-      title: 'v1.9 Network Expansion',
+      title: 'Phase 2: DeAI & Expansion',
       items: [
-        'RPC Infrastructure Scale-up',
-        'Block Explorer Advanced Features',
+        'DeAI Worker Integration (In Progress)',
+        'RPC Infrastructure Optimization ✓',
         'Validator Network Growth',
         'Full Infrastructure Deployment ✓',
       ],

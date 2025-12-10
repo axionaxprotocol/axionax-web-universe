@@ -4,10 +4,37 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import ConnectButton from '@/components/wallet/ConnectButton';
 import ThemeToggle from '@/components/ui/ThemeToggle';
+import { AXIONAX_TESTNET } from '@/lib/web3';
 
 // Navbar component - Main navigation bar with cosmic black hole theme
 export default function Navbar(): React.JSX.Element {
   const [isOpen, setIsOpen] = useState(false);
+
+  const addNetwork = async () => {
+    if (typeof window === 'undefined') return;
+    const { ethereum } = window as any;
+    if (!ethereum) {
+      window.open('https://metamask.io/download/', '_blank');
+      return;
+    }
+
+    try {
+      await ethereum.request({
+        method: 'wallet_addEthereumChain',
+        params: [
+          {
+            chainId: AXIONAX_TESTNET.chainId,
+            chainName: AXIONAX_TESTNET.chainName,
+            nativeCurrency: AXIONAX_TESTNET.nativeCurrency,
+            rpcUrls: AXIONAX_TESTNET.rpcUrls,
+            blockExplorerUrls: AXIONAX_TESTNET.blockExplorerUrls,
+          },
+        ],
+      });
+    } catch (error) {
+      console.error('Error adding network:', error);
+    }
+  };
 
   const navigation = [
     { name: '🏠 Home', href: '/' },
@@ -65,6 +92,15 @@ export default function Navbar(): React.JSX.Element {
 
           {/* Connect Wallet Button & Theme Toggle */}
           <div className="hidden md:flex items-center gap-3">
+            <button
+              onClick={addNetwork}
+              className="hidden lg:flex items-center gap-2 px-3 py-2 rounded-lg bg-horizon-orange/10 text-horizon-orange hover:bg-horizon-orange/20 transition-colors text-sm font-medium border border-horizon-orange/20"
+            >
+              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M22.5 12c0-5.8-4.7-10.5-10.5-10.5S1.5 6.2 1.5 12 6.2 22.5 12 22.5 22.5 17.8 22.5 12zm-2.5 0c0 4.4-3.6 8-8 8s-8-3.6-8-8 3.6-8 8-8 8 3.6 8 8z" />
+              </svg>
+              Add to MetaMask
+            </button>
             <ThemeToggle />
             <ConnectButton />
           </div>
@@ -113,9 +149,20 @@ export default function Navbar(): React.JSX.Element {
                   {item.name}
                 </Link>
               ))}
-              <div className="px-4 pt-4 flex items-center gap-3 border-t border-horizon-purple/20">
-                <ThemeToggle />
-                <ConnectButton />
+              <div className="px-4 pt-4 flex flex-col gap-3 border-t border-horizon-purple/20">
+                <button
+                  onClick={addNetwork}
+                  className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-horizon-orange/10 text-horizon-orange hover:bg-horizon-orange/20 transition-colors text-sm font-medium border border-horizon-orange/20"
+                >
+                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M22.5 12c0-5.8-4.7-10.5-10.5-10.5S1.5 6.2 1.5 12 6.2 22.5 12 22.5 22.5 17.8 22.5 12zm-2.5 0c0 4.4-3.6 8-8 8s-8-3.6-8-8 3.6-8 8-8 8 3.6 8 8z" />
+                  </svg>
+                  Add to MetaMask
+                </button>
+                <div className="flex items-center justify-between w-full">
+                  <ThemeToggle />
+                  <ConnectButton />
+                </div>
               </div>
             </div>
           </div>

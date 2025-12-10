@@ -3,7 +3,7 @@ layout: default
 title: axionax protocol Documentation
 ---
 
-# axionax protocol v1.8.0
+# axionax protocol v1.9.0
 **Decentralized Compute Network with Proof-of-Probabilistic-Checking**
 
 Welcome to the official documentation for axionax protocol - a next-generation decentralized compute infrastructure powered by novel consensus mechanisms.
@@ -75,7 +75,7 @@ python3 tests/integration_simple.py
 - [New Architecture](../NEW_ARCHITECTURE.md)
 - [Project Structure](../PROJECT_STRUCTURE.md)
 
-### Core Modules (v1.8.0)
+### Core Modules (v1.9.0)
 - **PoPC** - Proof-of-Probabilistic-Checking Consensus (sample_size=1000, confidence=0.99)
 - **ASR** - Auto-Selection Router (K=64, max_quota=12.5%)
 - **PPC** - Posted Price Controller (utilization-based pricing)
@@ -103,10 +103,10 @@ python3 tests/integration_simple.py
 ## 🔗 Resources
 - [GitHub Repository](https://github.com/axionaxprotocol/axionax-core)
 - [Open Issues](https://github.com/axionaxprotocol/axionax-core/issues)
-- [v1.8.0 Testnet Milestone](https://github.com/axionaxprotocol/axionax-core/milestone/1)
+- [v1.9.0 Testnet Milestone](https://github.com/axionaxprotocol/axionax-core/milestone/1)
 
 ## 📜 License
 axionax protocol is open source software. See [LICENSE](../LICENSE) and [LICENSE NOTICE](../LICENSE_NOTICE.md) for details.
 
 ---
-*Documentation for axionax protocol v1.8.0 Testnet - Last Updated: December 5, 2025*
+*Documentation for axionax protocol v1.9.0 Testnet - Last Updated: December 5, 2025*

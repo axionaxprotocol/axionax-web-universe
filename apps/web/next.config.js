@@ -5,8 +5,8 @@ const path = require('path')
  * @type {import('next').NextConfig}
  */
 const nextConfig = {
-  // Enable standalone output for Docker deployment
-  output: 'standalone',
+  // Enable static export for VPS deployment (Nginx)
+  output: 'export',
 
   // React strict mode for catching potential issues
   reactStrictMode: true,

@@ -9,13 +9,13 @@ export interface MetaMaskError extends Error {
 }
 
 // Network configuration
-const AXIONAX_TESTNET_CHAIN_ID_HEX = '0x1508d';
+const AXIONAX_TESTNET_CHAIN_ID_HEX = '0x15079';
 const AXIONAX_TESTNET_CHAIN_ID = 86137;
 
 const DEFAULT_RPC_URLS = [
-  'https://axionax.org/rpc/',
-  'http://217.76.61.116:8545',
-  'http://46.250.244.4:8545',
+  'https://rpc.axionax.org',
+  'https://axionax.org/api/rpc/eu',
+  'https://axionax.org/api/rpc/au',
 ];
 
 export const AXIONAX_TESTNET = {
@@ -121,27 +121,51 @@ export const getCurrentAccount = async (): Promise<string | null> => {
 
 // Get balance
 export const getBalance = async (address: string): Promise<string> => {
-  if (!isMetaMaskInstalled()) return '0';
-
-  const { ethereum } = window as unknown as {
-    ethereum?: {
-      request: (args: {
-        method: string;
-        params?: unknown[];
-      }) => Promise<unknown>;
-    };
-  };
-
+  // 1. Try fetching from public RPC (works without MetaMask)
   try {
-    const balance = (await ethereum?.request({
-      method: 'eth_getBalance',
-      params: [address, 'latest'],
-    })) as string;
-    return (parseInt(balance, 16) / 1e18).toFixed(4);
+    const rpcUrl = AXIONAX_TESTNET.rpcUrls[0];
+    const response = await fetch(rpcUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        jsonrpc: '2.0',
+        method: 'eth_getBalance',
+        params: [address, 'latest'],
+        id: 1,
+      }),
+    });
+    
+    const data = await response.json();
+    if (data.result) {
+      return (parseInt(data.result, 16) / 1e18).toFixed(4);
+    }
   } catch (error) {
-    console.error('Error getting balance:', error);
-    return '0';
+    console.error('Error fetching balance from RPC:', error);
   }
+
+  // 2. Fallback to MetaMask if installed
+  if (isMetaMaskInstalled()) {
+    const { ethereum } = window as unknown as {
+      ethereum?: {
+        request: (args: {
+          method: string;
+          params?: unknown[];
+        }) => Promise<unknown>;
+      };
+    };
+
+    try {
+      const balance = (await ethereum?.request({
+        method: 'eth_getBalance',
+        params: [address, 'latest'],
+      })) as string;
+      return (parseInt(balance, 16) / 1e18).toFixed(4);
+    } catch (error) {
+      console.error('Error getting balance from MetaMask:', error);
+    }
+  }
+
+  return '0';
 };
 
 // Get current chain ID

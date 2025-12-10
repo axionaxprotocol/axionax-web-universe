@@ -64,7 +64,7 @@ export default function Hero(): React.JSX.Element {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-horizon-orange opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-horizon-gold"></span>
               </span>
-              Testnet Live • 2 Validators • Chain ID 86137
+              Testnet Phase 2 • 2 Validators • Chain ID 86137
             </span>
           </div>
 

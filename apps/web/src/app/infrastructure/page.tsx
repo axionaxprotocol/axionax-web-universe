@@ -300,13 +300,13 @@ export default function InfrastructurePage(): React.JSX.Element {
               </ul>
             </div>
 
-            <div className="p-6 rounded-xl bg-dark-900 border border-amber-500/20">
-              <h3 className="text-lg font-semibold text-amber-400 mb-4">
-                🔧 Application Layer
+            <div className="p-6 rounded-xl bg-dark-900 border border-green-500/20">
+              <h3 className="text-lg font-semibold text-green-400 mb-4">
+                ✅ Application Layer
               </h3>
-              <div className="text-3xl font-bold text-amber-400 mb-2">0/2</div>
+              <div className="text-3xl font-bold text-green-400 mb-2">2/2</div>
               <p className="text-dark-400 text-sm mb-4">
-                Debugging in Progress
+                100% Operational
               </p>
               <ul className="space-y-2 text-sm text-dark-300">
                 <li>• Explorer API (port 3001)</li>
