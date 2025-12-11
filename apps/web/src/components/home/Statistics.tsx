@@ -176,7 +176,7 @@ export default function Statistics(): React.JSX.Element {
           />
         </svg>
       ),
-      subtitle: 'Protocol v1.8.0 Active',
+      subtitle: 'Protocol v1.9.0 Active',
     },
   ];
 
@@ -184,7 +184,7 @@ export default function Statistics(): React.JSX.Element {
     <section className="section bg-dark-900/50 border-y border-dark-800">
       <div className="container-custom">
         <div className="text-center mb-12">
-          <h2 className="gradient-text mb-4">Live Testnet Metrics v1.8.0</h2>
+          <h2 className="gradient-text mb-4">Live Testnet Metrics v1.9.0</h2>
           <p className="text-dark-400 text-lg">
             Real-time status from VPS 217.216.109.5 • All Systems Operational
           </p>

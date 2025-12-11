@@ -72,14 +72,14 @@ export default function InfrastructurePage(): React.JSX.Element {
       port: 3001,
       status: 'healthy',
       uptime: '504h+',
-      details: 'Blockchain explorer v1.8.0',
+      details: 'Blockchain explorer v1.9.0',
     },
     {
       name: 'Faucet API',
       port: 3002,
       status: 'healthy',
       uptime: '504h+',
-      details: 'Token distribution v1.8.0',
+      details: 'Token distribution v1.9.0',
     },
   ];
 
@@ -112,7 +112,7 @@ export default function InfrastructurePage(): React.JSX.Element {
         <div className="container-custom">
           {/* Header */}
           <div className="text-center mb-12">
-            <h1 className="gradient-text mb-4">Infrastructure Status v1.8.0</h1>
+            <h1 className="gradient-text mb-4">Infrastructure Status v1.9.0</h1>
             <p className="text-xl text-dark-300 mb-8">
               Real-time monitoring of all axionax Protocol testnet services • Last Updated: December 5, 2025
             </p>
@@ -126,7 +126,7 @@ export default function InfrastructurePage(): React.JSX.Element {
                 </span>
               </div>
               <span className="text-dark-600">|</span>
-              <span className="text-dark-300">100% Deployed • v1.8.0</span>
+              <span className="text-dark-300">100% Deployed • v1.9.0</span>
             </div>
           </div>
 
@@ -191,7 +191,7 @@ export default function InfrastructurePage(): React.JSX.Element {
                 ></div>
               </div>
               <div className="text-sm text-dark-400 mt-2">
-                &lt; 1.0 load average
+                {'<'} 1.0 load average
               </div>
             </div>
 

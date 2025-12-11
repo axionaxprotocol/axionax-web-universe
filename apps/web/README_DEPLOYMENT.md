@@ -280,4 +280,4 @@ docker-compose up -d --build
 ---
 
 **Last Updated**: 2025-12-05  
-**Protocol Version**: v1.8.0-testnet
+**Protocol Version**: v1.9.0-testnet

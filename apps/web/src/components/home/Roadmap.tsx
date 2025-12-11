@@ -7,7 +7,7 @@ export default function Roadmap(): React.JSX.Element {
     {
       phase: 'Q4 2025',
       status: 'completed',
-      title: 'v1.8.0 Production Ready',
+      title: 'v1.9.0 Production Ready',
       items: [
         'Rust Core (Consensus, Blockchain, Crypto)',
         'Python DeAI Layer (ASR, Fraud Detection)',

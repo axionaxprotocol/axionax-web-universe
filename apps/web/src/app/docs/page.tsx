@@ -41,8 +41,8 @@ export default function Docs(): React.JSX.Element {
           external: true,
         },
         {
-          name: 'Architecture Compliance v1.8.0',
-          href: `${DOCS_BASE}/ARCHITECTURE_COMPLIANCE_v1.8.0.md`,
+          name: 'Architecture Compliance v1.9.0',
+          href: `${DOCS_BASE}/ARCHITECTURE_COMPLIANCE_v1.9.0.md`,
           external: true,
         },
         {
@@ -120,10 +120,10 @@ export default function Docs(): React.JSX.Element {
       <main className="container-custom py-16">
         <div className="mb-8">
           <h1 className="text-4xl font-bold gradient-text mb-4">
-            Documentation v1.8.0
+            Documentation v1.9.0
           </h1>
           <p className="text-dark-400 text-lg">
-            Everything you need to build on axionax - Protocol v1.8.0 Testnet
+            Everything you need to build on axionax - Protocol v1.9.0 Testnet
           </p>
         </div>
 
