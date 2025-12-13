@@ -35,21 +35,36 @@ axionax-web-universe/
 │   ├── web/              # Official Website (Next.js 14)
 │   │   ├── src/          # Source code
 │   │   ├── public/       # Static assets
-│   │   └── package.json  # @axionax/website
+│   │   └── package.json  # @axionax/web
 │   │
 │   ├── marketplace/      # Compute Marketplace dApp
 │   │   ├── src/          # Vite + React app
 │   │   └── package.json  # @axionax/marketplace
 │   │
-│   └── docs/             # Documentation Site
+│   ├── api/              # Backend API (Hono + PostgreSQL)
+│   │   ├── src/          # API source code
+│   │   └── package.json  # @axionax/api
+│   │
+│   ├── genesis-generator/# Genesis Block Generator CLI
+│   │   ├── src/          # Generator source code
+│   │   └── package.json  # @axionax/genesis-generator
+│   │
+│   └── docs/             # Documentation Site (70+ pages)
 │       ├── guides/       # Tutorials & guides
 │       └── api/          # API reference
 │
 ├── 📦 packages/
-│   └── sdk/              # TypeScript SDK
-│       ├── src/          # SDK source code
-│       ├── types/        # Type definitions
-│       └── package.json  # @axionax/sdk
+│   ├── sdk/              # TypeScript SDK
+│   │   ├── src/          # SDK source code
+│   │   └── package.json  # @axionax/sdk
+│   │
+│   ├── blockchain-utils/ # Shared Blockchain Utilities
+│   │   ├── src/          # Helpers, constants, types
+│   │   └── package.json  # @axionax/blockchain-utils
+│   │
+│   └── ui/               # Shared UI Components
+│       ├── src/          # React components
+│       └── package.json  # @axionax/ui
 │
 ├── pnpm-workspace.yaml   # Workspace configuration
 ├── package.json          # Root package

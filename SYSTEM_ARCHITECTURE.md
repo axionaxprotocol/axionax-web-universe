@@ -1,9 +1,9 @@
 # รายงานสถาปัตยกรรมระบบ: axionax-web-universe
 
-**วันที่:** 5 ธันวาคม 2025  
+**วันที่:** 13 ธันวาคม 2025  
 **Protocol Version:** v1.9.0-testnet
-**วิเคราะห์โดย:** Senior System Architect (Cline)  
-**ขอบเขต:** `apps/web`, `apps/marketplace`, `packages/sdk`  
+**วิเคราะห์โดย:** Senior System Architect  
+**ขอบเขต:** `apps/web`, `apps/marketplace`, `apps/api`, `packages/sdk`, `packages/blockchain-utils`  
 **สถานะ:** All Systems Operational (100%) ✅
 
 ---
@@ -61,9 +61,12 @@ graph TD
 
 | Workspace | Type | Framework / Library | Key Dependencies | State Management |
 | :--- | :--- | :--- | :--- | :--- |
-| **`apps/web`** | App | **Next.js 14** (App Router) | `ethers`, `react-query`, `zustand` | `zustand` + React Context |
+| **`apps/web`** | App | **Next.js 14** (App Router) | `ethers`, `react-query`, `zustand`, `@axionax/sdk` | `zustand` + React Context |
 | **`apps/marketplace`** | App | **Vite** + React | `@axionax/sdk`, `ethers`, `viem` | React `useState` / `useMemo` |
-| **`packages/sdk`** | Lib | **TypeScript** | `ethers` | N/A (Stateless) |
+| **`apps/api`** | App | **Hono** + Drizzle ORM | `postgres`, `viem`, `zod` | N/A (Stateless) |
+| **`packages/sdk`** | Lib | **TypeScript** | `ethers`, `@axionax/blockchain-utils` | N/A (Stateless) |
+| **`packages/blockchain-utils`** | Lib | **TypeScript** | `viem` | N/A (Stateless) |
+| **`packages/ui`** | Lib | **React** | `react`, `react-dom` | N/A |
 
 *   **Styling**: ทุก Apps ใช้ **Tailwind CSS**
 *   **Package Manager**: `pnpm` (จัดการ Dependencies ได้อย่างมีประสิทธิภาพ)

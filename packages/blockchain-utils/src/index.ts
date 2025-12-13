@@ -15,3 +15,6 @@ export * from './helpers.js';
 
 // Chain definitions
 export * from './chains.js';
+
+// Wallet utilities
+export * from './wallet.js';

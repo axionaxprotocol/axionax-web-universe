@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { RPC_URLS } from '@axionax/blockchain-utils';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import Card, { CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
@@ -31,7 +32,8 @@ interface AddressInfo {
   nonce: number;
 }
 
-const RPC_URL = 'https://rpc.axionax.org';
+// ใช้ RPC จาก centralized config หรือ env var
+const RPC_URL = process.env.NEXT_PUBLIC_RPC_URL || RPC_URLS.TESTNET[0];
 
 const fetchBlocks = async (): Promise<BlocksResponse> => {
   const response = await fetch('/api/blocks?page=1&pageSize=10');
@@ -53,7 +55,7 @@ const fetchAddressBalance = async (address: string): Promise<AddressInfo> => {
   const data = await response.json();
   const balanceWei = BigInt(data.result || '0x0');
   const balanceEth = Number(balanceWei) / 1e18;
-  
+
   // Get nonce
   const nonceRes = await fetch(RPC_URL, {
     method: 'POST',
@@ -66,7 +68,7 @@ const fetchAddressBalance = async (address: string): Promise<AddressInfo> => {
     }),
   });
   const nonceData = await nonceRes.json();
-  
+
   return {
     address,
     balance: balanceEth.toFixed(4),
@@ -112,11 +114,11 @@ export default function Explorer(): React.JSX.Element {
 
   const handleSearch = async () => {
     if (!searchQuery.trim()) return;
-    
+
     setIsSearching(true);
     setSearchError(null);
     setSearchResult(null);
-    
+
     try {
       // Detect search type
       if (searchQuery.startsWith('0x') && searchQuery.length === 66) {
@@ -146,7 +148,7 @@ export default function Explorer(): React.JSX.Element {
     <div className="min-h-screen bg-deep-space relative">
       {/* Stars background */}
       <div className="stars" />
-      
+
       <Navbar />
       <main className="container-custom py-24 relative z-10">
         <div className="mb-8 text-center">
@@ -227,13 +229,13 @@ export default function Explorer(): React.JSX.Element {
                 {isSearching ? '🔄 Searching...' : '🚀 Search'}
               </button>
             </div>
-            
+
             {searchError && (
               <div className="mt-4 p-4 bg-horizon-pink/10 border border-horizon-pink/30 rounded-lg text-horizon-pink">
                 ❌ {searchError}
               </div>
             )}
-            
+
             {searchResult && searchType === 'address' && (
               <div className="mt-4 p-6 bg-void rounded-lg border border-horizon-purple/30">
                 <h3 className="text-lg font-semibold text-horizon-gold mb-4">📍 Address Details</h3>
@@ -253,7 +255,7 @@ export default function Explorer(): React.JSX.Element {
                 </div>
               </div>
             )}
-            
+
             {searchResult && searchType === 'tx' && (
               <div className="mt-4 p-6 bg-void rounded-lg border border-horizon-purple/30">
                 <h3 className="text-lg font-semibold text-horizon-blue mb-4">📜 Transaction Details</h3>

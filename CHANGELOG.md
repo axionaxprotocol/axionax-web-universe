@@ -7,6 +7,51 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.9.0-testnet] - 2025-12-13
+
+### 🎉 Major Release - SDK & Architecture Improvements
+
+This release focuses on code architecture, SDK creation, and documentation consistency.
+
+### ✨ Added
+
+#### New `@axionax/sdk` Package
+- **Complete TypeScript SDK** for Axionax Protocol integration
+  - `AxionaxClient` class with full API support
+  - `createClient()` factory function
+  - `EscrowStatus`, `EscrowTransaction` types
+  - `Job`, `Worker`, `Wallet` interfaces
+  - `AXIONAX_TESTNET_CONFIG` configuration
+- Re-exports from `@axionax/blockchain-utils` for convenience
+- Full JSDoc documentation
+
+#### Architecture Improvements
+- **Created `packages/sdk`** - Central SDK package (previously missing)
+- **Refactored `web3.ts`** - Reduced from 268 lines to 77 lines (71% reduction)
+- **Enhanced `packages/blockchain-utils`** with new `wallet.ts` module
+
+### 🔧 Changed
+
+#### Documentation Updates
+- **README.md** - Updated repository structure with all apps/packages
+- **SYSTEM_ARCHITECTURE.md** - Updated tech stack table with new packages
+- **All HTML docs** - Updated to v1.9.0 (7 files)
+  - `index.html`, `API_REFERENCE.html`, `BUILD.html`
+  - `QUICKSTART.html`, `ARCHITECTURE.html`
+  - `NODE_INTEGRATION.html`, `TESTNET_INTEGRATION.html`
+- **Chain ID consistency** - Updated all references from 888/31337 to 86137
+
+#### Package Updates
+- **`@axionax/ui`** version 1.8.0 → 1.9.0
+- **`apps/web`** now depends on `@axionax/blockchain-utils`
+
+### 🐛 Fixed
+- Version inconsistency between packages (all now at 1.9.0)
+- Hardcoded RPC URLs replaced with centralized configuration
+- Missing `@axionax/sdk` package that was referenced but didn't exist
+
+---
+
 ## [1.8.0-testnet] - 2025-12-05
 
 ### 🎉 Major Release - Production Ready Testnet

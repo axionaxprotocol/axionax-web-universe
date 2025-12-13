@@ -1,255 +1,83 @@
 /**
  * Web3 utilities for axionax frontend
- * Self-contained version without external SDK dependency
+ * 
+ * Re-exports wallet utilities from @axionax/blockchain-utils
+ * for backward compatibility.
+ * 
+ * @deprecated Import directly from '@axionax/blockchain-utils' instead
  */
 
+// Re-export everything from blockchain-utils wallet
+export {
+  // Provider
+  getProvider,
+  isMetaMaskInstalled,
+  isWalletAvailable,
+
+  // Accounts
+  connectWallet,
+  getAccounts,
+  getCurrentAccount,
+
+  // Chain
+  getChainId as getCurrentChainId,
+  switchChain,
+  addChain,
+  connectToAxionax,
+
+  // Balance
+  getBalance,
+  getTransactionCount,
+
+  // Token
+  addToken as addTokenToMetaMask,
+
+  // Events
+  onAccountsChanged,
+  onChainChanged,
+
+  // Types
+  type EIP1193Provider,
+  type WalletError,
+  type AddTokenParams,
+  WALLET_ERROR_CODES,
+} from '@axionax/blockchain-utils';
+
+// Re-export chain config for backward compatibility
+export {
+  axionaxTestnet as AXIONAX_TESTNET_CONFIG,
+  getMetaMaskNetworkParams,
+  CHAIN_IDS,
+  RPC_URLS,
+  EXPLORER_URLS,
+  formatAddress,
+  formatUnits,
+} from '@axionax/blockchain-utils';
+
+// Legacy AXIONAX_TESTNET object for backward compatibility
+import { axionaxTestnet, CHAIN_IDS, RPC_URLS, EXPLORER_URLS } from '@axionax/blockchain-utils';
+
+export const AXIONAX_TESTNET = {
+  chainId: '0x' + CHAIN_IDS.TESTNET.toString(16),
+  chainIdDecimal: CHAIN_IDS.TESTNET,
+  chainName: axionaxTestnet.name,
+  nativeCurrency: axionaxTestnet.nativeCurrency,
+  rpcUrls: RPC_URLS.TESTNET,
+  blockExplorerUrls: [EXPLORER_URLS.TESTNET],
+};
+
+// Legacy error type
 export interface MetaMaskError extends Error {
   code: number;
   message: string;
 }
 
-// Network configuration
-const AXIONAX_TESTNET_CHAIN_ID_HEX = '0x15079';
-const AXIONAX_TESTNET_CHAIN_ID = 86137;
-
-const DEFAULT_RPC_URLS = [
-  'https://rpc.axionax.org',
-  'https://axionax.org/api/rpc/eu',
-  'https://axionax.org/api/rpc/au',
-];
-
-export const AXIONAX_TESTNET = {
-  chainId: AXIONAX_TESTNET_CHAIN_ID_HEX,
-  chainIdDecimal: AXIONAX_TESTNET_CHAIN_ID,
-  chainName: 'axionax Testnet',
-  nativeCurrency: {
-    name: 'AXX',
-    symbol: 'AXX',
-    decimals: 18,
-  },
-  rpcUrls: DEFAULT_RPC_URLS,
-  blockExplorerUrls: ['https://axionax.org/api/'],
-};
-
-// Check if MetaMask is installed
-export const isMetaMaskInstalled = (): boolean => {
-  if (typeof window === 'undefined') return false;
-  const { ethereum } = window as unknown as {
-    ethereum?: { isMetaMask?: boolean };
-  };
-  return Boolean(ethereum && ethereum.isMetaMask);
-};
-
-// Request account access
-export const connectWallet = async (): Promise<string[]> => {
-  if (!isMetaMaskInstalled()) {
-    throw new Error(
-      'MetaMask is not installed. Please install it to continue.'
-    );
-  }
-
-  const { ethereum } = window as unknown as {
-    ethereum?: {
-      request: (args: {
-        method: string;
-        params?: unknown[];
-      }) => Promise<unknown>;
-    };
-  };
-
-  try {
-    const accounts = (await ethereum?.request({
-      method: 'eth_requestAccounts',
-    })) as string[];
-
-    // Try to switch to axionax Testnet
-    try {
-      await ethereum?.request({
-        method: 'wallet_switchEthereumChain',
-        params: [{ chainId: AXIONAX_TESTNET.chainId }],
-      });
-    } catch (switchError: unknown) {
-      const error = switchError as { code?: number };
-      if (error.code === 4902) {
-        await ethereum?.request({
-          method: 'wallet_addEthereumChain',
-          params: [
-            {
-              chainId: AXIONAX_TESTNET.chainId,
-              chainName: AXIONAX_TESTNET.chainName,
-              nativeCurrency: AXIONAX_TESTNET.nativeCurrency,
-              rpcUrls: AXIONAX_TESTNET.rpcUrls,
-              blockExplorerUrls: AXIONAX_TESTNET.blockExplorerUrls,
-            },
-          ],
-        });
-      } else {
-        throw switchError;
-      }
-    }
-
-    return accounts;
-  } catch (error) {
-    console.error('Error connecting to MetaMask:', error);
-    throw error;
-  }
-};
-
-// Get current account
-export const getCurrentAccount = async (): Promise<string | null> => {
-  if (!isMetaMaskInstalled()) return null;
-
-  const { ethereum } = window as unknown as {
-    ethereum?: {
-      request: (args: {
-        method: string;
-        params?: unknown[];
-      }) => Promise<unknown>;
-    };
-  };
-
-  try {
-    const accounts = (await ethereum?.request({
-      method: 'eth_accounts',
-    })) as string[];
-    return accounts[0] || null;
-  } catch (error) {
-    console.error('Error getting current account:', error);
-    return null;
-  }
-};
-
-// Get balance
-export const getBalance = async (address: string): Promise<string> => {
-  // 1. Try fetching from public RPC (works without MetaMask)
-  try {
-    const rpcUrl = AXIONAX_TESTNET.rpcUrls[0];
-    const response = await fetch(rpcUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        jsonrpc: '2.0',
-        method: 'eth_getBalance',
-        params: [address, 'latest'],
-        id: 1,
-      }),
-    });
-    
-    const data = await response.json();
-    if (data.result) {
-      return (parseInt(data.result, 16) / 1e18).toFixed(4);
-    }
-  } catch (error) {
-    console.error('Error fetching balance from RPC:', error);
-  }
-
-  // 2. Fallback to MetaMask if installed
-  if (isMetaMaskInstalled()) {
-    const { ethereum } = window as unknown as {
-      ethereum?: {
-        request: (args: {
-          method: string;
-          params?: unknown[];
-        }) => Promise<unknown>;
-      };
-    };
-
-    try {
-      const balance = (await ethereum?.request({
-        method: 'eth_getBalance',
-        params: [address, 'latest'],
-      })) as string;
-      return (parseInt(balance, 16) / 1e18).toFixed(4);
-    } catch (error) {
-      console.error('Error getting balance from MetaMask:', error);
-    }
-  }
-
-  return '0';
-};
-
-// Get current chain ID
-export const getCurrentChainId = async (): Promise<string | null> => {
-  if (!isMetaMaskInstalled()) return null;
-
-  const { ethereum } = window as unknown as {
-    ethereum?: {
-      request: (args: {
-        method: string;
-        params?: unknown[];
-      }) => Promise<unknown>;
-    };
-  };
-
-  try {
-    const chainId = (await ethereum?.request({
-      method: 'eth_chainId',
-    })) as string;
-    return chainId;
-  } catch (error) {
-    console.error('Error getting chain ID:', error);
-    return null;
-  }
-};
-
-// Format address for display
-export const formatAddress = (address: string): string => {
-  if (!address) return '';
-  return `${address.substring(0, 6)}...${address.substring(address.length - 4)}`;
-};
-
-// Add token to MetaMask
-export interface AddTokenParams {
-  address: string;
-  symbol: string;
-  decimals: number;
-  image?: string;
-}
-
-export const addTokenToMetaMask = async (
-  params: AddTokenParams
-): Promise<boolean> => {
-  if (!isMetaMaskInstalled()) {
-    throw new Error('MetaMask is not installed');
-  }
-
-  const { ethereum } = window as unknown as {
-    ethereum?: {
-      request: (args: {
-        method: string;
-        params?: unknown;
-      }) => Promise<unknown>;
-    };
-  };
-
-  try {
-    const wasAdded = (await ethereum?.request({
-      method: 'wallet_watchAsset',
-      params: {
-        type: 'ERC20',
-        options: {
-          address: params.address,
-          symbol: params.symbol,
-          decimals: params.decimals,
-          image: params.image,
-        },
-      },
-    })) as boolean;
-
-    return wasAdded;
-  } catch (error) {
-    console.error('Error adding token to MetaMask:', error);
-    throw error;
-  }
-};
-
-// Add AXX token to MetaMask
-export const addAXXToken = async (
-  tokenAddress: string
-): Promise<boolean> => {
-  return addTokenToMetaMask({
+// Legacy addAXXToken function
+export async function addAXXToken(tokenAddress: string): Promise<boolean> {
+  const { addToken } = await import('@axionax/blockchain-utils');
+  return addToken({
     address: tokenAddress,
     symbol: 'AXX',
     decimals: 18,
   });
-};
+}
