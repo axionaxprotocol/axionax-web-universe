@@ -13,10 +13,11 @@ interface Block {
   number: number;
   hash: string;
   timestamp: number;
-  transactions: number;
-  miner: string;
+  txCount: number;
+  gas: string;
   gasUsed: string;
-  gasLimit: string;
+  validator: string;
+  size: number;
 }
 
 interface BlocksResponse {
@@ -24,6 +25,7 @@ interface BlocksResponse {
   total: number;
   page: number;
   pageSize: number;
+  latestBlock: number;
 }
 
 interface AddressInfo {
@@ -92,7 +94,10 @@ const fetchTransaction = async (hash: string) => {
 };
 
 const formatTimestamp = (timestamp: number): string => {
-  const seconds = Math.floor((Date.now() - timestamp) / 1000);
+  // API returns timestamp in seconds, Date.now() returns milliseconds
+  const timestampMs = timestamp * 1000;
+  const seconds = Math.floor((Date.now() - timestampMs) / 1000);
+  if (seconds < 0) return 'just now';
   if (seconds < 60) return `${seconds}s ago`;
   if (seconds < 3600) return `${Math.floor(seconds / 60)}m ago`;
   if (seconds < 86400) return `${Math.floor(seconds / 3600)}h ago`;
@@ -318,7 +323,7 @@ export default function Explorer(): React.JSX.Element {
                     <div className="flex items-center gap-4 text-sm">
                       <div>
                         <span className="text-starlight/40">Txs:</span>{' '}
-                        <span className="text-horizon-blue">{block.transactions}</span>
+                        <span className="text-horizon-blue">{block.txCount}</span>
                       </div>
                       <div>
                         <span className="text-starlight/40">Gas:</span>{' '}
