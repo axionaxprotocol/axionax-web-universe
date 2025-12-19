@@ -9,17 +9,17 @@ import { prettyJSON } from 'hono/pretty-json';
 import { zValidator } from '@hono/zod-validator';
 import { z } from 'zod';
 
-import { 
-  startIndexer, 
-  stopIndexer, 
+import {
+  startIndexer,
+  stopIndexer,
   getIndexerStats,
-  getTopAddresses 
+  getTopAddresses
 } from '../services/indexer.js';
-import { 
-  calculateActivityScore, 
+import {
+  calculateActivityScore,
   calculateAllActivityScores,
   getEligibleAddresses,
-  getAirdropStats 
+  getAirdropStats
 } from '../services/calculator.js';
 import {
   generateSnapshot,
@@ -41,6 +41,15 @@ import {
   getFaucetStats,
   canClaim,
 } from '../services/faucet.js';
+
+import {
+  getBlocks,
+  getBlock,
+  getTransactions,
+  getTransaction,
+  getNetworkStats,
+  search,
+} from '../services/explorer.js';
 
 const app = new Hono();
 
@@ -139,9 +148,9 @@ activityRouter.post('/calculate-all', async (c) => {
 activityRouter.get('/eligible', async (c) => {
   const tier = c.req.query('tier') ? parseInt(c.req.query('tier')!) : undefined;
   const eligible = await getEligibleAddresses(tier);
-  return c.json({ 
+  return c.json({
     count: eligible.length,
-    addresses: eligible 
+    addresses: eligible
   });
 });
 
@@ -183,12 +192,12 @@ snapshotRouter.get('/:id', async (c) => {
 snapshotRouter.post('/generate', async (c) => {
   const body = await c.req.json().catch(() => ({}));
   const blockNumber = body.blockNumber ? parseInt(body.blockNumber) : undefined;
-  
+
   try {
     const snapshot = await generateSnapshot(blockNumber);
     return c.json(snapshot);
   } catch (error) {
-    return c.json({ 
+    return c.json({
       error: 'Failed to generate snapshot',
       message: error instanceof Error ? error.message : 'Unknown error'
     }, 500);
@@ -197,12 +206,12 @@ snapshotRouter.post('/generate', async (c) => {
 
 snapshotRouter.get('/:id/genesis', async (c) => {
   const id = c.req.param('id');
-  
+
   try {
     const genesis = await generateGenesisConfig(id);
     return c.json(genesis);
   } catch (error) {
-    return c.json({ 
+    return c.json({
       error: 'Failed to generate genesis config',
       message: error instanceof Error ? error.message : 'Unknown error'
     }, 500);
@@ -211,12 +220,12 @@ snapshotRouter.get('/:id/genesis', async (c) => {
 
 snapshotRouter.post('/:id/finalize', async (c) => {
   const id = c.req.param('id');
-  
+
   try {
     await finalizeSnapshot(id);
     return c.json({ message: 'Snapshot finalized', id });
   } catch (error) {
-    return c.json({ 
+    return c.json({
       error: 'Failed to finalize snapshot',
       message: error instanceof Error ? error.message : 'Unknown error'
     }, 500);
@@ -262,11 +271,11 @@ const nodeRegistrationSchema = z.object({
 // Register a new node
 nodeRouter.post('/register', zValidator('json', nodeRegistrationSchema), async (c) => {
   const data = c.req.valid('json');
-  
+
   // TODO: Implement actual registration
   // For now, return mock success
   const nodeId = `node_${Date.now()}`;
-  
+
   return c.json({
     success: true,
     message: 'Node registered successfully. Please check your email for verification.',
@@ -282,7 +291,7 @@ nodeRouter.post('/register', zValidator('json', nodeRegistrationSchema), async (
 // Verify email
 nodeRouter.get('/verify/:token', async (c) => {
   const token = c.req.param('token');
-  
+
   // TODO: Implement actual verification
   return c.json({
     success: true,
@@ -294,7 +303,7 @@ nodeRouter.get('/verify/:token', async (c) => {
 nodeRouter.get('/', async (c) => {
   const nodeType = c.req.query('type') as 'validator' | 'worker' | 'rpc' | undefined;
   const status = c.req.query('status');
-  
+
   // TODO: Implement actual query
   // Return mock data for now
   return c.json({
@@ -307,7 +316,7 @@ nodeRouter.get('/', async (c) => {
 // Get node by ID
 nodeRouter.get('/:id', async (c) => {
   const id = c.req.param('id');
-  
+
   // TODO: Implement actual query
   return c.json({
     node: null,
@@ -319,7 +328,7 @@ nodeRouter.get('/:id', async (c) => {
 nodeRouter.get('/:id/health', async (c) => {
   const id = c.req.param('id');
   const limit = parseInt(c.req.query('limit') || '100');
-  
+
   // TODO: Implement actual query
   return c.json({
     nodeId: id,
@@ -332,7 +341,7 @@ nodeRouter.get('/:id/health', async (c) => {
 nodeRouter.get('/:id/rewards', async (c) => {
   const id = c.req.param('id');
   const limit = parseInt(c.req.query('limit') || '50');
-  
+
   // TODO: Implement actual query
   return c.json({
     nodeId: id,
@@ -356,12 +365,12 @@ nodeRouter.get('/stats/overview', async (c) => {
 nodeRouter.get('/leaderboard/:type', async (c) => {
   const nodeType = c.req.param('type') as 'validator' | 'worker' | 'rpc';
   const limit = parseInt(c.req.query('limit') || '20');
-  
+
   // Validate node type
   if (!['validator', 'worker', 'rpc'].includes(nodeType)) {
     return c.json({ error: 'Invalid node type' }, 400);
   }
-  
+
   // TODO: Implement actual leaderboard
   return c.json({
     nodeType,
@@ -373,7 +382,7 @@ nodeRouter.get('/leaderboard/:type', async (c) => {
 nodeRouter.post('/:id/stake', async (c) => {
   const id = c.req.param('id');
   const body = await c.req.json().catch(() => ({}));
-  
+
   // TODO: Verify stake transaction on-chain
   return c.json({
     success: true,
@@ -409,27 +418,27 @@ faucetRouter.get('/balance', async (c) => {
 faucetRouter.post('/faucet', async (c) => {
   const body = await c.req.json().catch(() => ({}));
   const { address } = body;
-  
+
   // Get client IP
-  const ipAddress = c.req.header('x-forwarded-for')?.split(',')[0] || 
-                    c.req.header('x-real-ip') ||
-                    'unknown';
-  
+  const ipAddress = c.req.header('x-forwarded-for')?.split(',')[0] ||
+    c.req.header('x-real-ip') ||
+    'unknown';
+
   const result = await claimTokens(address, ipAddress);
-  
+
   if (!result.success) {
     return c.json(result, 400);
   }
-  
+
   return c.json(result);
 });
 
 // Check if can claim
 faucetRouter.get('/can-claim/:address', async (c) => {
   const address = c.req.param('address');
-  const ipAddress = c.req.header('x-forwarded-for')?.split(',')[0] || 
-                    c.req.header('x-real-ip');
-  
+  const ipAddress = c.req.header('x-forwarded-for')?.split(',')[0] ||
+    c.req.header('x-real-ip');
+
   const result = await canClaim(address, ipAddress);
   return c.json(result);
 });
@@ -449,6 +458,74 @@ faucetRouter.get('/stats', async (c) => {
 
 app.route('/api/faucet', faucetRouter);
 
+// ============================================
+// Explorer Routes (Real Blockchain Data)
+// ============================================
+
+const explorerRouter = new Hono();
+
+// Get recent blocks
+explorerRouter.get('/blocks', async (c) => {
+  const page = parseInt(c.req.query('page') || '1');
+  const pageSize = parseInt(c.req.query('pageSize') || '10');
+  const blocks = await getBlocks(page, pageSize);
+  return c.json(blocks);
+});
+
+// Get single block
+explorerRouter.get('/blocks/:id', async (c) => {
+  const id = c.req.param('id');
+  const block = await getBlock(id);
+  if (!block) {
+    return c.json({ error: 'Block not found' }, 404);
+  }
+  return c.json(block);
+});
+
+// Get recent transactions
+explorerRouter.get('/transactions', async (c) => {
+  const page = parseInt(c.req.query('page') || '1');
+  const pageSize = parseInt(c.req.query('pageSize') || '20');
+  const transactions = await getTransactions(page, pageSize);
+  return c.json(transactions);
+});
+
+// Get single transaction
+explorerRouter.get('/transactions/:hash', async (c) => {
+  const hash = c.req.param('hash');
+  const tx = await getTransaction(hash);
+  if (!tx) {
+    return c.json({ error: 'Transaction not found' }, 404);
+  }
+  return c.json(tx);
+});
+
+// Get network statistics
+explorerRouter.get('/network', async (c) => {
+  const stats = await getNetworkStats();
+  return c.json(stats);
+});
+
+// Search (address, tx, block)
+explorerRouter.get('/search', async (c) => {
+  const query = c.req.query('q') || '';
+  if (!query) {
+    return c.json({ error: 'Query parameter "q" required' }, 400);
+  }
+  const result = await search(query);
+  return c.json(result);
+});
+
+app.route('/api/explorer', explorerRouter);
+
+// Mount blocks at /api/blocks for backward compatibility
+app.get('/api/blocks', async (c) => {
+  const page = parseInt(c.req.query('page') || '1');
+  const pageSize = parseInt(c.req.query('pageSize') || '10');
+  const blocks = await getBlocks(page, pageSize);
+  return c.json(blocks);
+});
+
 // Also mount at root for direct access
 app.get('/balance', async (c) => {
   const info = await getFaucetInfo();
@@ -462,16 +539,16 @@ app.get('/balance', async (c) => {
 app.post('/faucet', async (c) => {
   const body = await c.req.json().catch(() => ({}));
   const { address } = body;
-  const ipAddress = c.req.header('x-forwarded-for')?.split(',')[0] || 
-                    c.req.header('x-real-ip') ||
-                    'unknown';
-  
+  const ipAddress = c.req.header('x-forwarded-for')?.split(',')[0] ||
+    c.req.header('x-real-ip') ||
+    'unknown';
+
   const result = await claimTokens(address, ipAddress);
-  
+
   if (!result.success) {
     return c.json(result, 400);
   }
-  
+
   return c.json(result);
 });
 

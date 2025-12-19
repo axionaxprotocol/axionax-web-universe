@@ -152,7 +152,7 @@ export default function ValidatorsPage(): React.JSX.Element {
           <StatCard
             icon={<span className="text-gray-400">🌐</span>}
             label="Network"
-            value="Testnet v1.0"
+            value="Testnet v1.9.0"
             sublabel="Chain ID: 86137"
           />
         </div>
