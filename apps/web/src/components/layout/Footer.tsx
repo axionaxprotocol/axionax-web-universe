@@ -40,10 +40,12 @@ export default function Footer(): React.JSX.Element {
           {/* Logo and Description */}
           <div className="col-span-2 md:col-span-1">
             <Link href="/" className="flex items-center space-x-2 mb-4">
-              <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center font-bold text-white">
-                AX
-              </div>
-              <span className="text-xl font-bold gradient-text">axionax</span>
+              <img
+                src="/assets/img/axionax-logo-new.png"
+                alt="Axionax Logo"
+                className="w-8 h-8 rounded-full object-cover"
+              />
+              <span className="text-xl font-bold bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent">axionax</span>
             </Link>
             <p className="text-dark-400 text-sm">
               High-performance Layer-1 blockchain for decentralized compute and

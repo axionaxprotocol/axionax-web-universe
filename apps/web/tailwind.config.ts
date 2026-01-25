@@ -14,47 +14,47 @@ const config: Config = {
         'deep-space': '#0a0a0f',
         'black-hole': '#12121a',
         'space-dust': '#1a1a2e',
-        
-        // Event Horizon Glow
+
+        // Event Horizon Glow (Gold Edition)
         horizon: {
-          orange: '#ff6b35',
-          gold: '#ffa500',
-          purple: '#9d4edd',
-          blue: '#00d4ff',
-          pink: '#ff006e',
+          orange: '#ff8c00', // Dark Orange
+          gold: '#ffd700',   // Gold
+          purple: '#b8860b', // Dark Goldenrod (replaces purple)
+          blue: '#f0e68c',   // Khaki/Light Gold (replaces blue)
+          pink: '#daa520',   // Goldenrod (replaces pink)
         },
-        
+
         // Cosmic
-        nebula: '#7b2cbf',
-        plasma: '#e040fb',
-        starlight: '#f0f0ff',
-        
+        nebula: '#8b4513', // Saddle Brown
+        plasma: '#cd853f', // Peru
+        starlight: '#fff8dc', // Cornsilk
+
         // Keep legacy colors for compatibility
         primary: {
-          50: '#fef3f2',
-          100: '#ffe4e1',
-          200: '#ffccc7',
-          300: '#ffa69e',
-          400: '#ff6b35',
-          500: '#ff6b35',
-          600: '#ed4f1c',
-          700: '#c73d12',
-          800: '#a43514',
-          900: '#883218',
+          50: '#fff8e1',
+          100: '#ffecb3',
+          200: '#ffe082',
+          300: '#ffd54f',
+          400: '#ffca28',
+          500: '#ffc107',
+          600: '#ffb300',
+          700: '#ffa000',
+          800: '#ff8f00',
+          900: '#ff6f00',
           950: '#4a1507',
         },
         secondary: {
-          50: '#f5f3ff',
-          100: '#ede8ff',
-          200: '#ddd4ff',
-          300: '#c4b0ff',
-          400: '#9d4edd',
-          500: '#9d4edd',
-          600: '#7c22ce',
-          700: '#6b1aaf',
-          800: '#5a178f',
-          900: '#4b1575',
-          950: '#2e0a4f',
+          50: '#fff3e0',
+          100: '#ffe0b2',
+          200: '#ffcc80',
+          300: '#ffb74d',
+          400: '#ffa726',
+          500: '#ff9800',
+          600: '#fb8c00',
+          700: '#f57c00',
+          800: '#ef6c00',
+          900: '#e65100',
+          950: '#2e0a05',
         },
         dark: {
           50: '#f8f8ff',
@@ -73,21 +73,21 @@ const config: Config = {
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-        'gradient-primary': 'linear-gradient(135deg, #ff6b35 0%, #9d4edd 50%, #00d4ff 100%)',
+        'gradient-primary': 'linear-gradient(135deg, #ffd700 0%, #ffa500 50%, #ff8c00 100%)',
         'gradient-dark': 'linear-gradient(135deg, #0a0a0f 0%, #12121a 100%)',
         // Black hole gradient
         'black-hole': 'radial-gradient(ellipse at center, #000000 0%, #12121a 40%, #1a1a2e 70%, #0a0a0f 100%)',
         // Event horizon glow
-        'event-horizon': 'conic-gradient(from 0deg, #ff6b35, #ffa500, #ff006e, #9d4edd, #00d4ff, #ff6b35)',
+        'event-horizon': 'conic-gradient(from 0deg, #ff8c00, #ffa500, #ffd700, #f0e68c, #daa520, #ff8c00)',
         // Accretion disk
-        'accretion-disk': 'linear-gradient(90deg, #ff6b35 0%, #ffa500 25%, #ff006e 50%, #9d4edd 75%, #00d4ff 100%)',
+        'accretion-disk': 'linear-gradient(90deg, #ff8c00 0%, #ffa500 25%, #ffd700 50%, #daa520 75%, #b8860b 100%)',
       },
       boxShadow: {
-        'horizon': '0 0 20px #ff6b35, 0 0 40px #ffa50080, 0 0 60px #9d4edd40',
-        'horizon-sm': '0 0 10px #ff6b35, 0 0 20px #ffa50060',
-        'horizon-lg': '0 0 30px #ff6b35, 0 0 60px #ffa500, 0 0 90px #9d4edd60',
-        'plasma': '0 0 15px #e040fb, 0 0 30px #9d4edd80',
-        'starlight': '0 0 10px #ffffff, 0 0 20px #00d4ff40',
+        'horizon': '0 0 20px #ff8c00, 0 0 40px #ffa50080, 0 0 60px #ffd70040',
+        'horizon-sm': '0 0 10px #ff8c00, 0 0 20px #ffa50060',
+        'horizon-lg': '0 0 30px #ff8c00, 0 0 60px #ffa500, 0 0 90px #ffd70060',
+        'plasma': '0 0 15px #daa520, 0 0 30px #b8860b80',
+        'starlight': '0 0 10px #ffffff, 0 0 20px #ffd70040',
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-in',

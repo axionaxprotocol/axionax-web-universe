@@ -8,63 +8,87 @@ export default function Hero(): React.JSX.Element {
     <section className="section relative overflow-hidden min-h-screen flex items-center">
       {/* Stars background */}
       <div className="stars" />
-      
-      {/* Black Hole Animation */}
+
+      {/* Golden Atom Animation */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        {/* Outer event horizon ring */}
-        <div 
-          className="absolute w-[700px] h-[700px] rounded-full opacity-20"
-          style={{ animation: 'spin 60s linear infinite' }}
-        >
-          <div 
-            className="absolute inset-0 rounded-full"
-            style={{ background: 'conic-gradient(from 0deg, #ff6b35, #ffa500, #ff006e, #9d4edd, #00d4ff, #ff6b35)' }}
-          />
-        </div>
-        
-        {/* Middle event horizon ring */}
-        <div 
-          className="absolute w-[500px] h-[500px] rounded-full opacity-30"
-          style={{ animation: 'spin 40s linear infinite reverse' }}
-        >
-          <div 
-            className="absolute inset-0 rounded-full"
-            style={{ background: 'conic-gradient(from 90deg, #ff006e, #ffa500, #ff6b35, #00d4ff, #9d4edd, #ff006e)' }}
-          />
-        </div>
-        
-        {/* Inner event horizon ring */}
-        <div 
-          className="absolute w-[300px] h-[300px] rounded-full opacity-40"
-          style={{ animation: 'spin 20s linear infinite' }}
-        >
-          <div 
-            className="absolute inset-0 rounded-full"
-            style={{ background: 'conic-gradient(from 180deg, #00d4ff, #9d4edd, #ff006e, #ffa500, #ff6b35, #00d4ff)' }}
-          />
-        </div>
-        
-        {/* Black hole center - the singularity */}
-        <div 
-          className="absolute w-[150px] h-[150px] rounded-full bg-void"
-          style={{ boxShadow: '0 0 100px 60px rgba(0,0,0,0.95), 0 0 150px 100px rgba(0,0,0,0.8)' }}
+        {/* Outer orbital ring */}
+        <div
+          className="absolute w-[600px] h-[600px] rounded-full opacity-30"
+          style={{
+            animation: 'spin 30s linear infinite',
+            border: '2px solid transparent',
+            background: 'linear-gradient(#0a0a0f, #0a0a0f) padding-box, linear-gradient(135deg, #ffd700, #ff8c00, #daa520) border-box'
+          }}
         />
-        
-        {/* Gravitational lensing effect */}
-        <div className="absolute w-[180px] h-[180px] rounded-full border border-horizon-purple/20 animate-pulse" />
-        <div className="absolute w-[220px] h-[220px] rounded-full border border-horizon-orange/10 animate-pulse" style={{ animationDelay: '0.5s' }} />
+
+        {/* Middle orbital ring */}
+        <div
+          className="absolute w-[450px] h-[450px] rounded-full opacity-40"
+          style={{
+            animation: 'spin 20s linear infinite reverse',
+            border: '2px solid transparent',
+            background: 'linear-gradient(#0a0a0f, #0a0a0f) padding-box, linear-gradient(45deg, #daa520, #ffd700, #ffa500) border-box'
+          }}
+        />
+
+        {/* Inner orbital ring */}
+        <div
+          className="absolute w-[300px] h-[300px] rounded-full opacity-50"
+          style={{
+            animation: 'spin 15s linear infinite',
+            border: '3px solid transparent',
+            background: 'linear-gradient(#0a0a0f, #0a0a0f) padding-box, linear-gradient(90deg, #ffa500, #ffd700, #ff8c00) border-box'
+          }}
+        />
+
+        {/* Golden Atom Core with Logo */}
+        <div
+          className="absolute w-[180px] h-[180px] rounded-full flex items-center justify-center"
+          style={{
+            background: 'radial-gradient(circle, rgba(255,215,0,0.3) 0%, rgba(255,140,0,0.1) 50%, transparent 70%)',
+            boxShadow: '0 0 60px rgba(255,215,0,0.4), 0 0 100px rgba(255,165,0,0.2), inset 0 0 40px rgba(255,215,0,0.1)'
+          }}
+        >
+          <img
+            src="/assets/img/axionax-logo-new.png"
+            alt="Axionax Golden Atom"
+            className="w-24 h-24 rounded-full object-cover"
+            style={{ filter: 'drop-shadow(0 0 20px rgba(255,215,0,0.5))' }}
+          />
+        </div>
+
+        {/* Floating particles */}
+        <div className="absolute w-[700px] h-[700px]">
+          {[...Array(12)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute w-2 h-2 rounded-full bg-gradient-to-r from-amber-400 to-yellow-500"
+              style={{
+                top: `${50 + 40 * Math.cos((i * Math.PI * 2) / 12)}%`,
+                left: `${50 + 40 * Math.sin((i * Math.PI * 2) / 12)}%`,
+                animation: `twinkle ${2 + i * 0.2}s ease-in-out infinite`,
+                animationDelay: `${i * 0.15}s`,
+                boxShadow: '0 0 10px rgba(255,215,0,0.6)'
+              }}
+            />
+          ))}
+        </div>
+
+        {/* Outer glow rings */}
+        <div className="absolute w-[200px] h-[200px] rounded-full border border-amber-500/20 animate-pulse" />
+        <div className="absolute w-[240px] h-[240px] rounded-full border border-yellow-500/10 animate-pulse" style={{ animationDelay: '0.5s' }} />
       </div>
 
       <div className="container-custom relative z-10">
         <div className="max-w-4xl mx-auto text-center">
           {/* Badge */}
           <div className="mb-8 animate-fade-in-up">
-            <span className="inline-flex items-center gap-2 px-4 py-2 bg-space-dust/50 border border-horizon-purple/30 rounded-full text-starlight text-sm font-medium backdrop-blur-sm">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-horizon-orange opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-horizon-gold"></span>
+            <span className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-amber-900/30 to-yellow-900/30 border border-amber-500/40 rounded-full text-amber-100 text-sm font-medium backdrop-blur-sm shadow-lg shadow-amber-500/10">
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-gradient-to-r from-amber-400 to-yellow-500"></span>
               </span>
-              Testnet Phase 2 • 2 Validators • Chain ID 86137
+              🔥 Testnet Live • 2 Validators • Chain ID 86137
             </span>
           </div>
 
@@ -72,20 +96,20 @@ export default function Hero(): React.JSX.Element {
           <h1 className="mb-6 animate-fade-in-up animation-delay-200">
             <span className="text-starlight">Welcome to the</span>
             <br />
-            <span className="text-horizon text-glow">Event Horizon</span>
+            <span className="bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent" style={{ textShadow: '0 0 40px rgba(255,215,0,0.3)' }}>Golden Era</span>
           </h1>
 
           {/* Description */}
-          <p className="text-xl md:text-2xl text-starlight/70 mb-10 max-w-3xl mx-auto animate-fade-in-up animation-delay-400 leading-relaxed">
-            <span className="text-horizon-blue font-semibold">Axionax v1.9.0</span> — powered by{' '}
-            <span className="text-horizon-orange font-semibold">
+          <p className="text-xl md:text-2xl text-starlight/80 mb-10 max-w-3xl mx-auto animate-fade-in-up animation-delay-400 leading-relaxed">
+            <span className="text-amber-400 font-semibold">Axionax v1.9.0</span> — powered by{' '}
+            <span className="text-yellow-500 font-semibold">
               Proof of Probabilistic Checking
             </span>{' '}
-            (PoPC) consensus. Where blockchain meets the cosmos with{' '}
-            <span className="text-horizon-purple font-medium">
-              infinite scalability
+            (PoPC) consensus. The next generation Layer-1 with{' '}
+            <span className="text-amber-300 font-medium">
+              45K+ TPS
             </span>{' '}
-            beyond the singularity.
+            and sub-second finality.
           </p>
 
           {/* CTA Buttons */}
@@ -157,11 +181,12 @@ export default function Hero(): React.JSX.Element {
               </div>
             </div>
           </div>
-          
+
           {/* Network Info */}
           <div className="mt-12 card-cosmic max-w-md mx-auto animate-fade-in-up animation-delay-800">
             <h3 className="text-horizon-gold font-semibold mb-3 flex items-center justify-center gap-2">
-              🌌 Add to MetaMask
+              <img src="/assets/img/axx-token.png" alt="AXX Token" className="w-8 h-8 rounded-full shadow-lg" />
+              Add AXX to MetaMask
             </h3>
             <div className="space-y-2 text-sm text-left">
               <div className="flex justify-between">
@@ -184,7 +209,7 @@ export default function Hero(): React.JSX.Element {
           </div>
         </div>
       </div>
-      
+
       {/* Bottom gradient fade */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-deep-space to-transparent" />
     </section>

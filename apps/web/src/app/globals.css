@@ -6,24 +6,28 @@
 :root {
   --font-inter: "Inter", system-ui, -apple-system, sans-serif;
   --font-fira-code: "Fira Code", "Courier New", monospace;
-  
+
   /* Black Hole Core */
   --void: #000000;
   --deep-space: #0a0a0f;
   --black-hole: #12121a;
   --space-dust: #1a1a2e;
-  
+
   /* Event Horizon */
-  --horizon-orange: #ff6b35;
-  --horizon-gold: #ffa500;
-  --horizon-purple: #9d4edd;
-  --horizon-blue: #00d4ff;
-  --horizon-pink: #ff006e;
-  
+  /* Event Horizon (Gold Edition) */
+  --horizon-orange: #ff8c00;
+  --horizon-gold: #ffd700;
+  --horizon-purple: #b8860b;
+  /* Replaced with Dark Goldenrod */
+  --horizon-blue: #f0e68c;
+  /* Replaced with Khaki */
+  --horizon-pink: #daa520;
+  /* Replaced with Goldenrod */
+
   /* Cosmic */
-  --nebula: #7b2cbf;
-  --plasma: #e040fb;
-  --starlight: #f0f0ff;
+  --nebula: #8b4513;
+  --plasma: #cd853f;
+  --starlight: #fff8dc;
 }
 
 @layer base {
@@ -33,14 +37,19 @@
 
   body {
     @apply bg-deep-space text-starlight antialiased;
-    background: 
-      radial-gradient(ellipse at top right, rgba(123, 44, 191, 0.15) 0%, transparent 50%),
-      radial-gradient(ellipse at bottom left, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+    background:
+      radial-gradient(ellipse at top right, rgba(255, 215, 0, 0.15) 0%, transparent 50%),
+      radial-gradient(ellipse at bottom left, rgba(255, 140, 0, 0.08) 0%, transparent 50%),
       radial-gradient(ellipse at center, #000000 0%, #0a0a0f 50%, #12121a 100%);
     background-attachment: fixed;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-bold tracking-tight;
   }
 
@@ -73,14 +82,14 @@
   .btn-primary {
     @apply bg-gradient-primary text-white hover:shadow-horizon hover:scale-105;
   }
-  
+
   /* Event Horizon glow button */
   .btn-horizon {
     @apply relative px-6 py-3 font-semibold rounded-xl overflow-hidden transition-all duration-300 text-white;
     background: linear-gradient(135deg, var(--horizon-orange), var(--horizon-purple));
     box-shadow: 0 0 20px rgba(255, 107, 53, 0.5), 0 0 40px rgba(157, 78, 221, 0.3);
   }
-  
+
   .btn-horizon:hover {
     box-shadow: 0 0 30px rgba(255, 107, 53, 0.7), 0 0 60px rgba(157, 78, 221, 0.5), 0 0 80px rgba(0, 212, 255, 0.3);
     transform: translateY(-2px);
@@ -101,7 +110,7 @@
   .card-hover {
     @apply card hover:border-horizon-orange/50 hover:shadow-horizon-sm hover:-translate-y-1;
   }
-  
+
   /* Card with cosmic border glow */
   .card-cosmic {
     @apply relative rounded-2xl overflow-hidden p-6;
@@ -109,7 +118,7 @@
     backdrop-filter: blur(10px);
     border: 1px solid rgba(157, 78, 221, 0.2);
   }
-  
+
   .card-cosmic::before {
     content: '';
     position: absolute;
@@ -163,7 +172,7 @@
   .gradient-text {
     @apply bg-gradient-primary bg-clip-text text-transparent;
   }
-  
+
   /* Horizon gradient text */
   .text-horizon {
     background: linear-gradient(90deg, var(--horizon-orange), var(--horizon-gold), var(--horizon-pink));
@@ -171,7 +180,7 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
-  
+
   .text-glow {
     text-shadow: 0 0 10px var(--horizon-orange), 0 0 20px var(--horizon-purple);
   }
@@ -179,7 +188,7 @@
   .loading-spinner {
     @apply animate-spin rounded-full border-2 border-space-dust border-t-horizon-orange;
   }
-  
+
   /* Stars background effect */
   .stars {
     position: fixed;
@@ -188,17 +197,17 @@
     width: 100%;
     height: 100%;
     pointer-events: none;
-    background-image: 
+    background-image:
       radial-gradient(2px 2px at 20px 30px, white, transparent),
-      radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
+      radial-gradient(2px 2px at 40px 70px, rgba(255, 255, 255, 0.8), transparent),
       radial-gradient(1px 1px at 90px 40px, white, transparent),
-      radial-gradient(2px 2px at 160px 120px, rgba(255,255,255,0.9), transparent),
+      radial-gradient(2px 2px at 160px 120px, rgba(255, 255, 255, 0.9), transparent),
       radial-gradient(1px 1px at 230px 80px, white, transparent),
-      radial-gradient(2px 2px at 300px 150px, rgba(255,255,255,0.7), transparent),
+      radial-gradient(2px 2px at 300px 150px, rgba(255, 255, 255, 0.7), transparent),
       radial-gradient(1px 1px at 370px 50px, white, transparent),
-      radial-gradient(2px 2px at 450px 180px, rgba(255,255,255,0.8), transparent),
+      radial-gradient(2px 2px at 450px 180px, rgba(255, 255, 255, 0.8), transparent),
       radial-gradient(1px 1px at 520px 90px, white, transparent),
-      radial-gradient(2px 2px at 600px 200px, rgba(255,255,255,0.6), transparent);
+      radial-gradient(2px 2px at 600px 200px, rgba(255, 255, 255, 0.6), transparent);
     background-size: 650px 250px;
     animation: twinkle 4s ease-in-out infinite;
     z-index: 0;
@@ -274,11 +283,23 @@
 
 /* Keyframes */
 @keyframes twinkle {
-  0%, 100% { opacity: 0.7; }
-  50% { opacity: 0.4; }
+
+  0%,
+  100% {
+    opacity: 0.7;
+  }
+
+  50% {
+    opacity: 0.4;
+  }
 }
 
 @keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }

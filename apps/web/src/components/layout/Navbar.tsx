@@ -51,22 +51,14 @@ export default function Navbar(): React.JSX.Element {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-deep-space/80 backdrop-blur-xl border-b border-horizon-purple/20">
       <div className="container-custom">
         <div className="flex items-center justify-between h-16">
-          {/* Logo with black hole effect */}
+          {/* Golden Atom Logo */}
           <Link href="/" className="flex items-center space-x-3 group">
-            <div className="relative">
-              <div className="w-10 h-10 rounded-full bg-void shadow-horizon-sm group-hover:shadow-horizon transition-shadow duration-300">
-                <div 
-                  className="absolute inset-1 rounded-full border border-horizon-orange/50"
-                  style={{ animation: 'spin 10s linear infinite' }}
-                />
-                <div 
-                  className="absolute inset-2 rounded-full border border-horizon-purple/50"
-                  style={{ animation: 'spin 7s linear infinite reverse' }}
-                />
-                <div className="absolute inset-3 rounded-full bg-void" />
-              </div>
-            </div>
-            <span className="text-xl font-bold text-horizon">
+            <img
+              src="/assets/img/axionax-logo-new.png"
+              alt="Axionax Logo"
+              className="w-10 h-10 rounded-full object-cover shadow-horizon-sm group-hover:shadow-horizon group-hover:scale-110 transition-all duration-300"
+            />
+            <span className="text-xl font-bold bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent">
               Axionax
             </span>
           </Link>
