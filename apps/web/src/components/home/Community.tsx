@@ -79,11 +79,11 @@ export default function Community(): React.JSX.Element {
   ];
 
   return (
-    <section className="section bg-dark-900/50">
+    <section className="section bg-gradient-to-b from-transparent via-amber-950/5 to-transparent">
       <div className="container-custom">
         <div className="text-center mb-16">
-          <h2 className="gradient-text mb-4">Join Our Community</h2>
-          <p className="text-dark-400 text-lg max-w-2xl mx-auto">
+          <h2 className="bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent mb-4">Join Our Community</h2>
+          <p className="text-starlight/60 text-lg max-w-2xl mx-auto">
             Be part of a growing ecosystem of developers, validators, and
             enthusiasts building the future of decentralized compute
           </p>
@@ -94,16 +94,16 @@ export default function Community(): React.JSX.Element {
           {communityStats.map((stat, index) => (
             <div
               key={stat.label}
-              className="card text-center animate-fade-in-up"
+              className="p-6 rounded-2xl bg-gradient-to-b from-amber-950/20 to-transparent border border-amber-500/20 hover:border-amber-500/40 transition-all duration-300 text-center animate-fade-in-up"
               style={
                 { animationDelay: `${index * 100}ms` } as React.CSSProperties
               }
             >
               <div className="text-4xl mb-2">{stat.icon}</div>
-              <div className="text-2xl font-bold gradient-text mb-1">
+              <div className="text-2xl font-bold bg-gradient-to-r from-amber-400 to-yellow-500 bg-clip-text text-transparent mb-1">
                 {stat.value}
               </div>
-              <div className="text-sm text-dark-400">{stat.label}</div>
+              <div className="text-sm text-starlight/60">{stat.label}</div>
             </div>
           ))}
         </div>
@@ -116,16 +116,16 @@ export default function Community(): React.JSX.Element {
               href={social.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="card-hover flex flex-col items-center text-center animate-fade-in-up"
+              className="p-6 rounded-2xl bg-gradient-to-b from-amber-950/10 to-transparent border border-amber-500/20 hover:border-amber-500/40 transition-all duration-300 flex flex-col items-center text-center animate-fade-in-up group"
               style={
                 { animationDelay: `${index * 100}ms` } as React.CSSProperties
               }
             >
-              <div className="w-12 h-12 bg-primary-500/10 rounded-full flex items-center justify-center text-primary-500 mb-4">
+              <div className="w-12 h-12 bg-gradient-to-br from-amber-500/20 to-yellow-600/10 rounded-full flex items-center justify-center text-amber-400 mb-4 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-amber-500/20 transition-all">
                 {social.icon}
               </div>
-              <h3 className="font-bold text-white mb-2">{social.name}</h3>
-              <p className="text-sm text-dark-400">{social.description}</p>
+              <h3 className="font-bold text-starlight group-hover:text-amber-300 transition-colors mb-2">{social.name}</h3>
+              <p className="text-sm text-starlight/60">{social.description}</p>
             </a>
           ))}
         </div>

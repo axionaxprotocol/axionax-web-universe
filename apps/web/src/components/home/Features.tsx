@@ -142,10 +142,9 @@ export default function Features(): React.JSX.Element {
     <section className="section">
       <div className="container-custom">
         <div className="text-center mb-16">
-          <h2 className="gradient-text mb-4">Why Choose axionax?</h2>
-          <p className="text-dark-400 text-lg max-w-2xl mx-auto">
-            Built from the ground up to solve real-world problems with
-            cutting-edge technology
+          <h2 className="bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent mb-4">Why Choose Axionax?</h2>
+          <p className="text-starlight/60 text-lg max-w-2xl mx-auto">
+            Built from the ground up for speed, security, and scalability
           </p>
         </div>
 
@@ -154,21 +153,21 @@ export default function Features(): React.JSX.Element {
             <Card
               key={feature.title}
               hover
-              className="animate-fade-in-up"
+              className="animate-fade-in-up group"
               style={
                 { animationDelay: `${index * 100}ms` } as React.CSSProperties
               }
             >
               <CardHeader>
                 <div className="flex items-center gap-4 mb-4">
-                  <div className="p-3 bg-primary-500/10 rounded-lg text-primary-500">
+                  <div className="p-3 bg-gradient-to-br from-amber-500/20 to-yellow-600/10 rounded-xl text-amber-400 group-hover:shadow-lg group-hover:shadow-amber-500/20 transition-all duration-300">
                     {feature.icon}
                   </div>
                 </div>
-                <CardTitle>{feature.title}</CardTitle>
+                <CardTitle className="text-starlight group-hover:text-amber-300 transition-colors">{feature.title}</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-dark-400">{feature.description}</p>
+                <p className="text-starlight/60">{feature.description}</p>
               </CardContent>
             </Card>
           ))}

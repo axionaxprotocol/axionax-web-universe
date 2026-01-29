@@ -44,7 +44,7 @@ export function Web3Provider({
   // Load account and balance
   const loadAccountData = useCallback(async (address: string) => {
     const bal = await getBalance(address);
-    setBalance(bal);
+    setBalance(bal.toString());
   }, []);
 
   // Connect wallet
@@ -59,7 +59,7 @@ export function Web3Provider({
         await loadAccountData(accounts[0]);
 
         const currentChainId = await getCurrentChainId();
-        setChainId(currentChainId);
+        setChainId(currentChainId?.toString() ?? null);
       }
     } catch (err: unknown) {
       console.error('Connection error:', err);
@@ -87,7 +87,7 @@ export function Web3Provider({
         await loadAccountData(currentAccount);
 
         const currentChainId = await getCurrentChainId();
-        setChainId(currentChainId);
+        setChainId(currentChainId?.toString() ?? null);
       }
     };
 

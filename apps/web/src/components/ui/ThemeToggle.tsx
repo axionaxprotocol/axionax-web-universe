@@ -4,21 +4,17 @@ import React from 'react';
 import { useUIStore } from '@/stores/uiStore';
 
 export default function ThemeToggle(): React.JSX.Element {
-  const { theme, setTheme } = useUIStore();
-
-  const toggleTheme = () => {
-    setTheme(theme === 'dark' ? 'light' : 'dark');
-  };
+  const { theme, toggleTheme } = useUIStore();
 
   return (
     <button
       onClick={toggleTheme}
-      className="p-2 rounded-lg bg-dark-800 hover:bg-dark-700 transition-colors"
+      className="relative p-2.5 rounded-full bg-gradient-to-br from-amber-500/10 to-yellow-600/10 border border-amber-500/30 hover:border-amber-500/50 hover:shadow-lg hover:shadow-amber-500/10 transition-all duration-300"
       aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
     >
       {theme === 'dark' ? (
         <svg
-          className="w-5 h-5 text-yellow-400"
+          className="w-5 h-5 text-amber-400"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -32,7 +28,7 @@ export default function ThemeToggle(): React.JSX.Element {
         </svg>
       ) : (
         <svg
-          className="w-5 h-5 text-dark-400"
+          className="w-5 h-5 text-amber-600"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"

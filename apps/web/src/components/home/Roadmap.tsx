@@ -89,36 +89,35 @@ export default function Roadmap(): React.JSX.Element {
     <section className="section">
       <div className="container-custom">
         <div className="text-center mb-16">
-          <h2 className="gradient-text mb-4">Roadmap</h2>
-          <p className="text-dark-400 text-lg max-w-2xl mx-auto">
+          <h2 className="bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent mb-4">Roadmap</h2>
+          <p className="text-starlight/60 text-lg max-w-2xl mx-auto">
             Our journey to building the future of decentralized compute
           </p>
         </div>
 
         <div className="relative">
           {/* Timeline Line */}
-          <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-primary hidden md:block" />
+          <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-amber-500 via-yellow-500 to-amber-600 hidden md:block" />
 
           <div className="space-y-12">
             {roadmapPhases.map((phase, index) => (
               <div
                 key={phase.phase}
-                className={`relative animate-fade-in-up ${
-                  index % 2 === 0 ? 'md:pr-1/2' : 'md:pl-1/2 md:ml-auto'
-                }`}
+                className={`relative animate-fade-in-up ${index % 2 === 0 ? 'md:pr-1/2' : 'md:pl-1/2 md:ml-auto'
+                  }`}
                 style={
                   { animationDelay: `${index * 100}ms` } as React.CSSProperties
                 }
               >
                 {/* Timeline Dot */}
-                <div className="absolute left-0 md:left-1/2 top-6 w-4 h-4 bg-primary-500 rounded-full border-4 border-dark-950 transform md:-translate-x-1/2 hidden md:block" />
+                <div className="absolute left-0 md:left-1/2 top-6 w-4 h-4 bg-gradient-to-r from-amber-400 to-yellow-500 rounded-full border-4 border-deep-space transform md:-translate-x-1/2 hidden md:block shadow-lg shadow-amber-500/30" />
 
                 <div
                   className={`card-hover ${index % 2 === 0 ? 'md:mr-8' : 'md:ml-8'}`}
                 >
                   <div className="flex items-center justify-between mb-4">
                     <div>
-                      <div className="text-sm text-primary-400 font-medium mb-1">
+                      <div className="text-sm text-amber-400 font-medium mb-1">
                         {phase.phase}
                       </div>
                       <h3 className="text-xl font-bold text-white">
@@ -135,13 +134,12 @@ export default function Roadmap(): React.JSX.Element {
                         className="flex items-start gap-3 text-dark-400"
                       >
                         <svg
-                          className={`w-5 h-5 mt-0.5 flex-shrink-0 ${
-                            phase.status === 'completed'
-                              ? 'text-green-400'
-                              : phase.status === 'in-progress'
-                                ? 'text-yellow-400'
-                                : 'text-dark-600'
-                          }`}
+                          className={`w-5 h-5 mt-0.5 flex-shrink-0 ${phase.status === 'completed'
+                            ? 'text-green-400'
+                            : phase.status === 'in-progress'
+                              ? 'text-yellow-400'
+                              : 'text-dark-600'
+                            }`}
                           fill="currentColor"
                           viewBox="0 0 20 20"
                         >

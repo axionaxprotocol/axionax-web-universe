@@ -181,12 +181,12 @@ export default function Statistics(): React.JSX.Element {
   ];
 
   return (
-    <section className="section bg-dark-900/50 border-y border-dark-800">
+    <section className="section bg-gradient-to-b from-transparent via-amber-950/5 to-transparent border-y border-amber-500/10">
       <div className="container-custom">
         <div className="text-center mb-12">
-          <h2 className="gradient-text mb-4">Live Testnet Metrics v1.9.0</h2>
-          <p className="text-dark-400 text-lg">
-            Real-time status from VPS 217.216.109.5 • All Systems Operational
+          <h2 className="bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent mb-4">Live Testnet Metrics</h2>
+          <p className="text-starlight/60 text-lg">
+            Real-time status from our global infrastructure • All Systems Operational
           </p>
         </div>
 
@@ -194,17 +194,17 @@ export default function Statistics(): React.JSX.Element {
           {statItems.map((stat, index) => (
             <div
               key={stat.label}
-              className="card-hover text-center animate-fade-in-up"
+              className="relative p-6 rounded-2xl bg-gradient-to-b from-amber-950/20 to-transparent border border-amber-500/20 hover:border-amber-500/40 transition-all duration-300 text-center animate-fade-in-up group"
               style={{ animationDelay: `${index * 100}ms` }}
             >
-              <div className="flex justify-center mb-4 text-primary-500">
+              <div className="flex justify-center mb-4 text-amber-400 group-hover:scale-110 transition-transform">
                 {stat.icon}
               </div>
-              <div className="text-3xl font-bold gradient-text mb-2">
+              <div className="text-3xl font-bold bg-gradient-to-r from-amber-400 to-yellow-500 bg-clip-text text-transparent mb-2">
                 {stat.value}
               </div>
-              <div className="text-dark-400 mb-1">{stat.label}</div>
-              <div className="text-xs text-dark-500">{stat.subtitle}</div>
+              <div className="text-starlight/80 mb-1">{stat.label}</div>
+              <div className="text-xs text-starlight/50">{stat.subtitle}</div>
             </div>
           ))}
         </div>

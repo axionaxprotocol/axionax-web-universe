@@ -2,8 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Cosmic Black Hole Theme Variables */
-:root {
+/* Dark Theme Variables (Default) */
+:root,
+.dark {
   --font-inter: "Inter", system-ui, -apple-system, sans-serif;
   --font-fira-code: "Fira Code", "Courier New", monospace;
 
@@ -28,6 +29,38 @@
   --nebula: #8b4513;
   --plasma: #cd853f;
   --starlight: #fff8dc;
+
+  /* Theme-specific */
+  --bg-primary: #0a0a0f;
+  --bg-secondary: #12121a;
+  --text-primary: #fff8dc;
+  --text-secondary: rgba(255, 248, 220, 0.7);
+}
+
+/* Light Theme Variables */
+.light {
+  --void: #ffffff;
+  --deep-space: #f8f5f0;
+  --black-hole: #f0ebe3;
+  --space-dust: #e8e0d5;
+
+  /* Gold accents adjusted for light mode */
+  --horizon-orange: #e67e00;
+  --horizon-gold: #d4af00;
+  --horizon-purple: #9a7209;
+  --horizon-blue: #8b7355;
+  --horizon-pink: #b8860b;
+
+  /* Cosmic */
+  --nebula: #6b4423;
+  --plasma: #a0693f;
+  --starlight: #1a1510;
+
+  /* Theme-specific */
+  --bg-primary: #f8f5f0;
+  --bg-secondary: #f0ebe3;
+  --text-primary: #1a1510;
+  --text-secondary: rgba(26, 21, 16, 0.8);
 }
 
 @layer base {
@@ -42,6 +75,17 @@
       radial-gradient(ellipse at bottom left, rgba(255, 140, 0, 0.08) 0%, transparent 50%),
       radial-gradient(ellipse at center, #000000 0%, #0a0a0f 50%, #12121a 100%);
     background-attachment: fixed;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+
+  /* Light mode overrides */
+  .light body {
+    background:
+      radial-gradient(ellipse at top right, rgba(255, 215, 0, 0.12) 0%, transparent 50%),
+      radial-gradient(ellipse at bottom left, rgba(180, 134, 11, 0.08) 0%, transparent 50%),
+      linear-gradient(135deg, #f8f5f0 0%, #f0ebe3 50%, #e8e0d5 100%) !important;
+    background-attachment: fixed;
+    color: #1a1510 !important;
   }
 
   h1,

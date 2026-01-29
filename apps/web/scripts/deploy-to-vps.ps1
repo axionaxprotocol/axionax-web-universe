@@ -29,7 +29,7 @@ Write-Host "Deploy Path: ${DEPLOY_PATH}" -ForegroundColor Yellow
 Write-Host "=" * 70 -ForegroundColor Cyan
 
 # 1. Pre-deployment checks
-Write-Host "`n📋 Step 1/7: Pre-deployment checks..." -ForegroundColor Yellow
+Write-Host "`n📋 Step 1/8: Pre-deployment checks..." -ForegroundColor Yellow
 
 # Check if we're in the correct directory
 if (-not (Test-Path "package.json")) {
@@ -54,6 +54,46 @@ if ($gitStatus) {
 }
 
 Write-Host "✅ Pre-deployment checks passed" -ForegroundColor Green
+
+# 1.5 Check server connectivity BEFORE building
+Write-Host "`n🔍 Step 1.5/8: Checking VPS connectivity..." -ForegroundColor Yellow
+Write-Host "Testing connection to ${VPS_IP}..." -ForegroundColor Cyan
+
+try {
+    # Test SSH connection with timeout
+    $testConnection = Test-Connection -ComputerName $VPS_IP -Count 1 -TimeoutSeconds 5 -ErrorAction Stop
+    Write-Host "✅ VPS is reachable (ping: $($testConnection.Latency)ms)" -ForegroundColor Green
+    
+    # Test SSH port
+    $sshTest = Test-NetConnection -ComputerName $VPS_IP -Port 22 -WarningAction SilentlyContinue
+    if ($sshTest.TcpTestSucceeded) {
+        Write-Host "✅ SSH port 22 is open" -ForegroundColor Green
+    } else {
+        Write-Host "⚠️  Warning: SSH port 22 might be blocked" -ForegroundColor Yellow
+    }
+    
+    # Test HTTP (check if website is running)
+    try {
+        $httpTest = Invoke-WebRequest -Uri "http://${VPS_IP}" -TimeoutSec 5 -UseBasicParsing -ErrorAction SilentlyContinue
+        Write-Host "✅ Current website status: HTTP $($httpTest.StatusCode)" -ForegroundColor Green
+    } catch {
+        Write-Host "ℹ️  Website not responding (may be first deployment)" -ForegroundColor Cyan
+    }
+    
+} catch {
+    Write-Host "❌ Cannot reach VPS at ${VPS_IP}" -ForegroundColor Red
+    Write-Host "   Error: $($_.Exception.Message)" -ForegroundColor Gray
+    Write-Host "`n   Please check:" -ForegroundColor Yellow
+    Write-Host "   1. VPS is powered on" -ForegroundColor White
+    Write-Host "   2. Network/Firewall allows connection" -ForegroundColor White
+    Write-Host "   3. VPS IP is correct: ${VPS_IP}" -ForegroundColor White
+    $response = Read-Host "`nContinue anyway? (y/N)"
+    if ($response -ne "y" -and $response -ne "Y") {
+        Write-Host "❌ Deployment cancelled" -ForegroundColor Red
+        exit 1
+    }
+}
+
 
 # 2. Run tests
 if (-not $SkipTests) {
