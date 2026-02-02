@@ -9,11 +9,11 @@ export default function Hero(): React.JSX.Element {
       {/* Stars background */}
       <div className="stars" />
 
-      {/* Golden Atom Animation */}
+      {/* Golden Atom Animation - scaled down on mobile */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         {/* Outer orbital ring */}
         <div
-          className="absolute w-[600px] h-[600px] rounded-full opacity-30"
+          className="absolute w-[320px] h-[320px] md:w-[500px] md:h-[500px] lg:w-[600px] lg:h-[600px] rounded-full opacity-25 md:opacity-30"
           style={{
             animation: 'spin 30s linear infinite',
             border: '2px solid transparent',
@@ -24,7 +24,7 @@ export default function Hero(): React.JSX.Element {
 
         {/* Middle orbital ring */}
         <div
-          className="absolute w-[450px] h-[450px] rounded-full opacity-40"
+          className="absolute w-[240px] h-[240px] md:w-[380px] md:h-[380px] lg:w-[450px] lg:h-[450px] rounded-full opacity-35 md:opacity-40"
           style={{
             animation: 'spin 20s linear infinite reverse',
             border: '2px solid transparent',
@@ -35,7 +35,7 @@ export default function Hero(): React.JSX.Element {
 
         {/* Inner orbital ring */}
         <div
-          className="absolute w-[300px] h-[300px] rounded-full opacity-50"
+          className="absolute w-[160px] h-[160px] md:w-[260px] md:h-[260px] lg:w-[300px] lg:h-[300px] rounded-full opacity-45 md:opacity-50"
           style={{
             animation: 'spin 15s linear infinite',
             border: '3px solid transparent',
@@ -46,7 +46,7 @@ export default function Hero(): React.JSX.Element {
 
         {/* Golden Atom Core with Logo */}
         <div
-          className="absolute w-[180px] h-[180px] rounded-full flex items-center justify-center"
+          className="absolute w-[100px] h-[100px] md:w-[150px] md:h-[150px] lg:w-[180px] lg:h-[180px] rounded-full flex items-center justify-center"
           style={{
             background:
               'radial-gradient(circle, rgba(255,215,0,0.3) 0%, rgba(255,140,0,0.1) 50%, transparent 70%)',
@@ -57,13 +57,13 @@ export default function Hero(): React.JSX.Element {
           <img
             src="/assets/img/axionax-logo-new.png"
             alt="Axionax Golden Atom"
-            className="w-24 h-24 rounded-full object-cover"
+            className="w-14 h-14 md:w-20 md:h-20 lg:w-24 lg:h-24 rounded-full object-cover"
             style={{ filter: 'drop-shadow(0 0 20px rgba(255,215,0,0.5))' }}
           />
         </div>
 
-        {/* Floating particles */}
-        <div className="absolute w-[700px] h-[700px]">
+        {/* Floating particles - hidden on small screens */}
+        <div className="absolute w-[280px] h-[280px] md:w-[500px] md:h-[500px] lg:w-[700px] lg:h-[700px]">
           {[...Array(12)].map((_, i) => (
             <div
               key={i}
@@ -100,10 +100,9 @@ export default function Hero(): React.JSX.Element {
             </span>
           </div>
 
-          {/* Main Heading */}
-          <h1 className="mb-6 animate-fade-in-up animation-delay-200">
-            <span className="text-starlight">Welcome to the</span>
-            <br />
+          {/* Main Heading - single line on md+ for cleaner look */}
+          <h1 className="mb-6 animate-fade-in-up animation-delay-200 text-balance lg:whitespace-nowrap">
+            <span className="text-starlight">Welcome to the </span>
             <span
               className="bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent"
               style={{ textShadow: '0 0 40px rgba(255,215,0,0.3)' }}

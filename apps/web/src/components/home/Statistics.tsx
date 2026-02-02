@@ -183,11 +183,11 @@ export default function Statistics(): React.JSX.Element {
   return (
     <section className="section bg-gradient-to-b from-transparent via-amber-950/5 to-transparent border-y border-amber-500/10">
       <div className="container-custom">
-        <div className="text-center mb-12">
+        <div className="section-heading">
           <h2 className="bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent mb-4">
             Live Testnet Metrics
           </h2>
-          <p className="text-starlight/60 text-lg">
+          <p className="text-starlight/70 text-lg max-w-2xl mx-auto">
             Real-time status from our global infrastructure • All Systems
             Operational
           </p>
@@ -213,9 +213,9 @@ export default function Statistics(): React.JSX.Element {
         </div>
 
         {/* Service Status Bar */}
-        <div className="mt-12 p-6 rounded-xl bg-dark-900 border border-dark-800">
+        <div className="mt-12 p-6 rounded-xl bg-black-hole/80 border border-horizon-purple/20 backdrop-blur-sm">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-dark-200">
+            <h3 className="text-lg font-semibold text-starlight">
               Service Health
             </h3>
             <span
@@ -228,42 +228,42 @@ export default function Statistics(): React.JSX.Element {
           </div>
           <div className="space-y-3">
             <div className="flex items-center gap-3">
-              <div className="w-full bg-dark-800 rounded-full h-2">
+              <div className="w-full bg-space-dust/50 rounded-full h-2">
                 <div
-                  className={`${stats.services > 0 ? 'bg-green-500' : 'bg-red-500'} h-2 rounded-full`}
+                  className={`${stats.services > 0 ? 'bg-green-500' : 'bg-red-500'} h-2 rounded-full transition-all duration-300`}
                   style={{ width: `${(stats.services / 9) * 100}%` }}
                 ></div>
               </div>
-              <span className="text-sm text-dark-400 whitespace-nowrap">
+              <span className="text-sm text-starlight/70 whitespace-nowrap">
                 {Math.round((stats.services / 9) * 100)}%
               </span>
             </div>
             <div className="flex flex-wrap gap-2 text-xs">
-              <span className="px-2 py-1 bg-green-500/20 text-green-400 rounded">
+              <span className="px-2 py-1 bg-green-500/20 text-green-400 rounded border border-green-500/20">
                 ✅ RPC
               </span>
-              <span className="px-2 py-1 bg-green-500/20 text-green-400 rounded">
+              <span className="px-2 py-1 bg-green-500/20 text-green-400 rounded border border-green-500/20">
                 ✅ PostgreSQL
               </span>
-              <span className="px-2 py-1 bg-green-500/20 text-green-400 rounded">
+              <span className="px-2 py-1 bg-green-500/20 text-green-400 rounded border border-green-500/20">
                 ✅ Redis
               </span>
-              <span className="px-2 py-1 bg-green-500/20 text-green-400 rounded">
+              <span className="px-2 py-1 bg-green-500/20 text-green-400 rounded border border-green-500/20">
                 ✅ Nginx/SSL
               </span>
-              <span className="px-2 py-1 bg-green-500/20 text-green-400 rounded">
+              <span className="px-2 py-1 bg-green-500/20 text-green-400 rounded border border-green-500/20">
                 ✅ Grafana
               </span>
-              <span className="px-2 py-1 bg-green-500/20 text-green-400 rounded">
+              <span className="px-2 py-1 bg-green-500/20 text-green-400 rounded border border-green-500/20">
                 ✅ Prometheus
               </span>
-              <span className="px-2 py-1 bg-green-500/20 text-green-400 rounded">
+              <span className="px-2 py-1 bg-green-500/20 text-green-400 rounded border border-green-500/20">
                 ✅ Web
               </span>
-              <span className="px-2 py-1 bg-green-500/20 text-green-400 rounded">
+              <span className="px-2 py-1 bg-green-500/20 text-green-400 rounded border border-green-500/20">
                 ✅ Explorer API
               </span>
-              <span className="px-2 py-1 bg-green-500/20 text-green-400 rounded">
+              <span className="px-2 py-1 bg-green-500/20 text-green-400 rounded border border-green-500/20">
                 ✅ Faucet API
               </span>
             </div>
@@ -271,9 +271,9 @@ export default function Statistics(): React.JSX.Element {
         </div>
 
         {/* Validator Nodes Status */}
-        <div className="mt-6 p-6 rounded-xl bg-dark-900 border border-dark-800">
+        <div className="mt-6 p-6 rounded-xl bg-black-hole/80 border border-horizon-purple/20 backdrop-blur-sm">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-dark-200">
+            <h3 className="text-lg font-semibold text-starlight">
               Validator Nodes
             </h3>
             <span className="text-sm text-green-400">
@@ -281,31 +281,31 @@ export default function Statistics(): React.JSX.Element {
             </span>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="p-4 bg-dark-800/50 rounded-lg border border-dark-700">
+            <div className="p-4 bg-space-dust/30 rounded-lg border border-horizon-purple/15">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-sm font-medium text-dark-300">
+                <span className="text-sm font-medium text-starlight/90">
                   🇪🇺 Validator EU
                 </span>
-                <span className="px-2 py-0.5 bg-green-500/20 text-green-400 text-xs rounded">
+                <span className="px-2 py-0.5 bg-green-500/20 text-green-400 text-xs rounded border border-green-500/20">
                   Online
                 </span>
               </div>
-              <div className="text-xs text-dark-500 space-y-1">
+              <div className="text-xs text-starlight/50 space-y-1">
                 <div>IP: 217.76.61.116</div>
                 <div>Uptime: 29h+</div>
                 <div>Container: axionax-validator-eu</div>
               </div>
             </div>
-            <div className="p-4 bg-dark-800/50 rounded-lg border border-dark-700">
+            <div className="p-4 bg-space-dust/30 rounded-lg border border-horizon-purple/15">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-sm font-medium text-dark-300">
+                <span className="text-sm font-medium text-starlight/90">
                   🇦🇺 Validator AU
                 </span>
-                <span className="px-2 py-0.5 bg-green-500/20 text-green-400 text-xs rounded">
+                <span className="px-2 py-0.5 bg-green-500/20 text-green-400 text-xs rounded border border-green-500/20">
                   Online
                 </span>
               </div>
-              <div className="text-xs text-dark-500 space-y-1">
+              <div className="text-xs text-starlight/50 space-y-1">
                 <div>IP: 46.250.244.4</div>
                 <div>Uptime: 29h+</div>
                 <div>Container: axionax-validator-au</div>

@@ -134,12 +134,14 @@ export default function QuickAccess(): React.JSX.Element {
   ];
 
   return (
-    <section className="section bg-dark-900/30">
+    <section className="section bg-black-hole/40">
       <div className="container-custom">
-        <div className="text-center mb-12">
-          <h2 className="gradient-text mb-4">Quick Access</h2>
-          <p className="text-dark-400 text-lg max-w-2xl mx-auto">
-            Everything you need to start building on axionax
+        <div className="section-heading">
+          <h2 className="bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent mb-4">
+            Quick Access
+          </h2>
+          <p className="text-starlight/70 text-lg max-w-2xl mx-auto">
+            Everything you need to start building on Axionax
           </p>
         </div>
 
@@ -154,28 +156,28 @@ export default function QuickAccess(): React.JSX.Element {
                   ? 'noopener noreferrer'
                   : undefined
               }
-              className="group p-6 rounded-2xl bg-dark-900/50 border border-dark-800 hover:border-primary-500/50 hover:bg-dark-900 transition-all duration-300"
+              className="group card-cosmic hover:border-horizon-orange/40 hover:shadow-horizon-sm transition-all duration-300"
             >
               <div className="flex items-start justify-between mb-4">
-                <div className="p-3 rounded-xl bg-gradient-to-br from-primary-500/20 to-secondary-500/20 text-primary-400 group-hover:scale-110 transition-transform">
+                <div className="p-3 rounded-xl bg-gradient-to-br from-amber-500/20 to-horizon-purple/20 text-horizon-gold group-hover:scale-110 transition-transform">
                   {service.icon}
                 </div>
-                <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary-500/10 text-primary-400 border border-primary-500/20">
+                <span className="px-3 py-1 text-xs font-medium rounded-full bg-horizon-orange/10 text-horizon-gold border border-horizon-orange/20">
                   {service.badge}
                 </span>
               </div>
-              <h3 className="text-xl font-semibold text-white mb-2 group-hover:text-primary-400 transition-colors">
+              <h3 className="text-xl font-semibold text-starlight mb-2 group-hover:text-horizon-gold transition-colors">
                 {service.title}
               </h3>
-              <p className="text-dark-400 text-sm mb-4">
+              <p className="text-starlight/60 text-sm mb-4">
                 {service.description}
               </p>
               {service.code && (
-                <code className="block p-2 rounded bg-dark-800 text-xs text-dark-300 font-mono truncate">
+                <code className="block p-2 rounded bg-space-dust/50 text-xs text-starlight/80 font-mono truncate border border-horizon-purple/10">
                   {service.code}
                 </code>
               )}
-              <div className="flex items-center text-primary-400 text-sm mt-4 opacity-0 group-hover:opacity-100 transition-opacity">
+              <div className="flex items-center text-horizon-gold text-sm mt-4 opacity-0 group-hover:opacity-100 transition-opacity">
                 <span>Open</span>
                 <svg
                   className="w-4 h-4 ml-1"
@@ -196,26 +198,26 @@ export default function QuickAccess(): React.JSX.Element {
         </div>
 
         {/* Network Config Box */}
-        <div className="mt-12 p-6 rounded-2xl bg-gradient-to-r from-primary-500/10 to-secondary-500/10 border border-primary-500/20">
-          <h3 className="text-xl font-semibold text-white mb-4">
-            🔗 Add axionax Testnet to MetaMask
+        <div className="mt-12 p-6 rounded-2xl bg-gradient-to-r from-horizon-orange/10 to-horizon-purple/10 border border-horizon-purple/20">
+          <h3 className="text-xl font-semibold text-starlight mb-4 flex items-center gap-2">
+            <span>🔗</span> Add Axionax Testnet to MetaMask
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
             <div>
-              <span className="text-dark-400">Network Name:</span>
-              <p className="text-white font-mono">axionax Testnet</p>
+              <span className="text-starlight/60">Network Name:</span>
+              <p className="text-starlight font-mono">Axionax Testnet</p>
             </div>
             <div>
-              <span className="text-dark-400">RPC URL:</span>
-              <p className="text-white font-mono">https://rpc.axionax.org</p>
+              <span className="text-starlight/60">RPC URL:</span>
+              <p className="text-horizon-blue font-mono">https://rpc.axionax.org</p>
             </div>
             <div>
-              <span className="text-dark-400">Chain ID:</span>
-              <p className="text-white font-mono">86137</p>
+              <span className="text-starlight/60">Chain ID:</span>
+              <p className="text-horizon-purple font-mono">86137</p>
             </div>
             <div>
-              <span className="text-dark-400">Currency Symbol:</span>
-              <p className="text-white font-mono">AXX</p>
+              <span className="text-starlight/60">Currency Symbol:</span>
+              <p className="text-horizon-gold font-mono">AXX</p>
             </div>
           </div>
         </div>
