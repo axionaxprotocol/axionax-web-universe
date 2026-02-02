@@ -24,7 +24,7 @@ export interface ImportedWallet {
  */
 export function generateNewWallet(): GeneratedWallet {
   const wallet = ethers.Wallet.createRandom();
-  
+
   return {
     address: wallet.address,
     privateKey: wallet.privateKey,
@@ -36,7 +36,10 @@ export function generateNewWallet(): GeneratedWallet {
 /**
  * Import wallet จาก mnemonic phrase
  */
-export function importFromMnemonic(mnemonic: string, index: number = 0): ImportedWallet {
+export function importFromMnemonic(
+  mnemonic: string,
+  index: number = 0
+): ImportedWallet {
   // Validate mnemonic
   if (!ethers.Mnemonic.isValidMnemonic(mnemonic.trim())) {
     throw new Error('Invalid mnemonic phrase. Please check and try again.');
@@ -107,7 +110,10 @@ export async function decryptWallet(
   password: string
 ): Promise<ImportedWallet> {
   try {
-    const wallet = await ethers.Wallet.fromEncryptedJson(keystoreJson, password);
+    const wallet = await ethers.Wallet.fromEncryptedJson(
+      keystoreJson,
+      password
+    );
     return {
       address: wallet.address,
       privateKey: wallet.privateKey,

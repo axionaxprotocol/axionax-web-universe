@@ -87,7 +87,7 @@ function buildMerkleTree(leaves: { address: string; amount: string }[]): MerkleT
 
   // Build tree layer by layer
   let currentLayer = leafHashes.map(l => l.hash);
-  let previousLayer = leafHashes;
+  const _previousLayer = leafHashes;
 
   while (currentLayer.length > 1) {
     const nextLayer: string[] = [];

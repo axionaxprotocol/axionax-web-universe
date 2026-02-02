@@ -184,9 +184,12 @@ export default function Statistics(): React.JSX.Element {
     <section className="section bg-gradient-to-b from-transparent via-amber-950/5 to-transparent border-y border-amber-500/10">
       <div className="container-custom">
         <div className="text-center mb-12">
-          <h2 className="bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent mb-4">Live Testnet Metrics</h2>
+          <h2 className="bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent mb-4">
+            Live Testnet Metrics
+          </h2>
           <p className="text-starlight/60 text-lg">
-            Real-time status from our global infrastructure • All Systems Operational
+            Real-time status from our global infrastructure • All Systems
+            Operational
           </p>
         </div>
 
@@ -215,8 +218,12 @@ export default function Statistics(): React.JSX.Element {
             <h3 className="text-lg font-semibold text-dark-200">
               Service Health
             </h3>
-            <span className={`text-sm ${stats.services > 0 ? 'text-green-400' : 'text-red-400'}`}>
-              {stats.services > 0 ? '✅ All systems operational' : '❌ Systems degraded'}
+            <span
+              className={`text-sm ${stats.services > 0 ? 'text-green-400' : 'text-red-400'}`}
+            >
+              {stats.services > 0
+                ? '✅ All systems operational'
+                : '❌ Systems degraded'}
             </span>
           </div>
           <div className="space-y-3">

@@ -17,7 +17,8 @@ export default function Hero(): React.JSX.Element {
           style={{
             animation: 'spin 30s linear infinite',
             border: '2px solid transparent',
-            background: 'linear-gradient(#0a0a0f, #0a0a0f) padding-box, linear-gradient(135deg, #ffd700, #ff8c00, #daa520) border-box'
+            background:
+              'linear-gradient(#0a0a0f, #0a0a0f) padding-box, linear-gradient(135deg, #ffd700, #ff8c00, #daa520) border-box',
           }}
         />
 
@@ -27,7 +28,8 @@ export default function Hero(): React.JSX.Element {
           style={{
             animation: 'spin 20s linear infinite reverse',
             border: '2px solid transparent',
-            background: 'linear-gradient(#0a0a0f, #0a0a0f) padding-box, linear-gradient(45deg, #daa520, #ffd700, #ffa500) border-box'
+            background:
+              'linear-gradient(#0a0a0f, #0a0a0f) padding-box, linear-gradient(45deg, #daa520, #ffd700, #ffa500) border-box',
           }}
         />
 
@@ -37,7 +39,8 @@ export default function Hero(): React.JSX.Element {
           style={{
             animation: 'spin 15s linear infinite',
             border: '3px solid transparent',
-            background: 'linear-gradient(#0a0a0f, #0a0a0f) padding-box, linear-gradient(90deg, #ffa500, #ffd700, #ff8c00) border-box'
+            background:
+              'linear-gradient(#0a0a0f, #0a0a0f) padding-box, linear-gradient(90deg, #ffa500, #ffd700, #ff8c00) border-box',
           }}
         />
 
@@ -45,8 +48,10 @@ export default function Hero(): React.JSX.Element {
         <div
           className="absolute w-[180px] h-[180px] rounded-full flex items-center justify-center"
           style={{
-            background: 'radial-gradient(circle, rgba(255,215,0,0.3) 0%, rgba(255,140,0,0.1) 50%, transparent 70%)',
-            boxShadow: '0 0 60px rgba(255,215,0,0.4), 0 0 100px rgba(255,165,0,0.2), inset 0 0 40px rgba(255,215,0,0.1)'
+            background:
+              'radial-gradient(circle, rgba(255,215,0,0.3) 0%, rgba(255,140,0,0.1) 50%, transparent 70%)',
+            boxShadow:
+              '0 0 60px rgba(255,215,0,0.4), 0 0 100px rgba(255,165,0,0.2), inset 0 0 40px rgba(255,215,0,0.1)',
           }}
         >
           <img
@@ -68,7 +73,7 @@ export default function Hero(): React.JSX.Element {
                 left: `${50 + 40 * Math.sin((i * Math.PI * 2) / 12)}%`,
                 animation: `twinkle ${2 + i * 0.2}s ease-in-out infinite`,
                 animationDelay: `${i * 0.15}s`,
-                boxShadow: '0 0 10px rgba(255,215,0,0.6)'
+                boxShadow: '0 0 10px rgba(255,215,0,0.6)',
               }}
             />
           ))}
@@ -76,7 +81,10 @@ export default function Hero(): React.JSX.Element {
 
         {/* Outer glow rings */}
         <div className="absolute w-[200px] h-[200px] rounded-full border border-amber-500/20 animate-pulse" />
-        <div className="absolute w-[240px] h-[240px] rounded-full border border-yellow-500/10 animate-pulse" style={{ animationDelay: '0.5s' }} />
+        <div
+          className="absolute w-[240px] h-[240px] rounded-full border border-yellow-500/10 animate-pulse"
+          style={{ animationDelay: '0.5s' }}
+        />
       </div>
 
       <div className="container-custom relative z-10">
@@ -96,20 +104,24 @@ export default function Hero(): React.JSX.Element {
           <h1 className="mb-6 animate-fade-in-up animation-delay-200">
             <span className="text-starlight">Welcome to the</span>
             <br />
-            <span className="bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent" style={{ textShadow: '0 0 40px rgba(255,215,0,0.3)' }}>Golden Era</span>
+            <span
+              className="bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent"
+              style={{ textShadow: '0 0 40px rgba(255,215,0,0.3)' }}
+            >
+              Golden Era
+            </span>
           </h1>
 
           {/* Description */}
           <p className="text-xl md:text-2xl text-starlight/80 mb-10 max-w-3xl mx-auto animate-fade-in-up animation-delay-400 leading-relaxed">
-            <span className="text-amber-400 font-semibold">Axionax v1.9.0</span> — powered by{' '}
+            <span className="text-amber-400 font-semibold">Axionax v1.9.0</span>{' '}
+            — powered by{' '}
             <span className="text-yellow-500 font-semibold">
               Proof of Probabilistic Checking
             </span>{' '}
             (PoPC) consensus. The next generation Layer-1 with{' '}
-            <span className="text-amber-300 font-medium">
-              45K+ TPS
-            </span>{' '}
-            and sub-second finality.
+            <span className="text-amber-300 font-medium">45K+ TPS</span> and
+            sub-second finality.
           </p>
 
           {/* CTA Buttons */}
@@ -152,50 +164,50 @@ export default function Hero(): React.JSX.Element {
               <div className="text-2xl md:text-3xl font-bold text-horizon-gold mb-2 group-hover:scale-110 transition-transform">
                 86137
               </div>
-              <div className="text-sm text-starlight/60">
-                Chain ID
-              </div>
+              <div className="text-sm text-starlight/60">Chain ID</div>
             </div>
             <div className="card-cosmic text-center p-4 hover:shadow-horizon-sm transition-all duration-300 cursor-default group">
               <div className="text-2xl md:text-3xl font-bold text-horizon-blue mb-2 group-hover:scale-110 transition-transform">
                 2
               </div>
-              <div className="text-sm text-starlight/60">
-                Validators Live
-              </div>
+              <div className="text-sm text-starlight/60">Validators Live</div>
             </div>
             <div className="card-cosmic text-center p-4 hover:shadow-horizon-sm transition-all duration-300 cursor-default group">
               <div className="text-2xl md:text-3xl font-bold text-horizon-orange mb-2 group-hover:scale-110 transition-transform">
                 45K+
               </div>
-              <div className="text-sm text-starlight/60">
-                Target TPS
-              </div>
+              <div className="text-sm text-starlight/60">Target TPS</div>
             </div>
             <div className="card-cosmic text-center p-4 hover:shadow-horizon-sm transition-all duration-300 cursor-default group">
               <div className="text-2xl md:text-3xl font-bold text-horizon-purple mb-2 group-hover:scale-110 transition-transform">
                 &lt;0.5s
               </div>
-              <div className="text-sm text-starlight/60">
-                Finality
-              </div>
+              <div className="text-sm text-starlight/60">Finality</div>
             </div>
           </div>
 
           {/* Network Info */}
           <div className="mt-12 card-cosmic max-w-md mx-auto animate-fade-in-up animation-delay-800">
             <h3 className="text-horizon-gold font-semibold mb-3 flex items-center justify-center gap-2">
-              <img src="/assets/img/axx-token.png" alt="AXX Token" className="w-8 h-8 rounded-full shadow-lg" />
+              <img
+                src="/assets/img/axx-token.png"
+                alt="AXX Token"
+                className="w-8 h-8 rounded-full shadow-lg"
+              />
               Add AXX to MetaMask
             </h3>
             <div className="space-y-2 text-sm text-left">
               <div className="flex justify-between">
                 <span className="text-starlight/60">Network:</span>
-                <span className="text-starlight font-mono">Axionax Testnet</span>
+                <span className="text-starlight font-mono">
+                  Axionax Testnet
+                </span>
               </div>
               <div className="flex justify-between">
                 <span className="text-starlight/60">RPC URL:</span>
-                <span className="text-horizon-blue font-mono text-xs">https://rpc.axionax.org</span>
+                <span className="text-horizon-blue font-mono text-xs">
+                  https://rpc.axionax.org
+                </span>
               </div>
               <div className="flex justify-between">
                 <span className="text-starlight/60">Chain ID:</span>

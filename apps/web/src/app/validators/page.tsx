@@ -17,24 +17,31 @@ interface ValidatorInfo {
   isLeader?: boolean;
 }
 
-const VALIDATORS: Omit<ValidatorInfo, 'status' | 'blockHeight' | 'latency'>[] = [
-  {
-    name: 'AU Validator AU',
-    location: 'Asia-Pacific (Australia)',
-    ip: '46.250.244.4',
-    rpcUrl: '/api/rpc/au',
-    uptime: '99.8%',
-  },
-  {
-    name: 'NL Validator EU',
-    location: 'Europe (Netherlands)',
-    ip: '217.76.61.116',
-    rpcUrl: '/api/rpc/eu',
-    uptime: '99.9%',
-  },
-];
+const VALIDATORS: Omit<ValidatorInfo, 'status' | 'blockHeight' | 'latency'>[] =
+  [
+    {
+      name: 'AU Validator AU',
+      location: 'Asia-Pacific (Australia)',
+      ip: '46.250.244.4',
+      rpcUrl: '/api/rpc/au',
+      uptime: '99.8%',
+    },
+    {
+      name: 'NL Validator EU',
+      location: 'Europe (Netherlands)',
+      ip: '217.76.61.116',
+      rpcUrl: '/api/rpc/eu',
+      uptime: '99.9%',
+    },
+  ];
 
-const checkValidator = async (rpcUrl: string): Promise<{ status: 'online' | 'offline' | 'syncing'; blockHeight: number; latency: number }> => {
+const checkValidator = async (
+  rpcUrl: string
+): Promise<{
+  status: 'online' | 'offline' | 'syncing';
+  blockHeight: number;
+  latency: number;
+}> => {
   const start = Date.now();
   try {
     const response = await fetch(rpcUrl, {
@@ -72,7 +79,17 @@ const fetchAllValidators = async (): Promise<ValidatorInfo[]> => {
 };
 
 // Stat Card Component
-function StatCard({ icon, label, value, sublabel }: { icon: React.ReactNode; label: string; value: string; sublabel?: string }) {
+function StatCard({
+  icon,
+  label,
+  value,
+  sublabel,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  value: string;
+  sublabel?: string;
+}) {
   return (
     <div className="bg-[#1a1a2e] rounded-xl p-5 flex items-center gap-4">
       <div className="text-2xl text-gray-400">{icon}</div>
@@ -94,8 +111,12 @@ function StatusBadge({ status }: { status: 'online' | 'offline' | 'syncing' }) {
   };
 
   return (
-    <span className={`inline-flex items-center gap-2 px-3 py-1 rounded-full border text-sm font-medium ${styles[status]}`}>
-      <span className={`w-2 h-2 rounded-full ${status === 'online' ? 'bg-green-400' : status === 'syncing' ? 'bg-yellow-400' : 'bg-red-400'}`} />
+    <span
+      className={`inline-flex items-center gap-2 px-3 py-1 rounded-full border text-sm font-medium ${styles[status]}`}
+    >
+      <span
+        className={`w-2 h-2 rounded-full ${status === 'online' ? 'bg-green-400' : status === 'syncing' ? 'bg-yellow-400' : 'bg-red-400'}`}
+      />
       {status.charAt(0).toUpperCase() + status.slice(1)}
     </span>
   );
@@ -111,16 +132,23 @@ function LeaderBadge() {
 }
 
 export default function ValidatorsPage(): React.JSX.Element {
-  const { data: validators, isLoading, refetch } = useQuery<ValidatorInfo[]>({
+  const {
+    data: validators,
+    isLoading,
+    refetch,
+  } = useQuery<ValidatorInfo[]>({
     queryKey: ['validators'],
     queryFn: fetchAllValidators,
     refetchInterval: 10000,
   });
 
-  const onlineCount = validators?.filter(v => v.status === 'online').length || 0;
+  const onlineCount =
+    validators?.filter((v) => v.status === 'online').length || 0;
   const totalCount = validators?.length || VALIDATORS.length;
   const avgLatency = Math.round(
-    (validators?.filter(v => v.status === 'online').reduce((acc, v) => acc + v.latency, 0) || 0) / (onlineCount || 1)
+    (validators
+      ?.filter((v) => v.status === 'online')
+      .reduce((acc, v) => acc + v.latency, 0) || 0) / (onlineCount || 1)
   );
   const highestBlock = validators?.[0]?.blockHeight || 0;
 
@@ -135,7 +163,9 @@ export default function ValidatorsPage(): React.JSX.Element {
         {/* Stats Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           <StatCard
-            icon={<span className="w-3 h-3 rounded-full bg-green-400 inline-block" />}
+            icon={
+              <span className="w-3 h-3 rounded-full bg-green-400 inline-block" />
+            }
             label="Online Validators"
             value={`${onlineCount}/${totalCount}`}
           />
@@ -190,10 +220,14 @@ export default function ValidatorsPage(): React.JSX.Element {
                     <div className="flex items-center gap-3">
                       <div>
                         <div className="flex items-center gap-2 mb-1">
-                          <span className="font-semibold text-white">{validator.name}</span>
+                          <span className="font-semibold text-white">
+                            {validator.name}
+                          </span>
                           {validator.isLeader && <LeaderBadge />}
                         </div>
-                        <div className="text-gray-500 text-sm">{validator.location}</div>
+                        <div className="text-gray-500 text-sm">
+                          {validator.location}
+                        </div>
                       </div>
                     </div>
 
@@ -203,26 +237,40 @@ export default function ValidatorsPage(): React.JSX.Element {
 
                       <div>
                         <span className="text-gray-500">Block: </span>
-                        <span className="text-white font-mono">#{validator.blockHeight.toLocaleString()}</span>
+                        <span className="text-white font-mono">
+                          #{validator.blockHeight.toLocaleString()}
+                        </span>
                       </div>
 
                       <div>
                         <span className="text-gray-500">Latency: </span>
-                        <span className={`font-mono ${validator.latency < 200 ? 'text-green-400' :
-                            validator.latency < 500 ? 'text-yellow-400' : 'text-red-400'
-                          }`}>
-                          {validator.status === 'online' ? `${validator.latency}ms` : '-'}
+                        <span
+                          className={`font-mono ${
+                            validator.latency < 200
+                              ? 'text-green-400'
+                              : validator.latency < 500
+                                ? 'text-yellow-400'
+                                : 'text-red-400'
+                          }`}
+                        >
+                          {validator.status === 'online'
+                            ? `${validator.latency}ms`
+                            : '-'}
                         </span>
                       </div>
 
                       <div>
                         <span className="text-gray-500">Uptime: </span>
-                        <span className="text-green-400">{validator.uptime}</span>
+                        <span className="text-green-400">
+                          {validator.uptime}
+                        </span>
                       </div>
 
                       <div>
                         <span className="text-gray-500">RPC: </span>
-                        <span className="text-gray-400 font-mono">{validator.ip}:8545</span>
+                        <span className="text-gray-400 font-mono">
+                          {validator.ip}:8545
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -234,10 +282,12 @@ export default function ValidatorsPage(): React.JSX.Element {
 
         {/* Join Section */}
         <div className="mt-8 bg-gradient-to-r from-orange-500/10 to-purple-500/10 rounded-xl p-6 border border-orange-500/20">
-          <h3 className="font-semibold text-white mb-2">📡 Want to become a validator?</h3>
+          <h3 className="font-semibold text-white mb-2">
+            📡 Want to become a validator?
+          </h3>
           <p className="text-gray-400 text-sm mb-4">
-            Join the Axionax testnet as a Validator, Worker, or RPC Node!
-            Earn rewards for securing the network and processing transactions.
+            Join the Axionax testnet as a Validator, Worker, or RPC Node! Earn
+            rewards for securing the network and processing transactions.
           </p>
           <div className="flex flex-wrap gap-3">
             <a

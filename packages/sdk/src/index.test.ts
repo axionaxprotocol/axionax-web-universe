@@ -1,7 +1,7 @@
 /**
  * Tests for @axionax/sdk
  */
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { describe, it, expect, beforeEach } from 'vitest';
 import {
     createClient,
     EscrowStatus,

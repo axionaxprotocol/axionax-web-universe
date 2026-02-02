@@ -22,10 +22,13 @@ interface AddressAllocation {
 
 export default function GenesisPage() {
   const [snapshots, setSnapshots] = useState<GenesisSnapshot[]>([]);
-  const [selectedSnapshot, setSelectedSnapshot] = useState<GenesisSnapshot | null>(null);
+  const [selectedSnapshot, setSelectedSnapshot] =
+    useState<GenesisSnapshot | null>(null);
   const [allocations, setAllocations] = useState<AddressAllocation[]>([]);
   const [searchAddress, setSearchAddress] = useState('');
-  const [searchResult, setSearchResult] = useState<AddressAllocation | null>(null);
+  const [searchResult, setSearchResult] = useState<AddressAllocation | null>(
+    null
+  );
   const [loading, setLoading] = useState(true);
   const [downloading, setDownloading] = useState(false);
 
@@ -58,7 +61,9 @@ export default function GenesisPage() {
       if (!selectedSnapshot) return;
 
       try {
-        const res = await fetch(`${API_URL}/api/genesis/snapshots/${selectedSnapshot.id}/allocations?limit=20`);
+        const res = await fetch(
+          `${API_URL}/api/genesis/snapshots/${selectedSnapshot.id}/allocations?limit=20`
+        );
         if (res.ok) {
           const data = await res.json();
           setAllocations(data);
@@ -75,7 +80,9 @@ export default function GenesisPage() {
     if (!searchAddress || !selectedSnapshot) return;
 
     try {
-      const res = await fetch(`${API_URL}/api/genesis/snapshots/${selectedSnapshot.id}/allocation/${searchAddress}`);
+      const res = await fetch(
+        `${API_URL}/api/genesis/snapshots/${selectedSnapshot.id}/allocation/${searchAddress}`
+      );
       if (res.ok) {
         const data = await res.json();
         setSearchResult(data);
@@ -94,7 +101,9 @@ export default function GenesisPage() {
 
     setDownloading(true);
     try {
-      const res = await fetch(`${API_URL}/api/genesis/snapshots/${selectedSnapshot.id}/genesis.json`);
+      const res = await fetch(
+        `${API_URL}/api/genesis/snapshots/${selectedSnapshot.id}/genesis.json`
+      );
       if (res.ok) {
         const blob = await res.blob();
         const url = window.URL.createObjectURL(blob);
@@ -145,7 +154,9 @@ export default function GenesisPage() {
         ) : snapshots.length === 0 ? (
           <div className="text-center py-20">
             <div className="text-6xl mb-4">📦</div>
-            <h3 className="text-xl font-semibold text-white mb-2">ยังไม่มี Snapshot</h3>
+            <h3 className="text-xl font-semibold text-white mb-2">
+              ยังไม่มี Snapshot
+            </h3>
             <p className="text-dark-400">
               Genesis snapshot จะถูกสร้างก่อน Mainnet launch
             </p>
@@ -154,7 +165,9 @@ export default function GenesisPage() {
           <div className="space-y-8">
             {/* Snapshot Selector */}
             <div className="bg-dark-900/50 border border-dark-800 rounded-2xl p-6">
-              <h2 className="text-xl font-semibold text-white mb-4">📋 Select Snapshot</h2>
+              <h2 className="text-xl font-semibold text-white mb-4">
+                📋 Select Snapshot
+              </h2>
               <div className="flex flex-wrap gap-2">
                 {snapshots.map((snap) => (
                   <button
@@ -196,9 +209,7 @@ export default function GenesisPage() {
                         กำลังดาวน์โหลด...
                       </>
                     ) : (
-                      <>
-                        📥 Download genesis.json
-                      </>
+                      <>📥 Download genesis.json</>
                     )}
                   </button>
                 </div>
@@ -220,22 +231,32 @@ export default function GenesisPage() {
                     <div className="text-2xl font-bold text-green-400">
                       {formatAmount(selectedSnapshot.totalAllocation)} AXX
                     </div>
-                    <div className="text-sm text-dark-400">Total Allocation</div>
+                    <div className="text-sm text-dark-400">
+                      Total Allocation
+                    </div>
                   </div>
                   <div className="bg-dark-800/50 rounded-xl p-4">
                     <div className="text-xs font-mono text-white break-all">
                       {selectedSnapshot.merkleRoot.slice(0, 20)}...
                     </div>
-                    <div className="text-sm text-dark-400 mt-1">Merkle Root</div>
+                    <div className="text-sm text-dark-400 mt-1">
+                      Merkle Root
+                    </div>
                   </div>
                 </div>
 
                 {/* Full Merkle Root */}
                 <div className="bg-dark-800/50 rounded-xl p-4 mb-6">
                   <div className="flex justify-between items-center mb-2">
-                    <span className="text-sm text-dark-400">Full Merkle Root</span>
+                    <span className="text-sm text-dark-400">
+                      Full Merkle Root
+                    </span>
                     <button
-                      onClick={() => navigator.clipboard.writeText(selectedSnapshot.merkleRoot)}
+                      onClick={() =>
+                        navigator.clipboard.writeText(
+                          selectedSnapshot.merkleRoot
+                        )
+                      }
                       className="text-primary-400 hover:text-primary-300 text-sm"
                     >
                       📋 Copy
@@ -248,7 +269,9 @@ export default function GenesisPage() {
 
                 {/* Search Address */}
                 <div className="bg-dark-800/50 rounded-xl p-4">
-                  <h3 className="text-lg font-semibold text-white mb-4">🔍 Search Address</h3>
+                  <h3 className="text-lg font-semibold text-white mb-4">
+                    🔍 Search Address
+                  </h3>
                   <div className="flex gap-2">
                     <input
                       type="text"
@@ -270,27 +293,39 @@ export default function GenesisPage() {
                       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                         <div>
                           <div className="text-sm text-dark-400">Score</div>
-                          <div className="text-lg font-bold text-white">{searchResult.score}</div>
+                          <div className="text-lg font-bold text-white">
+                            {searchResult.score}
+                          </div>
                         </div>
                         <div>
                           <div className="text-sm text-dark-400">Tier</div>
                           <div className="text-lg font-bold">
-                            {TIER_EMOJIS[searchResult.tier]} {TIER_NAMES[searchResult.tier]}
+                            {TIER_EMOJIS[searchResult.tier]}{' '}
+                            {TIER_NAMES[searchResult.tier]}
                           </div>
                         </div>
                         <div>
-                          <div className="text-sm text-dark-400">Allocation</div>
+                          <div className="text-sm text-dark-400">
+                            Allocation
+                          </div>
                           <div className="text-lg font-bold text-green-400">
                             {formatAmount(searchResult.allocation)} AXX
                           </div>
                         </div>
                         <div>
-                          <div className="text-sm text-dark-400">Merkle Proof</div>
+                          <div className="text-sm text-dark-400">
+                            Merkle Proof
+                          </div>
                           <button
-                            onClick={() => navigator.clipboard.writeText(JSON.stringify(searchResult.merkleProof))}
+                            onClick={() =>
+                              navigator.clipboard.writeText(
+                                JSON.stringify(searchResult.merkleProof)
+                              )
+                            }
                             className="text-primary-400 hover:text-primary-300 text-sm"
                           >
-                            📋 Copy Proof ({searchResult.merkleProof.length} items)
+                            📋 Copy Proof ({searchResult.merkleProof.length}{' '}
+                            items)
                           </button>
                         </div>
                       </div>
@@ -303,21 +338,36 @@ export default function GenesisPage() {
             {/* Top Allocations */}
             {allocations.length > 0 && (
               <div className="bg-dark-900/50 border border-dark-800 rounded-2xl p-6">
-                <h2 className="text-xl font-semibold text-white mb-4">🏆 Top Allocations</h2>
+                <h2 className="text-xl font-semibold text-white mb-4">
+                  🏆 Top Allocations
+                </h2>
                 <div className="overflow-x-auto">
                   <table className="w-full">
                     <thead>
                       <tr className="border-b border-dark-700">
-                        <th className="text-left py-3 px-4 text-dark-400 font-medium">Rank</th>
-                        <th className="text-left py-3 px-4 text-dark-400 font-medium">Address</th>
-                        <th className="text-right py-3 px-4 text-dark-400 font-medium">Score</th>
-                        <th className="text-center py-3 px-4 text-dark-400 font-medium">Tier</th>
-                        <th className="text-right py-3 px-4 text-dark-400 font-medium">Allocation</th>
+                        <th className="text-left py-3 px-4 text-dark-400 font-medium">
+                          Rank
+                        </th>
+                        <th className="text-left py-3 px-4 text-dark-400 font-medium">
+                          Address
+                        </th>
+                        <th className="text-right py-3 px-4 text-dark-400 font-medium">
+                          Score
+                        </th>
+                        <th className="text-center py-3 px-4 text-dark-400 font-medium">
+                          Tier
+                        </th>
+                        <th className="text-right py-3 px-4 text-dark-400 font-medium">
+                          Allocation
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
                       {allocations.map((alloc, idx) => (
-                        <tr key={alloc.address} className="border-b border-dark-800 hover:bg-dark-800/30">
+                        <tr
+                          key={alloc.address}
+                          className="border-b border-dark-800 hover:bg-dark-800/30"
+                        >
                           <td className="py-3 px-4 text-white">#{idx + 1}</td>
                           <td className="py-3 px-4 font-mono text-sm">
                             <a
@@ -329,7 +379,9 @@ export default function GenesisPage() {
                               {formatAddress(alloc.address)}
                             </a>
                           </td>
-                          <td className="py-3 px-4 text-right text-white">{alloc.score.toLocaleString()}</td>
+                          <td className="py-3 px-4 text-right text-white">
+                            {alloc.score.toLocaleString()}
+                          </td>
                           <td className="py-3 px-4 text-center">
                             {TIER_EMOJIS[alloc.tier]} {TIER_NAMES[alloc.tier]}
                           </td>
@@ -349,16 +401,30 @@ export default function GenesisPage() {
               <div className="flex items-start gap-4">
                 <div className="text-3xl">📜</div>
                 <div>
-                  <h3 className="text-lg font-semibold text-blue-400 mb-2">Genesis Block คืออะไร?</h3>
+                  <h3 className="text-lg font-semibold text-blue-400 mb-2">
+                    Genesis Block คืออะไร?
+                  </h3>
                   <p className="text-dark-300 mb-4">
-                    Genesis Block คือ Block แรกของ Mainnet ที่จะบรรจุข้อมูลการจัดสรร Token ให้กับผู้ใช้ Testnet 
-                    โดยใช้ Merkle Tree เพื่อความโปร่งใสและตรวจสอบได้
+                    Genesis Block คือ Block แรกของ Mainnet
+                    ที่จะบรรจุข้อมูลการจัดสรร Token ให้กับผู้ใช้ Testnet โดยใช้
+                    Merkle Tree เพื่อความโปร่งใสและตรวจสอบได้
                   </p>
                   <ul className="text-dark-300 space-y-1 text-sm">
-                    <li>• <strong>Merkle Root</strong> - Hash ที่รวมข้อมูลทั้งหมด ใช้ตรวจสอบความถูกต้อง</li>
-                    <li>• <strong>Merkle Proof</strong> - หลักฐานที่พิสูจน์ว่า address อยู่ใน snapshot</li>
-                    <li>• <strong>Snapshot</strong> - บันทึกสถานะ ณ block ที่กำหนด</li>
-                    <li>• <strong>Finalized</strong> - Snapshot ที่ถูก approve แล้ว จะไม่เปลี่ยนแปลง</li>
+                    <li>
+                      • <strong>Merkle Root</strong> - Hash ที่รวมข้อมูลทั้งหมด
+                      ใช้ตรวจสอบความถูกต้อง
+                    </li>
+                    <li>
+                      • <strong>Merkle Proof</strong> - หลักฐานที่พิสูจน์ว่า
+                      address อยู่ใน snapshot
+                    </li>
+                    <li>
+                      • <strong>Snapshot</strong> - บันทึกสถานะ ณ block ที่กำหนด
+                    </li>
+                    <li>
+                      • <strong>Finalized</strong> - Snapshot ที่ถูก approve
+                      แล้ว จะไม่เปลี่ยนแปลง
+                    </li>
                   </ul>
                 </div>
               </div>

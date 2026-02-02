@@ -142,7 +142,9 @@ export default function Features(): React.JSX.Element {
     <section className="section">
       <div className="container-custom">
         <div className="text-center mb-16">
-          <h2 className="bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent mb-4">Why Choose Axionax?</h2>
+          <h2 className="bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent mb-4">
+            Why Choose Axionax?
+          </h2>
           <p className="text-starlight/60 text-lg max-w-2xl mx-auto">
             Built from the ground up for speed, security, and scalability
           </p>
@@ -164,7 +166,9 @@ export default function Features(): React.JSX.Element {
                     {feature.icon}
                   </div>
                 </div>
-                <CardTitle className="text-starlight group-hover:text-amber-300 transition-colors">{feature.title}</CardTitle>
+                <CardTitle className="text-starlight group-hover:text-amber-300 transition-colors">
+                  {feature.title}
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-starlight/60">{feature.description}</p>

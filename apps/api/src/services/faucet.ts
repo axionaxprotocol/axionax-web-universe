@@ -293,6 +293,8 @@ export async function claimTokens(
     } else {
       // Real transaction mode
       txHash = await walletClient.sendTransaction({
+        account: walletClient.account!,
+        chain: axionaxTestnet,
         to: recipientAddress as Address,
         value: requiredAmount,
       });

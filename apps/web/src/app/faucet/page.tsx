@@ -7,8 +7,6 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import Card, { CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
-import Button from '@/components/ui/Button';
-import Input from '@/components/ui/Input';
 
 interface FaucetResponse {
   success: boolean;
@@ -92,13 +90,16 @@ function FaucetContent(): React.JSX.Element {
       setAddress(''); // Clear input on success
       // Add to recent transactions
       if (data.txHash) {
-        setRecentTxs(prev => [{
-          txHash: data.txHash!,
-          to: address,
-          amount: data.amount || FAUCET_AMOUNT,
-          timestamp: Date.now(),
-          status: 'confirmed'
-        }, ...prev.slice(0, 4)]);
+        setRecentTxs((prev) => [
+          {
+            txHash: data.txHash!,
+            to: address,
+            amount: data.amount || FAUCET_AMOUNT,
+            timestamp: Date.now(),
+            status: 'confirmed',
+          },
+          ...prev.slice(0, 4),
+        ]);
       }
     },
   });
@@ -126,7 +127,7 @@ function FaucetContent(): React.JSX.Element {
     <div className="min-h-screen bg-deep-space relative">
       {/* Stars background */}
       <div className="stars" />
-      
+
       <Navbar />
       <main className="container-custom py-24 relative z-10">
         <div className="max-w-2xl mx-auto">
@@ -135,7 +136,8 @@ function FaucetContent(): React.JSX.Element {
               <span className="text-horizon">💧 Testnet Faucet</span>
             </h1>
             <p className="text-starlight/70 text-lg">
-              Get free testnet <span className="text-horizon-gold">AXX</span> tokens for development and testing
+              Get free testnet <span className="text-horizon-gold">AXX</span>{' '}
+              tokens for development and testing
             </p>
           </div>
 
@@ -144,14 +146,21 @@ function FaucetContent(): React.JSX.Element {
             <CardContent className="py-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-starlight/50 text-sm mb-1">🏦 Faucet Balance</p>
+                  <p className="text-starlight/50 text-sm mb-1">
+                    🏦 Faucet Balance
+                  </p>
                   <p className="text-3xl font-bold text-horizon-gold">
-                    {isLoadingInfo ? '...' : formatBalance(faucetInfo?.balance || '0')} AXX
+                    {isLoadingInfo
+                      ? '...'
+                      : formatBalance(faucetInfo?.balance || '0')}{' '}
+                    AXX
                   </p>
                 </div>
                 <div className="text-right">
                   <p className="text-starlight/50 text-sm mb-1">Per Request</p>
-                  <p className="text-2xl font-bold text-horizon-orange">{FAUCET_AMOUNT} AXX</p>
+                  <p className="text-2xl font-bold text-horizon-orange">
+                    {FAUCET_AMOUNT} AXX
+                  </p>
                 </div>
               </div>
             </CardContent>
@@ -159,7 +168,9 @@ function FaucetContent(): React.JSX.Element {
 
           <div className="card-cosmic mb-6">
             <CardHeader>
-              <CardTitle className="text-horizon-blue">🚀 Claim Testnet Tokens</CardTitle>
+              <CardTitle className="text-horizon-blue">
+                🚀 Claim Testnet Tokens
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
@@ -168,8 +179,12 @@ function FaucetContent(): React.JSX.Element {
                   <div className="p-4 rounded-lg bg-primary-500/10 border border-primary-500/30 mb-4">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-white font-medium">ยังไม่มี Wallet?</p>
-                        <p className="text-sm text-dark-400">สร้าง wallet ใหม่ฟรี!</p>
+                        <p className="text-white font-medium">
+                          ยังไม่มี Wallet?
+                        </p>
+                        <p className="text-sm text-dark-400">
+                          สร้าง wallet ใหม่ฟรี!
+                        </p>
                       </div>
                       <Link
                         href="/wallet"
@@ -180,7 +195,7 @@ function FaucetContent(): React.JSX.Element {
                     </div>
                   </div>
                 )}
-                
+
                 <div>
                   <label className="block text-sm font-medium text-starlight/70 mb-2">
                     Your Wallet Address
@@ -203,7 +218,9 @@ function FaucetContent(): React.JSX.Element {
                 <button
                   className="btn-horizon w-full text-lg"
                   onClick={handleClaim}
-                  disabled={mutation.isPending || !address || !isValidAddress(address)}
+                  disabled={
+                    mutation.isPending || !address || !isValidAddress(address)
+                  }
                 >
                   {mutation.isPending
                     ? '⏳ Processing...'
@@ -240,14 +257,21 @@ function FaucetContent(): React.JSX.Element {
           {recentTxs.length > 0 && (
             <div className="card-cosmic mb-6">
               <CardHeader>
-                <CardTitle className="text-horizon-purple">📋 Recent Transactions</CardTitle>
+                <CardTitle className="text-horizon-purple">
+                  📋 Recent Transactions
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
                   {recentTxs.map((tx, i) => (
-                    <div key={i} className="flex items-center justify-between p-3 bg-void rounded-lg border border-horizon-purple/20 hover:border-horizon-orange/30 transition-all">
+                    <div
+                      key={i}
+                      className="flex items-center justify-between p-3 bg-void rounded-lg border border-horizon-purple/20 hover:border-horizon-orange/30 transition-all"
+                    >
                       <div className="flex items-center gap-3">
-                        <div className={`w-2 h-2 rounded-full ${tx.status === 'confirmed' ? 'bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.5)]' : 'bg-horizon-gold animate-pulse'}`} />
+                        <div
+                          className={`w-2 h-2 rounded-full ${tx.status === 'confirmed' ? 'bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.5)]' : 'bg-horizon-gold animate-pulse'}`}
+                        />
                         <div>
                           <p className="text-sm font-mono text-starlight/70">
                             {tx.to.slice(0, 10)}...{tx.to.slice(-8)}
@@ -258,7 +282,9 @@ function FaucetContent(): React.JSX.Element {
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className="text-sm font-bold text-horizon-gold">+{tx.amount} AXX</p>
+                        <p className="text-sm font-bold text-horizon-gold">
+                          +{tx.amount} AXX
+                        </p>
                         <a
                           href={`https://explorer.axionax.org/tx/${tx.txHash}`}
                           target="_blank"
@@ -277,7 +303,9 @@ function FaucetContent(): React.JSX.Element {
 
           <div className="card-cosmic">
             <CardHeader>
-              <CardTitle className="text-horizon">📚 Faucet Information</CardTitle>
+              <CardTitle className="text-horizon">
+                📚 Faucet Information
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4 text-starlight/60">
@@ -291,8 +319,8 @@ function FaucetContent(): React.JSX.Element {
                 <div className="flex items-start gap-3">
                   <div className="text-horizon-purple mt-1">⏰</div>
                   <div>
-                    <strong className="text-starlight">Cooldown:</strong> 24 hours
-                    between requests per address
+                    <strong className="text-starlight">Cooldown:</strong> 24
+                    hours between requests per address
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
@@ -305,13 +333,15 @@ function FaucetContent(): React.JSX.Element {
                 <div className="flex items-start gap-3">
                   <div className="text-horizon-pink mt-1">⚡</div>
                   <div>
-                    <strong className="text-starlight">Staking:</strong> ใช้ tokens นี้ทดสอบ staking เป็น Validator/Worker
+                    <strong className="text-starlight">Staking:</strong> ใช้
+                    tokens นี้ทดสอบ staking เป็น Validator/Worker
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <div className="text-green-500 mt-1">✨</div>
                   <div>
-                    <strong className="text-starlight">Mode:</strong> Simulation - Claims บันทึกไว้และจะถูก allocate เมื่อ Mainnet เปิด
+                    <strong className="text-starlight">Mode:</strong> Simulation
+                    - Claims บันทึกไว้และจะถูก allocate เมื่อ Mainnet เปิด
                   </div>
                 </div>
               </div>

@@ -49,11 +49,15 @@ const NODE_REQUIREMENTS: Record<NodeType, NodeRequirements> = {
   },
 };
 
-const NODE_DESCRIPTIONS: Record<NodeType, { title: string; description: string; icon: string; benefits: string[] }> = {
+const NODE_DESCRIPTIONS: Record<
+  NodeType,
+  { title: string; description: string; icon: string; benefits: string[] }
+> = {
   validator: {
     title: 'Validator Node',
     icon: '🛡️',
-    description: 'ตรวจสอบและยืนยัน transactions, สร้าง blocks ใหม่ และรักษาความปลอดภัยของเครือข่าย',
+    description:
+      'ตรวจสอบและยืนยัน transactions, สร้าง blocks ใหม่ และรักษาความปลอดภัยของเครือข่าย',
     benefits: [
       'รับ Block Rewards จากการสร้าง blocks',
       'รับส่วนแบ่งจาก Transaction Fees',
@@ -64,7 +68,8 @@ const NODE_DESCRIPTIONS: Record<NodeType, { title: string; description: string; 
   worker: {
     title: 'Worker Node',
     icon: '⚙️',
-    description: 'ประมวลผล computations พิเศษ, ช่วยในการ indexing และ data processing',
+    description:
+      'ประมวลผล computations พิเศษ, ช่วยในการ indexing และ data processing',
     benefits: [
       'รับ Rewards จากการประมวลผลงาน',
       'ใช้ hardware requirement ต่ำกว่า Validator',
@@ -129,7 +134,12 @@ export default function JoinNetworkPage() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {(Object.entries(NODE_DESCRIPTIONS) as [NodeType, typeof NODE_DESCRIPTIONS['validator']][]).map(([type, info]) => (
+        {(
+          Object.entries(NODE_DESCRIPTIONS) as [
+            NodeType,
+            (typeof NODE_DESCRIPTIONS)['validator'],
+          ][]
+        ).map(([type, info]) => (
           <button
             key={type}
             onClick={() => handleNodeSelect(type)}
@@ -142,14 +152,19 @@ export default function JoinNetworkPage() {
             <p className="text-dark-400 text-sm mb-4">{info.description}</p>
             <div className="space-y-1">
               {info.benefits.slice(0, 3).map((benefit, i) => (
-                <div key={i} className="text-xs text-dark-500 flex items-center gap-1">
+                <div
+                  key={i}
+                  className="text-xs text-dark-500 flex items-center gap-1"
+                >
                   <span className="text-green-400">✓</span> {benefit}
                 </div>
               ))}
             </div>
             <div className="mt-4 pt-4 border-t border-dark-700">
               <div className="text-xs text-dark-500">Minimum Stake</div>
-              <div className="text-primary-400 font-semibold">{NODE_REQUIREMENTS[type].stake}</div>
+              <div className="text-primary-400 font-semibold">
+                {NODE_REQUIREMENTS[type].stake}
+              </div>
             </div>
           </button>
         ))}
@@ -175,14 +190,18 @@ export default function JoinNetworkPage() {
             <h2 className="text-3xl font-bold text-white flex items-center gap-3">
               {info.icon} {info.title}
             </h2>
-            <p className="text-dark-400">ตรวจสอบ requirements ก่อนเริ่มติดตั้ง</p>
+            <p className="text-dark-400">
+              ตรวจสอบ requirements ก่อนเริ่มติดตั้ง
+            </p>
           </div>
         </div>
 
         {/* Requirements Table */}
         <div className="bg-dark-900/50 border border-dark-800 rounded-2xl overflow-hidden">
           <div className="p-4 border-b border-dark-800">
-            <h3 className="text-lg font-semibold text-white">📋 System Requirements</h3>
+            <h3 className="text-lg font-semibold text-white">
+              📋 System Requirements
+            </h3>
           </div>
           <div className="divide-y divide-dark-800">
             {[
@@ -212,7 +231,11 @@ export default function JoinNetworkPage() {
                 <div className="text-white font-medium">Public IP</div>
               </div>
               <div className="flex-1 text-center">
-                <span className={requirements.publicIp ? 'text-amber-400' : 'text-green-400'}>
+                <span
+                  className={
+                    requirements.publicIp ? 'text-amber-400' : 'text-green-400'
+                  }
+                >
                   {requirements.publicIp ? 'จำเป็น' : 'ไม่จำเป็น'}
                 </span>
               </div>
@@ -227,7 +250,9 @@ export default function JoinNetworkPage() {
               </div>
               <div className="flex-1 text-center" />
               <div className="flex-1 text-center">
-                <div className="text-primary-400 font-bold">{requirements.stake}</div>
+                <div className="text-primary-400 font-bold">
+                  {requirements.stake}
+                </div>
               </div>
             </div>
           </div>
@@ -235,7 +260,9 @@ export default function JoinNetworkPage() {
 
         {/* Benefits */}
         <div className="bg-green-500/10 border border-green-500/30 rounded-2xl p-6">
-          <h3 className="text-lg font-semibold text-green-400 mb-4">✨ Benefits</h3>
+          <h3 className="text-lg font-semibold text-green-400 mb-4">
+            ✨ Benefits
+          </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {info.benefits.map((benefit, i) => (
               <div key={i} className="flex items-center gap-2 text-dark-300">
@@ -332,17 +359,25 @@ sudo nginx -t && sudo systemctl reload nginx`,
             ← กลับ
           </button>
           <div>
-            <h2 className="text-3xl font-bold text-white">🔧 Setup Instructions</h2>
-            <p className="text-dark-400">ทำตามขั้นตอนเพื่อติดตั้ง {NODE_DESCRIPTIONS[nodeType].title}</p>
+            <h2 className="text-3xl font-bold text-white">
+              🔧 Setup Instructions
+            </h2>
+            <p className="text-dark-400">
+              ทำตามขั้นตอนเพื่อติดตั้ง {NODE_DESCRIPTIONS[nodeType].title}
+            </p>
           </div>
         </div>
 
         {/* Quick Setup */}
         <div className="bg-dark-900/50 border border-dark-800 rounded-2xl overflow-hidden">
           <div className="flex items-center justify-between p-4 border-b border-dark-800">
-            <h3 className="text-lg font-semibold text-white">📜 Setup Commands</h3>
+            <h3 className="text-lg font-semibold text-white">
+              📜 Setup Commands
+            </h3>
             <button
-              onClick={() => copyToClipboard(setupCommands[nodeType], 'commands')}
+              onClick={() =>
+                copyToClipboard(setupCommands[nodeType], 'commands')
+              }
               className="px-4 py-2 bg-dark-700 hover:bg-dark-600 rounded-lg text-sm text-white transition-colors"
             >
               {copied === 'commands' ? '✅ Copied!' : '📋 Copy All'}
@@ -355,12 +390,18 @@ sudo nginx -t && sudo systemctl reload nginx`,
 
         {/* Configuration Files */}
         <div className="bg-dark-900/50 border border-dark-800 rounded-2xl p-6">
-          <h3 className="text-lg font-semibold text-white mb-4">⚙️ Configuration</h3>
+          <h3 className="text-lg font-semibold text-white mb-4">
+            ⚙️ Configuration
+          </h3>
           <div className="space-y-4">
             <div>
-              <label className="block text-sm text-dark-400 mb-2">Chain ID</label>
+              <label className="block text-sm text-dark-400 mb-2">
+                Chain ID
+              </label>
               <div className="flex items-center gap-2">
-                <code className="flex-1 bg-dark-800 rounded-lg px-4 py-3 font-mono text-white">86137</code>
+                <code className="flex-1 bg-dark-800 rounded-lg px-4 py-3 font-mono text-white">
+                  86137
+                </code>
                 <button
                   onClick={() => copyToClipboard('86137', 'chainId')}
                   className="px-3 py-3 bg-dark-700 hover:bg-dark-600 rounded-lg text-sm"
@@ -370,13 +411,20 @@ sudo nginx -t && sudo systemctl reload nginx`,
               </div>
             </div>
             <div>
-              <label className="block text-sm text-dark-400 mb-2">Bootnode (P2P)</label>
+              <label className="block text-sm text-dark-400 mb-2">
+                Bootnode (P2P)
+              </label>
               <div className="flex items-center gap-2">
                 <code className="flex-1 bg-dark-800 rounded-lg px-4 py-3 font-mono text-xs text-white overflow-x-auto">
                   enode://abc123...@217.76.61.116:30303
                 </code>
                 <button
-                  onClick={() => copyToClipboard('enode://abc123...@217.76.61.116:30303', 'bootnode')}
+                  onClick={() =>
+                    copyToClipboard(
+                      'enode://abc123...@217.76.61.116:30303',
+                      'bootnode'
+                    )
+                  }
                   className="px-3 py-3 bg-dark-700 hover:bg-dark-600 rounded-lg text-sm"
                 >
                   {copied === 'bootnode' ? '✅' : '📋'}
@@ -384,13 +432,17 @@ sudo nginx -t && sudo systemctl reload nginx`,
               </div>
             </div>
             <div>
-              <label className="block text-sm text-dark-400 mb-2">RPC Endpoint</label>
+              <label className="block text-sm text-dark-400 mb-2">
+                RPC Endpoint
+              </label>
               <div className="flex items-center gap-2">
                 <code className="flex-1 bg-dark-800 rounded-lg px-4 py-3 font-mono text-white">
                   https://testnet-rpc.axionax.org
                 </code>
                 <button
-                  onClick={() => copyToClipboard('https://testnet-rpc.axionax.org', 'rpc')}
+                  onClick={() =>
+                    copyToClipboard('https://testnet-rpc.axionax.org', 'rpc')
+                  }
                   className="px-3 py-3 bg-dark-700 hover:bg-dark-600 rounded-lg text-sm"
                 >
                   {copied === 'rpc' ? '✅' : '📋'}
@@ -402,7 +454,9 @@ sudo nginx -t && sudo systemctl reload nginx`,
 
         {/* Important Notes */}
         <div className="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-6">
-          <h3 className="text-lg font-semibold text-amber-400 mb-3">⚠️ Important Notes</h3>
+          <h3 className="text-lg font-semibold text-amber-400 mb-3">
+            ⚠️ Important Notes
+          </h3>
           <ul className="space-y-2 text-dark-300 text-sm">
             <li className="flex items-start gap-2">
               <span className="text-amber-400">•</span>
@@ -455,82 +509,117 @@ sudo nginx -t && sudo systemctl reload nginx`,
         </div>
 
         <div className="bg-dark-900/50 border border-dark-800 rounded-2xl p-6">
-          <form className="space-y-6" onSubmit={(e) => { e.preventDefault(); handleSubmit(); }}>
+          <form
+            className="space-y-6"
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleSubmit();
+            }}
+          >
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm text-dark-400 mb-2">Node Name *</label>
+                <label className="block text-sm text-dark-400 mb-2">
+                  Node Name *
+                </label>
                 <input
                   type="text"
                   value={formData.nodeName}
-                  onChange={(e) => setFormData({ ...formData, nodeName: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, nodeName: e.target.value })
+                  }
                   placeholder="My Validator Node"
                   required
                   className="w-full bg-dark-800 border border-dark-700 rounded-lg px-4 py-3 text-white placeholder-dark-500 focus:border-primary-500 focus:outline-none"
                 />
               </div>
               <div>
-                <label className="block text-sm text-dark-400 mb-2">Operator Name *</label>
+                <label className="block text-sm text-dark-400 mb-2">
+                  Operator Name *
+                </label>
                 <input
                   type="text"
                   value={formData.operatorName}
-                  onChange={(e) => setFormData({ ...formData, operatorName: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, operatorName: e.target.value })
+                  }
                   placeholder="John Doe"
                   required
                   className="w-full bg-dark-800 border border-dark-700 rounded-lg px-4 py-3 text-white placeholder-dark-500 focus:border-primary-500 focus:outline-none"
                 />
               </div>
               <div>
-                <label className="block text-sm text-dark-400 mb-2">Email *</label>
+                <label className="block text-sm text-dark-400 mb-2">
+                  Email *
+                </label>
                 <input
                   type="email"
                   value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
                   placeholder="operator@example.com"
                   required
                   className="w-full bg-dark-800 border border-dark-700 rounded-lg px-4 py-3 text-white placeholder-dark-500 focus:border-primary-500 focus:outline-none"
                 />
               </div>
               <div>
-                <label className="block text-sm text-dark-400 mb-2">Website (optional)</label>
+                <label className="block text-sm text-dark-400 mb-2">
+                  Website (optional)
+                </label>
                 <input
                   type="url"
                   value={formData.website}
-                  onChange={(e) => setFormData({ ...formData, website: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, website: e.target.value })
+                  }
                   placeholder="https://..."
                   className="w-full bg-dark-800 border border-dark-700 rounded-lg px-4 py-3 text-white placeholder-dark-500 focus:border-primary-500 focus:outline-none"
                 />
               </div>
               <div className="md:col-span-2">
-                <label className="block text-sm text-dark-400 mb-2">Wallet Address *</label>
+                <label className="block text-sm text-dark-400 mb-2">
+                  Wallet Address *
+                </label>
                 <input
                   type="text"
                   value={formData.walletAddress}
-                  onChange={(e) => setFormData({ ...formData, walletAddress: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, walletAddress: e.target.value })
+                  }
                   placeholder="0x..."
                   required
                   pattern="^0x[a-fA-F0-9]{40}$"
                   className="w-full bg-dark-800 border border-dark-700 rounded-lg px-4 py-3 text-white placeholder-dark-500 focus:border-primary-500 focus:outline-none font-mono"
                 />
                 <p className="text-xs text-dark-500 mt-1">
-                  Address นี้จะใช้รับ rewards และต้องมี stake {NODE_REQUIREMENTS[nodeType].stake}
+                  Address นี้จะใช้รับ rewards และต้องมี stake{' '}
+                  {NODE_REQUIREMENTS[nodeType].stake}
                 </p>
               </div>
               <div>
-                <label className="block text-sm text-dark-400 mb-2">Server IP *</label>
+                <label className="block text-sm text-dark-400 mb-2">
+                  Server IP *
+                </label>
                 <input
                   type="text"
                   value={formData.serverIp}
-                  onChange={(e) => setFormData({ ...formData, serverIp: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, serverIp: e.target.value })
+                  }
                   placeholder="123.456.789.0"
                   required
                   className="w-full bg-dark-800 border border-dark-700 rounded-lg px-4 py-3 text-white placeholder-dark-500 focus:border-primary-500 focus:outline-none font-mono"
                 />
               </div>
               <div>
-                <label className="block text-sm text-dark-400 mb-2">Location</label>
+                <label className="block text-sm text-dark-400 mb-2">
+                  Location
+                </label>
                 <select
                   value={formData.location}
-                  onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, location: e.target.value })
+                  }
                   className="w-full bg-dark-800 border border-dark-700 rounded-lg px-4 py-3 text-white focus:border-primary-500 focus:outline-none"
                 >
                   <option value="">-- เลือก Region --</option>
@@ -545,21 +634,29 @@ sudo nginx -t && sudo systemctl reload nginx`,
                 </select>
               </div>
               <div>
-                <label className="block text-sm text-dark-400 mb-2">RPC Port</label>
+                <label className="block text-sm text-dark-400 mb-2">
+                  RPC Port
+                </label>
                 <input
                   type="text"
                   value={formData.rpcPort}
-                  onChange={(e) => setFormData({ ...formData, rpcPort: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, rpcPort: e.target.value })
+                  }
                   placeholder="8545"
                   className="w-full bg-dark-800 border border-dark-700 rounded-lg px-4 py-3 text-white placeholder-dark-500 focus:border-primary-500 focus:outline-none font-mono"
                 />
               </div>
               <div>
-                <label className="block text-sm text-dark-400 mb-2">P2P Port</label>
+                <label className="block text-sm text-dark-400 mb-2">
+                  P2P Port
+                </label>
                 <input
                   type="text"
                   value={formData.p2pPort}
-                  onChange={(e) => setFormData({ ...formData, p2pPort: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, p2pPort: e.target.value })
+                  }
                   placeholder="30303"
                   className="w-full bg-dark-800 border border-dark-700 rounded-lg px-4 py-3 text-white placeholder-dark-500 focus:border-primary-500 focus:outline-none font-mono"
                 />
@@ -571,16 +668,22 @@ sudo nginx -t && sudo systemctl reload nginx`,
               <input
                 type="checkbox"
                 checked={formData.acceptedTerms}
-                onChange={(e) => setFormData({ ...formData, acceptedTerms: e.target.checked })}
+                onChange={(e) =>
+                  setFormData({ ...formData, acceptedTerms: e.target.checked })
+                }
                 required
                 className="mt-1 w-5 h-5 rounded border-dark-600 bg-dark-700 text-primary-500 focus:ring-primary-500"
               />
               <span className="text-sm text-dark-300">
                 ฉันยอมรับ{' '}
-                <Link href="/docs" className="text-primary-400 hover:text-primary-300">
+                <Link
+                  href="/docs"
+                  className="text-primary-400 hover:text-primary-300"
+                >
                   Terms of Service
                 </Link>{' '}
-                และตกลงที่จะปฏิบัติตาม network rules รวมถึงรักษา uptime อย่างน้อย 95%
+                และตกลงที่จะปฏิบัติตาม network rules รวมถึงรักษา uptime
+                อย่างน้อย 95%
               </span>
             </label>
 
@@ -604,37 +707,53 @@ sudo nginx -t && sudo systemctl reload nginx`,
       <div className="space-y-8">
         <div className="text-center py-8">
           <div className="text-6xl mb-4">🎉</div>
-          <h2 className="text-3xl font-bold text-white mb-2">ลงทะเบียนสำเร็จ!</h2>
+          <h2 className="text-3xl font-bold text-white mb-2">
+            ลงทะเบียนสำเร็จ!
+          </h2>
           <p className="text-dark-400">
             {NODE_DESCRIPTIONS[nodeType].title} ของคุณกำลังรอการ verify
           </p>
         </div>
 
         <div className="bg-green-500/10 border border-green-500/30 rounded-2xl p-6">
-          <h3 className="text-lg font-semibold text-green-400 mb-4">✅ ขั้นตอนถัดไป</h3>
+          <h3 className="text-lg font-semibold text-green-400 mb-4">
+            ✅ ขั้นตอนถัดไป
+          </h3>
           <ol className="space-y-3 text-dark-300">
             <li className="flex items-start gap-3">
-              <span className="w-6 h-6 bg-green-500/20 rounded-full flex items-center justify-center text-green-400 text-sm shrink-0">1</span>
+              <span className="w-6 h-6 bg-green-500/20 rounded-full flex items-center justify-center text-green-400 text-sm shrink-0">
+                1
+              </span>
               <div>
-                <strong>ตรวจสอบ Email</strong> - เราจะส่งลิงก์ยืนยันไปที่ {formData.email}
+                <strong>ตรวจสอบ Email</strong> - เราจะส่งลิงก์ยืนยันไปที่{' '}
+                {formData.email}
               </div>
             </li>
             <li className="flex items-start gap-3">
-              <span className="w-6 h-6 bg-green-500/20 rounded-full flex items-center justify-center text-green-400 text-sm shrink-0">2</span>
+              <span className="w-6 h-6 bg-green-500/20 rounded-full flex items-center justify-center text-green-400 text-sm shrink-0">
+                2
+              </span>
               <div>
-                <strong>Stake Tokens</strong> - โอน {NODE_REQUIREMENTS[nodeType].stake} ไปยัง Staking Contract
+                <strong>Stake Tokens</strong> - โอน{' '}
+                {NODE_REQUIREMENTS[nodeType].stake} ไปยัง Staking Contract
               </div>
             </li>
             <li className="flex items-start gap-3">
-              <span className="w-6 h-6 bg-green-500/20 rounded-full flex items-center justify-center text-green-400 text-sm shrink-0">3</span>
+              <span className="w-6 h-6 bg-green-500/20 rounded-full flex items-center justify-center text-green-400 text-sm shrink-0">
+                3
+              </span>
               <div>
-                <strong>Node Verification</strong> - ทีมงานจะตรวจสอบ connectivity ของ node
+                <strong>Node Verification</strong> - ทีมงานจะตรวจสอบ
+                connectivity ของ node
               </div>
             </li>
             <li className="flex items-start gap-3">
-              <span className="w-6 h-6 bg-green-500/20 rounded-full flex items-center justify-center text-green-400 text-sm shrink-0">4</span>
+              <span className="w-6 h-6 bg-green-500/20 rounded-full flex items-center justify-center text-green-400 text-sm shrink-0">
+                4
+              </span>
               <div>
-                <strong>เริ่มรับ Rewards</strong> - เมื่อ verify สำเร็จ node จะเริ่มทำงานและรับ rewards
+                <strong>เริ่มรับ Rewards</strong> - เมื่อ verify สำเร็จ node
+                จะเริ่มทำงานและรับ rewards
               </div>
             </li>
           </ol>
@@ -642,7 +761,9 @@ sudo nginx -t && sudo systemctl reload nginx`,
 
         {/* Node Info Summary */}
         <div className="bg-dark-900/50 border border-dark-800 rounded-2xl p-6">
-          <h3 className="text-lg font-semibold text-white mb-4">📋 ข้อมูล Node</h3>
+          <h3 className="text-lg font-semibold text-white mb-4">
+            📋 ข้อมูล Node
+          </h3>
           <div className="grid grid-cols-2 gap-4 text-sm">
             <div>
               <span className="text-dark-400">Node Name:</span>
@@ -650,19 +771,27 @@ sudo nginx -t && sudo systemctl reload nginx`,
             </div>
             <div>
               <span className="text-dark-400">Type:</span>
-              <span className="ml-2 text-white">{NODE_DESCRIPTIONS[nodeType].title}</span>
+              <span className="ml-2 text-white">
+                {NODE_DESCRIPTIONS[nodeType].title}
+              </span>
             </div>
             <div>
               <span className="text-dark-400">Server IP:</span>
-              <span className="ml-2 text-white font-mono">{formData.serverIp}</span>
+              <span className="ml-2 text-white font-mono">
+                {formData.serverIp}
+              </span>
             </div>
             <div>
               <span className="text-dark-400">Location:</span>
-              <span className="ml-2 text-white">{formData.location || 'Not specified'}</span>
+              <span className="ml-2 text-white">
+                {formData.location || 'Not specified'}
+              </span>
             </div>
             <div className="col-span-2">
               <span className="text-dark-400">Wallet:</span>
-              <span className="ml-2 text-white font-mono text-xs">{formData.walletAddress}</span>
+              <span className="ml-2 text-white font-mono text-xs">
+                {formData.walletAddress}
+              </span>
             </div>
           </div>
         </div>
@@ -692,88 +821,113 @@ sudo nginx -t && sudo systemctl reload nginx`,
       <main className="pt-24 pb-16">
         <div className="container mx-auto px-4 max-w-4xl">
           {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            🚀 Join Axionax Network
-          </h1>
-          <p className="text-xl text-dark-400 max-w-2xl mx-auto">
-            เป็นส่วนหนึ่งของ Axionax Testnet ในฐานะ Validator, Worker หรือ RPC Node
-          </p>
-        </div>
+          <div className="text-center mb-12">
+            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+              🚀 Join Axionax Network
+            </h1>
+            <p className="text-xl text-dark-400 max-w-2xl mx-auto">
+              เป็นส่วนหนึ่งของ Axionax Testnet ในฐานะ Validator, Worker หรือ RPC
+              Node
+            </p>
+          </div>
 
-        {/* Progress Steps */}
-        <div className="flex items-center justify-center gap-2 mb-12">
-          {['choose', 'requirements', 'setup', 'register', 'verify'].map((s, i) => (
-            <React.Fragment key={s}>
-              <div
-                className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium transition-all ${
-                  step === s
-                    ? 'bg-primary-500 text-white'
-                    : ['choose', 'requirements', 'setup', 'register', 'verify'].indexOf(step) > i
-                    ? 'bg-green-500 text-white'
-                    : 'bg-dark-800 text-dark-500'
-                }`}
-              >
-                {['choose', 'requirements', 'setup', 'register', 'verify'].indexOf(step) > i ? '✓' : i + 1}
-              </div>
-              {i < 4 && (
-                <div
-                  className={`w-12 h-0.5 ${
-                    ['choose', 'requirements', 'setup', 'register', 'verify'].indexOf(step) > i
-                      ? 'bg-green-500'
-                      : 'bg-dark-800'
-                  }`}
-                />
-              )}
-            </React.Fragment>
-          ))}
-        </div>
+          {/* Progress Steps */}
+          <div className="flex items-center justify-center gap-2 mb-12">
+            {['choose', 'requirements', 'setup', 'register', 'verify'].map(
+              (s, i) => (
+                <React.Fragment key={s}>
+                  <div
+                    className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium transition-all ${
+                      step === s
+                        ? 'bg-primary-500 text-white'
+                        : [
+                              'choose',
+                              'requirements',
+                              'setup',
+                              'register',
+                              'verify',
+                            ].indexOf(step) > i
+                          ? 'bg-green-500 text-white'
+                          : 'bg-dark-800 text-dark-500'
+                    }`}
+                  >
+                    {[
+                      'choose',
+                      'requirements',
+                      'setup',
+                      'register',
+                      'verify',
+                    ].indexOf(step) > i
+                      ? '✓'
+                      : i + 1}
+                  </div>
+                  {i < 4 && (
+                    <div
+                      className={`w-12 h-0.5 ${
+                        [
+                          'choose',
+                          'requirements',
+                          'setup',
+                          'register',
+                          'verify',
+                        ].indexOf(step) > i
+                          ? 'bg-green-500'
+                          : 'bg-dark-800'
+                      }`}
+                    />
+                  )}
+                </React.Fragment>
+              )
+            )}
+          </div>
 
-        {/* Content */}
-        <div className="bg-dark-900/50 border border-dark-800 rounded-2xl p-8">
-          {step === 'choose' && renderChooseStep()}
-          {step === 'requirements' && renderRequirementsStep()}
-          {step === 'setup' && renderSetupStep()}
-          {step === 'register' && renderRegisterStep()}
-          {step === 'verify' && renderVerifyStep()}
-        </div>
+          {/* Content */}
+          <div className="bg-dark-900/50 border border-dark-800 rounded-2xl p-8">
+            {step === 'choose' && renderChooseStep()}
+            {step === 'requirements' && renderRequirementsStep()}
+            {step === 'setup' && renderSetupStep()}
+            {step === 'register' && renderRegisterStep()}
+            {step === 'verify' && renderVerifyStep()}
+          </div>
 
-        {/* Help Section */}
-        <div className="mt-8 bg-blue-500/10 border border-blue-500/30 rounded-2xl p-6">
-          <div className="flex items-start gap-4">
-            <div className="text-3xl">💬</div>
-            <div>
-              <h3 className="text-lg font-semibold text-blue-400 mb-2">ต้องการความช่วยเหลือ?</h3>
-              <p className="text-dark-300 text-sm mb-3">
-                หากมีคำถามหรือปัญหาในการติดตั้ง สามารถติดต่อได้ที่:
-              </p>
-              <div className="flex flex-wrap gap-3">
-                <a
-                  href="https://discord.gg/axionax"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-4 py-2 bg-[#5865F2] hover:bg-[#4752C4] text-white rounded-lg text-sm transition-colors"
-                >
-                  Discord Community
-                </a>
-                <a
-                  href="https://t.me/axionax"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-4 py-2 bg-[#0088cc] hover:bg-[#0077b5] text-white rounded-lg text-sm transition-colors"
-                >
-                  Telegram Group
-                </a>
-                <Link
-                  href="/docs"
-                  className="px-4 py-2 bg-dark-700 hover:bg-dark-600 text-white rounded-lg text-sm transition-colors"
-                >
-                  📚 Documentation
-                </Link>
+          {/* Help Section */}
+          <div className="mt-8 bg-blue-500/10 border border-blue-500/30 rounded-2xl p-6">
+            <div className="flex items-start gap-4">
+              <div className="text-3xl">💬</div>
+              <div>
+                <h3 className="text-lg font-semibold text-blue-400 mb-2">
+                  ต้องการความช่วยเหลือ?
+                </h3>
+                <p className="text-dark-300 text-sm mb-3">
+                  หากมีคำถามหรือปัญหาในการติดตั้ง สามารถติดต่อได้ที่:
+                </p>
+                <div className="flex flex-wrap gap-3">
+                  <a
+                    href="https://discord.gg/axionax"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-2 bg-[#5865F2] hover:bg-[#4752C4] text-white rounded-lg text-sm transition-colors"
+                  >
+                    Discord Community
+                  </a>
+                  <a
+                    href="https://t.me/axionax"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-2 bg-[#0088cc] hover:bg-[#0077b5] text-white rounded-lg text-sm transition-colors"
+                  >
+                    Telegram Group
+                  </a>
+                  <Link
+                    href="/docs"
+                    className="px-4 py-2 bg-dark-700 hover:bg-dark-600 text-white rounded-lg text-sm transition-colors"
+                  >
+                    📚 Documentation
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
-        </div>
         </div>
       </main>
       <Footer />

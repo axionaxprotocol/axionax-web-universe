@@ -290,7 +290,7 @@ nodeRouter.post('/register', zValidator('json', nodeRegistrationSchema), async (
 
 // Verify email
 nodeRouter.get('/verify/:token', async (c) => {
-  const token = c.req.param('token');
+  const _token = c.req.param('token');
 
   // TODO: Implement actual verification
   return c.json({
@@ -315,7 +315,7 @@ nodeRouter.get('/', async (c) => {
 
 // Get node by ID
 nodeRouter.get('/:id', async (c) => {
-  const id = c.req.param('id');
+  const _id = c.req.param('id');
 
   // TODO: Implement actual query
   return c.json({
@@ -327,7 +327,7 @@ nodeRouter.get('/:id', async (c) => {
 // Get node health
 nodeRouter.get('/:id/health', async (c) => {
   const id = c.req.param('id');
-  const limit = parseInt(c.req.query('limit') || '100');
+  const _limit = parseInt(c.req.query('limit') || '100');
 
   // TODO: Implement actual query
   return c.json({
@@ -340,7 +340,7 @@ nodeRouter.get('/:id/health', async (c) => {
 // Get node rewards
 nodeRouter.get('/:id/rewards', async (c) => {
   const id = c.req.param('id');
-  const limit = parseInt(c.req.query('limit') || '50');
+  const _limit = parseInt(c.req.query('limit') || '50');
 
   // TODO: Implement actual query
   return c.json({
@@ -364,7 +364,7 @@ nodeRouter.get('/stats/overview', async (c) => {
 // Get leaderboard
 nodeRouter.get('/leaderboard/:type', async (c) => {
   const nodeType = c.req.param('type') as 'validator' | 'worker' | 'rpc';
-  const limit = parseInt(c.req.query('limit') || '20');
+  const _limit = parseInt(c.req.query('limit') || '20');
 
   // Validate node type
   if (!['validator', 'worker', 'rpc'].includes(nodeType)) {

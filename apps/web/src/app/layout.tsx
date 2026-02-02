@@ -1,4 +1,4 @@
-﻿import type { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { Space_Grotesk, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import { Web3Provider } from '@/contexts/Web3Context';
@@ -18,8 +18,14 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Axionax Protocol',
-  description: 'Layer-1 blockchain for decentralized AI compute',
+  title: 'Axionax Protocol | Trusted World Computer',
+  description:
+    'Layer-1 blockchain for decentralized AI compute. Math-based trust, PoPC consensus, and the path to Project Monolith.',
+  openGraph: {
+    title: 'Axionax Protocol | Trusted World Computer',
+    description:
+      'Layer-1 blockchain for decentralized AI compute. Math-based trust, PoPC consensus.',
+  },
 };
 
 export default function RootLayout({
@@ -28,7 +34,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${spaceGrotesk.variable} ${jetbrainsMono.variable}`}>
+    <html
+      lang="en"
+      className={`${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
+      suppressHydrationWarning
+    >
       <body className="font-sans">
         <QueryProvider>
           <Web3Provider>{children}</Web3Provider>

@@ -6,8 +6,6 @@ import { RPC_URLS } from '@axionax/blockchain-utils';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import Card, { CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
-import Button from '@/components/ui/Button';
-import Input from '@/components/ui/Input';
 
 interface Block {
   number: number;
@@ -141,7 +139,9 @@ export default function Explorer(): React.JSX.Element {
         const info = await fetchAddressBalance(searchQuery);
         setSearchResult(info);
       } else {
-        setSearchError('Invalid input. Enter a transaction hash (0x... 66 chars) or address (0x... 42 chars)');
+        setSearchError(
+          'Invalid input. Enter a transaction hash (0x... 66 chars) or address (0x... 42 chars)'
+        );
       }
     } catch (err) {
       setSearchError('Search failed. Please try again.');
@@ -161,14 +161,17 @@ export default function Explorer(): React.JSX.Element {
             <span className="text-horizon">🔭 Block Explorer</span>
           </h1>
           <p className="text-starlight/70 text-lg">
-            Explore blocks, transactions, and addresses on the <span className="text-horizon-blue">Axionax</span> testnet
+            Explore blocks, transactions, and addresses on the{' '}
+            <span className="text-horizon-blue">Axionax</span> testnet
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <div className="card-cosmic hover:shadow-horizon-sm transition-all duration-300">
             <CardHeader>
-              <CardTitle className="text-horizon-orange">⬡ Latest Block</CardTitle>
+              <CardTitle className="text-horizon-orange">
+                ⬡ Latest Block
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-3xl font-bold text-horizon-gold mb-2">
@@ -188,13 +191,17 @@ export default function Explorer(): React.JSX.Element {
 
           <div className="card-cosmic hover:shadow-horizon-sm transition-all duration-300">
             <CardHeader>
-              <CardTitle className="text-horizon-purple">📊 Total Blocks</CardTitle>
+              <CardTitle className="text-horizon-purple">
+                📊 Total Blocks
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-3xl font-bold text-horizon-blue mb-2">
                 {isLoading ? '...' : blocksData?.total.toLocaleString() || '0'}
               </div>
-              <div className="text-sm text-starlight/50">Since testnet launch</div>
+              <div className="text-sm text-starlight/50">
+                Since testnet launch
+              </div>
             </CardContent>
           </div>
 
@@ -214,7 +221,9 @@ export default function Explorer(): React.JSX.Element {
         {/* Search Section */}
         <div className="card-cosmic mb-8">
           <CardHeader>
-            <CardTitle className="text-horizon-blue">🔍 Search the Cosmos</CardTitle>
+            <CardTitle className="text-horizon-blue">
+              🔍 Search the Cosmos
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="flex flex-col md:flex-row gap-4">
@@ -243,19 +252,27 @@ export default function Explorer(): React.JSX.Element {
 
             {searchResult && searchType === 'address' && (
               <div className="mt-4 p-6 bg-void rounded-lg border border-horizon-purple/30">
-                <h3 className="text-lg font-semibold text-horizon-gold mb-4">📍 Address Details</h3>
+                <h3 className="text-lg font-semibold text-horizon-gold mb-4">
+                  📍 Address Details
+                </h3>
                 <div className="space-y-3">
                   <div>
                     <span className="text-starlight/50">Address:</span>
-                    <span className="ml-2 font-mono text-starlight break-all">{searchResult.address}</span>
+                    <span className="ml-2 font-mono text-starlight break-all">
+                      {searchResult.address}
+                    </span>
                   </div>
                   <div>
                     <span className="text-starlight/50">Balance:</span>
-                    <span className="ml-2 font-bold text-horizon-gold">{searchResult.balance} AXX</span>
+                    <span className="ml-2 font-bold text-horizon-gold">
+                      {searchResult.balance} AXX
+                    </span>
                   </div>
                   <div>
                     <span className="text-starlight/50">Nonce:</span>
-                    <span className="ml-2 text-starlight">{searchResult.nonce}</span>
+                    <span className="ml-2 text-starlight">
+                      {searchResult.nonce}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -263,31 +280,45 @@ export default function Explorer(): React.JSX.Element {
 
             {searchResult && searchType === 'tx' && (
               <div className="mt-4 p-6 bg-void rounded-lg border border-horizon-purple/30">
-                <h3 className="text-lg font-semibold text-horizon-blue mb-4">📜 Transaction Details</h3>
+                <h3 className="text-lg font-semibold text-horizon-blue mb-4">
+                  📜 Transaction Details
+                </h3>
                 <div className="space-y-3 text-sm">
                   <div>
                     <span className="text-starlight/50">Hash:</span>
-                    <span className="ml-2 font-mono text-starlight break-all">{searchResult.hash}</span>
+                    <span className="ml-2 font-mono text-starlight break-all">
+                      {searchResult.hash}
+                    </span>
                   </div>
                   <div>
                     <span className="text-starlight/50">Block:</span>
-                    <span className="ml-2 text-horizon-purple">#{parseInt(searchResult.blockNumber, 16).toLocaleString()}</span>
+                    <span className="ml-2 text-horizon-purple">
+                      #{parseInt(searchResult.blockNumber, 16).toLocaleString()}
+                    </span>
                   </div>
                   <div>
                     <span className="text-starlight/50">From:</span>
-                    <span className="ml-2 font-mono text-starlight break-all">{searchResult.from}</span>
+                    <span className="ml-2 font-mono text-starlight break-all">
+                      {searchResult.from}
+                    </span>
                   </div>
                   <div>
                     <span className="text-starlight/50">To:</span>
-                    <span className="ml-2 font-mono text-starlight break-all">{searchResult.to || 'Contract Creation'}</span>
+                    <span className="ml-2 font-mono text-starlight break-all">
+                      {searchResult.to || 'Contract Creation'}
+                    </span>
                   </div>
                   <div>
                     <span className="text-starlight/50">Value:</span>
-                    <span className="ml-2 font-bold text-horizon-gold">{(parseInt(searchResult.value, 16) / 1e18).toFixed(4)} AXX</span>
+                    <span className="ml-2 font-bold text-horizon-gold">
+                      {(parseInt(searchResult.value, 16) / 1e18).toFixed(4)} AXX
+                    </span>
                   </div>
                   <div>
                     <span className="text-starlight/50">Gas:</span>
-                    <span className="ml-2 text-starlight">{parseInt(searchResult.gas, 16).toLocaleString()}</span>
+                    <span className="ml-2 text-starlight">
+                      {parseInt(searchResult.gas, 16).toLocaleString()}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -323,7 +354,9 @@ export default function Explorer(): React.JSX.Element {
                     <div className="flex items-center gap-4 text-sm">
                       <div>
                         <span className="text-starlight/40">Txs:</span>{' '}
-                        <span className="text-horizon-blue">{block.txCount}</span>
+                        <span className="text-horizon-blue">
+                          {block.txCount}
+                        </span>
                       </div>
                       <div>
                         <span className="text-starlight/40">Gas:</span>{' '}
@@ -348,7 +381,8 @@ export default function Explorer(): React.JSX.Element {
 
         <div className="mt-8 text-center">
           <p className="text-starlight/40 text-sm">
-            🌌 Explorer connected to live validators (EU + AU). Search for addresses or transactions above.
+            🌌 Explorer connected to live validators (EU + AU). Search for
+            addresses or transactions above.
           </p>
         </div>
       </main>

@@ -1,9 +1,9 @@
 /**
  * Web3 utilities for axionax frontend
- * 
+ *
  * Re-exports wallet utilities from @axionax/blockchain-utils
  * for backward compatibility.
- * 
+ *
  * @deprecated Import directly from '@axionax/blockchain-utils' instead
  */
 
@@ -55,7 +55,12 @@ export {
 } from '@axionax/blockchain-utils';
 
 // Legacy AXIONAX_TESTNET object for backward compatibility
-import { axionaxTestnet, CHAIN_IDS, RPC_URLS, EXPLORER_URLS } from '@axionax/blockchain-utils';
+import {
+  axionaxTestnet,
+  CHAIN_IDS,
+  RPC_URLS,
+  EXPLORER_URLS,
+} from '@axionax/blockchain-utils';
 
 export const AXIONAX_TESTNET = {
   chainId: '0x' + CHAIN_IDS.TESTNET.toString(16),

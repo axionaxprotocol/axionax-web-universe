@@ -45,11 +45,13 @@ export default function Footer(): React.JSX.Element {
                 alt="Axionax Logo"
                 className="w-8 h-8 rounded-full object-cover"
               />
-              <span className="text-xl font-bold bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent">axionax</span>
+              <span className="text-xl font-bold bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent">
+                axionax
+              </span>
             </Link>
             <p className="text-dark-400 text-sm">
-              High-performance Layer-1 blockchain for decentralized compute and
-              AI workloads.
+              Trusted World Computer — Layer-1 for decentralized compute and AI.
+              PoPC consensus · v1.9
             </p>
           </div>
 
@@ -137,7 +139,8 @@ export default function Footer(): React.JSX.Element {
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-dark-800 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
           <p className="text-dark-500 text-sm">
-            © {new Date().getFullYear()} axionax Protocol v1.9.0. All rights reserved.
+            © {new Date().getFullYear()} Axionax Protocol v1.9.0 · Trusted
+            World Computer
           </p>
           <div className="flex space-x-6">
             <a

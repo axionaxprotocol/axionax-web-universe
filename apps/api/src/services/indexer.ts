@@ -12,8 +12,6 @@ import {
   transactions, 
   addresses, 
   tokenTransfers,
-  stakingEvents,
-  governanceEvents,
   indexerState,
   type NewBlock,
   type NewTransaction,
@@ -54,8 +52,8 @@ const client = createPublicClient({
   transport: http(config.rpcUrl),
 });
 
-// ERC20 Transfer event signature
-const TRANSFER_EVENT = parseAbiItem('event Transfer(address indexed from, address indexed to, uint256 value)');
+// ERC20 Transfer event signature (reserved for token transfer indexing)
+const _TRANSFER_EVENT = parseAbiItem('event Transfer(address indexed from, address indexed to, uint256 value)');
 
 // Known contract addresses (will be populated from config)
 const KNOWN_CONTRACTS = {
@@ -143,10 +141,10 @@ async function processTransaction(tx: ViemTransaction, block: ViemBlock): Promis
   const newTx: NewTransaction = {
     hash: tx.hash,
     blockNumber: Number(block.number),
-    blockHash: block.hash,
+    blockHash: block.hash ?? '',
     transactionIndex: tx.transactionIndex ?? 0,
     from: tx.from,
-    to: tx.to ?? null,
+    to: tx.to ?? '',
     value: tx.value.toString(),
     gasPrice: tx.gasPrice ? Number(tx.gasPrice) : null,
     gasLimit: Number(tx.gas),

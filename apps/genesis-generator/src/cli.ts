@@ -47,7 +47,7 @@ program
   .action(async (options) => {
     console.log(chalk.cyan('\n🚀 Axionax Genesis Generator\n'));
 
-    let config: Partial<GenerateGenesisOptions> = {
+    const config: Partial<GenerateGenesisOptions> = {
       chainId: parseInt(options.chainId),
       chainName: options.name,
       consensusType: options.consensus as 'clique' | 'ethash',
@@ -308,7 +308,7 @@ program
       let allocations;
       if (data.alloc) {
         // Genesis file
-        allocations = Object.entries(data.alloc).map(([address, info]: [string, any]) => ({
+        allocations = Object.entries(data.alloc).map(([address, info]: [string, { balance?: string }]) => ({
           address,
           amount: BigInt(info.balance).toString(),
           tier: 'unknown',

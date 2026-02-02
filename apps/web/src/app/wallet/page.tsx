@@ -23,7 +23,9 @@ interface StoredWallet {
 
 export default function WalletPage() {
   const [activeTab, setActiveTab] = useState<TabType>('create');
-  const [wallet, setWallet] = useState<GeneratedWallet | ImportedWallet | null>(null);
+  const [wallet, setWallet] = useState<GeneratedWallet | ImportedWallet | null>(
+    null
+  );
   const [storedWallets, setStoredWallets] = useState<StoredWallet[]>([]);
   const [selectedWallet, setSelectedWallet] = useState<string | null>(null);
   const [balance, setBalance] = useState<string>('0');
@@ -36,7 +38,9 @@ export default function WalletPage() {
   const [loading, setLoading] = useState(false);
   const [showPrivateKey, setShowPrivateKey] = useState(false);
   const [copied, setCopied] = useState<string | null>(null);
-  const [step, setStep] = useState<'form' | 'backup' | 'confirm' | 'done'>('form');
+  const [step, setStep] = useState<'form' | 'backup' | 'confirm' | 'done'>(
+    'form'
+  );
   const [backupConfirmed, setBackupConfirmed] = useState(false);
 
   // Load stored wallets from localStorage
@@ -79,7 +83,7 @@ export default function WalletPage() {
 
     try {
       // Simulate slight delay for UX
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await new Promise((resolve) => setTimeout(resolve, 500));
       const newWallet = generateNewWallet();
       setWallet(newWallet);
       setStep('backup');
@@ -129,7 +133,10 @@ export default function WalletPage() {
       createdAt: Date.now(),
     };
 
-    const updated = [...storedWallets.filter(w => w.address !== address), newWallet];
+    const updated = [
+      ...storedWallets.filter((w) => w.address !== address),
+      newWallet,
+    ];
     setStoredWallets(updated);
     setSelectedWallet(address);
     localStorage.setItem('axionax_wallets', JSON.stringify(updated));
@@ -143,7 +150,7 @@ export default function WalletPage() {
   };
 
   const deleteWallet = (address: string) => {
-    const updated = storedWallets.filter(w => w.address !== address);
+    const updated = storedWallets.filter((w) => w.address !== address);
     setStoredWallets(updated);
     localStorage.setItem('axionax_wallets', JSON.stringify(updated));
     if (selectedWallet === address) {
@@ -168,7 +175,8 @@ export default function WalletPage() {
     setShowPrivateKey(false);
   };
 
-  const formatAddress = (addr: string) => `${addr.slice(0, 8)}...${addr.slice(-6)}`;
+  const formatAddress = (addr: string) =>
+    `${addr.slice(0, 8)}...${addr.slice(-6)}`;
 
   return (
     <div className="min-h-screen bg-dark-950">
@@ -208,14 +216,17 @@ export default function WalletPage() {
                       <div
                         key={w.address}
                         onClick={() => setSelectedWallet(w.address)}
-                        className={`p-3 rounded-xl cursor-pointer transition-all ${selectedWallet === w.address
+                        className={`p-3 rounded-xl cursor-pointer transition-all ${
+                          selectedWallet === w.address
                             ? 'bg-primary-500/20 border border-primary-500/50'
                             : 'bg-dark-800/50 border border-dark-700 hover:border-dark-600'
-                          }`}
+                        }`}
                       >
                         <div className="flex items-center justify-between">
                           <div>
-                            <div className="font-medium text-white text-sm">{w.name}</div>
+                            <div className="font-medium text-white text-sm">
+                              {w.name}
+                            </div>
                             <div className="font-mono text-xs text-dark-400">
                               {formatAddress(w.address)}
                             </div>
@@ -223,7 +234,8 @@ export default function WalletPage() {
                           <button
                             onClick={(e) => {
                               e.stopPropagation();
-                              if (confirm('ลบ wallet นี้?')) deleteWallet(w.address);
+                              if (confirm('ลบ wallet นี้?'))
+                                deleteWallet(w.address);
                             }}
                             className="text-dark-500 hover:text-red-400 p-1"
                           >
@@ -239,7 +251,9 @@ export default function WalletPage() {
                 {selectedWallet && (
                   <div className="mt-4 pt-4 border-t border-dark-700">
                     <div className="text-sm text-dark-400 mb-1">Balance</div>
-                    <div className="text-2xl font-bold text-green-400">{balance} AXX</div>
+                    <div className="text-2xl font-bold text-green-400">
+                      {balance} AXX
+                    </div>
                     <div className="mt-3 space-y-2">
                       <Link
                         href={`/faucet?address=${selectedWallet}`}
@@ -248,10 +262,14 @@ export default function WalletPage() {
                         💧 รับ Testnet Tokens
                       </Link>
                       <button
-                        onClick={() => copyToClipboard(selectedWallet, 'address')}
+                        onClick={() =>
+                          copyToClipboard(selectedWallet, 'address')
+                        }
                         className="w-full py-2 px-4 bg-dark-800 hover:bg-dark-700 text-white rounded-lg text-sm transition-colors flex items-center justify-center gap-2"
                       >
-                        {copied === 'address' ? '✅ Copied!' : '📋 Copy Address'}
+                        {copied === 'address'
+                          ? '✅ Copied!'
+                          : '📋 Copy Address'}
                       </button>
                     </div>
                   </div>
@@ -265,29 +283,41 @@ export default function WalletPage() {
                 {/* Tabs */}
                 <div className="flex border-b border-dark-700">
                   <button
-                    onClick={() => { resetForm(); setActiveTab('create'); }}
-                    className={`flex-1 py-4 px-4 text-sm font-medium transition-colors ${activeTab === 'create'
+                    onClick={() => {
+                      resetForm();
+                      setActiveTab('create');
+                    }}
+                    className={`flex-1 py-4 px-4 text-sm font-medium transition-colors ${
+                      activeTab === 'create'
                         ? 'bg-primary-500/10 text-primary-400 border-b-2 border-primary-500'
                         : 'text-dark-400 hover:text-white'
-                      }`}
+                    }`}
                   >
                     ✨ สร้าง Wallet ใหม่
                   </button>
                   <button
-                    onClick={() => { resetForm(); setActiveTab('import-mnemonic'); }}
-                    className={`flex-1 py-4 px-4 text-sm font-medium transition-colors ${activeTab === 'import-mnemonic'
+                    onClick={() => {
+                      resetForm();
+                      setActiveTab('import-mnemonic');
+                    }}
+                    className={`flex-1 py-4 px-4 text-sm font-medium transition-colors ${
+                      activeTab === 'import-mnemonic'
                         ? 'bg-primary-500/10 text-primary-400 border-b-2 border-primary-500'
                         : 'text-dark-400 hover:text-white'
-                      }`}
+                    }`}
                   >
                     📝 Import Mnemonic
                   </button>
                   <button
-                    onClick={() => { resetForm(); setActiveTab('import-key'); }}
-                    className={`flex-1 py-4 px-4 text-sm font-medium transition-colors ${activeTab === 'import-key'
+                    onClick={() => {
+                      resetForm();
+                      setActiveTab('import-key');
+                    }}
+                    className={`flex-1 py-4 px-4 text-sm font-medium transition-colors ${
+                      activeTab === 'import-key'
                         ? 'bg-primary-500/10 text-primary-400 border-b-2 border-primary-500'
                         : 'text-dark-400 hover:text-white'
-                      }`}
+                    }`}
                   >
                     🔑 Import Private Key
                   </button>
@@ -366,10 +396,17 @@ export default function WalletPage() {
                                 ⚠️ เก็บรักษาคำเหล่านี้ให้ปลอดภัย!
                               </span>
                               <button
-                                onClick={() => copyToClipboard(wallet.mnemonic || '', 'mnemonic')}
+                                onClick={() =>
+                                  copyToClipboard(
+                                    wallet.mnemonic || '',
+                                    'mnemonic'
+                                  )
+                                }
                                 className="text-xs bg-dark-700 hover:bg-dark-600 px-3 py-1 rounded text-white"
                               >
-                                {copied === 'mnemonic' ? '✅ Copied!' : '📋 Copy'}
+                                {copied === 'mnemonic'
+                                  ? '✅ Copied!'
+                                  : '📋 Copy'}
                               </button>
                             </div>
                             <div className="grid grid-cols-3 md:grid-cols-4 gap-2">
@@ -378,8 +415,12 @@ export default function WalletPage() {
                                   key={i}
                                   className="bg-dark-900 rounded-lg px-3 py-2 text-center"
                                 >
-                                  <span className="text-dark-500 text-xs mr-1">{i + 1}.</span>
-                                  <span className="text-white font-mono">{word}</span>
+                                  <span className="text-dark-500 text-xs mr-1">
+                                    {i + 1}.
+                                  </span>
+                                  <span className="text-white font-mono">
+                                    {word}
+                                  </span>
                                 </div>
                               ))}
                             </div>
@@ -387,8 +428,12 @@ export default function WalletPage() {
 
                           {/* Address Preview */}
                           <div className="bg-dark-800/50 rounded-xl p-4">
-                            <div className="text-sm text-dark-400 mb-1">Wallet Address</div>
-                            <div className="font-mono text-white break-all">{wallet.address}</div>
+                            <div className="text-sm text-dark-400 mb-1">
+                              Wallet Address
+                            </div>
+                            <div className="font-mono text-white break-all">
+                              {wallet.address}
+                            </div>
                           </div>
 
                           {/* Confirmation */}
@@ -396,12 +441,15 @@ export default function WalletPage() {
                             <input
                               type="checkbox"
                               checked={backupConfirmed}
-                              onChange={(e) => setBackupConfirmed(e.target.checked)}
+                              onChange={(e) =>
+                                setBackupConfirmed(e.target.checked)
+                              }
                               className="mt-1 w-5 h-5 rounded border-dark-600 bg-dark-700 text-primary-500 focus:ring-primary-500"
                             />
                             <span className="text-sm text-dark-300">
-                              ฉันได้บันทึก recovery phrase แล้วและเข้าใจว่าหากสูญหาย
-                              จะไม่สามารถกู้คืน wallet ได้
+                              ฉันได้บันทึก recovery phrase
+                              แล้วและเข้าใจว่าหากสูญหาย จะไม่สามารถกู้คืน wallet
+                              ได้
                             </span>
                           </label>
 
@@ -457,7 +505,9 @@ export default function WalletPage() {
                             </label>
                             <textarea
                               value={mnemonic}
-                              onChange={(e) => setMnemonic(e.target.value.toLowerCase())}
+                              onChange={(e) =>
+                                setMnemonic(e.target.value.toLowerCase())
+                              }
                               placeholder="word1 word2 word3 word4 word5 word6 word7 word8 word9 word10 word11 word12"
                               rows={4}
                               className="w-full bg-dark-800 border border-dark-700 rounded-lg px-4 py-3 text-white placeholder-dark-500 focus:border-primary-500 focus:outline-none font-mono"
@@ -590,7 +640,9 @@ export default function WalletPage() {
 
           {/* Quick Start Guide */}
           <div className="mt-8 bg-gradient-to-br from-primary-500/10 to-purple-500/10 border border-primary-500/30 rounded-2xl p-6">
-            <h2 className="text-xl font-semibold text-white mb-4">🚀 เริ่มต้นใช้งาน Testnet</h2>
+            <h2 className="text-xl font-semibold text-white mb-4">
+              🚀 เริ่มต้นใช้งาน Testnet
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="flex items-start gap-3">
                 <div className="w-8 h-8 bg-primary-500/20 rounded-full flex items-center justify-center text-primary-400 font-bold shrink-0">
@@ -598,7 +650,9 @@ export default function WalletPage() {
                 </div>
                 <div>
                   <div className="font-medium text-white">สร้าง Wallet</div>
-                  <div className="text-sm text-dark-400">สร้างหรือนำเข้า wallet ของคุณ</div>
+                  <div className="text-sm text-dark-400">
+                    สร้างหรือนำเข้า wallet ของคุณ
+                  </div>
                 </div>
               </div>
               <div className="flex items-start gap-3">
@@ -606,8 +660,12 @@ export default function WalletPage() {
                   2
                 </div>
                 <div>
-                  <div className="font-medium text-white">รับ Testnet Tokens</div>
-                  <div className="text-sm text-dark-400">ไปที่ Faucet เพื่อรับ AXX ฟรี</div>
+                  <div className="font-medium text-white">
+                    รับ Testnet Tokens
+                  </div>
+                  <div className="text-sm text-dark-400">
+                    ไปที่ Faucet เพื่อรับ AXX ฟรี
+                  </div>
                 </div>
               </div>
               <div className="flex items-start gap-3">
@@ -616,7 +674,9 @@ export default function WalletPage() {
                 </div>
                 <div>
                   <div className="font-medium text-white">เริ่มใช้งาน!</div>
-                  <div className="text-sm text-dark-400">ทดลองทำ transactions และสะสมคะแนน</div>
+                  <div className="text-sm text-dark-400">
+                    ทดลองทำ transactions และสะสมคะแนน
+                  </div>
                 </div>
               </div>
             </div>
@@ -624,23 +684,33 @@ export default function WalletPage() {
 
           {/* Network Info */}
           <div className="mt-6 bg-dark-900/50 border border-dark-800 rounded-2xl p-6">
-            <h3 className="text-lg font-semibold text-white mb-4">🌐 Network Information</h3>
+            <h3 className="text-lg font-semibold text-white mb-4">
+              🌐 Network Information
+            </h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
               <div>
                 <div className="text-dark-400">Network Name</div>
-                <div className="text-white font-medium">{AXIONAX_TESTNET.chainName}</div>
+                <div className="text-white font-medium">
+                  {AXIONAX_TESTNET.chainName}
+                </div>
               </div>
               <div>
                 <div className="text-dark-400">Chain ID</div>
-                <div className="text-white font-medium">{AXIONAX_TESTNET.chainIdDecimal}</div>
+                <div className="text-white font-medium">
+                  {AXIONAX_TESTNET.chainIdDecimal}
+                </div>
               </div>
               <div>
                 <div className="text-dark-400">Currency</div>
-                <div className="text-white font-medium">{AXIONAX_TESTNET.nativeCurrency.symbol}</div>
+                <div className="text-white font-medium">
+                  {AXIONAX_TESTNET.nativeCurrency.symbol}
+                </div>
               </div>
               <div>
                 <div className="text-dark-400">RPC URL</div>
-                <div className="text-white font-medium text-xs truncate">{AXIONAX_TESTNET.rpcUrls[0]}</div>
+                <div className="text-white font-medium text-xs truncate">
+                  {AXIONAX_TESTNET.rpcUrls[0]}
+                </div>
               </div>
             </div>
           </div>
@@ -672,9 +742,7 @@ function WalletSuccess({
       <div className="text-center py-4">
         <div className="text-6xl mb-4">🎉</div>
         <h3 className="text-2xl font-bold text-white">Wallet พร้อมใช้งาน!</h3>
-        <p className="text-dark-400 mt-2">
-          Wallet ของคุณถูกบันทึกแล้ว
-        </p>
+        <p className="text-dark-400 mt-2">Wallet ของคุณถูกบันทึกแล้ว</p>
       </div>
 
       {/* Address */}
@@ -715,10 +783,13 @@ function WalletSuccess({
           </div>
         </div>
         <div className="font-mono text-white break-all text-sm bg-dark-900 rounded p-2">
-          {showPrivateKey ? wallet.privateKey : '••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••'}
+          {showPrivateKey
+            ? wallet.privateKey
+            : '••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••'}
         </div>
         <p className="text-xs text-amber-400/70 mt-2">
-          ⚠️ อย่าแชร์ private key กับใคร! ผู้ที่มี key นี้สามารถเข้าถึง wallet ได้
+          ⚠️ อย่าแชร์ private key กับใคร! ผู้ที่มี key นี้สามารถเข้าถึง wallet
+          ได้
         </p>
       </div>
 

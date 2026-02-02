@@ -9,10 +9,8 @@ import {
   nodeHealthChecks, 
   nodeRewards,
   type RegisteredNode,
-  type NewRegisteredNode,
-  type NewNodeHealthCheck,
 } from '../db/schema.js';
-import { eq, desc, and, sql, gte } from 'drizzle-orm';
+import { eq, desc, and, gte } from 'drizzle-orm';
 import { randomUUID } from 'crypto';
 
 // ============================================

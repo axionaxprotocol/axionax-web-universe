@@ -9,7 +9,6 @@ import {
   http, 
   formatEther,
   type Block,
-  type Transaction,
 } from 'viem';
 
 // ============================================
@@ -118,7 +117,7 @@ function determineValidator(blockNumber: number): string {
   return blockNumber % 2 === 0 ? 'EU' : 'AU';
 }
 
-async function checkValidatorStatus(client: typeof publicClient, name: string): Promise<{
+async function checkValidatorStatus(client: typeof publicClient, _name: string): Promise<{
   blockHeight: number;
   status: string;
   latency: number;
@@ -163,7 +162,7 @@ export async function getBlocks(page: number = 1, pageSize: number = 10): Promis
     for (let i = startBlock; i >= endBlock && i >= 0; i--) {
       blockPromises.push(
         publicClient.getBlock({ blockNumber: BigInt(i) })
-          .then(block => ({
+          .then((block): BlockInfo | null => ({
             number: Number(block.number),
             hash: block.hash || '0x0',
             timestamp: Number(block.timestamp),

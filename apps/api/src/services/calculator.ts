@@ -13,7 +13,6 @@ import {
   stakingEvents,
   governanceEvents,
   addressActivitySummary,
-  type AddressActivitySummary,
 } from '../db/schema.js';
 import { eq, sql, count, sum } from 'drizzle-orm';
 

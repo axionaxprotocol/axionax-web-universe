@@ -82,7 +82,9 @@ export default function Community(): React.JSX.Element {
     <section className="section bg-gradient-to-b from-transparent via-amber-950/5 to-transparent">
       <div className="container-custom">
         <div className="text-center mb-16">
-          <h2 className="bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent mb-4">Join Our Community</h2>
+          <h2 className="bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent mb-4">
+            Join Our Community
+          </h2>
           <p className="text-starlight/60 text-lg max-w-2xl mx-auto">
             Be part of a growing ecosystem of developers, validators, and
             enthusiasts building the future of decentralized compute
@@ -124,7 +126,9 @@ export default function Community(): React.JSX.Element {
               <div className="w-12 h-12 bg-gradient-to-br from-amber-500/20 to-yellow-600/10 rounded-full flex items-center justify-center text-amber-400 mb-4 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-amber-500/20 transition-all">
                 {social.icon}
               </div>
-              <h3 className="font-bold text-starlight group-hover:text-amber-300 transition-colors mb-2">{social.name}</h3>
+              <h3 className="font-bold text-starlight group-hover:text-amber-300 transition-colors mb-2">
+                {social.name}
+              </h3>
               <p className="text-sm text-starlight/60">{social.description}</p>
             </a>
           ))}

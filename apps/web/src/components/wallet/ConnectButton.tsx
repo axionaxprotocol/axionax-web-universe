@@ -30,7 +30,7 @@ export default function ConnectButton(): React.JSX.Element {
       alert('โปรดติดตั้ง MetaMask ก่อนใช้งาน');
       return;
     }
-    
+
     setIsAddingToken(true);
     try {
       const wasAdded = await addAXXToken(tokenAddress);
@@ -188,7 +188,11 @@ export default function ConnectButton(): React.JSX.Element {
 
           <div className="p-2 border-t border-dark-700 space-y-1">
             <button
-              onClick={() => void handleAddToken('0x0000000000000000000000000000000000001000')}
+              onClick={() =>
+                void handleAddToken(
+                  '0x0000000000000000000000000000000000001000'
+                )
+              }
               disabled={isAddingToken}
               className="w-full px-3 py-2 text-sm text-primary-400 hover:bg-dark-700 rounded-lg transition-colors text-left flex items-center gap-2 disabled:opacity-50"
             >

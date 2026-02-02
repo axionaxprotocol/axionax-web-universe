@@ -13,8 +13,18 @@ interface ValidatorInfo {
 }
 
 const VALIDATORS = [
-  { name: 'Validator EU', location: 'Europe', ip: '217.76.61.116', rpcUrl: '/api/rpc/eu' },
-  { name: 'Validator AU', location: 'Australia', ip: '46.250.244.4', rpcUrl: '/api/rpc/au' },
+  {
+    name: 'Validator EU',
+    location: 'Europe',
+    ip: '217.76.61.116',
+    rpcUrl: '/api/rpc/eu',
+  },
+  {
+    name: 'Validator AU',
+    location: 'Australia',
+    ip: '46.250.244.4',
+    rpcUrl: '/api/rpc/au',
+  },
 ];
 
 async function fetchValidatorInfo(rpcUrl: string): Promise<{
@@ -36,7 +46,7 @@ async function fetchValidatorInfo(rpcUrl: string): Promise<{
     });
     const data = await response.json();
     const blockHeight = parseInt(data.result, 16);
-    
+
     // Get peer count
     const peerResponse = await fetch(rpcUrl, {
       method: 'POST',
@@ -50,7 +60,7 @@ async function fetchValidatorInfo(rpcUrl: string): Promise<{
     });
     const peerData = await peerResponse.json();
     const peerCount = peerData.result ? parseInt(peerData.result, 16) : 0;
-    
+
     return {
       blockHeight,
       peerCount,
@@ -67,7 +77,7 @@ async function fetchValidatorInfo(rpcUrl: string): Promise<{
 
 export default function ValidatorStatus(): React.JSX.Element {
   const [validators, setValidators] = useState<ValidatorInfo[]>(
-    VALIDATORS.map(v => ({
+    VALIDATORS.map((v) => ({
       name: v.name,
       location: v.location,
       ip: v.ip,
@@ -104,17 +114,23 @@ export default function ValidatorStatus(): React.JSX.Element {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'online': return 'bg-green-500';
-      case 'offline': return 'bg-red-500';
-      default: return 'bg-yellow-500 animate-pulse';
+      case 'online':
+        return 'bg-green-500';
+      case 'offline':
+        return 'bg-red-500';
+      default:
+        return 'bg-yellow-500 animate-pulse';
     }
   };
 
   const getLocationFlag = (location: string) => {
     switch (location) {
-      case 'Europe': return '🇪🇺';
-      case 'Australia': return '🇦🇺';
-      default: return '🌍';
+      case 'Europe':
+        return '🇪🇺';
+      case 'Australia':
+        return '🇦🇺';
+      default:
+        return '🌍';
     }
   };
 
@@ -138,22 +154,30 @@ export default function ValidatorStatus(): React.JSX.Element {
             >
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-3">
-                  <span className="text-3xl">{getLocationFlag(validator.location)}</span>
+                  <span className="text-3xl">
+                    {getLocationFlag(validator.location)}
+                  </span>
                   <div>
                     <h3 className="font-semibold text-lg">{validator.name}</h3>
-                    <p className="text-dark-400 text-sm">{validator.location}</p>
+                    <p className="text-dark-400 text-sm">
+                      {validator.location}
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className={`w-3 h-3 rounded-full ${getStatusColor(validator.status)}`} />
-                  <span className="text-sm capitalize text-dark-300">{validator.status}</span>
+                  <span
+                    className={`w-3 h-3 rounded-full ${getStatusColor(validator.status)}`}
+                  />
+                  <span className="text-sm capitalize text-dark-300">
+                    {validator.status}
+                  </span>
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="bg-dark-900/50 rounded-xl p-4">
                   <div className="text-2xl font-bold text-primary-400">
-                    {validator.blockHeight !== null 
+                    {validator.blockHeight !== null
                       ? validator.blockHeight.toLocaleString()
                       : '---'}
                   </div>

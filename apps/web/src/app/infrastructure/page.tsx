@@ -114,7 +114,8 @@ export default function InfrastructurePage(): React.JSX.Element {
           <div className="text-center mb-12">
             <h1 className="gradient-text mb-4">Infrastructure Status v1.9.0</h1>
             <p className="text-xl text-dark-300 mb-8">
-              Real-time monitoring of all axionax Protocol testnet services • Last Updated: December 5, 2025
+              Real-time monitoring of all axionax Protocol testnet services •
+              Last Updated: December 5, 2025
             </p>
 
             {/* Overall Status */}
@@ -305,9 +306,7 @@ export default function InfrastructurePage(): React.JSX.Element {
                 ✅ Application Layer
               </h3>
               <div className="text-3xl font-bold text-green-400 mb-2">2/2</div>
-              <p className="text-dark-400 text-sm mb-4">
-                100% Operational
-              </p>
+              <p className="text-dark-400 text-sm mb-4">100% Operational</p>
               <ul className="space-y-2 text-sm text-dark-300">
                 <li>• Explorer API (port 3001)</li>
                 <li>• Faucet API (port 3002)</li>

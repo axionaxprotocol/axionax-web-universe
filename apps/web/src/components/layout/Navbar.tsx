@@ -12,7 +12,15 @@ export default function Navbar(): React.JSX.Element {
 
   const addNetwork = async () => {
     if (typeof window === 'undefined') return;
-    const { ethereum } = window as any;
+    type WindowWithEthereum = Window & {
+      ethereum?: {
+        request: (args: {
+          method: string;
+          params?: unknown[];
+        }) => Promise<unknown>;
+      };
+    };
+    const { ethereum } = window as WindowWithEthereum;
     if (!ethereum) {
       window.open('https://metamask.io/download/', '_blank');
       return;
@@ -146,7 +154,11 @@ export default function Navbar(): React.JSX.Element {
                   onClick={addNetwork}
                   className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-horizon-orange/10 text-horizon-orange hover:bg-horizon-orange/20 transition-colors text-sm font-medium border border-horizon-orange/20"
                 >
-                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                  <svg
+                    className="w-4 h-4"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
                     <path d="M22.5 12c0-5.8-4.7-10.5-10.5-10.5S1.5 6.2 1.5 12 6.2 22.5 12 22.5 22.5 17.8 22.5 12zm-2.5 0c0 4.4-3.6 8-8 8s-8-3.6-8-8 3.6-8 8-8 8 3.6 8 8z" />
                   </svg>
                   Add to MetaMask
