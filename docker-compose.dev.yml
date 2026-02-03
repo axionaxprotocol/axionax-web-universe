@@ -1,41 +1,42 @@
 # Axionax Full Stack Development
-# Runs blockchain core + web services together
+# Runs web services + optional local blockchain.
+# For local node: clone https://github.com/axionaxprotocol/axionax-core-universe.git to ./core-universe first.
 
 version: '3.8'
 
 services:
   # ============================================
-  # 🦀 Blockchain Node (Core Universe)
+  # 🦀 Blockchain Node (optional; needs core-universe cloned)
   # ============================================
-  axionax-node:
-    build:
-      context: ./core-universe/core
-      dockerfile: ../../ops/deploy/Dockerfile
-    container_name: axionax-node-dev
-    restart: unless-stopped
-    ports:
-      - "8545:8545"     # JSON-RPC HTTP
-      - "8546:8546"     # JSON-RPC WebSocket
-      - "30303:30303"   # P2P
-      - "9100:9100"     # Prometheus metrics
-    volumes:
-      - node_data:/data
-      - ./core-universe/core:/app/core:ro
-    environment:
-      - RUST_LOG=info
-      - CHAIN_ID=86137
-      - NETWORK=testnet
-      - RPC_HOST=0.0.0.0
-      - RPC_PORT=8545
-      - WS_PORT=8546
-      - P2P_PORT=30303
-    healthcheck:
-      test: ["CMD", "curl", "-sf", "http://localhost:8545", "-X", "POST", "-H", "Content-Type: application/json", "-d", "{\"jsonrpc\":\"2.0\",\"method\":\"eth_blockNumber\",\"params\":[],\"id\":1}"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-    networks:
-      - axionax-dev
+  # axionax-node:
+  #   build:
+  #     context: ./core-universe/core
+  #     dockerfile: ../../ops/deploy/Dockerfile
+  #   container_name: axionax-node-dev
+  #   restart: unless-stopped
+  #   ports:
+  #     - "8545:8545"
+  #     - "8546:8546"
+  #     - "30303:30303"
+  #     - "9100:9100"
+  #   volumes:
+  #     - node_data:/data
+  #     - ./core-universe/core:/app/core:ro
+  #   environment:
+  #     - RUST_LOG=info
+  #     - CHAIN_ID=86137
+  #     - NETWORK=testnet
+  #     - RPC_HOST=0.0.0.0
+  #     - RPC_PORT=8545
+  #     - WS_PORT=8546
+  #     - P2P_PORT=30303
+  #   healthcheck:
+  #     test: ["CMD", "curl", "-sf", "http://localhost:8545", "-X", "POST", "-H", "Content-Type: application/json", "-d", "{\"jsonrpc\":\"2.0\",\"method\":\"eth_blockNumber\",\"params\":[],\"id\":1}"]
+  #     interval: 10s
+  #     timeout: 5s
+  #     retries: 5
+  #   networks:
+  #     - axionax-dev
 
   # ============================================
   # 🗄️ PostgreSQL Database
@@ -157,7 +158,7 @@ services:
     ports:
       - "9090:9090"
     volumes:
-      - ./core-universe/ops/deploy/monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./apps/web/monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
       - prometheus_data:/prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'

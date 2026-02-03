@@ -153,17 +153,18 @@ axionax-web-universe/
 ├── 📱 apps/
 │   ├── web/              # Next.js website
 │   ├── marketplace/      # React marketplace
-│   ├── docs/             # Documentation
+│   ├── docs/             # Documentation site
+│   ├── api/              # Backend API (Hono + PostgreSQL)
 │   ├── faucet-api/       # Faucet backend
-│   ├── mock-rpc/         # Mock RPC server
-│   └── mock-explorer-api # Mock Explorer API
+│   ├── genesis-generator/# Genesis block generator CLI
+│   └── mobile/           # Mobile app (React Native)
 │
 ├── 📦 packages/
 │   ├── sdk/              # TypeScript SDK
-│   ├── ui/               # Shared UI components
-│   └── contracts/        # Smart contracts
+│   ├── blockchain-utils/ # Chain utilities
+│   └── ui/               # Shared UI components
 │
-├── 🛠️ core-universe/     # Rust core (submodule)
+├── scripts/              # Ops & deployment scripts
 │
 └── 📄 Configuration Files
     ├── package.json      # Root package config

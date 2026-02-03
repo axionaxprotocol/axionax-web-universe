@@ -10,14 +10,11 @@
 
 ### 1. First Time Setup
 ```bash
-# Clone with submodules
-git clone --recursive https://github.com/axionaxprotocol/axionax-web-universe.git
+# Clone repository
+git clone https://github.com/axionaxprotocol/axionax-web-universe.git
 cd axionax-web-universe
 
-# Or if already cloned, init submodules
-git submodule update --init --recursive
-
-# Install web dependencies
+# Install dependencies
 pnpm install
 ```
 
@@ -32,8 +29,9 @@ pnpm dev
 - Marketplace: http://localhost:5173
 
 #### 🐳 Full Stack (Local Blockchain)
+Requires Node + DB + Redis + Web/Marketplace. For a local blockchain node, clone [axionax-core-universe](https://github.com/axionaxprotocol/axionax-core-universe) to `./core-universe` and uncomment the `axionax-node` service in `docker-compose.dev.yml`.
 ```bash
-# Start all services with Docker
+# Start services (web, DB, Redis, Prometheus, Grafana, Adminer)
 docker-compose -f docker-compose.dev.yml up -d
 
 # View logs
@@ -52,25 +50,20 @@ Services:
 | 🗄️ Adminer | http://localhost:8080 | Database UI |
 
 #### 🦀 Core Development (Rust)
+Core (blockchain node) is in a separate repository. For local node development:
 ```bash
+# Clone core repo (optional, for full-stack local dev)
+git clone https://github.com/axionaxprotocol/axionax-core-universe.git core-universe
 cd core-universe/core
 
-# Build
+# Build & run
 cargo build --release
-
-# Test
-cargo test --workspace
-
-# Run local node
 cargo run --release -- --dev
 ```
 
 ### 3. Common Commands
 
 ```bash
-# Update submodule to latest
-git submodule update --remote core-universe
-
 # Rebuild specific service
 docker-compose -f docker-compose.dev.yml build web
 
@@ -97,10 +90,7 @@ axionax-web-universe/
 │   ├── sdk/                 # TypeScript SDK
 │   ├── blockchain-utils/    # Chain utilities
 │   └── ui/                  # Shared UI components
-├── core-universe/           # 👈 Git Submodule
-│   ├── core/                # Rust blockchain
-│   ├── ops/deploy/          # Deployment scripts
-│   └── tools/devtools/      # Testing utilities
+├── scripts/                 # Ops & deployment scripts
 ├── docker-compose.yml       # Production services
 └── docker-compose.dev.yml   # Development services
 ```
@@ -129,7 +119,7 @@ Chain ID: `86137` (0x15079)
 
 - [Web README](apps/web/README.md)
 - [Marketplace README](apps/marketplace/README.md)
-- [Core README](core-universe/README.md)
+- [Core Universe](https://github.com/axionaxprotocol/axionax-core-universe) (separate repo)
 - [SDK README](packages/sdk/README.md)
 
 ## 🔗 Links
