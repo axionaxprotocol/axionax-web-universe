@@ -1,0 +1,178 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - navigation [ref=e3]:
+      - generic [ref=e5]:
+        - link "Axionax Logo Axionax" [ref=e6] [cursor=pointer]:
+          - /url: /
+          - img "Axionax Logo" [ref=e7]
+          - generic [ref=e8]: Axionax
+        - generic [ref=e9]:
+          - link "🏠 Home" [ref=e10] [cursor=pointer]:
+            - /url: /
+          - link "👛 Wallet" [ref=e11] [cursor=pointer]:
+            - /url: /wallet
+          - link "📊 Dashboard" [ref=e12] [cursor=pointer]:
+            - /url: /dashboard
+          - link "🔭 Explorer" [ref=e13] [cursor=pointer]:
+            - /url: /explorer
+          - link "💧 Faucet" [ref=e14] [cursor=pointer]:
+            - /url: /faucet
+          - link "⚡ Validators" [ref=e15] [cursor=pointer]:
+            - /url: /validators
+          - link "🚀 Join Network" [ref=e16] [cursor=pointer]:
+            - /url: /join
+          - link "🎁 Airdrop" [ref=e17] [cursor=pointer]:
+            - /url: /airdrop
+        - generic [ref=e18]:
+          - button "Add to MetaMask" [ref=e19] [cursor=pointer]:
+            - img [ref=e20]
+            - text: Add to MetaMask
+          - button "Switch to light mode" [ref=e22] [cursor=pointer]:
+            - img [ref=e23]
+          - button "Install MetaMask" [ref=e25] [cursor=pointer]:
+            - img [ref=e26]
+            - text: Install MetaMask
+    - main [ref=e28]:
+      - generic [ref=e29]:
+        - generic [ref=e30]:
+          - heading "💧 Testnet Faucet" [level=1] [ref=e31]
+          - paragraph [ref=e32]: Get free testnet AXX tokens for development and testing
+        - generic [ref=e35]:
+          - generic [ref=e36]:
+            - paragraph [ref=e37]: 🏦 Faucet Balance
+            - paragraph [ref=e38]: 1.00M AXX
+          - generic [ref=e39]:
+            - paragraph [ref=e40]: Per Request
+            - paragraph [ref=e41]: 10,000 AXX
+        - generic [ref=e42]:
+          - heading "🚀 Claim Testnet Tokens" [level=3] [ref=e44]
+          - generic [ref=e46]:
+            - generic [ref=e48]:
+              - generic [ref=e49]:
+                - paragraph [ref=e50]: ยังไม่มี Wallet?
+                - paragraph [ref=e51]: สร้าง wallet ใหม่ฟรี!
+              - link "👛 สร้าง Wallet" [ref=e52] [cursor=pointer]:
+                - /url: /wallet
+            - generic [ref=e53]:
+              - generic [ref=e54]: Your Wallet Address
+              - textbox "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb4" [ref=e55]
+            - button "🎁 Claim 10,000 AXX" [disabled] [ref=e56]
+        - generic [ref=e57]:
+          - heading "📚 Faucet Information" [level=3] [ref=e59]
+          - generic [ref=e61]:
+            - generic [ref=e62]:
+              - generic [ref=e63]: 💰
+              - generic [ref=e64]:
+                - strong [ref=e65]: "Amount:"
+                - text: 10,000 AXXt per request (สำหรับ Validator testing)
+            - generic [ref=e66]:
+              - generic [ref=e67]: ⏰
+              - generic [ref=e68]:
+                - strong [ref=e69]: "Cooldown:"
+                - text: 24 hours between requests per address
+            - generic [ref=e70]:
+              - generic [ref=e71]: 🔗
+              - generic [ref=e72]:
+                - strong [ref=e73]: "Network:"
+                - text: "Axionax Testnet (Chain ID: 86137)"
+            - generic [ref=e74]:
+              - generic [ref=e75]: ⚡
+              - generic [ref=e76]:
+                - strong [ref=e77]: "Staking:"
+                - text: ใช้ tokens นี้ทดสอบ staking เป็น Validator/Worker
+            - generic [ref=e78]:
+              - generic [ref=e79]: ✨
+              - generic [ref=e80]:
+                - strong [ref=e81]: "Mode:"
+                - text: Simulation - Claims บันทึกไว้และจะถูก allocate เมื่อ Mainnet เปิด
+        - paragraph [ref=e83]:
+          - text: 🌌 Need more tokens? Join our
+          - link "Discord" [ref=e84] [cursor=pointer]:
+            - /url: https://discord.gg/axionax
+          - text: for developer support.
+    - contentinfo [ref=e85]:
+      - generic [ref=e86]:
+        - generic [ref=e87]:
+          - generic [ref=e88]:
+            - link "Axionax Logo Axionax" [ref=e89] [cursor=pointer]:
+              - /url: /
+              - img "Axionax Logo" [ref=e90]
+              - generic [ref=e91]: Axionax
+            - paragraph [ref=e92]: Trusted World Computer — Layer-1 for decentralized compute and AI. PoPC consensus · v1.9
+          - generic [ref=e93]:
+            - heading "Product" [level=4] [ref=e94]
+            - list [ref=e95]:
+              - listitem [ref=e96]:
+                - link "Explorer" [ref=e97] [cursor=pointer]:
+                  - /url: /explorer
+              - listitem [ref=e98]:
+                - link "Faucet" [ref=e99] [cursor=pointer]:
+                  - /url: /faucet
+              - listitem [ref=e100]:
+                - link "Wallet" [ref=e101] [cursor=pointer]:
+                  - /url: /wallet
+              - listitem [ref=e102]:
+                - link "Staking" [ref=e103] [cursor=pointer]:
+                  - /url: /staking
+          - generic [ref=e104]:
+            - heading "Developers" [level=4] [ref=e105]
+            - list [ref=e106]:
+              - listitem [ref=e107]:
+                - link "Documentation" [ref=e108] [cursor=pointer]:
+                  - /url: /docs
+              - listitem [ref=e109]:
+                - link "API Reference" [ref=e110] [cursor=pointer]:
+                  - /url: /docs/api
+              - listitem [ref=e111]:
+                - link "SDK" [ref=e112] [cursor=pointer]:
+                  - /url: https://github.com/axionaxprotocol/axionax-sdk-ts
+              - listitem [ref=e113]:
+                - link "GitHub" [ref=e114] [cursor=pointer]:
+                  - /url: https://github.com/axionaxprotocol
+          - generic [ref=e115]:
+            - heading "Community" [level=4] [ref=e116]
+            - list [ref=e117]:
+              - listitem [ref=e118]:
+                - link "Discord" [ref=e119] [cursor=pointer]:
+                  - /url: https://discord.gg/axionax
+              - listitem [ref=e120]:
+                - link "Twitter" [ref=e121] [cursor=pointer]:
+                  - /url: https://twitter.com/axionax
+              - listitem [ref=e122]:
+                - link "Telegram" [ref=e123] [cursor=pointer]:
+                  - /url: https://t.me/axionax
+              - listitem [ref=e124]:
+                - link "Blog" [ref=e125] [cursor=pointer]:
+                  - /url: /blog
+          - generic [ref=e126]:
+            - heading "Company" [level=4] [ref=e127]
+            - list [ref=e128]:
+              - listitem [ref=e129]:
+                - link "About" [ref=e130] [cursor=pointer]:
+                  - /url: /about
+              - listitem [ref=e131]:
+                - link "Careers" [ref=e132] [cursor=pointer]:
+                  - /url: /careers
+              - listitem [ref=e133]:
+                - link "Privacy Policy" [ref=e134] [cursor=pointer]:
+                  - /url: /privacy
+              - listitem [ref=e135]:
+                - link "Terms of Service" [ref=e136] [cursor=pointer]:
+                  - /url: /terms
+        - generic [ref=e137]:
+          - paragraph [ref=e138]: © 2026 Axionax Protocol v1.9.0 · Trusted World Computer
+          - generic [ref=e139]:
+            - link "GitHub" [ref=e140] [cursor=pointer]:
+              - /url: https://github.com/axionaxprotocol
+              - img [ref=e141]
+            - link "Twitter" [ref=e143] [cursor=pointer]:
+              - /url: https://twitter.com/axionax
+              - img [ref=e144]
+            - link "Discord" [ref=e146] [cursor=pointer]:
+              - /url: https://discord.gg/axionax
+              - img [ref=e147]
+  - alert [ref=e149]
+```

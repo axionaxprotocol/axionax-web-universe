@@ -10,6 +10,7 @@ interface StatsResponse {
   blockNumber: number;
   services: {
     healthy: number;
+    total: number;
   };
   uptime: {
     hours: number;
@@ -17,7 +18,9 @@ interface StatsResponse {
   deployment: number;
   validators: {
     online: number;
+    total: number;
   };
+  timestamp: number;
 }
 
 async function getBlockNumber(rpcUrl: string): Promise<number | null> {
@@ -82,31 +85,43 @@ export async function GET() {
 
     const validatorsOnline = (euHealth ? 1 : 0) + (auHealth ? 1 : 0);
 
-    const stats: StatsResponse = {
+    const isMock = validatorsOnline === 0;
+    const stats = {
       blockNumber,
       services: {
         healthy: validatorsOnline > 0 ? 9 : 0,
+        total: 9,
       },
       uptime: {
-        hours: 48, // Placeholder - could be calculated from deployment time
+        hours: 48,
       },
       deployment: 100,
       validators: {
         online: validatorsOnline,
+        total: 2,
       },
+      timestamp: Date.now(),
+      isMock,
     };
 
-    return NextResponse.json(stats);
+    const res = NextResponse.json(stats);
+    res.headers.set('Access-Control-Allow-Origin', '*');
+    res.headers.set('Access-Control-Allow-Methods', 'GET, OPTIONS');
+    res.headers.set('Cache-Control', 'public, s-maxage=5, stale-while-revalidate=10');
+    return res;
   } catch (error) {
     console.error('Stats API error:', error);
-
-    // Return mock data on error
-    return NextResponse.json({
+    const fallback = NextResponse.json({
       blockNumber: 0,
-      services: { healthy: 0 },
+      services: { healthy: 0, total: 9 },
       uptime: { hours: 0 },
       deployment: 100,
-      validators: { online: 0 },
+      validators: { online: 0, total: 2 },
+      timestamp: Date.now(),
+      isMock: true,
     });
+    fallback.headers.set('Access-Control-Allow-Origin', '*');
+    fallback.headers.set('Cache-Control', 'public, s-maxage=5');
+    return fallback;
   }
 }

@@ -7,6 +7,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import Card, { CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
+import MockBadge from '@/components/ui/MockBadge';
 
 interface FaucetResponse {
   success: boolean;
@@ -14,12 +15,14 @@ interface FaucetResponse {
   txHash?: string;
   amount?: string;
   blockNumber?: number;
+  isMock?: boolean;
 }
 
 interface FaucetInfo {
   address: string;
   balance: string;
   symbol: string;
+  isMock?: boolean;
 }
 
 interface RecentTx {
@@ -132,9 +135,12 @@ function FaucetContent(): React.JSX.Element {
       <main className="container-custom py-24 relative z-10">
         <div className="max-w-2xl mx-auto">
           <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold mb-4">
-              <span className="text-horizon">💧 Testnet Faucet</span>
-            </h1>
+            <div className="flex flex-wrap items-center justify-center gap-3 mb-4">
+              <h1 className="text-4xl font-bold">
+                <span className="text-horizon">💧 Testnet Faucet</span>
+              </h1>
+              <MockBadge show={faucetInfo?.isMock ?? false} label="Balance" />
+            </div>
             <p className="text-starlight/70 text-lg">
               Get free testnet <span className="text-horizon-gold">AXX</span>{' '}
               tokens for development and testing
@@ -228,7 +234,7 @@ function FaucetContent(): React.JSX.Element {
                 </button>
 
                 {mutation.isError && (
-                  <div className="p-4 rounded-lg bg-horizon-pink/10 border border-horizon-pink/30 text-horizon-pink">
+                  <div className="p-4 rounded-lg bg-horizon-pink/10 border border-horizon-pink/30 text-horizon-pink" data-testid="faucet-message">
                     ❌{' '}
                     {mutation.error instanceof Error
                       ? mutation.error.message
@@ -237,8 +243,11 @@ function FaucetContent(): React.JSX.Element {
                 )}
 
                 {lastSuccess && (
-                  <div className="p-4 rounded-lg bg-green-500/10 border border-green-500/30 text-green-400 space-y-2">
-                    <div>✅ {lastSuccess.message}</div>
+                  <div className="p-4 rounded-lg bg-green-500/10 border border-green-500/30 text-green-400 space-y-2" data-testid="faucet-message">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span>✅ {lastSuccess.message}</span>
+                      <MockBadge show={lastSuccess.isMock ?? false} label="Claim" />
+                    </div>
                     {lastSuccess.txHash && (
                       <div className="text-sm font-mono break-all text-green-300">
                         TX: {lastSuccess.txHash}

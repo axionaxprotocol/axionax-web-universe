@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
+import MockBadge from '@/components/ui/MockBadge';
 
 interface LiveStats {
   blocks: number;
@@ -23,10 +24,11 @@ interface StatsApiResponse {
   validators: {
     online: number;
   };
+  isMock?: boolean;
 }
 
 // Fetch real-time stats from Server API
-const fetchStats = async (): Promise<LiveStats> => {
+const fetchStats = async (): Promise<LiveStats & { isMock?: boolean }> => {
   const response = await fetch('/api/stats');
   if (!response.ok) {
     throw new Error('Failed to fetch stats');
@@ -39,6 +41,7 @@ const fetchStats = async (): Promise<LiveStats> => {
     uptime: data.uptime.hours,
     deployment: data.deployment,
     validators: data.validators.online,
+    isMock: data.isMock ?? false,
   };
 };
 
@@ -46,16 +49,17 @@ const fetchStats = async (): Promise<LiveStats> => {
 // รองรับ mobile-first responsive design ตาม Tailwind best practices
 export default function Statistics(): React.JSX.Element {
   // Use TanStack Query v5 for server state
-  const { data: stats, isLoading } = useQuery<LiveStats>({
+  const { data: stats, isLoading } = useQuery<LiveStats & { isMock?: boolean }>({
     queryKey: ['live-stats'],
     queryFn: fetchStats,
-    refetchInterval: 2000, // Refresh every 2 seconds for real-time feel
+    refetchInterval: 2000,
     initialData: {
       blocks: 0,
       services: 9,
       uptime: 48,
       deployment: 100,
       validators: 2,
+      isMock: true,
     },
   });
 
@@ -184,9 +188,12 @@ export default function Statistics(): React.JSX.Element {
     <section className="section bg-gradient-to-b from-transparent via-amber-950/5 to-transparent border-y border-amber-500/10">
       <div className="container-custom">
         <div className="section-heading">
-          <h2 className="bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent mb-4">
-            Live Testnet Metrics
-          </h2>
+          <div className="flex flex-wrap items-center justify-center gap-3 mb-4">
+            <h2 className="bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent">
+              Live Testnet Metrics
+            </h2>
+            <MockBadge show={stats.isMock ?? false} label="Stats" />
+          </div>
           <p className="text-starlight/70 text-lg max-w-2xl mx-auto">
             Real-time status from our global infrastructure • All Systems
             Operational

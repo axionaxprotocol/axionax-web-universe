@@ -1,5 +1,6 @@
-﻿import { useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { EscrowPanel } from './components/EscrowPanel'
+import { MockBadge } from './components/MockBadge'
 
 const mockASRWorkers = [
   {
@@ -29,8 +30,11 @@ export function App() {
   return (
     <div className="mx-auto max-w-5xl p-8">
       <header className="mb-10 text-center">
-        <h1 className="text-4xl font-bold">axionax ASR Marketplace</h1>
-        <p className="mt-2 text-gray-600">Rent ASR (Automatic Speech Recognition) workers selected by Auto-Selection Router (ASR) for ML/AI tasks using AXX tokens.</p>
+        <div className="flex flex-wrap items-center justify-center gap-3 mb-2">
+          <h1 className="text-4xl font-bold">axionax ASR Marketplace</h1>
+          <MockBadge show label="Workers & Escrow" />
+        </div>
+        <p className="mt-2 text-gray-600 dark:text-gray-400">Rent ASR (Automatic Speech Recognition) workers selected by Auto-Selection Router (ASR) for ML/AI tasks using AXX tokens.</p>
       </header>
 
       <section className="grid gap-4 sm:grid-cols-2">

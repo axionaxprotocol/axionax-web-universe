@@ -6,6 +6,7 @@ import { RPC_URLS } from '@axionax/blockchain-utils';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import Card, { CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
+import MockBadge from '@/components/ui/MockBadge';
 
 interface Block {
   number: number;
@@ -24,6 +25,7 @@ interface BlocksResponse {
   page: number;
   pageSize: number;
   latestBlock: number;
+  isMock?: boolean;
 }
 
 interface AddressInfo {
@@ -157,9 +159,12 @@ export default function Explorer(): React.JSX.Element {
       <Navbar />
       <main className="container-custom py-24 relative z-10">
         <div className="mb-8 text-center">
-          <h1 className="text-4xl font-bold mb-4">
-            <span className="text-horizon">🔭 Block Explorer</span>
-          </h1>
+          <div className="flex flex-wrap items-center justify-center gap-3 mb-4">
+            <h1 className="text-4xl font-bold">
+              <span className="text-horizon">🔭 Block Explorer</span>
+            </h1>
+            <MockBadge show={blocksData?.isMock ?? false} label="Blocks" />
+          </div>
           <p className="text-starlight/70 text-lg">
             Explore blocks, transactions, and addresses on the{' '}
             <span className="text-horizon-blue">Axionax</span> testnet
@@ -167,14 +172,14 @@ export default function Explorer(): React.JSX.Element {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <div className="card-cosmic hover:shadow-horizon-sm transition-all duration-300">
+          <div className="card-cosmic hover:shadow-horizon-sm transition-all duration-300" data-testid="latest-block">
             <CardHeader>
               <CardTitle className="text-horizon-orange">
                 ⬡ Latest Block
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold text-horizon-gold mb-2">
+              <div className="text-3xl font-bold text-horizon-gold mb-2" data-testid="block-number">
                 {isLoading
                   ? '...'
                   : `#${blocksData?.blocks[0]?.number.toLocaleString() || '0'}`}

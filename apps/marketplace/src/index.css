@@ -1,4 +1,4 @@
-﻿@tailwind base;
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -17,4 +17,20 @@ body {
 
 button {
   cursor: pointer;
+}
+
+/* Mock/Demo badge animation */
+@keyframes mock-badge-pulse {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 12px rgba(245, 158, 11, 0.25);
+  }
+  50% {
+    opacity: 0.85;
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
+  }
+}
+
+.mock-badge {
+  animation: mock-badge-pulse 2s ease-in-out infinite;
 }

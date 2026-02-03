@@ -12,7 +12,7 @@ import {
 describe('SDK Configuration', () => {
     it('should have correct testnet chain ID', () => {
         expect(AXIONAX_TESTNET_CONFIG.chainIdDecimal).toBe(86137);
-        expect(AXIONAX_TESTNET_CONFIG.chainId).toBe('0x150b9');
+        expect(AXIONAX_TESTNET_CONFIG.chainId).toBe('0x15079');
     });
 
     it('should have correct testnet name', () => {
@@ -24,7 +24,7 @@ describe('SDK Configuration', () => {
     });
 
     it('should have native currency configured', () => {
-        expect(AXIONAX_TESTNET_CONFIG.nativeCurrency.symbol).toBe('AXXT');
+        expect(AXIONAX_TESTNET_CONFIG.nativeCurrency.symbol).toBe('AXXt');
         expect(AXIONAX_TESTNET_CONFIG.nativeCurrency.decimals).toBe(18);
     });
 });

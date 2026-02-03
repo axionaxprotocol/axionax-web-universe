@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import MockBadge from '@/components/ui/MockBadge';
 
 interface ValidatorInfo {
   name: string;
@@ -134,13 +135,20 @@ export default function ValidatorStatus(): React.JSX.Element {
     }
   };
 
+  const onlineCount = validators.filter((v) => v.status === 'online').length;
+  const allOffline = validators.every((v) => v.status === 'offline');
+  const isChecking = validators.some((v) => v.status === 'checking');
+
   return (
-    <section className="section bg-dark-900/50">
+    <section className="section bg-dark-900/50" data-testid="network-status" aria-label={onlineCount > 0 ? 'Connected' : 'Checking'}>
       <div className="container-custom">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            <span className="gradient-text">Validator Network</span>
-          </h2>
+          <div className="flex flex-wrap items-center justify-center gap-3 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold">
+              <span className="gradient-text">Validator Network</span>
+            </h2>
+            <MockBadge show={!isChecking && allOffline} label="Unavailable" />
+          </div>
           <p className="text-dark-300 text-lg">
             Real-time status of axionax validators running PoPC consensus
           </p>

@@ -34,6 +34,8 @@
     "test": "pnpm --recursive run test",
     "test:watch": "pnpm --recursive run test:watch",
     "test:coverage": "pnpm --recursive run test:coverage",
+    "test:e2e": "pnpm --filter @axionax/web test:e2e",
+    "test:e2e:ui": "pnpm --filter @axionax/web test:e2e:ui",
     "lint": "pnpm --recursive run lint",
     "lint:fix": "pnpm --recursive run lint --fix",
     "type-check": "pnpm --recursive run type-check",

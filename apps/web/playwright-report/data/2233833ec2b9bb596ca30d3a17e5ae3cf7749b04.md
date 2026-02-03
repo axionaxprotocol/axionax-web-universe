@@ -1,0 +1,626 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - navigation [ref=e3]:
+      - generic [ref=e5]:
+        - link "Axionax Logo Axionax" [ref=e6] [cursor=pointer]:
+          - /url: /
+          - img "Axionax Logo" [ref=e7]
+          - generic [ref=e8]: Axionax
+        - generic [ref=e9]:
+          - link "🏠 Home" [ref=e10] [cursor=pointer]:
+            - /url: /
+          - link "👛 Wallet" [ref=e11] [cursor=pointer]:
+            - /url: /wallet
+          - link "📊 Dashboard" [ref=e12] [cursor=pointer]:
+            - /url: /dashboard
+          - link "🔭 Explorer" [ref=e13] [cursor=pointer]:
+            - /url: /explorer
+          - link "💧 Faucet" [ref=e14] [cursor=pointer]:
+            - /url: /faucet
+          - link "⚡ Validators" [ref=e15] [cursor=pointer]:
+            - /url: /validators
+          - link "🚀 Join Network" [ref=e16] [cursor=pointer]:
+            - /url: /join
+          - link "🎁 Airdrop" [ref=e17] [cursor=pointer]:
+            - /url: /airdrop
+        - generic [ref=e18]:
+          - button "Add to MetaMask" [ref=e19] [cursor=pointer]:
+            - img [ref=e20]
+            - text: Add to MetaMask
+          - button "Switch to light mode" [ref=e22] [cursor=pointer]:
+            - img [ref=e23]
+          - button "Install MetaMask" [ref=e25] [cursor=pointer]:
+            - img [ref=e26]
+            - text: Install MetaMask
+    - main [ref=e28]:
+      - generic [ref=e29]:
+        - generic:
+          - generic:
+            - img "Axionax Golden Atom"
+        - generic [ref=e31]:
+          - generic [ref=e33]: 🔥 Testnet Live • 2 Validators • Chain ID 86137
+          - heading "Welcome to the Golden Era" [level=1] [ref=e37]
+          - paragraph [ref=e38]: Axionax v1.9.0 — powered by Proof of Probabilistic Checking (PoPC) consensus. The next generation Layer-1 with 45K+ TPS and sub-second finality.
+          - generic [ref=e39]:
+            - link "🚀 Get Test Tokens Arrow right icon" [ref=e40] [cursor=pointer]:
+              - /url: /faucet
+              - button "🚀 Get Test Tokens Arrow right icon" [ref=e41]:
+                - text: 🚀 Get Test Tokens
+                - img "Arrow right icon" [ref=e42]
+            - link "📚 Read Documentation" [ref=e44] [cursor=pointer]:
+              - /url: /docs
+              - button "📚 Read Documentation" [ref=e45]
+            - link "🔭 Explorer" [ref=e46] [cursor=pointer]:
+              - /url: /explorer
+              - button "🔭 Explorer" [ref=e47]
+          - generic [ref=e48]:
+            - generic [ref=e49]:
+              - generic [ref=e50]: "86137"
+              - generic [ref=e51]: Chain ID
+            - generic [ref=e52]:
+              - generic [ref=e53]: "2"
+              - generic [ref=e54]: Validators Live
+            - generic [ref=e55]:
+              - generic [ref=e56]: 45K+
+              - generic [ref=e57]: Target TPS
+            - generic [ref=e58]:
+              - generic [ref=e59]: <0.5s
+              - generic [ref=e60]: Finality
+          - generic [ref=e61]:
+            - heading "AXX Token Add AXX to MetaMask" [level=3] [ref=e62]:
+              - img "AXX Token" [ref=e63]
+              - text: Add AXX to MetaMask
+            - generic [ref=e64]:
+              - generic [ref=e65]:
+                - generic [ref=e66]: "Network:"
+                - generic [ref=e67]: Axionax Testnet
+              - generic [ref=e68]:
+                - generic [ref=e69]: "RPC URL:"
+                - generic [ref=e70]: https://rpc.axionax.org
+              - generic [ref=e71]:
+                - generic [ref=e72]: "Chain ID:"
+                - generic [ref=e73]: "86137"
+              - generic [ref=e74]:
+                - generic [ref=e75]: "Symbol:"
+                - generic [ref=e76]: AXX
+      - generic [ref=e79]:
+        - generic [ref=e80]:
+          - heading "Quick Access" [level=2] [ref=e81]
+          - paragraph [ref=e82]: Everything you need to start building on Axionax
+        - generic [ref=e83]:
+          - link "HTTPS RPC Endpoint Connect your dApp to axionax testnet https://rpc.axionax.org Open" [ref=e84] [cursor=pointer]:
+            - /url: https://rpc.axionax.org
+            - generic [ref=e85]:
+              - img [ref=e87]
+              - generic [ref=e89]: HTTPS
+            - heading "RPC Endpoint" [level=3] [ref=e90]
+            - paragraph [ref=e91]: Connect your dApp to axionax testnet
+            - code [ref=e92]: https://rpc.axionax.org
+            - generic [ref=e93]:
+              - generic [ref=e94]: Open
+              - img [ref=e95]
+          - link "Live Block Explorer View transactions, blocks, and accounts Open" [ref=e97] [cursor=pointer]:
+            - /url: https://explorer.axionax.org
+            - generic [ref=e98]:
+              - img [ref=e100]
+              - generic [ref=e102]: Live
+            - heading "Block Explorer" [level=3] [ref=e103]
+            - paragraph [ref=e104]: View transactions, blocks, and accounts
+            - generic [ref=e105]:
+              - generic [ref=e106]: Open
+              - img [ref=e107]
+          - link "100 AXX/day Faucet Get free testnet AXX tokens Open" [ref=e109] [cursor=pointer]:
+            - /url: /faucet
+            - generic [ref=e110]:
+              - img [ref=e112]
+              - generic [ref=e114]: 100 AXX/day
+            - heading "Faucet" [level=3] [ref=e115]
+            - paragraph [ref=e116]: Get free testnet AXX tokens
+            - generic [ref=e117]:
+              - generic [ref=e118]: Open
+              - img [ref=e119]
+          - link "Beta Marketplace Trade compute resources and AI models Open" [ref=e121] [cursor=pointer]:
+            - /url: https://axionax.org:3003
+            - generic [ref=e122]:
+              - img [ref=e124]
+              - generic [ref=e126]: Beta
+            - heading "Marketplace" [level=3] [ref=e127]
+            - paragraph [ref=e128]: Trade compute resources and AI models
+            - generic [ref=e129]:
+              - generic [ref=e130]: Open
+              - img [ref=e131]
+          - link "Grafana Monitoring Real-time infrastructure metrics Open" [ref=e133] [cursor=pointer]:
+            - /url: http://217.216.109.5:3004
+            - generic [ref=e134]:
+              - img [ref=e136]
+              - generic [ref=e138]: Grafana
+            - heading "Monitoring" [level=3] [ref=e139]
+            - paragraph [ref=e140]: Real-time infrastructure metrics
+            - generic [ref=e141]:
+              - generic [ref=e142]: Open
+              - img [ref=e143]
+          - link "2,300+ lines Documentation Guides, API reference, and tutorials Open" [ref=e145] [cursor=pointer]:
+            - /url: /docs
+            - generic [ref=e146]:
+              - img [ref=e148]
+              - generic [ref=e150]: 2,300+ lines
+            - heading "Documentation" [level=3] [ref=e151]
+            - paragraph [ref=e152]: Guides, API reference, and tutorials
+            - generic [ref=e153]:
+              - generic [ref=e154]: Open
+              - img [ref=e155]
+        - generic [ref=e157]:
+          - heading "🔗 Add Axionax Testnet to MetaMask" [level=3] [ref=e158]:
+            - generic [ref=e159]: 🔗
+            - text: Add Axionax Testnet to MetaMask
+          - generic [ref=e160]:
+            - generic [ref=e161]:
+              - text: "Network Name:"
+              - paragraph [ref=e162]: Axionax Testnet
+            - generic [ref=e163]:
+              - text: "RPC URL:"
+              - paragraph [ref=e164]: https://rpc.axionax.org
+            - generic [ref=e165]:
+              - text: "Chain ID:"
+              - paragraph [ref=e166]: "86137"
+            - generic [ref=e167]:
+              - text: "Currency Symbol:"
+              - paragraph [ref=e168]: AXX
+      - region "Connected" [ref=e169]:
+        - generic [ref=e170]:
+          - generic [ref=e171]:
+            - heading "Validator Network" [level=2] [ref=e172]
+            - paragraph [ref=e173]: Real-time status of axionax validators running PoPC consensus
+          - generic [ref=e174]:
+            - generic [ref=e175]:
+              - generic [ref=e176]:
+                - generic [ref=e177]:
+                  - generic [ref=e178]: 🇪🇺
+                  - generic [ref=e179]:
+                    - heading "Validator EU" [level=3] [ref=e180]
+                    - paragraph [ref=e181]: Europe
+                - generic [ref=e184]: online
+              - generic [ref=e185]:
+                - generic [ref=e186]:
+                  - generic [ref=e187]: 817,843
+                  - generic [ref=e188]: Block Height
+                - generic [ref=e189]:
+                  - generic [ref=e190]: "2"
+                  - generic [ref=e191]: Peers
+              - generic [ref=e192]:
+                - code [ref=e193]: 217.76.61.116:8545
+                - generic [ref=e194]: 801ms latency
+            - generic [ref=e195]:
+              - generic [ref=e196]:
+                - generic [ref=e197]:
+                  - generic [ref=e198]: 🇦🇺
+                  - generic [ref=e199]:
+                    - heading "Validator AU" [level=3] [ref=e200]
+                    - paragraph [ref=e201]: Australia
+                - generic [ref=e204]: online
+              - generic [ref=e205]:
+                - generic [ref=e206]:
+                  - generic [ref=e207]: 817,841
+                  - generic [ref=e208]: Block Height
+                - generic [ref=e209]:
+                  - generic [ref=e210]: "2"
+                  - generic [ref=e211]: Peers
+              - generic [ref=e212]:
+                - code [ref=e213]: 46.250.244.4:8545
+                - generic [ref=e214]: 861ms latency
+          - paragraph [ref=e216]: "✓ Connected via PoPC Consensus • Chain ID: 86137 • Updates every 10s"
+      - generic [ref=e218]:
+        - generic [ref=e219]:
+          - heading "Why Choose Axionax?" [level=2] [ref=e220]
+          - paragraph [ref=e221]: Built from the ground up for speed, security, and scalability
+        - generic [ref=e222]:
+          - generic [ref=e223]:
+            - generic [ref=e224]:
+              - img "Proof of Probabilistic Checking icon" [ref=e227]
+              - heading "Proof of Probabilistic Checking" [level=3] [ref=e229]
+            - paragraph [ref=e231]: Revolutionary consensus mechanism that rewards validators based on their positive contributions to the network, including computational work, AI model training, and data processing.
+          - generic [ref=e232]:
+            - generic [ref=e233]:
+              - img "High performance icon" [ref=e236]
+              - heading "High Performance" [level=3] [ref=e238]
+            - paragraph [ref=e240]: "Current testnet: 1,000+ TPS with sub-2-second finality. Mainnet target: 45K+ TPS with <0.5s finality. Built for real-world applications that demand speed and reliability."
+          - generic [ref=e241]:
+            - generic [ref=e242]:
+              - img "AI infrastructure icon" [ref=e245]
+              - heading "AI-Native Infrastructure" [level=3] [ref=e247]
+            - paragraph [ref=e249]: Purpose-built for AI and machine learning workloads. Run training jobs, inference tasks, and data processing directly on-chain with built-in GPU support.
+          - generic [ref=e250]:
+            - generic [ref=e251]:
+              - img "Low transaction cost icon" [ref=e254]
+              - heading "Low Transaction Costs" [level=3] [ref=e256]
+            - paragraph [ref=e258]: Average transaction fees under $0.001 make axionax accessible for developers and users alike. No more worrying about gas wars or unpredictable costs.
+          - generic [ref=e259]:
+            - generic [ref=e260]:
+              - img "Developer friendly icon" [ref=e263]
+              - heading "Developer Friendly" [level=3] [ref=e265]
+            - paragraph [ref=e267]: Comprehensive SDK, extensive documentation, and familiar tooling. Build with TypeScript, Python, or Rust. Deploy in minutes, not days.
+          - generic [ref=e268]:
+            - generic [ref=e269]:
+              - img "Enterprise security icon" [ref=e272]
+              - heading "Enterprise Security" [level=3] [ref=e274]
+            - paragraph [ref=e276]: Bank-grade security with Ed25519 signatures, VRF for randomness, and comprehensive validation. Audited by leading security firms.
+      - generic [ref=e278]:
+        - generic [ref=e279]:
+          - heading "Live Testnet Metrics" [level=2] [ref=e280]
+          - paragraph [ref=e281]: Real-time status from our global infrastructure • All Systems Operational
+        - generic [ref=e282]:
+          - generic [ref=e283]:
+            - img "Block height icon" [ref=e285]
+            - generic [ref=e287]: 734,596
+            - generic [ref=e288]: Live Block Height
+            - generic [ref=e289]: From Validators (5s blocks)
+          - generic [ref=e290]:
+            - img "Validator nodes icon" [ref=e292]
+            - generic [ref=e294]: 2/2
+            - generic [ref=e295]: Active Validators
+            - generic [ref=e296]: EU + AU regions (29h uptime)
+          - generic [ref=e297]:
+            - img "Services operational icon" [ref=e299]
+            - generic [ref=e301]: 9/9
+            - generic [ref=e302]: Services Operational
+            - generic [ref=e303]: Infrastructure 100%
+          - generic [ref=e304]:
+            - img "Infrastructure uptime icon" [ref=e306]
+            - generic [ref=e308]: 2d+
+            - generic [ref=e309]: Infrastructure Uptime
+            - generic [ref=e310]: Explorer API uptime
+          - generic [ref=e311]:
+            - img "Testnet deployment icon" [ref=e313]
+            - generic [ref=e315]: 100%
+            - generic [ref=e316]: Testnet Deployment
+            - generic [ref=e317]: Protocol v1.9.0 Active
+        - generic [ref=e318]:
+          - generic [ref=e319]:
+            - heading "Service Health" [level=3] [ref=e320]
+            - generic [ref=e321]: ✅ All systems operational
+          - generic [ref=e322]:
+            - generic [ref=e326]: 100%
+            - generic [ref=e327]:
+              - generic [ref=e328]: ✅ RPC
+              - generic [ref=e329]: ✅ PostgreSQL
+              - generic [ref=e330]: ✅ Redis
+              - generic [ref=e331]: ✅ Nginx/SSL
+              - generic [ref=e332]: ✅ Grafana
+              - generic [ref=e333]: ✅ Prometheus
+              - generic [ref=e334]: ✅ Web
+              - generic [ref=e335]: ✅ Explorer API
+              - generic [ref=e336]: ✅ Faucet API
+        - generic [ref=e337]:
+          - generic [ref=e338]:
+            - heading "Validator Nodes" [level=3] [ref=e339]
+            - generic [ref=e340]: ✅ 2/2 nodes online
+          - generic [ref=e341]:
+            - generic [ref=e342]:
+              - generic [ref=e343]:
+                - generic [ref=e344]: 🇪🇺 Validator EU
+                - generic [ref=e345]: Online
+              - generic [ref=e346]:
+                - generic [ref=e347]: "IP: 217.76.61.116"
+                - generic [ref=e348]: "Uptime: 29h+"
+                - generic [ref=e349]: "Container: axionax-validator-eu"
+            - generic [ref=e350]:
+              - generic [ref=e351]:
+                - generic [ref=e352]: 🇦🇺 Validator AU
+                - generic [ref=e353]: Online
+              - generic [ref=e354]:
+                - generic [ref=e355]: "IP: 46.250.244.4"
+                - generic [ref=e356]: "Uptime: 29h+"
+                - generic [ref=e357]: "Container: axionax-validator-au"
+      - generic [ref=e359]:
+        - generic [ref=e360]:
+          - heading "Technology Stack" [level=2] [ref=e361]
+          - paragraph [ref=e362]: Built with industry-leading technologies for maximum performance and security
+        - generic [ref=e363]:
+          - generic [ref=e364]:
+            - heading "Core" [level=3] [ref=e365]: Core
+            - generic [ref=e367]:
+              - generic [ref=e368]:
+                - generic [ref=e370]: Rust
+                - paragraph [ref=e371]: High-performance systems programming
+              - generic [ref=e372]:
+                - generic [ref=e374]: Tokio
+                - paragraph [ref=e375]: Async runtime for Rust
+              - generic [ref=e376]:
+                - generic [ref=e378]: RocksDB
+                - paragraph [ref=e379]: Persistent key-value store
+          - generic [ref=e380]:
+            - heading "Networking" [level=3] [ref=e381]: Networking
+            - generic [ref=e383]:
+              - generic [ref=e384]:
+                - generic [ref=e386]: libp2p
+                - paragraph [ref=e387]: P2P networking framework
+              - generic [ref=e388]:
+                - generic [ref=e390]: Gossipsub
+                - paragraph [ref=e391]: Pub/sub message propagation
+              - generic [ref=e392]:
+                - generic [ref=e394]: Kademlia
+                - paragraph [ref=e395]: DHT for peer discovery
+          - generic [ref=e396]:
+            - heading "Cryptography" [level=3] [ref=e397]: Cryptography
+            - generic [ref=e399]:
+              - generic [ref=e400]:
+                - generic [ref=e402]: Ed25519
+                - paragraph [ref=e403]: Digital signatures
+              - generic [ref=e404]:
+                - generic [ref=e406]: VRF
+                - paragraph [ref=e407]: Verifiable random functions
+              - generic [ref=e408]:
+                - generic [ref=e410]: Blake2b
+                - paragraph [ref=e411]: Fast cryptographic hashing
+          - generic [ref=e412]:
+            - heading "Consensus" [level=3] [ref=e413]: Consensus
+            - generic [ref=e415]:
+              - generic [ref=e416]:
+                - generic [ref=e418]: PoPC
+                - paragraph [ref=e419]: Proof of Probabilistic Checking
+              - generic [ref=e420]:
+                - generic [ref=e422]: BFT
+                - paragraph [ref=e423]: Byzantine Fault Tolerance
+              - generic [ref=e424]:
+                - generic [ref=e426]: Finality Gadget
+                - paragraph [ref=e427]: Fast finality mechanism
+        - generic [ref=e428]:
+          - heading "Quick Start Example" [level=3] [ref=e429]
+          - code [ref=e431]: "// Initialize axionax SDK import { axionax, Wallet } from '@axionax/sdk'; const axion = new axionax({ rpcUrl: 'https://rpc.axionax.org', networkId: 'testnet-v1', }); // Create a wallet const wallet = Wallet.fromMnemonic('your mnemonic here'); // Send a transaction const tx = await axion.sendTransaction({ from: wallet.address, to: '0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb', value: '1000000000000000000', // 1 AXX data: '0x', }); console.log('Transaction hash:', tx.hash);"
+      - generic [ref=e433]:
+        - generic [ref=e434]:
+          - heading "Roadmap" [level=2] [ref=e435]
+          - paragraph [ref=e436]: Our journey to building the future of decentralized compute
+        - generic [ref=e439]:
+          - generic [ref=e442]:
+            - generic [ref=e443]:
+              - generic [ref=e444]:
+                - generic [ref=e445]: Q4 2025
+                - heading "v1.9.0 Production Ready" [level=3] [ref=e446]
+              - generic [ref=e447]: Completed
+            - list [ref=e448]:
+              - listitem [ref=e449]:
+                - img [ref=e450]
+                - generic [ref=e452]: Rust Core (Consensus, Blockchain, Crypto)
+              - listitem [ref=e453]:
+                - img [ref=e454]
+                - generic [ref=e456]: Python DeAI Layer (ASR, Fraud Detection)
+              - listitem [ref=e457]:
+                - img [ref=e458]
+                - generic [ref=e460]: TypeScript SDK & PyO3 Bridge
+              - listitem [ref=e461]:
+                - img [ref=e462]
+                - generic [ref=e464]: Public Testnet Launch ✓
+          - generic [ref=e467]:
+            - generic [ref=e468]:
+              - generic [ref=e469]:
+                - generic [ref=e470]: Q1 2026
+                - 'heading "Phase 2: DeAI & Expansion" [level=3] [ref=e471]'
+              - generic [ref=e472]: Planned
+            - list [ref=e473]:
+              - listitem [ref=e474]:
+                - img [ref=e475]
+                - generic [ref=e477]: DeAI Worker Integration (In Progress)
+              - listitem [ref=e478]:
+                - img [ref=e479]
+                - generic [ref=e481]: RPC Infrastructure Optimization ✓
+              - listitem [ref=e482]:
+                - img [ref=e483]
+                - generic [ref=e485]: Validator Network Growth
+              - listitem [ref=e486]:
+                - img [ref=e487]
+                - generic [ref=e489]: Full Infrastructure Deployment ✓
+          - generic [ref=e492]:
+            - generic [ref=e493]:
+              - generic [ref=e494]:
+                - generic [ref=e495]: Q1-Q2 2026
+                - heading "v2.0 Protocol Compliance & Testing" [level=3] [ref=e496]
+              - generic [ref=e497]: In Progress
+            - list [ref=e498]:
+              - listitem [ref=e499]:
+                - img [ref=e500]
+                - generic [ref=e502]: PoPC Parameters (s=1000, confidence=0.99) ✓
+              - listitem [ref=e503]:
+                - img [ref=e504]
+                - generic [ref=e506]: ASR Configuration (K=64, max_quota=12.5%) ✓
+              - listitem [ref=e507]:
+                - img [ref=e508]
+                - generic [ref=e510]: VRF Delay Implementation (k≥2) ✓
+              - listitem [ref=e511]:
+                - img [ref=e512]
+                - generic [ref=e514]: Comprehensive Testing & Validation
+          - generic [ref=e517]:
+            - generic [ref=e518]:
+              - generic [ref=e519]:
+                - generic [ref=e520]: Q3 2026
+                - heading "v2.1 Mainnet Prep" [level=3] [ref=e521]
+              - generic [ref=e522]: Upcoming
+            - list [ref=e523]:
+              - listitem [ref=e524]:
+                - img [ref=e525]
+                - generic [ref=e527]: Security audits (Trail of Bits, OpenZeppelin)
+              - listitem [ref=e528]:
+                - img [ref=e529]
+                - generic [ref=e531]: Permissionless validator registration
+              - listitem [ref=e532]:
+                - img [ref=e533]
+                - generic [ref=e535]: Governance UI for AXX holders
+              - listitem [ref=e536]:
+                - img [ref=e537]
+                - generic [ref=e539]: Emergency response system
+          - generic [ref=e542]:
+            - generic [ref=e543]:
+              - generic [ref=e544]:
+                - generic [ref=e545]: Q4 2026
+                - heading "v2.0 Mainnet Genesis" [level=3] [ref=e546]
+              - generic [ref=e547]: Planned
+            - list [ref=e548]:
+              - listitem [ref=e549]:
+                - img [ref=e550]
+                - generic [ref=e552]: Mainnet launch 🚀
+              - listitem [ref=e553]:
+                - img [ref=e554]
+                - generic [ref=e556]: Complete SDK suite (Go, Rust, JS)
+              - listitem [ref=e557]:
+                - img [ref=e558]
+                - generic [ref=e560]: Production marketplace
+              - listitem [ref=e561]:
+                - img [ref=e562]
+                - generic [ref=e564]: 100+ validator nodes
+          - generic [ref=e567]:
+            - generic [ref=e568]:
+              - generic [ref=e569]:
+                - generic [ref=e570]: 2027+
+                - heading "Ecosystem & Beyond" [level=3] [ref=e571]
+              - generic [ref=e572]: Planned
+            - list [ref=e573]:
+              - listitem [ref=e574]:
+                - img [ref=e575]
+                - generic [ref=e577]: Cross-chain bridges
+              - listitem [ref=e578]:
+                - img [ref=e579]
+                - generic [ref=e581]: 1,000+ global nodes
+              - listitem [ref=e582]:
+                - img [ref=e583]
+                - generic [ref=e585]: Guardian Nodes in Space 🛰️
+              - listitem [ref=e586]:
+                - img [ref=e587]
+                - generic [ref=e589]: $10M+ TVL target
+      - generic [ref=e591]:
+        - generic [ref=e592]:
+          - heading "Join Our Community" [level=2] [ref=e593]
+          - paragraph [ref=e594]: Be part of a growing ecosystem of developers, validators, and enthusiasts building the future of decentralized compute
+        - generic [ref=e595]:
+          - generic [ref=e596]:
+            - generic [ref=e597]: 💬
+            - generic [ref=e598]: 5,000+
+            - generic [ref=e599]: Discord Members
+          - generic [ref=e600]:
+            - generic [ref=e601]: 🐦
+            - generic [ref=e602]: 12,000+
+            - generic [ref=e603]: Twitter Followers
+          - generic [ref=e604]:
+            - generic [ref=e605]: ⭐
+            - generic [ref=e606]: 850+
+            - generic [ref=e607]: GitHub Stars
+          - generic [ref=e608]:
+            - generic [ref=e609]: 👨‍💻
+            - generic [ref=e610]: 200+
+            - generic [ref=e611]: Active Developers
+        - generic [ref=e612]:
+          - link "Discord icon Discord Join our Discord server for real-time discussions" [ref=e613] [cursor=pointer]:
+            - /url: https://discord.gg/axionax
+            - img "Discord icon" [ref=e615]
+            - heading "Discord" [level=3] [ref=e617]
+            - paragraph [ref=e618]: Join our Discord server for real-time discussions
+          - link "Twitter icon Twitter Follow us for latest updates and announcements" [ref=e619] [cursor=pointer]:
+            - /url: https://twitter.com/axionax
+            - img "Twitter icon" [ref=e621]
+            - heading "Twitter" [level=3] [ref=e623]
+            - paragraph [ref=e624]: Follow us for latest updates and announcements
+          - link "GitHub icon GitHub Contribute to our open-source codebase" [ref=e625] [cursor=pointer]:
+            - /url: https://github.com/axionaxprotocol
+            - img "GitHub icon" [ref=e627]
+            - heading "GitHub" [level=3] [ref=e629]
+            - paragraph [ref=e630]: Contribute to our open-source codebase
+          - link "Telegram icon Telegram Chat with the community on Telegram" [ref=e631] [cursor=pointer]:
+            - /url: https://t.me/axionax
+            - img "Telegram icon" [ref=e633]
+            - heading "Telegram" [level=3] [ref=e635]
+            - paragraph [ref=e636]: Chat with the community on Telegram
+        - generic [ref=e637]:
+          - generic [ref=e638]:
+            - heading "Stay Updated" [level=3] [ref=e639]
+            - paragraph [ref=e640]: Subscribe to our newsletter for the latest updates, announcements, and development progress
+          - generic [ref=e641]:
+            - textbox "Enter your email" [ref=e643]
+            - button "Subscribe" [ref=e644] [cursor=pointer]:
+              - text: Subscribe
+              - img [ref=e645]
+          - paragraph [ref=e647]: We respect your privacy. Unsubscribe at any time.
+    - contentinfo [ref=e648]:
+      - generic [ref=e649]:
+        - generic [ref=e650]:
+          - generic [ref=e651]:
+            - link "Axionax Logo Axionax" [ref=e652] [cursor=pointer]:
+              - /url: /
+              - img "Axionax Logo" [ref=e653]
+              - generic [ref=e654]: Axionax
+            - paragraph [ref=e655]: Trusted World Computer — Layer-1 for decentralized compute and AI. PoPC consensus · v1.9
+          - generic [ref=e656]:
+            - heading "Product" [level=4] [ref=e657]
+            - list [ref=e658]:
+              - listitem [ref=e659]:
+                - link "Explorer" [ref=e660] [cursor=pointer]:
+                  - /url: /explorer
+              - listitem [ref=e661]:
+                - link "Faucet" [ref=e662] [cursor=pointer]:
+                  - /url: /faucet
+              - listitem [ref=e663]:
+                - link "Wallet" [ref=e664] [cursor=pointer]:
+                  - /url: /wallet
+              - listitem [ref=e665]:
+                - link "Staking" [ref=e666] [cursor=pointer]:
+                  - /url: /staking
+          - generic [ref=e667]:
+            - heading "Developers" [level=4] [ref=e668]
+            - list [ref=e669]:
+              - listitem [ref=e670]:
+                - link "Documentation" [ref=e671] [cursor=pointer]:
+                  - /url: /docs
+              - listitem [ref=e672]:
+                - link "API Reference" [ref=e673] [cursor=pointer]:
+                  - /url: /docs/api
+              - listitem [ref=e674]:
+                - link "SDK" [ref=e675] [cursor=pointer]:
+                  - /url: https://github.com/axionaxprotocol/axionax-sdk-ts
+              - listitem [ref=e676]:
+                - link "GitHub" [ref=e677] [cursor=pointer]:
+                  - /url: https://github.com/axionaxprotocol
+          - generic [ref=e678]:
+            - heading "Community" [level=4] [ref=e679]
+            - list [ref=e680]:
+              - listitem [ref=e681]:
+                - link "Discord" [ref=e682] [cursor=pointer]:
+                  - /url: https://discord.gg/axionax
+              - listitem [ref=e683]:
+                - link "Twitter" [ref=e684] [cursor=pointer]:
+                  - /url: https://twitter.com/axionax
+              - listitem [ref=e685]:
+                - link "Telegram" [ref=e686] [cursor=pointer]:
+                  - /url: https://t.me/axionax
+              - listitem [ref=e687]:
+                - link "Blog" [ref=e688] [cursor=pointer]:
+                  - /url: /blog
+          - generic [ref=e689]:
+            - heading "Company" [level=4] [ref=e690]
+            - list [ref=e691]:
+              - listitem [ref=e692]:
+                - link "About" [ref=e693] [cursor=pointer]:
+                  - /url: /about
+              - listitem [ref=e694]:
+                - link "Careers" [ref=e695] [cursor=pointer]:
+                  - /url: /careers
+              - listitem [ref=e696]:
+                - link "Privacy Policy" [ref=e697] [cursor=pointer]:
+                  - /url: /privacy
+              - listitem [ref=e698]:
+                - link "Terms of Service" [ref=e699] [cursor=pointer]:
+                  - /url: /terms
+        - generic [ref=e700]:
+          - paragraph [ref=e701]: © 2026 Axionax Protocol v1.9.0 · Trusted World Computer
+          - generic [ref=e702]:
+            - link "GitHub" [ref=e703] [cursor=pointer]:
+              - /url: https://github.com/axionaxprotocol
+              - img [ref=e704]
+            - link "Twitter" [ref=e706] [cursor=pointer]:
+              - /url: https://twitter.com/axionax
+              - img [ref=e707]
+            - link "Discord" [ref=e709] [cursor=pointer]:
+              - /url: https://discord.gg/axionax
+              - img [ref=e710]
+  - alert [ref=e712]
+```
