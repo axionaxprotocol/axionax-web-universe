@@ -1,5 +1,3 @@
-import Navbar from '@/components/layout/Navbar';
-import Footer from '@/components/layout/Footer';
 import Card, { CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
 import Link from 'next/link';
 
@@ -116,8 +114,7 @@ export default function Docs(): React.JSX.Element {
 
   return (
     <div className="min-h-screen bg-dark-950">
-      <Navbar />
-      <main className="container-custom py-16">
+      <main className="container-custom py-8">
         <div className="mb-8">
           <h1 className="text-4xl font-bold gradient-text mb-4">
             Documentation v1.9.0
@@ -142,7 +139,7 @@ export default function Docs(): React.JSX.Element {
                           href={item.href}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-dark-400 hover:text-primary-400 transition-colors text-sm flex items-center gap-1"
+                          className="text-dark-400 hover:text-amber-400 transition-colors text-sm flex items-center gap-1"
                         >
                           {item.name}
                           <svg
@@ -162,7 +159,7 @@ export default function Docs(): React.JSX.Element {
                       ) : (
                         <Link
                           href={item.href}
-                          className="text-dark-400 hover:text-primary-400 transition-colors text-sm"
+                          className="text-dark-400 hover:text-amber-400 transition-colors text-sm"
                         >
                           {item.name}
                         </Link>
@@ -236,7 +233,7 @@ export default function Docs(): React.JSX.Element {
             </a>
           </Card>
 
-          <Card className="bg-gradient-to-br from-dark-800 to-dark-900 p-6 text-white border-primary-500/50">
+          <Card className="bg-gradient-to-br from-dark-800 to-dark-900 p-6 text-white border-amber-500/50">
             <div className="mb-4">
               <svg
                 className="w-12 h-12"
@@ -306,9 +303,9 @@ const imported = client.importWallet(privateKey);
 const balance = await client.getBalance(wallet.address);`}</pre>
               </div>
 
-              <div className="mt-8 p-4 bg-primary-500/10 border border-primary-500/20 rounded-lg">
-                <p className="text-primary-400 font-semibold mb-2">
-                  📚 Complete Documentation Available
+              <div className="mt-8 p-4 bg-amber-500/10 border border-amber-500/20 rounded-lg">
+                <p className="text-amber-400 font-semibold mb-2">
+                  Complete Documentation Available
                 </p>
                 <p className="text-dark-400 text-sm mb-3">
                   Access our comprehensive documentation site with detailed
@@ -319,7 +316,7 @@ const balance = await client.getBalance(wallet.address);`}</pre>
                     href={`${DOCS_BASE}/`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2 bg-primary-500 hover:bg-primary-600 text-white font-semibold rounded-lg transition-colors"
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white font-semibold rounded-lg transition-colors"
                   >
                     <svg
                       className="w-4 h-4"
@@ -370,7 +367,7 @@ const balance = await client.getBalance(wallet.address);`}</pre>
                     href="https://github.com/axionaxprotocol/axionax-core/issues"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-dark-400 hover:text-primary-400 transition-colors flex items-center gap-2"
+                    className="text-dark-400 hover:text-amber-400 transition-colors flex items-center gap-2"
                   >
                     <svg
                       className="w-5 h-5"
@@ -393,7 +390,7 @@ const balance = await client.getBalance(wallet.address);`}</pre>
                     href={`${DOCS_BASE}/CONTRIBUTING.md`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-dark-400 hover:text-primary-400 transition-colors flex items-center gap-2"
+                    className="text-dark-400 hover:text-amber-400 transition-colors flex items-center gap-2"
                   >
                     <svg
                       className="w-5 h-5"
@@ -416,7 +413,7 @@ const balance = await client.getBalance(wallet.address);`}</pre>
                     href={`${DOCS_BASE}/SECURITY.md`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-dark-400 hover:text-primary-400 transition-colors flex items-center gap-2"
+                    className="text-dark-400 hover:text-amber-400 transition-colors flex items-center gap-2"
                   >
                     <svg
                       className="w-5 h-5"
@@ -439,7 +436,7 @@ const balance = await client.getBalance(wallet.address);`}</pre>
                     href={`${DOCS_BASE}/ROADMAP.md`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-dark-400 hover:text-primary-400 transition-colors flex items-center gap-2"
+                    className="text-dark-400 hover:text-amber-400 transition-colors flex items-center gap-2"
                   >
                     <svg
                       className="w-5 h-5"
@@ -467,7 +464,7 @@ const balance = await client.getBalance(wallet.address);`}</pre>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                <div className="p-3 bg-primary-500/10 border border-primary-500/20 rounded-lg">
+                <div className="p-3 bg-amber-500/10 border border-amber-500/20 rounded-lg">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-sm font-semibold text-white">
                       Testnet
@@ -504,7 +501,7 @@ const balance = await client.getBalance(wallet.address);`}</pre>
                     href={`${DOCS_BASE}/CHAIN_ID_CONFIGURATION.md`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-xs text-primary-400 hover:underline mt-2 inline-block"
+                    className="text-xs text-amber-400 hover:underline mt-2 inline-block"
                   >
                     Setup Guide →
                   </a>
@@ -514,7 +511,6 @@ const balance = await client.getBalance(wallet.address);`}</pre>
           </Card>
         </div>
       </main>
-      <Footer />
     </div>
   );
 }

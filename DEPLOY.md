@@ -1,6 +1,16 @@
 # Deploy ขึ้น Server
 
-มี 2 ทางหลัก: **GitHub Pages** (อัตโนมัติ) และ **VPS** (SSH)
+มี 3 ทางหลัก: **CI → VPS** (อัตโนมัติเมื่อ push), **GitHub Pages** (static), และ **VPS เอง** (SSH ส่งไฟล์เอง)
+
+---
+
+## 0. CI/CD → VPS (แนะนำถ้าใช้ GitHub Actions)
+
+- **Workflow:** `.github/workflows/ci-cd.yml`
+- **Trigger:** Push ไป `develop` = deploy staging; push ไป `main` = deploy production
+- **ขั้นตอน:** Build แอป web แบบ standalone → rsync ขึ้น VPS ผ่าน SSH → (ถ้าตั้งไว้) รันคำสั่ง restart บน server
+- **สิ่งที่ต้องตั้ง:** ใน repo → Settings → Secrets and variables → Actions → เลือก environment **staging** / **production** แล้วใส่ secrets: `SSH_HOST`, `SSH_USER`, `SSH_PRIVATE_KEY`, `REMOTE_PATH`, และถ้าต้องการ restart: `DEPLOY_RESTART_CMD` (เช่น `pm2 restart axionax-web`)
+- รายละเอียดการตั้งค่า server และ SSH ดูที่ [apps/web/docs/DEPLOYMENT.md](apps/web/docs/DEPLOYMENT.md) หัวข้อ "CI/CD Deploy (GitHub Actions)"
 
 ---
 

@@ -3,8 +3,6 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { RPC_URLS } from '@axionax/blockchain-utils';
-import Navbar from '@/components/layout/Navbar';
-import Footer from '@/components/layout/Footer';
 import Card, { CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
 import MockBadge from '@/components/ui/MockBadge';
 
@@ -34,7 +32,7 @@ interface AddressInfo {
   nonce: number;
 }
 
-// ใช้ RPC จาก centralized config หรือ env var
+// RPC from centralized config or env
 const RPC_URL = process.env.NEXT_PUBLIC_RPC_URL || RPC_URLS.TESTNET[0];
 
 const fetchBlocks = async (): Promise<BlocksResponse> => {
@@ -153,15 +151,12 @@ export default function Explorer(): React.JSX.Element {
   };
   return (
     <div className="min-h-screen bg-deep-space relative">
-      {/* Stars background */}
-      <div className="stars" />
-
-      <Navbar />
-      <main className="container-custom py-24 relative z-10">
+      <div className="stars" aria-hidden />
+      <div className="container-custom py-8 sm:py-10 relative z-10">
         <div className="mb-8 text-center">
           <div className="flex flex-wrap items-center justify-center gap-3 mb-4">
             <h1 className="text-4xl font-bold">
-              <span className="text-horizon">🔭 Block Explorer</span>
+              <span className="text-horizon">Block Explorer</span>
             </h1>
             <MockBadge show={blocksData?.isMock ?? false} label="Blocks" />
           </div>
@@ -172,14 +167,20 @@ export default function Explorer(): React.JSX.Element {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <div className="card-cosmic hover:shadow-horizon-sm transition-all duration-300" data-testid="latest-block">
+          <div
+            className="card-cosmic hover:shadow-horizon-sm transition-all duration-300"
+            data-testid="latest-block"
+          >
             <CardHeader>
               <CardTitle className="text-horizon-orange">
                 ⬡ Latest Block
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold text-horizon-gold mb-2" data-testid="block-number">
+              <div
+                className="text-3xl font-bold text-horizon-gold mb-2"
+                data-testid="block-number"
+              >
                 {isLoading
                   ? '...'
                   : `#${blocksData?.blocks[0]?.number.toLocaleString() || '0'}`}
@@ -196,9 +197,7 @@ export default function Explorer(): React.JSX.Element {
 
           <div className="card-cosmic hover:shadow-horizon-sm transition-all duration-300">
             <CardHeader>
-              <CardTitle className="text-horizon-purple">
-                📊 Total Blocks
-              </CardTitle>
+              <CardTitle className="text-horizon-gold">Total Blocks</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-3xl font-bold text-horizon-blue mb-2">
@@ -213,7 +212,7 @@ export default function Explorer(): React.JSX.Element {
           <div className="card-cosmic hover:shadow-horizon-sm transition-all duration-300">
             <CardHeader>
               <CardTitle className="text-horizon-pink">
-                ⚡ Active Validators
+                Active Validators
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -238,14 +237,14 @@ export default function Explorer(): React.JSX.Element {
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
                 placeholder="Search by address (0x...) or transaction hash..."
-                className="flex-1 px-4 py-3 bg-void border border-horizon-purple/30 rounded-lg text-starlight placeholder-starlight/30 focus:outline-none focus:border-horizon-orange focus:shadow-horizon-sm font-mono text-sm transition-all"
+                className="flex-1 px-4 py-3 bg-void border border-amber-500/30 rounded-lg text-starlight placeholder-starlight/30 focus:outline-none focus:border-amber-500 focus:shadow-horizon-sm font-mono text-sm transition-all"
               />
               <button
                 onClick={handleSearch}
                 disabled={isSearching || !searchQuery.trim()}
                 className="btn-horizon disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {isSearching ? '🔄 Searching...' : '🚀 Search'}
+                {isSearching ? 'Searching...' : 'Search'}
               </button>
             </div>
 
@@ -256,7 +255,7 @@ export default function Explorer(): React.JSX.Element {
             )}
 
             {searchResult && searchType === 'address' && (
-              <div className="mt-4 p-6 bg-void rounded-lg border border-horizon-purple/30">
+              <div className="mt-4 p-6 bg-void rounded-lg border border-amber-500/30">
                 <h3 className="text-lg font-semibold text-horizon-gold mb-4">
                   📍 Address Details
                 </h3>
@@ -284,7 +283,7 @@ export default function Explorer(): React.JSX.Element {
             )}
 
             {searchResult && searchType === 'tx' && (
-              <div className="mt-4 p-6 bg-void rounded-lg border border-horizon-purple/30">
+              <div className="mt-4 p-6 bg-void rounded-lg border border-amber-500/30">
                 <h3 className="text-lg font-semibold text-horizon-blue mb-4">
                   📜 Transaction Details
                 </h3>
@@ -297,7 +296,7 @@ export default function Explorer(): React.JSX.Element {
                   </div>
                   <div>
                     <span className="text-starlight/50">Block:</span>
-                    <span className="ml-2 text-horizon-purple">
+                    <span className="ml-2 text-horizon-gold">
                       #{parseInt(searchResult.blockNumber, 16).toLocaleString()}
                     </span>
                   </div>
@@ -346,7 +345,7 @@ export default function Explorer(): React.JSX.Element {
                 {blocksData.blocks.map((block) => (
                   <div
                     key={block.number}
-                    className="flex flex-col md:flex-row md:items-center md:justify-between p-4 bg-void rounded-lg border border-horizon-purple/20 hover:border-horizon-orange/50 hover:shadow-horizon-sm transition-all duration-300 gap-3"
+                    className="flex flex-col md:flex-row md:items-center md:justify-between p-4 bg-void rounded-lg border border-amber-500/30/20 hover:border-amber-500/50 hover:shadow-horizon-sm transition-all duration-300 gap-3"
                   >
                     <div className="flex items-center gap-4">
                       <div className="text-horizon-orange font-mono text-lg">
@@ -365,7 +364,7 @@ export default function Explorer(): React.JSX.Element {
                       </div>
                       <div>
                         <span className="text-starlight/40">Gas:</span>{' '}
-                        <span className="text-horizon-purple">
+                        <span className="text-horizon-gold">
                           {(parseInt(block.gasUsed) / 1_000_000).toFixed(2)}M
                         </span>
                       </div>
@@ -390,8 +389,7 @@ export default function Explorer(): React.JSX.Element {
             addresses or transactions above.
           </p>
         </div>
-      </main>
-      <Footer />
+      </div>
     </div>
   );
 }

@@ -2,8 +2,6 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import Navbar from '@/components/layout/Navbar';
-import Footer from '@/components/layout/Footer';
 
 type NodeType = 'validator' | 'worker' | 'rpc';
 type SetupStep = 'choose' | 'requirements' | 'setup' | 'register' | 'verify';
@@ -45,47 +43,43 @@ const NODE_REQUIREMENTS: Record<NodeType, NodeRequirements> = {
     storage: { min: '1TB SSD', recommended: '2TB+ NVMe SSD' },
     network: { min: '500 Mbps', recommended: '1 Gbps' },
     publicIp: true,
-    stake: 'ไม่จำเป็น',
+    stake: 'Not required',
   },
 };
 
 const NODE_DESCRIPTIONS: Record<
   NodeType,
-  { title: string; description: string; icon: string; benefits: string[] }
+  { title: string; description: string; benefits: string[] }
 > = {
   validator: {
     title: 'Validator Node',
-    icon: '🛡️',
     description:
-      'ตรวจสอบและยืนยัน transactions, สร้าง blocks ใหม่ และรักษาความปลอดภัยของเครือข่าย',
+      'Validate and confirm transactions, create new blocks, and secure the network.',
     benefits: [
-      'รับ Block Rewards จากการสร้าง blocks',
-      'รับส่วนแบ่งจาก Transaction Fees',
-      'มีสิทธิ์ Vote ใน Governance',
-      'ได้รับ Activity Score สูงสุด',
+      'Earn block rewards for creating blocks',
+      'Share in transaction fees',
+      'Vote in governance',
+      'Earn maximum activity score',
     ],
   },
   worker: {
     title: 'Worker Node',
-    icon: '⚙️',
-    description:
-      'ประมวลผล computations พิเศษ, ช่วยในการ indexing และ data processing',
+    description: 'Process special computations, indexing and data processing.',
     benefits: [
-      'รับ Rewards จากการประมวลผลงาน',
-      'ใช้ hardware requirement ต่ำกว่า Validator',
-      'เหมาะสำหรับผู้เริ่มต้น',
-      'ได้รับ Activity Score ระดับปานกลาง',
+      'Earn rewards for processing work',
+      'Lower hardware requirements than Validator',
+      'Good for beginners',
+      'Earn moderate activity score',
     ],
   },
   rpc: {
     title: 'RPC Node',
-    icon: '📡',
-    description: 'ให้บริการ API endpoints สำหรับ dApps และผู้ใช้งานทั่วไป',
+    description: 'Serve API endpoints for dApps and users.',
     benefits: [
-      'รับค่าบริการจากการให้บริการ RPC',
-      'ไม่ต้อง stake tokens',
-      'เหมาะสำหรับ developers และ businesses',
-      'สามารถ monetize traffic ได้',
+      'Earn fees from RPC service',
+      'No stake required',
+      'For developers and businesses',
+      'Monetize your traffic',
     ],
   },
 };
@@ -129,8 +123,8 @@ export default function JoinNetworkPage() {
   const renderChooseStep = () => (
     <div className="space-y-8">
       <div className="text-center">
-        <h2 className="text-3xl font-bold text-white mb-4">เลือกประเภท Node</h2>
-        <p className="text-dark-400">เลือกประเภท node ที่คุณต้องการรัน</p>
+        <h2 className="text-3xl font-bold text-white mb-4">Choose Node Type</h2>
+        <p className="text-dark-400">Select the type of node you want to run</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -143,10 +137,9 @@ export default function JoinNetworkPage() {
           <button
             key={type}
             onClick={() => handleNodeSelect(type)}
-            className="text-left p-6 bg-dark-800/50 border border-dark-700 rounded-2xl hover:border-primary-500/50 hover:bg-dark-800 transition-all group"
+            className="text-left p-6 bg-dark-800/50 border border-dark-700 rounded-2xl hover:border-amber-500/50 hover:bg-dark-800 transition-all group"
           >
-            <div className="text-5xl mb-4">{info.icon}</div>
-            <h3 className="text-xl font-bold text-white mb-2 group-hover:text-primary-400 transition-colors">
+            <h3 className="text-xl font-bold text-white mb-2 group-hover:text-amber-400 transition-colors">
               {info.title}
             </h3>
             <p className="text-dark-400 text-sm mb-4">{info.description}</p>
@@ -162,7 +155,7 @@ export default function JoinNetworkPage() {
             </div>
             <div className="mt-4 pt-4 border-t border-dark-700">
               <div className="text-xs text-dark-500">Minimum Stake</div>
-              <div className="text-primary-400 font-semibold">
+              <div className="text-amber-400 font-semibold">
                 {NODE_REQUIREMENTS[type].stake}
               </div>
             </div>
@@ -184,14 +177,14 @@ export default function JoinNetworkPage() {
             onClick={() => setStep('choose')}
             className="text-dark-400 hover:text-white transition-colors"
           >
-            ← กลับ
+            Back
           </button>
           <div>
             <h2 className="text-3xl font-bold text-white flex items-center gap-3">
-              {info.icon} {info.title}
+              {info.title}
             </h2>
             <p className="text-dark-400">
-              ตรวจสอบ requirements ก่อนเริ่มติดตั้ง
+              Check requirements before installing
             </p>
           </div>
         </div>
@@ -200,18 +193,17 @@ export default function JoinNetworkPage() {
         <div className="bg-dark-900/50 border border-dark-800 rounded-2xl overflow-hidden">
           <div className="p-4 border-b border-dark-800">
             <h3 className="text-lg font-semibold text-white">
-              📋 System Requirements
+              System Requirements
             </h3>
           </div>
           <div className="divide-y divide-dark-800">
             {[
-              { label: 'CPU', ...requirements.cpu, icon: '🖥️' },
-              { label: 'RAM', ...requirements.ram, icon: '🧠' },
-              { label: 'Storage', ...requirements.storage, icon: '💾' },
-              { label: 'Network', ...requirements.network, icon: '🌐' },
+              { label: 'CPU', ...requirements.cpu },
+              { label: 'RAM', ...requirements.ram },
+              { label: 'Storage', ...requirements.storage },
+              { label: 'Network', ...requirements.network },
             ].map((req) => (
               <div key={req.label} className="flex items-center p-4">
-                <div className="w-24 text-2xl">{req.icon}</div>
                 <div className="flex-1">
                   <div className="text-white font-medium">{req.label}</div>
                 </div>
@@ -236,21 +228,21 @@ export default function JoinNetworkPage() {
                     requirements.publicIp ? 'text-amber-400' : 'text-green-400'
                   }
                 >
-                  {requirements.publicIp ? 'จำเป็น' : 'ไม่จำเป็น'}
+                  {requirements.publicIp ? 'Required' : 'Not required'}
                 </span>
               </div>
               <div className="flex-1 text-center">
                 <span className="text-dark-400">Static IP preferred</span>
               </div>
             </div>
-            <div className="flex items-center p-4 bg-primary-500/5">
+            <div className="flex items-center p-4 bg-amber-500/5">
               <div className="w-24 text-2xl">💰</div>
               <div className="flex-1">
                 <div className="text-white font-medium">Stake Required</div>
               </div>
               <div className="flex-1 text-center" />
               <div className="flex-1 text-center">
-                <div className="text-primary-400 font-bold">
+                <div className="text-amber-400 font-bold">
                   {requirements.stake}
                 </div>
               </div>
@@ -276,9 +268,9 @@ export default function JoinNetworkPage() {
         <div className="flex gap-4">
           <button
             onClick={() => setStep('setup')}
-            className="flex-1 py-4 bg-gradient-to-r from-primary-500 to-purple-500 hover:from-primary-600 hover:to-purple-600 text-white font-semibold rounded-xl transition-all"
+            className="flex-1 py-4 bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-500 text-white font-semibold rounded-xl transition-all"
           >
-            ✅ Server พร้อมแล้ว - ไปขั้นตอนถัดไป
+            Server ready — proceed to next step
           </button>
         </div>
       </div>
@@ -323,7 +315,7 @@ cd axionax-worker
 
 # 3. Configure worker
 cp .env.example .env
-nano .env  # แก้ไข WALLET_ADDRESS และ RPC_URL
+nano .env  # Edit WALLET_ADDRESS and RPC_URL
 
 # 4. Start worker
 docker-compose up -d`,
@@ -338,7 +330,7 @@ cd axionax-rpc-node
 
 # 3. Configure node
 cp .env.example .env
-nano .env  # แก้ไข config ตามต้องการ
+nano .env  # Edit config as needed
 
 # 4. Start RPC node
 docker-compose up -d
@@ -356,7 +348,7 @@ sudo nginx -t && sudo systemctl reload nginx`,
             onClick={() => setStep('requirements')}
             className="text-dark-400 hover:text-white transition-colors"
           >
-            ← กลับ
+            Back
           </button>
           <div>
             <h2 className="text-3xl font-bold text-white">
@@ -460,19 +452,19 @@ sudo nginx -t && sudo systemctl reload nginx`,
           <ul className="space-y-2 text-dark-300 text-sm">
             <li className="flex items-start gap-2">
               <span className="text-amber-400">•</span>
-              สำรอง private keys และ recovery phrase ไว้อย่างปลอดภัย
+              Back up private keys and recovery phrase securely
             </li>
             <li className="flex items-start gap-2">
               <span className="text-amber-400">•</span>
-              ตรวจสอบว่า ports ที่จำเป็นเปิดอยู่ (8545, 30303)
+              Ensure required ports are open (8545, 30303)
             </li>
             <li className="flex items-start gap-2">
               <span className="text-amber-400">•</span>
-              ใช้ firewall และ security best practices
+              Use firewall and security best practices
             </li>
             <li className="flex items-start gap-2">
               <span className="text-amber-400">•</span>
-              Monitor node ด้วย Prometheus + Grafana (optional)
+              Monitor node with Prometheus + Grafana (optional)
             </li>
           </ul>
         </div>
@@ -481,9 +473,9 @@ sudo nginx -t && sudo systemctl reload nginx`,
         <div className="flex gap-4">
           <button
             onClick={() => setStep('register')}
-            className="flex-1 py-4 bg-gradient-to-r from-primary-500 to-purple-500 hover:from-primary-600 hover:to-purple-600 text-white font-semibold rounded-xl transition-all"
+            className="flex-1 py-4 bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-500 text-white font-semibold rounded-xl transition-all"
           >
-            ✅ ติดตั้งเสร็จแล้ว - ลงทะเบียน Node
+            Installation complete — register your node
           </button>
         </div>
       </div>
@@ -500,11 +492,11 @@ sudo nginx -t && sudo systemctl reload nginx`,
             onClick={() => setStep('setup')}
             className="text-dark-400 hover:text-white transition-colors"
           >
-            ← กลับ
+            Back
           </button>
           <div>
-            <h2 className="text-3xl font-bold text-white">📝 ลงทะเบียน Node</h2>
-            <p className="text-dark-400">กรอกข้อมูล node ของคุณ</p>
+            <h2 className="text-3xl font-bold text-white">Register Node</h2>
+            <p className="text-dark-400">Fill in your node details</p>
           </div>
         </div>
 
@@ -529,7 +521,7 @@ sudo nginx -t && sudo systemctl reload nginx`,
                   }
                   placeholder="My Validator Node"
                   required
-                  className="w-full bg-dark-800 border border-dark-700 rounded-lg px-4 py-3 text-white placeholder-dark-500 focus:border-primary-500 focus:outline-none"
+                  className="w-full bg-dark-800 border border-dark-700 rounded-lg px-4 py-3 text-white placeholder-dark-500 focus:border-amber-500 focus:outline-none"
                 />
               </div>
               <div>
@@ -544,7 +536,7 @@ sudo nginx -t && sudo systemctl reload nginx`,
                   }
                   placeholder="John Doe"
                   required
-                  className="w-full bg-dark-800 border border-dark-700 rounded-lg px-4 py-3 text-white placeholder-dark-500 focus:border-primary-500 focus:outline-none"
+                  className="w-full bg-dark-800 border border-dark-700 rounded-lg px-4 py-3 text-white placeholder-dark-500 focus:border-amber-500 focus:outline-none"
                 />
               </div>
               <div>
@@ -559,7 +551,7 @@ sudo nginx -t && sudo systemctl reload nginx`,
                   }
                   placeholder="operator@example.com"
                   required
-                  className="w-full bg-dark-800 border border-dark-700 rounded-lg px-4 py-3 text-white placeholder-dark-500 focus:border-primary-500 focus:outline-none"
+                  className="w-full bg-dark-800 border border-dark-700 rounded-lg px-4 py-3 text-white placeholder-dark-500 focus:border-amber-500 focus:outline-none"
                 />
               </div>
               <div>
@@ -573,7 +565,7 @@ sudo nginx -t && sudo systemctl reload nginx`,
                     setFormData({ ...formData, website: e.target.value })
                   }
                   placeholder="https://..."
-                  className="w-full bg-dark-800 border border-dark-700 rounded-lg px-4 py-3 text-white placeholder-dark-500 focus:border-primary-500 focus:outline-none"
+                  className="w-full bg-dark-800 border border-dark-700 rounded-lg px-4 py-3 text-white placeholder-dark-500 focus:border-amber-500 focus:outline-none"
                 />
               </div>
               <div className="md:col-span-2">
@@ -589,10 +581,10 @@ sudo nginx -t && sudo systemctl reload nginx`,
                   placeholder="0x..."
                   required
                   pattern="^0x[a-fA-F0-9]{40}$"
-                  className="w-full bg-dark-800 border border-dark-700 rounded-lg px-4 py-3 text-white placeholder-dark-500 focus:border-primary-500 focus:outline-none font-mono"
+                  className="w-full bg-dark-800 border border-dark-700 rounded-lg px-4 py-3 text-white placeholder-dark-500 focus:border-amber-500 focus:outline-none font-mono"
                 />
                 <p className="text-xs text-dark-500 mt-1">
-                  Address นี้จะใช้รับ rewards และต้องมี stake{' '}
+                  This address will receive rewards and must have stake{' '}
                   {NODE_REQUIREMENTS[nodeType].stake}
                 </p>
               </div>
@@ -608,7 +600,7 @@ sudo nginx -t && sudo systemctl reload nginx`,
                   }
                   placeholder="123.456.789.0"
                   required
-                  className="w-full bg-dark-800 border border-dark-700 rounded-lg px-4 py-3 text-white placeholder-dark-500 focus:border-primary-500 focus:outline-none font-mono"
+                  className="w-full bg-dark-800 border border-dark-700 rounded-lg px-4 py-3 text-white placeholder-dark-500 focus:border-amber-500 focus:outline-none font-mono"
                 />
               </div>
               <div>
@@ -620,9 +612,9 @@ sudo nginx -t && sudo systemctl reload nginx`,
                   onChange={(e) =>
                     setFormData({ ...formData, location: e.target.value })
                   }
-                  className="w-full bg-dark-800 border border-dark-700 rounded-lg px-4 py-3 text-white focus:border-primary-500 focus:outline-none"
+                  className="w-full bg-dark-800 border border-dark-700 rounded-lg px-4 py-3 text-white focus:border-amber-500 focus:outline-none"
                 >
-                  <option value="">-- เลือก Region --</option>
+                  <option value="">-- Select Region --</option>
                   <option value="asia-southeast">🇹🇭 Asia Southeast</option>
                   <option value="asia-east">🇯🇵 Asia East</option>
                   <option value="europe-west">🇳🇱 Europe West</option>
@@ -644,7 +636,7 @@ sudo nginx -t && sudo systemctl reload nginx`,
                     setFormData({ ...formData, rpcPort: e.target.value })
                   }
                   placeholder="8545"
-                  className="w-full bg-dark-800 border border-dark-700 rounded-lg px-4 py-3 text-white placeholder-dark-500 focus:border-primary-500 focus:outline-none font-mono"
+                  className="w-full bg-dark-800 border border-dark-700 rounded-lg px-4 py-3 text-white placeholder-dark-500 focus:border-amber-500 focus:outline-none font-mono"
                 />
               </div>
               <div>
@@ -658,7 +650,7 @@ sudo nginx -t && sudo systemctl reload nginx`,
                     setFormData({ ...formData, p2pPort: e.target.value })
                   }
                   placeholder="30303"
-                  className="w-full bg-dark-800 border border-dark-700 rounded-lg px-4 py-3 text-white placeholder-dark-500 focus:border-primary-500 focus:outline-none font-mono"
+                  className="w-full bg-dark-800 border border-dark-700 rounded-lg px-4 py-3 text-white placeholder-dark-500 focus:border-amber-500 focus:outline-none font-mono"
                 />
               </div>
             </div>
@@ -672,27 +664,27 @@ sudo nginx -t && sudo systemctl reload nginx`,
                   setFormData({ ...formData, acceptedTerms: e.target.checked })
                 }
                 required
-                className="mt-1 w-5 h-5 rounded border-dark-600 bg-dark-700 text-primary-500 focus:ring-primary-500"
+                className="mt-1 w-5 h-5 rounded border-dark-600 bg-dark-700 text-amber-500 focus:ring-amber-500"
               />
               <span className="text-sm text-dark-300">
-                ฉันยอมรับ{' '}
+                I accept{' '}
                 <Link
                   href="/docs"
-                  className="text-primary-400 hover:text-primary-300"
+                  className="text-amber-400 hover:text-amber-300"
                 >
                   Terms of Service
                 </Link>{' '}
-                และตกลงที่จะปฏิบัติตาม network rules รวมถึงรักษา uptime
-                อย่างน้อย 95%
+                and agree to follow network rules and maintain at least 95%
+                uptime
               </span>
             </label>
 
             <button
               type="submit"
               disabled={!formData.acceptedTerms}
-              className="w-full py-4 bg-gradient-to-r from-primary-500 to-purple-500 hover:from-primary-600 hover:to-purple-600 disabled:from-dark-700 disabled:to-dark-700 text-white font-semibold rounded-xl transition-all"
+              className="w-full py-4 bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-500 disabled:from-dark-700 disabled:to-dark-700 text-white font-semibold rounded-xl transition-all"
             >
-              📤 ลงทะเบียน {NODE_DESCRIPTIONS[nodeType].title}
+              Register {NODE_DESCRIPTIONS[nodeType].title}
             </button>
           </form>
         </div>
@@ -708,16 +700,16 @@ sudo nginx -t && sudo systemctl reload nginx`,
         <div className="text-center py-8">
           <div className="text-6xl mb-4">🎉</div>
           <h2 className="text-3xl font-bold text-white mb-2">
-            ลงทะเบียนสำเร็จ!
+            Registration submitted!
           </h2>
           <p className="text-dark-400">
-            {NODE_DESCRIPTIONS[nodeType].title} ของคุณกำลังรอการ verify
+            Your {NODE_DESCRIPTIONS[nodeType].title} is pending verification
           </p>
         </div>
 
         <div className="bg-green-500/10 border border-green-500/30 rounded-2xl p-6">
           <h3 className="text-lg font-semibold text-green-400 mb-4">
-            ✅ ขั้นตอนถัดไป
+            Next steps
           </h3>
           <ol className="space-y-3 text-dark-300">
             <li className="flex items-start gap-3">
@@ -725,8 +717,8 @@ sudo nginx -t && sudo systemctl reload nginx`,
                 1
               </span>
               <div>
-                <strong>ตรวจสอบ Email</strong> - เราจะส่งลิงก์ยืนยันไปที่{' '}
-                {formData.email}
+                <strong>Check email</strong> — We will send a verification link
+                to {formData.email}
               </div>
             </li>
             <li className="flex items-start gap-3">
@@ -734,8 +726,8 @@ sudo nginx -t && sudo systemctl reload nginx`,
                 2
               </span>
               <div>
-                <strong>Stake Tokens</strong> - โอน{' '}
-                {NODE_REQUIREMENTS[nodeType].stake} ไปยัง Staking Contract
+                <strong>Stake tokens</strong> — Transfer{' '}
+                {NODE_REQUIREMENTS[nodeType].stake} to the Staking Contract
               </div>
             </li>
             <li className="flex items-start gap-3">
@@ -743,8 +735,8 @@ sudo nginx -t && sudo systemctl reload nginx`,
                 3
               </span>
               <div>
-                <strong>Node Verification</strong> - ทีมงานจะตรวจสอบ
-                connectivity ของ node
+                <strong>Node verification</strong> — The team will verify your
+                node connectivity
               </div>
             </li>
             <li className="flex items-start gap-3">
@@ -752,8 +744,8 @@ sudo nginx -t && sudo systemctl reload nginx`,
                 4
               </span>
               <div>
-                <strong>เริ่มรับ Rewards</strong> - เมื่อ verify สำเร็จ node
-                จะเริ่มทำงานและรับ rewards
+                <strong>Start earning rewards</strong> — Once verified, your
+                node will run and earn rewards
               </div>
             </li>
           </ol>
@@ -762,7 +754,7 @@ sudo nginx -t && sudo systemctl reload nginx`,
         {/* Node Info Summary */}
         <div className="bg-dark-900/50 border border-dark-800 rounded-2xl p-6">
           <h3 className="text-lg font-semibold text-white mb-4">
-            📋 ข้อมูล Node
+            Node details
           </h3>
           <div className="grid grid-cols-2 gap-4 text-sm">
             <div>
@@ -802,13 +794,13 @@ sudo nginx -t && sudo systemctl reload nginx`,
             href="/validators"
             className="flex-1 py-4 bg-dark-800 hover:bg-dark-700 text-white text-center font-semibold rounded-xl transition-colors"
           >
-            📊 ดู Validator Leaderboard
+            View Validator Leaderboard
           </Link>
           <Link
             href={`/faucet?address=${formData.walletAddress}`}
-            className="flex-1 py-4 bg-gradient-to-r from-primary-500 to-purple-500 hover:from-primary-600 hover:to-purple-600 text-white text-center font-semibold rounded-xl transition-all"
+            className="flex-1 py-4 bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-500 text-white text-center font-semibold rounded-xl transition-all"
           >
-            💧 รับ Testnet Tokens
+            Get Testnet Tokens
           </Link>
         </div>
       </div>
@@ -817,17 +809,15 @@ sudo nginx -t && sudo systemctl reload nginx`,
 
   return (
     <div className="min-h-screen bg-dark-950">
-      <Navbar />
-      <main className="pt-24 pb-16">
+      <main className="py-8 pb-16">
         <div className="container mx-auto px-4 max-w-4xl">
           {/* Header */}
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-              🚀 Join Axionax Network
+              Join Axionax Network
             </h1>
             <p className="text-xl text-dark-400 max-w-2xl mx-auto">
-              เป็นส่วนหนึ่งของ Axionax Testnet ในฐานะ Validator, Worker หรือ RPC
-              Node
+              Join Axionax Testnet as a Validator, Worker or RPC node Node
             </p>
           </div>
 
@@ -839,7 +829,7 @@ sudo nginx -t && sudo systemctl reload nginx`,
                   <div
                     className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium transition-all ${
                       step === s
-                        ? 'bg-primary-500 text-white'
+                        ? 'bg-amber-500 text-white'
                         : [
                               'choose',
                               'requirements',
@@ -896,10 +886,10 @@ sudo nginx -t && sudo systemctl reload nginx`,
               <div className="text-3xl">💬</div>
               <div>
                 <h3 className="text-lg font-semibold text-blue-400 mb-2">
-                  ต้องการความช่วยเหลือ?
+                  Need help?
                 </h3>
                 <p className="text-dark-300 text-sm mb-3">
-                  หากมีคำถามหรือปัญหาในการติดตั้ง สามารถติดต่อได้ที่:
+                  For questions or installation issues, contact:
                 </p>
                 <div className="flex flex-wrap gap-3">
                   <a
@@ -922,7 +912,7 @@ sudo nginx -t && sudo systemctl reload nginx`,
                     href="/docs"
                     className="px-4 py-2 bg-dark-700 hover:bg-dark-600 text-white rounded-lg text-sm transition-colors"
                   >
-                    📚 Documentation
+                    Documentation
                   </Link>
                 </div>
               </div>
@@ -930,7 +920,6 @@ sudo nginx -t && sudo systemctl reload nginx`,
           </div>
         </div>
       </main>
-      <Footer />
     </div>
   );
 }

@@ -34,7 +34,7 @@ export default function Footer(): React.JSX.Element {
   };
 
   return (
-    <footer className="bg-black-hole border-t border-horizon-purple/20">
+    <footer className="bg-black-hole border-t border-amber-500/20/20">
       <div className="container-custom py-14">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-10">
           {/* Logo and Description */}
@@ -137,10 +137,10 @@ export default function Footer(): React.JSX.Element {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-horizon-purple/15 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="pt-8 border-t border-amber-500/20/15 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-starlight/50 text-sm">
-            © {new Date().getFullYear()} Axionax Protocol v1.9.0 · Trusted
-            World Computer
+            © {new Date().getFullYear()} Axionax Protocol v1.9.0 · Trusted World
+            Computer
           </p>
           <div className="flex space-x-6">
             <a

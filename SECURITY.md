@@ -146,6 +146,10 @@ We commit to the following response times:
 - ✅ Access control patterns
 - ✅ Emergency pause mechanism
 
+#### Dependency audit
+- Run `pnpm security:audit` (or `pnpm audit --audit-level=moderate`) regularly.
+- As of the latest audit, **2 vulnerabilities** remain (both in `apps/web`): Next.js DoS issues fixed only in Next 15 (>=15.0.8 and >=15.5.10). Upgrading to Next 15 and React 19 will resolve them; we stay on Next 14 for React 18 compatibility until that upgrade is planned.
+
 #### Monitoring
 - ✅ Real-time alerting (Prometheus + Grafana)
 - ✅ Error tracking (Sentry)

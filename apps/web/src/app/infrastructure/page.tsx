@@ -1,6 +1,4 @@
 import React from 'react';
-import Navbar from '@/components/layout/Navbar';
-import Footer from '@/components/layout/Footer';
 
 export default function InfrastructurePage(): React.JSX.Element {
   const services = [
@@ -107,8 +105,7 @@ export default function InfrastructurePage(): React.JSX.Element {
 
   return (
     <div className="min-h-screen bg-dark-950">
-      <Navbar />
-      <main className="section pt-32">
+      <main className="section pt-8">
         <div className="container-custom">
           {/* Header */}
           <div className="text-center mb-12">
@@ -132,7 +129,7 @@ export default function InfrastructurePage(): React.JSX.Element {
           </div>
 
           {/* VPS Info */}
-          <div className="mb-12 p-6 rounded-xl bg-gradient-to-r from-primary-900/20 to-secondary-900/20 border border-primary-500/20">
+          <div className="mb-12 p-6 rounded-xl bg-gradient-to-r from-amber-900/20 to-yellow-900/20 border border-amber-500/20">
             <h2 className="text-2xl font-bold text-dark-100 mb-4">
               VPS Information
             </h2>
@@ -182,7 +179,7 @@ export default function InfrastructurePage(): React.JSX.Element {
                 <h3 className="text-lg font-semibold text-dark-200">
                   CPU Load
                 </h3>
-                <span className="text-2xl">⚡</span>
+                <span className="text-2xl" aria-hidden />
               </div>
               <div className="text-3xl font-bold gradient-text mb-2">Low</div>
               <div className="w-full bg-dark-800 rounded-full h-2">
@@ -317,14 +314,14 @@ export default function InfrastructurePage(): React.JSX.Element {
           {/* Links */}
           <div className="mt-12 p-6 rounded-xl bg-dark-900 border border-dark-800">
             <h3 className="text-lg font-semibold text-dark-200 mb-4">
-              📚 Documentation
+              Documentation
             </h3>
             <div className="flex flex-wrap gap-4">
               <a
                 href="https://github.com/axionaxprotocol/axionax-docs/blob/main/INFRASTRUCTURE_STATUS.md"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-2 bg-primary-500/10 border border-primary-500/20 rounded-lg text-primary-400 hover:bg-primary-500/20 transition-colors"
+                className="px-4 py-2 bg-amber-500/10 border border-amber-500/20 rounded-lg text-amber-400 hover:bg-amber-500/20 transition-colors"
               >
                 Infrastructure Status Dashboard →
               </a>
@@ -348,7 +345,6 @@ export default function InfrastructurePage(): React.JSX.Element {
           </div>
         </div>
       </main>
-      <Footer />
     </div>
   );
 }

@@ -308,9 +308,10 @@ program
       let allocations;
       if (data.alloc) {
         // Genesis file
-        allocations = Object.entries(data.alloc).map(([address, info]: [string, { balance?: string }]) => ({
+        const allocEntries = Object.entries(data.alloc) as [string, { balance?: string }][];
+        allocations = allocEntries.map(([address, info]) => ({
           address,
-          amount: BigInt(info.balance).toString(),
+          amount: BigInt(info?.balance ?? 0).toString(),
           tier: 'unknown',
           score: 0,
           percentage: 0,

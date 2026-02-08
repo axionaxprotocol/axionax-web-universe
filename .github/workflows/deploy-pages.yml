@@ -1,5 +1,7 @@
 # Deploy Web App to GitHub Pages (static export)
 # Push to main → build apps/web → deploy to GitHub Pages
+# Note: Current app has /api/* routes; static export (output: 'export') will not include them.
+# For full stack (with API), use Vercel or Node host. See README "Ready for production deploy".
 name: Deploy Web to GitHub Pages
 
 on:

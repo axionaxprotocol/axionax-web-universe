@@ -71,7 +71,7 @@ export default function QuickAccess(): React.JSX.Element {
     {
       title: 'Marketplace',
       description: 'Trade compute resources and AI models',
-      href: 'https://axionax.org:3003',
+      href: '/marketplace',
       icon: (
         <svg
           className="w-8 h-8"
@@ -159,7 +159,7 @@ export default function QuickAccess(): React.JSX.Element {
               className="group card-cosmic hover:border-horizon-orange/40 hover:shadow-horizon-sm transition-all duration-300"
             >
               <div className="flex items-start justify-between mb-4">
-                <div className="p-3 rounded-xl bg-gradient-to-br from-amber-500/20 to-horizon-purple/20 text-horizon-gold group-hover:scale-110 transition-transform">
+                <div className="p-3 rounded-xl bg-gradient-to-br from-amber-500/20 to-amber-500/20 text-horizon-gold group-hover:scale-110 transition-transform">
                   {service.icon}
                 </div>
                 <span className="px-3 py-1 text-xs font-medium rounded-full bg-horizon-orange/10 text-horizon-gold border border-horizon-orange/20">
@@ -173,7 +173,7 @@ export default function QuickAccess(): React.JSX.Element {
                 {service.description}
               </p>
               {service.code && (
-                <code className="block p-2 rounded bg-space-dust/50 text-xs text-starlight/80 font-mono truncate border border-horizon-purple/10">
+                <code className="block p-2 rounded bg-space-dust/50 text-xs text-starlight/80 font-mono truncate border border-amber-500/20">
                   {service.code}
                 </code>
               )}
@@ -209,7 +209,9 @@ export default function QuickAccess(): React.JSX.Element {
             </div>
             <div>
               <span className="text-starlight/60">RPC URL:</span>
-              <p className="text-horizon-blue font-mono">https://rpc.axionax.org</p>
+              <p className="text-horizon-blue font-mono">
+                https://rpc.axionax.org
+              </p>
             </div>
             <div>
               <span className="text-starlight/60">Chain ID:</span>

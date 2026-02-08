@@ -1,9 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+export const dynamic = 'force-dynamic';
+
 const RPC_EU = process.env.RPC_EU_URL || 'http://217.76.61.116:8545';
 const RPC_AU = process.env.RPC_AU_URL || 'http://46.250.244.4:8545';
 
-async function rpc(rpcUrl: string, method: string, params: unknown[]): Promise<unknown> {
+async function rpc(
+  rpcUrl: string,
+  method: string,
+  params: unknown[]
+): Promise<unknown> {
   const res = await fetch(rpcUrl, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -11,7 +17,10 @@ async function rpc(rpcUrl: string, method: string, params: unknown[]): Promise<u
     signal: AbortSignal.timeout(8000),
   });
   if (!res.ok) throw new Error(`RPC ${res.status}`);
-  const data = (await res.json()) as { result?: unknown; error?: { message: string } };
+  const data = (await res.json()) as {
+    result?: unknown;
+    error?: { message: string };
+  };
   if (data.error) throw new Error(data.error.message);
   return data.result;
 }
@@ -21,7 +30,10 @@ async function getBlockNumber(rpcUrl: string): Promise<number> {
   return typeof result === 'string' ? parseInt(result, 16) : 0;
 }
 
-async function getBlockByNumber(rpcUrl: string, blockNum: number): Promise<{
+async function getBlockByNumber(
+  rpcUrl: string,
+  blockNum: number
+): Promise<{
   number: number;
   hash: string;
   timestamp: number;
@@ -32,7 +44,7 @@ async function getBlockByNumber(rpcUrl: string, blockNum: number): Promise<{
   size: number;
 } | null> {
   const hex = `0x${blockNum.toString(16)}`;
-  const raw = await rpc(rpcUrl, 'eth_getBlockByNumber', [hex, false]) as {
+  const raw = (await rpc(rpcUrl, 'eth_getBlockByNumber', [hex, false])) as {
     number?: string;
     hash?: string;
     timestamp?: string;
@@ -92,7 +104,16 @@ export async function GET(request: NextRequest) {
 
     const start = latest - (safePage - 1) * safePageSize;
     const end = Math.max(0, start - safePageSize + 1);
-    const blocks: Array<{ number: number; hash: string; timestamp: number; txCount: number; gas: string; gasUsed: string; validator: string; size: number }> = [];
+    const blocks: Array<{
+      number: number;
+      hash: string;
+      timestamp: number;
+      txCount: number;
+      gas: string;
+      gasUsed: string;
+      validator: string;
+      size: number;
+    }> = [];
 
     for (let num = start; num >= end && num >= 0; num--) {
       const block = await getBlockByNumber(rpcUrl, num);
@@ -112,7 +133,14 @@ export async function GET(request: NextRequest) {
   } catch (err) {
     console.error('Blocks API error:', err);
     const fallback = NextResponse.json(
-      { blocks: [], total: 0, page: safePage, pageSize: safePageSize, latestBlock: 0, isMock: true },
+      {
+        blocks: [],
+        total: 0,
+        page: safePage,
+        pageSize: safePageSize,
+        latestBlock: 0,
+        isMock: true,
+      },
       { status: 200 }
     );
     fallback.headers.set('Access-Control-Allow-Origin', '*');

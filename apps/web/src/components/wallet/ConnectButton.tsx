@@ -27,7 +27,7 @@ export default function ConnectButton(): React.JSX.Element {
 
   const handleAddToken = async (tokenAddress: string): Promise<void> => {
     if (!isMetaMaskInstalled()) {
-      alert('โปรดติดตั้ง MetaMask ก่อนใช้งาน');
+      alert('Please install MetaMask to continue');
       return;
     }
 
@@ -35,13 +35,13 @@ export default function ConnectButton(): React.JSX.Element {
     try {
       const wasAdded = await addAXXToken(tokenAddress);
       if (wasAdded) {
-        alert('เพิ่ม AXX Token ลง MetaMask สำเร็จ! ✅');
+        alert('AXX Token added to MetaMask successfully.');
       } else {
-        alert('ผู้ใช้ปฏิเสธการเพิ่ม token');
+        alert('User declined to add token');
       }
     } catch (error) {
       console.error('Error adding token:', error);
-      alert('ไม่สามารถเพิ่ม token ได้: ' + (error as Error).message);
+      alert('Failed to add token: ' + (error as Error).message);
     } finally {
       setIsAddingToken(false);
     }
@@ -116,7 +116,7 @@ export default function ConnectButton(): React.JSX.Element {
           bg-dark-800 border transition-all duration-300
           ${
             isCorrectNetwork
-              ? 'border-primary-500/30 hover:border-primary-500/50'
+              ? 'border-amber-500/30 hover:border-amber-500/50'
               : 'border-amber-500/30 hover:border-amber-500/50'
           }
         `}
@@ -194,7 +194,7 @@ export default function ConnectButton(): React.JSX.Element {
                 )
               }
               disabled={isAddingToken}
-              className="w-full px-3 py-2 text-sm text-primary-400 hover:bg-dark-700 rounded-lg transition-colors text-left flex items-center gap-2 disabled:opacity-50"
+              className="w-full px-3 py-2 text-sm text-amber-400 hover:bg-dark-700 rounded-lg transition-colors text-left flex items-center gap-2 disabled:opacity-50"
             >
               <svg
                 className="w-4 h-4"

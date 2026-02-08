@@ -37,11 +37,13 @@ When validators (RPC) or faucet-api are unreachable, responses fall back to mock
 ## E2E Test Results
 
 - **API tests**: Most pass. Some may fail if validators are down (e.g. blocks list empty) or if rate limiting differs.
-- **UI tests**: Some fail because they were written for different copy or routes:
-  - No `/send` page – transaction flow tests skip or fail.
-  - Nav link text (e.g. “About”, “Docs”) may not match.
-  - Faucet copy: “10,000 AXXt” vs E2E expectation “10 AXX per request”.
-  - Wallet connect button/modal selectors may not match current UI.
+- **UI tests** (updated to match current app):
+  - Nav: tests expect Docs, Explorer, Faucet, Wallet (ExplorerLayout nav).
+  - Network status: expects `[data-testid="network-status"]` and text like Validator/Connected/online/offline/checking.
+  - Wallet: Connect button and optional modal/MetaMask text.
+  - Transaction flow: tests skipped (no `/send` page).
+  - Faucet: label “wallet/address”, button “Claim” or “Request”.
+  - Explorer block number: accepts numeric or “—” when RPC is down.
 
 To run only API E2E:  
 `pnpm test:e2e -- tests/e2e/api.spec.ts`

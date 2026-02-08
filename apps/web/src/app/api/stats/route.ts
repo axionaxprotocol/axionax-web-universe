@@ -39,8 +39,8 @@ async function getBlockNumber(rpcUrl: string): Promise<number | null> {
 
     if (!response.ok) return null;
 
-    const data = await response.json();
-    return parseInt(data.result, 16);
+    const data = (await response.json()) as { result?: string };
+    return typeof data.result === 'string' ? parseInt(data.result, 16) : null;
   } catch {
     return null;
   }
@@ -86,7 +86,7 @@ export async function GET() {
     const validatorsOnline = (euHealth ? 1 : 0) + (auHealth ? 1 : 0);
 
     const isMock = validatorsOnline === 0;
-    const stats = {
+    const stats: StatsResponse & { isMock?: boolean } = {
       blockNumber,
       services: {
         healthy: validatorsOnline > 0 ? 9 : 0,
@@ -107,7 +107,10 @@ export async function GET() {
     const res = NextResponse.json(stats);
     res.headers.set('Access-Control-Allow-Origin', '*');
     res.headers.set('Access-Control-Allow-Methods', 'GET, OPTIONS');
-    res.headers.set('Cache-Control', 'public, s-maxage=5, stale-while-revalidate=10');
+    res.headers.set(
+      'Cache-Control',
+      'public, s-maxage=5, stale-while-revalidate=10'
+    );
     return res;
   } catch (error) {
     console.error('Stats API error:', error);

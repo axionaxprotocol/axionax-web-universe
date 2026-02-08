@@ -1,4 +1,3 @@
-import React from 'react';
 import { useEscrow } from '../../context/EscrowContext';
 import { EscrowStatusBadge } from './EscrowStatusBadge';
 

@@ -22,6 +22,7 @@ export const EscrowPanel: React.FC<EscrowPanelProps> = ({
   const [client, setClient] = useState<AxionaxClient>(() => propClient || createClient({
     ...AXIONAX_TESTNET_CONFIG,
     rpcUrl: AXIONAX_TESTNET_CONFIG.rpcUrls[0],
+    rpcUrls: [...AXIONAX_TESTNET_CONFIG.rpcUrls],
     chainId: AXIONAX_TESTNET_CONFIG.chainIdDecimal,
   }));
   const [escrowState, setEscrowState] = useState<EscrowTransaction | null>(null);
@@ -40,6 +41,7 @@ export const EscrowPanel: React.FC<EscrowPanelProps> = ({
           const newClient = createClient({
             ...AXIONAX_TESTNET_CONFIG,
             rpcUrl: AXIONAX_TESTNET_CONFIG.rpcUrls[0],
+            rpcUrls: [...AXIONAX_TESTNET_CONFIG.rpcUrls],
             chainId: AXIONAX_TESTNET_CONFIG.chainIdDecimal,
             provider,
             signer

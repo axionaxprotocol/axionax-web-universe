@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface EscrowStatusBadgeProps {
     status: 'PENDING' | 'ACTIVE' | 'COMPLETED' | 'REFUNDED';
 }

@@ -53,7 +53,7 @@ export default function Roadmap(): React.JSX.Element {
       status: 'planned',
       title: 'v2.0 Mainnet Genesis',
       items: [
-        'Mainnet launch 🚀',
+        'Mainnet launch',
         'Complete SDK suite (Go, Rust, JS)',
         'Production marketplace',
         '100+ validator nodes',

@@ -31,7 +31,7 @@ axionax-web-universe/
 │   ├── web/              # เว็บไซต์หลัก (Next.js 14)
 │   │   ├── src/          # Source code
 │   │   ├── public/       # Static assets
-│   │   └── package.json  # @axionax/website
+│   │   └── package.json  # @axionax/web
 │   │
 │   ├── marketplace/      # ตลาดซื้อขายทรัพยากร (Vite + React)
 │   │   ├── src/          # Source code
@@ -108,7 +108,7 @@ pnpm install
 pnpm dev
 
 # รันเฉพาะแอปที่ต้องการ
-pnpm --filter @axionax/website dev
+pnpm --filter @axionax/web dev
 pnpm --filter @axionax/marketplace dev
 
 # Build โปรเจกต์ทั้งหมด

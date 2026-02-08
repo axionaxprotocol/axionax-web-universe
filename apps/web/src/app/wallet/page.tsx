@@ -10,8 +10,6 @@ import {
   type ImportedWallet,
 } from '@/lib/wallet-generator';
 import { getBalance, AXIONAX_TESTNET } from '@/lib/web3';
-import Navbar from '@/components/layout/Navbar';
-import Footer from '@/components/layout/Footer';
 
 type TabType = 'create' | 'import-mnemonic' | 'import-key';
 
@@ -180,16 +178,15 @@ export default function WalletPage() {
 
   return (
     <div className="min-h-screen bg-dark-950">
-      <Navbar />
-      <main className="pt-24 pb-16">
+      <main className="py-8 pb-16">
         <div className="container mx-auto px-4 max-w-4xl">
           {/* Header */}
           <div className="text-center mb-8">
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-              👛 Wallet Manager
+              Wallet Manager
             </h1>
             <p className="text-xl text-dark-400 max-w-2xl mx-auto">
-              สร้างหรือนำเข้า wallet เพื่อเข้าร่วม Axionax Testnet
+              Create or import a wallet to join Axionax Testnet
             </p>
           </div>
 
@@ -199,7 +196,7 @@ export default function WalletPage() {
               <div className="bg-dark-900/50 border border-dark-800 rounded-2xl p-4">
                 <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
                   📋 My Wallets
-                  <span className="text-xs bg-primary-500/20 text-primary-400 px-2 py-0.5 rounded-full">
+                  <span className="text-xs bg-primary-500/20 text-amber-400 px-2 py-0.5 rounded-full">
                     {storedWallets.length}
                   </span>
                 </h2>
@@ -207,8 +204,10 @@ export default function WalletPage() {
                 {storedWallets.length === 0 ? (
                   <div className="text-center py-8 text-dark-400">
                     <div className="text-4xl mb-2">🔐</div>
-                    <p className="text-sm">ยังไม่มี wallet</p>
-                    <p className="text-xs mt-1">สร้างหรือนำเข้า wallet ใหม่</p>
+                    <p className="text-sm">No wallet yet</p>
+                    <p className="text-xs mt-1">
+                      Create or import a new wallet
+                    </p>
                   </div>
                 ) : (
                   <div className="space-y-2">
@@ -234,7 +233,7 @@ export default function WalletPage() {
                           <button
                             onClick={(e) => {
                               e.stopPropagation();
-                              if (confirm('ลบ wallet นี้?'))
+                              if (confirm('Delete this wallet?'))
                                 deleteWallet(w.address);
                             }}
                             className="text-dark-500 hover:text-red-400 p-1"
@@ -257,9 +256,9 @@ export default function WalletPage() {
                     <div className="mt-3 space-y-2">
                       <Link
                         href={`/faucet?address=${selectedWallet}`}
-                        className="block w-full text-center py-2 px-4 bg-primary-500 hover:bg-primary-600 text-white rounded-lg text-sm transition-colors"
+                        className="block w-full text-center py-2 px-4 bg-primary-500 hover:bg-amber-600 text-white rounded-lg text-sm transition-colors"
                       >
-                        💧 รับ Testnet Tokens
+                        Get Testnet Tokens
                       </Link>
                       <button
                         onClick={() =>
@@ -289,11 +288,11 @@ export default function WalletPage() {
                     }}
                     className={`flex-1 py-4 px-4 text-sm font-medium transition-colors ${
                       activeTab === 'create'
-                        ? 'bg-primary-500/10 text-primary-400 border-b-2 border-primary-500'
+                        ? 'bg-primary-500/10 text-amber-400 border-b-2 border-primary-500'
                         : 'text-dark-400 hover:text-white'
                     }`}
                   >
-                    ✨ สร้าง Wallet ใหม่
+                    Create New Wallet
                   </button>
                   <button
                     onClick={() => {
@@ -302,7 +301,7 @@ export default function WalletPage() {
                     }}
                     className={`flex-1 py-4 px-4 text-sm font-medium transition-colors ${
                       activeTab === 'import-mnemonic'
-                        ? 'bg-primary-500/10 text-primary-400 border-b-2 border-primary-500'
+                        ? 'bg-primary-500/10 text-amber-400 border-b-2 border-primary-500'
                         : 'text-dark-400 hover:text-white'
                     }`}
                   >
@@ -315,7 +314,7 @@ export default function WalletPage() {
                     }}
                     className={`flex-1 py-4 px-4 text-sm font-medium transition-colors ${
                       activeTab === 'import-key'
-                        ? 'bg-primary-500/10 text-primary-400 border-b-2 border-primary-500'
+                        ? 'bg-primary-500/10 text-amber-400 border-b-2 border-primary-500'
                         : 'text-dark-400 hover:text-white'
                     }`}
                   >
@@ -339,17 +338,18 @@ export default function WalletPage() {
                           <div className="text-center py-8">
                             <div className="text-6xl mb-4">🆕</div>
                             <h3 className="text-xl font-semibold text-white mb-2">
-                              สร้าง Wallet ใหม่
+                              Create New Wallet
                             </h3>
                             <p className="text-dark-400 max-w-md mx-auto">
-                              ระบบจะสร้าง wallet พร้อม recovery phrase 12 คำ
-                              กรุณาเก็บรักษา phrase นี้ไว้อย่างปลอดภัย
+                              A new wallet will be created with a 12-word
+                              recovery phrase. Please store this phrase
+                              securely.
                             </p>
                           </div>
 
                           <div>
                             <label className="block text-sm text-dark-400 mb-2">
-                              ชื่อ Wallet (optional)
+                              Wallet name (optional)
                             </label>
                             <input
                               type="text"
@@ -363,15 +363,15 @@ export default function WalletPage() {
                           <button
                             onClick={handleCreateWallet}
                             disabled={loading}
-                            className="w-full py-4 bg-gradient-to-r from-primary-500 to-purple-500 hover:from-primary-600 hover:to-purple-600 text-white font-semibold rounded-xl transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+                            className="w-full py-4 bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-500 text-white font-semibold rounded-xl transition-all disabled:opacity-50 flex items-center justify-center gap-2"
                           >
                             {loading ? (
                               <>
                                 <div className="animate-spin w-5 h-5 border-2 border-white border-t-transparent rounded-full" />
-                                กำลังสร้าง...
+                                Creating...
                               </>
                             ) : (
-                              <>✨ สร้าง Wallet</>
+                              <>Create Wallet</>
                             )}
                           </button>
                         </div>
@@ -382,10 +382,11 @@ export default function WalletPage() {
                           <div className="text-center">
                             <div className="text-4xl mb-2">📝</div>
                             <h3 className="text-xl font-semibold text-white">
-                              สำรอง Recovery Phrase
+                              Back Up Recovery Phrase
                             </h3>
                             <p className="text-dark-400 text-sm mt-1">
-                              จดหรือ copy คำเหล่านี้และเก็บไว้อย่างปลอดภัย
+                              Write down or copy these words and store them
+                              safely
                             </p>
                           </div>
 
@@ -393,7 +394,7 @@ export default function WalletPage() {
                           <div className="bg-dark-800/50 border border-amber-500/30 rounded-xl p-4">
                             <div className="flex justify-between items-center mb-3">
                               <span className="text-amber-400 text-sm font-medium">
-                                ⚠️ เก็บรักษาคำเหล่านี้ให้ปลอดภัย!
+                                Keep these words safe!
                               </span>
                               <button
                                 onClick={() =>
@@ -447,9 +448,8 @@ export default function WalletPage() {
                               className="mt-1 w-5 h-5 rounded border-dark-600 bg-dark-700 text-primary-500 focus:ring-primary-500"
                             />
                             <span className="text-sm text-dark-300">
-                              ฉันได้บันทึก recovery phrase
-                              แล้วและเข้าใจว่าหากสูญหาย จะไม่สามารถกู้คืน wallet
-                              ได้
+                              I have saved my recovery phrase and understand
+                              that if lost, I cannot recover this wallet
                             </span>
                           </label>
 
@@ -458,14 +458,14 @@ export default function WalletPage() {
                               onClick={resetForm}
                               className="flex-1 py-3 bg-dark-800 hover:bg-dark-700 text-white rounded-xl transition-colors"
                             >
-                              ← ย้อนกลับ
+                              Back
                             </button>
                             <button
                               onClick={handleConfirmBackup}
                               disabled={!backupConfirmed}
-                              className="flex-1 py-3 bg-primary-500 hover:bg-primary-600 disabled:bg-dark-700 disabled:text-dark-500 text-white font-semibold rounded-xl transition-colors"
+                              className="flex-1 py-3 bg-primary-500 hover:bg-amber-600 disabled:bg-dark-700 disabled:text-dark-500 text-white font-semibold rounded-xl transition-colors"
                             >
-                              ยืนยัน →
+                              Confirm
                             </button>
                           </div>
                         </div>
@@ -492,10 +492,10 @@ export default function WalletPage() {
                           <div className="text-center py-4">
                             <div className="text-4xl mb-2">📝</div>
                             <h3 className="text-lg font-semibold text-white">
-                              นำเข้าจาก Recovery Phrase
+                              Import from Recovery Phrase
                             </h3>
                             <p className="text-dark-400 text-sm">
-                              ใส่ 12 หรือ 24 คำ Recovery Phrase ของคุณ
+                              Enter your 12 or 24 word recovery phrase
                             </p>
                           </div>
 
@@ -513,13 +513,13 @@ export default function WalletPage() {
                               className="w-full bg-dark-800 border border-dark-700 rounded-lg px-4 py-3 text-white placeholder-dark-500 focus:border-primary-500 focus:outline-none font-mono"
                             />
                             <p className="text-xs text-dark-500 mt-1">
-                              แยกแต่ละคำด้วยช่องว่าง
+                              Separate each word with a space
                             </p>
                           </div>
 
                           <div>
                             <label className="block text-sm text-dark-400 mb-2">
-                              ชื่อ Wallet (optional)
+                              Wallet name (optional)
                             </label>
                             <input
                               type="text"
@@ -533,15 +533,15 @@ export default function WalletPage() {
                           <button
                             onClick={handleImportMnemonic}
                             disabled={loading || !mnemonic.trim()}
-                            className="w-full py-4 bg-gradient-to-r from-primary-500 to-purple-500 hover:from-primary-600 hover:to-purple-600 text-white font-semibold rounded-xl transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+                            className="w-full py-4 bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-500 text-white font-semibold rounded-xl transition-all disabled:opacity-50 flex items-center justify-center gap-2"
                           >
                             {loading ? (
                               <>
                                 <div className="animate-spin w-5 h-5 border-2 border-white border-t-transparent rounded-full" />
-                                กำลังนำเข้า...
+                                Importing...
                               </>
                             ) : (
-                              <>📥 นำเข้า Wallet</>
+                              <>Import Wallet</>
                             )}
                           </button>
                         </div>
@@ -568,10 +568,10 @@ export default function WalletPage() {
                           <div className="text-center py-4">
                             <div className="text-4xl mb-2">🔑</div>
                             <h3 className="text-lg font-semibold text-white">
-                              นำเข้าจาก Private Key
+                              Import from Private Key
                             </h3>
                             <p className="text-dark-400 text-sm">
-                              ใส่ Private Key (64 ตัวอักษร hex)
+                              Enter your private key (64 hex characters)
                             </p>
                           </div>
 
@@ -583,7 +583,7 @@ export default function WalletPage() {
                               type="password"
                               value={privateKey}
                               onChange={(e) => setPrivateKey(e.target.value)}
-                              placeholder="0x... หรือ ใส่แค่ 64 hex characters"
+                              placeholder="0x... or 64 hex characters"
                               className="w-full bg-dark-800 border border-dark-700 rounded-lg px-4 py-3 text-white placeholder-dark-500 focus:border-primary-500 focus:outline-none font-mono"
                             />
                             <p className="text-xs text-dark-500 mt-1">
@@ -593,7 +593,7 @@ export default function WalletPage() {
 
                           <div>
                             <label className="block text-sm text-dark-400 mb-2">
-                              ชื่อ Wallet (optional)
+                              Wallet name (optional)
                             </label>
                             <input
                               type="text"
@@ -607,15 +607,15 @@ export default function WalletPage() {
                           <button
                             onClick={handleImportPrivateKey}
                             disabled={loading || !privateKey.trim()}
-                            className="w-full py-4 bg-gradient-to-r from-primary-500 to-purple-500 hover:from-primary-600 hover:to-purple-600 text-white font-semibold rounded-xl transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+                            className="w-full py-4 bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-500 text-white font-semibold rounded-xl transition-all disabled:opacity-50 flex items-center justify-center gap-2"
                           >
                             {loading ? (
                               <>
                                 <div className="animate-spin w-5 h-5 border-2 border-white border-t-transparent rounded-full" />
-                                กำลังนำเข้า...
+                                Importing...
                               </>
                             ) : (
-                              <>📥 นำเข้า Wallet</>
+                              <>Import Wallet</>
                             )}
                           </button>
                         </div>
@@ -639,43 +639,43 @@ export default function WalletPage() {
           </div>
 
           {/* Quick Start Guide */}
-          <div className="mt-8 bg-gradient-to-br from-primary-500/10 to-purple-500/10 border border-primary-500/30 rounded-2xl p-6">
+          <div className="mt-8 bg-gradient-to-br from-amber-500/10 to-yellow-500/10 border border-primary-500/30 rounded-2xl p-6">
             <h2 className="text-xl font-semibold text-white mb-4">
-              🚀 เริ่มต้นใช้งาน Testnet
+              Get Started with Testnet
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="flex items-start gap-3">
-                <div className="w-8 h-8 bg-primary-500/20 rounded-full flex items-center justify-center text-primary-400 font-bold shrink-0">
+                <div className="w-8 h-8 bg-primary-500/20 rounded-full flex items-center justify-center text-amber-400 font-bold shrink-0">
                   1
                 </div>
                 <div>
-                  <div className="font-medium text-white">สร้าง Wallet</div>
+                  <div className="font-medium text-white">Create Wallet</div>
                   <div className="text-sm text-dark-400">
-                    สร้างหรือนำเข้า wallet ของคุณ
+                    Create or import your wallet
                   </div>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <div className="w-8 h-8 bg-primary-500/20 rounded-full flex items-center justify-center text-primary-400 font-bold shrink-0">
+                <div className="w-8 h-8 bg-primary-500/20 rounded-full flex items-center justify-center text-amber-400 font-bold shrink-0">
                   2
                 </div>
                 <div>
                   <div className="font-medium text-white">
-                    รับ Testnet Tokens
+                    Get Testnet Tokens
                   </div>
                   <div className="text-sm text-dark-400">
-                    ไปที่ Faucet เพื่อรับ AXX ฟรี
+                    Go to Faucet to get free AXX
                   </div>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <div className="w-8 h-8 bg-primary-500/20 rounded-full flex items-center justify-center text-primary-400 font-bold shrink-0">
+                <div className="w-8 h-8 bg-primary-500/20 rounded-full flex items-center justify-center text-amber-400 font-bold shrink-0">
                   3
                 </div>
                 <div>
-                  <div className="font-medium text-white">เริ่มใช้งาน!</div>
+                  <div className="font-medium text-white">Get started!</div>
                   <div className="text-sm text-dark-400">
-                    ทดลองทำ transactions และสะสมคะแนน
+                    Try transactions and earn activity score
                   </div>
                 </div>
               </div>
@@ -716,7 +716,6 @@ export default function WalletPage() {
           </div>
         </div>
       </main>
-      <Footer />
     </div>
   );
 }
@@ -741,8 +740,8 @@ function WalletSuccess({
     <div className="space-y-6">
       <div className="text-center py-4">
         <div className="text-6xl mb-4">🎉</div>
-        <h3 className="text-2xl font-bold text-white">Wallet พร้อมใช้งาน!</h3>
-        <p className="text-dark-400 mt-2">Wallet ของคุณถูกบันทึกแล้ว</p>
+        <h3 className="text-2xl font-bold text-white">Wallet ready!</h3>
+        <p className="text-dark-400 mt-2">Your wallet has been saved</p>
       </div>
 
       {/* Address */}
@@ -788,8 +787,8 @@ function WalletSuccess({
             : '••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••'}
         </div>
         <p className="text-xs text-amber-400/70 mt-2">
-          ⚠️ อย่าแชร์ private key กับใคร! ผู้ที่มี key นี้สามารถเข้าถึง wallet
-          ได้
+          Never share your private key. Anyone with this key can access your
+          wallet.
         </p>
       </div>
 
@@ -799,13 +798,13 @@ function WalletSuccess({
           onClick={onReset}
           className="flex-1 py-3 bg-dark-800 hover:bg-dark-700 text-white rounded-xl transition-colors"
         >
-          ➕ เพิ่ม Wallet ใหม่
+          Add New Wallet
         </button>
         <Link
           href={`/faucet?address=${wallet.address}`}
-          className="flex-1 py-3 bg-primary-500 hover:bg-primary-600 text-white text-center font-semibold rounded-xl transition-colors"
+          className="flex-1 py-3 bg-primary-500 hover:bg-amber-600 text-white text-center font-semibold rounded-xl transition-colors"
         >
-          💧 รับ Testnet Tokens
+          Get Testnet Tokens
         </Link>
       </div>
     </div>

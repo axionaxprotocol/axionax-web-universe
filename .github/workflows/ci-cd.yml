@@ -92,11 +92,17 @@ jobs:
       - name: Build ${{ matrix.app }}
         run: pnpm --filter @axionax/${{ matrix.app }} build
 
+      - name: Prepare web standalone (web only)
+        if: matrix.app == 'web'
+        run: |
+          mkdir -p apps/web/.next/standalone/.next
+          cp -r apps/web/.next/static apps/web/.next/standalone/.next/
+
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.app }}-build
-          path: apps/${{ matrix.app }}/dist
+          path: ${{ matrix.app == 'web' && 'apps/web/.next/standalone' || 'apps/marketplace/dist' }}
           retention-days: 7
 
   # Build Packages
@@ -186,20 +192,44 @@ jobs:
       name: staging
       url: https://staging.axionax.org
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
       - name: Download web build
         uses: actions/download-artifact@v4
         with:
           name: web-build
-          path: apps/web/dist
+          path: deploy-web
 
-      - name: Deploy to staging
+      - name: Setup SSH key
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Add server to known hosts
         run: |
-          echo "Deploying to staging environment..."
-          # Add your deployment script here
-          # Example: rsync, scp, or deployment service API call
+          mkdir -p ~/.ssh
+          echo "$SSH_HOST" | xargs -I {} ssh-keyscan -H {} >> ~/.ssh/known_hosts 2>/dev/null || true
+        env:
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+
+      - name: Deploy to staging (rsync)
+        env:
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+          REMOTE_PATH: ${{ secrets.REMOTE_PATH }}
+        run: |
+          rsync -avz --delete -e ssh deploy-web/ ${SSH_USER}@${SSH_HOST}:${REMOTE_PATH}/
+
+      - name: Restart app on server (staging)
+        env:
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+          REMOTE_PATH: ${{ secrets.REMOTE_PATH }}
+          RESTART_CMD: ${{ secrets.DEPLOY_RESTART_CMD }}
+        run: |
+          if [ -n "$RESTART_CMD" ]; then
+            ssh ${SSH_USER}@${SSH_HOST} "cd ${REMOTE_PATH} && $RESTART_CMD"
+          else
+            echo "Set DEPLOY_RESTART_CMD (e.g. pm2 restart axionax-web) to restart the app."
+          fi
 
   # Deploy to Production (on main branch)
   deploy-production:
@@ -211,20 +241,44 @@ jobs:
       name: production
       url: https://axionax.org
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
       - name: Download web build
         uses: actions/download-artifact@v4
         with:
           name: web-build
-          path: apps/web/dist
+          path: deploy-web
 
-      - name: Deploy to production
+      - name: Setup SSH key
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Add server to known hosts
         run: |
-          echo "Deploying to production environment..."
-          # Add your deployment script here
-          # Example: rsync, scp, or deployment service API call
+          mkdir -p ~/.ssh
+          echo "$SSH_HOST" | xargs -I {} ssh-keyscan -H {} >> ~/.ssh/known_hosts 2>/dev/null || true
+        env:
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+
+      - name: Deploy to production (rsync)
+        env:
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+          REMOTE_PATH: ${{ secrets.REMOTE_PATH }}
+        run: |
+          rsync -avz --delete -e ssh deploy-web/ ${SSH_USER}@${SSH_HOST}:${REMOTE_PATH}/
+
+      - name: Restart app on server (production)
+        env:
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+          REMOTE_PATH: ${{ secrets.REMOTE_PATH }}
+          RESTART_CMD: ${{ secrets.DEPLOY_RESTART_CMD }}
+        run: |
+          if [ -n "$RESTART_CMD" ]; then
+            ssh ${SSH_USER}@${SSH_HOST} "cd ${REMOTE_PATH} && $RESTART_CMD"
+          else
+            echo "Set DEPLOY_RESTART_CMD (e.g. pm2 restart axionax-web) to restart the app."
+          fi
 
       - name: Create GitHub Release
         if: startsWith(github.ref, 'refs/tags/')

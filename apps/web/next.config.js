@@ -5,8 +5,11 @@ const path = require('path')
  * @type {import('next').NextConfig}
  */
 const nextConfig = {
-  // Enable static export for VPS deployment (Nginx)
-  output: 'export',
+  // Use server mode so /api/* routes work. For static-only deploy, use a separate API or remove API routes.
+  // output: 'export',
+
+  // Standalone output for VPS/CI deploy: single folder with node server (server.js)
+  output: 'standalone',
 
   // React strict mode for catching potential issues
   reactStrictMode: true,

@@ -127,7 +127,7 @@ export default function Hero(): React.JSX.Element {
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12 animate-fade-in-up animation-delay-600">
             <Link href="/faucet">
               <button className="btn-horizon text-lg px-8 py-4 flex items-center gap-2">
-                🚀 Get Test Tokens
+                Get Test Tokens
                 <svg
                   className="w-5 h-5"
                   fill="none"
@@ -147,12 +147,12 @@ export default function Hero(): React.JSX.Element {
             </Link>
             <Link href="/docs">
               <Button variant="secondary" size="lg" className="text-lg">
-                📚 Read Documentation
+                Read Documentation
               </Button>
             </Link>
             <Link href="/explorer">
               <Button variant="outline" size="lg" className="text-lg">
-                🔭 Explorer
+                Explorer
               </Button>
             </Link>
           </div>
@@ -178,7 +178,7 @@ export default function Hero(): React.JSX.Element {
               <div className="text-sm text-starlight/60">Target TPS</div>
             </div>
             <div className="card-cosmic text-center p-4 hover:shadow-horizon-sm transition-all duration-300 cursor-default group">
-              <div className="text-2xl md:text-3xl font-bold text-horizon-purple mb-2 group-hover:scale-110 transition-transform">
+              <div className="text-2xl md:text-3xl font-bold text-horizon-gold mb-2 group-hover:scale-110 transition-transform">
                 &lt;0.5s
               </div>
               <div className="text-sm text-starlight/60">Finality</div>
@@ -210,7 +210,7 @@ export default function Hero(): React.JSX.Element {
               </div>
               <div className="flex justify-between">
                 <span className="text-starlight/60">Chain ID:</span>
-                <span className="text-horizon-purple font-mono">86137</span>
+                <span className="text-horizon-gold font-mono">86137</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-starlight/60">Symbol:</span>

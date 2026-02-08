@@ -49,9 +49,11 @@ axionax-web-universe/
 │   │   ├── src/          # Generator source code
 │   │   └── package.json  # @axionax/genesis-generator
 │   │
-│   └── docs/             # Documentation Site (70+ pages)
-│       ├── guides/       # Tutorials & guides
-│       └── api/          # API reference
+│   ├── faucet-api/       # Faucet API (Node)
+│   ├── mobile/           # Mobile app
+│   └── docs/             # Documentation (Jekyll/static, not a pnpm package)
+│       ├── *.md, *.html  # Guides, API reference, tutorials
+│       └── sentinels/    # Sentinel docs
 │
 ├── 📦 packages/
 │   ├── sdk/              # TypeScript SDK
@@ -169,14 +171,14 @@ pnpm install
 pnpm dev
 
 # Run specific app
-pnpm --filter @axionax/website dev
+pnpm --filter @axionax/web dev
 pnpm --filter @axionax/marketplace dev
 
 # Build all
 pnpm build
 
 # Build specific app
-pnpm --filter @axionax/website build
+pnpm --filter @axionax/web build
 ```
 
 ### 3. Using the SDK
@@ -213,8 +215,8 @@ console.log('Transaction confirmed:', receipt.hash);
 
 **Official axionax Protocol Website**
 
-- **Package**: `@axionax/website`
-- **Version**: 2.0.0
+- **Package**: `@axionax/web`
+- **Version**: 1.9.0
 - **Framework**: Next.js 14 + TypeScript
 - **Styling**: Tailwind CSS
 - **Port**: 3000
@@ -236,8 +238,8 @@ pnpm start
 # Lint
 pnpm lint
 
-# Type check
-pnpm type-check
+# Type check (from repo root)
+pnpm --filter @axionax/web exec tsc --noEmit
 ```
 
 **Features:**
@@ -422,12 +424,12 @@ pnpm clean
 
 ```bash
 # Run command in specific package
-pnpm --filter @axionax/website dev
+pnpm --filter @axionax/web dev
 pnpm --filter @axionax/sdk build
 pnpm --filter @axionax/marketplace test
 
 # Add dependency to specific package
-pnpm --filter @axionax/website add lodash
+pnpm --filter @axionax/web add lodash
 pnpm --filter @axionax/sdk add -D vitest
 ```
 
@@ -494,6 +496,35 @@ docker run -p 3000:3000 axionax-website
 # Or use docker-compose
 docker-compose up -d
 ```
+
+### ✅ Ready for production deploy
+
+**CI (GitHub Actions):**
+
+- Push/PR ไป `main` หรือ `develop` รัน: lint, type-check, build (web + marketplace), tests, security audit.
+- **Deploy จริง:** push ไป `develop` → deploy staging (rsync ขึ้น VPS); push ไป `main` → deploy production (rsync ขึ้น VPS).
+- Build ของ `apps/web` ใช้ **standalone output** (โฟลเดอร์เดียวมี `server.js`) แล้ว rsync ผ่าน SSH. ต้องตั้ง **secrets** ต่อ environment (staging/production): `SSH_HOST`, `SSH_USER`, `SSH_PRIVATE_KEY`, `REMOTE_PATH`, และถ้าต้องการ restart หลัง sync: `DEPLOY_RESTART_CMD` (เช่น `pm2 restart axionax-web`). รายละเอียดและวิธีตั้ง server ดูที่ [apps/web/docs/DEPLOYMENT.md#cicd-deploy-github-actions](apps/web/docs/DEPLOYMENT.md#-cicd-deploy-github-actions).
+
+**Environment (production):**
+
+- คัดลอก `apps/web/.env.example` เป็น `.env.local` หรือ set บน server (หรือใน host เช่น Vercel).
+- ตัวแปรที่ต้องตั้งอย่างน้อย: `NEXT_PUBLIC_CHAIN_ID`, `NEXT_PUBLIC_RPC_URL` (หรือใช้ค่าใน .env.example), `NEXT_PUBLIC_API_URL` ถ้าใช้ API แยก.
+- RPC proxy (`/api/rpc/eu`, `/api/rpc/au`) ใช้ `RPC_EU_URL` / `RPC_AU_URL` (ไม่บังคับ มี default).
+
+**Deploy targets:**
+
+| Target        | วิธี | หมายเหตุ |
+|---------------|------|----------|
+| **CI → VPS**  | ตั้ง secrets แล้ว push `main`/`develop` | ใช้ standalone + rsync ตาม [DEPLOYMENT.md](apps/web/docs/DEPLOYMENT.md) |
+| **Vercel**    | เชื่อม repo → build `pnpm --filter @axionax/web build`, root = repo root | รองรับ API routes |
+| **Node (VPS)**| Build แล้ว `pnpm --filter @axionax/web start` หรือ Docker ตาม [DEPLOYMENT.md](apps/web/docs/DEPLOYMENT.md) | ใช้ได้กับ full stack |
+| **GitHub Pages** | Workflow deploy-pages — ต้องใช้ static export และแอปมี `/api/*` จึงต้องแยก API หรือทำ static-only | ดู [DEPLOY.md](DEPLOY.md) |
+
+**ก่อน deploy ครั้งแรก:**
+
+1. ตั้ง env ตาม `.env.example` (อย่างน้อย `NEXT_PUBLIC_*`).
+2. รัน `pnpm build` ที่ root ให้ผ่าน.
+3. ถ้าใช้ CI deploy ขึ้น VPS: ตั้ง environment secrets ตามตารางด้านบน และเตรียม server ตาม [DEPLOYMENT.md § CI/CD Deploy](apps/web/docs/DEPLOYMENT.md#-cicd-deploy-github-actions).
 
 ---
 

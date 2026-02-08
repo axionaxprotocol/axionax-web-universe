@@ -4,8 +4,6 @@ import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import Navbar from '@/components/layout/Navbar';
-import Footer from '@/components/layout/Footer';
 import Card, { CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
 import MockBadge from '@/components/ui/MockBadge';
 
@@ -128,16 +126,13 @@ function FaucetContent(): React.JSX.Element {
 
   return (
     <div className="min-h-screen bg-deep-space relative">
-      {/* Stars background */}
-      <div className="stars" />
-
-      <Navbar />
-      <main className="container-custom py-24 relative z-10">
+      <div className="stars" aria-hidden />
+      <div className="container-custom py-8 sm:py-10 relative z-10">
         <div className="max-w-2xl mx-auto">
           <div className="text-center mb-8">
             <div className="flex flex-wrap items-center justify-center gap-3 mb-4">
               <h1 className="text-4xl font-bold">
-                <span className="text-horizon">💧 Testnet Faucet</span>
+                <span className="text-horizon">Testnet Faucet</span>
               </h1>
               <MockBadge show={faucetInfo?.isMock ?? false} label="Balance" />
             </div>
@@ -148,7 +143,7 @@ function FaucetContent(): React.JSX.Element {
           </div>
 
           {/* Faucet Balance Card */}
-          <div className="card-cosmic mb-6 bg-gradient-to-r from-horizon-orange/10 via-horizon-purple/10 to-horizon-blue/10">
+          <div className="card-cosmic mb-6 bg-gradient-to-r from-amber-500/10 via-horizon-gold/10 to-yellow-500/10">
             <CardContent className="py-6">
               <div className="flex items-center justify-between">
                 <div>
@@ -174,29 +169,27 @@ function FaucetContent(): React.JSX.Element {
 
           <div className="card-cosmic mb-6">
             <CardHeader>
-              <CardTitle className="text-horizon-blue">
-                🚀 Claim Testnet Tokens
+              <CardTitle className="text-horizon-gold">
+                Claim Testnet Tokens
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
                 {/* Quick Link to Create Wallet */}
                 {!address && (
-                  <div className="p-4 rounded-lg bg-primary-500/10 border border-primary-500/30 mb-4">
+                  <div className="p-4 rounded-lg bg-amber-500/10 border border-amber-500/30 mb-4">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-white font-medium">
-                          ยังไม่มี Wallet?
-                        </p>
+                        <p className="text-white font-medium">No wallet yet?</p>
                         <p className="text-sm text-dark-400">
-                          สร้าง wallet ใหม่ฟรี!
+                          Create a new wallet for free!
                         </p>
                       </div>
                       <Link
                         href="/wallet"
-                        className="px-4 py-2 bg-primary-500 hover:bg-primary-600 text-white rounded-lg text-sm transition-colors"
+                        className="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-lg text-sm transition-colors"
                       >
-                        👛 สร้าง Wallet
+                        Create Wallet
                       </Link>
                     </div>
                   </div>
@@ -230,11 +223,14 @@ function FaucetContent(): React.JSX.Element {
                 >
                   {mutation.isPending
                     ? '⏳ Processing...'
-                    : `🎁 Claim ${FAUCET_AMOUNT} AXX`}
+                    : `Claim ${FAUCET_AMOUNT} AXX`}
                 </button>
 
                 {mutation.isError && (
-                  <div className="p-4 rounded-lg bg-horizon-pink/10 border border-horizon-pink/30 text-horizon-pink" data-testid="faucet-message">
+                  <div
+                    className="p-4 rounded-lg bg-horizon-pink/10 border border-horizon-pink/30 text-horizon-pink"
+                    data-testid="faucet-message"
+                  >
                     ❌{' '}
                     {mutation.error instanceof Error
                       ? mutation.error.message
@@ -243,10 +239,16 @@ function FaucetContent(): React.JSX.Element {
                 )}
 
                 {lastSuccess && (
-                  <div className="p-4 rounded-lg bg-green-500/10 border border-green-500/30 text-green-400 space-y-2" data-testid="faucet-message">
+                  <div
+                    className="p-4 rounded-lg bg-green-500/10 border border-green-500/30 text-green-400 space-y-2"
+                    data-testid="faucet-message"
+                  >
                     <div className="flex flex-wrap items-center gap-2">
                       <span>✅ {lastSuccess.message}</span>
-                      <MockBadge show={lastSuccess.isMock ?? false} label="Claim" />
+                      <MockBadge
+                        show={lastSuccess.isMock ?? false}
+                        label="Claim"
+                      />
                     </div>
                     {lastSuccess.txHash && (
                       <div className="text-sm font-mono break-all text-green-300">
@@ -254,7 +256,7 @@ function FaucetContent(): React.JSX.Element {
                       </div>
                     )}
                     <div className="text-xs text-green-300/70">
-                      Check your wallet in a few seconds 🚀
+                      Check your wallet in a few seconds
                     </div>
                   </div>
                 )}
@@ -266,7 +268,7 @@ function FaucetContent(): React.JSX.Element {
           {recentTxs.length > 0 && (
             <div className="card-cosmic mb-6">
               <CardHeader>
-                <CardTitle className="text-horizon-purple">
+                <CardTitle className="text-horizon-gold">
                   📋 Recent Transactions
                 </CardTitle>
               </CardHeader>
@@ -312,9 +314,7 @@ function FaucetContent(): React.JSX.Element {
 
           <div className="card-cosmic">
             <CardHeader>
-              <CardTitle className="text-horizon">
-                📚 Faucet Information
-              </CardTitle>
+              <CardTitle className="text-horizon">Faucet Information</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4 text-starlight/60">
@@ -322,11 +322,11 @@ function FaucetContent(): React.JSX.Element {
                   <div className="text-horizon-orange mt-1">💰</div>
                   <div>
                     <strong className="text-starlight">Amount:</strong>{' '}
-                    {FAUCET_AMOUNT} AXXt per request (สำหรับ Validator testing)
+                    {FAUCET_AMOUNT} AXXt per request (for validator testing)
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="text-horizon-purple mt-1">⏰</div>
+                  <div className="text-horizon-gold mt-1">⏰</div>
                   <div>
                     <strong className="text-starlight">Cooldown:</strong> 24
                     hours between requests per address
@@ -340,17 +340,18 @@ function FaucetContent(): React.JSX.Element {
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="text-horizon-pink mt-1">⚡</div>
+                  <div className="text-horizon-pink mt-1" aria-hidden />
                   <div>
-                    <strong className="text-starlight">Staking:</strong> ใช้
-                    tokens นี้ทดสอบ staking เป็น Validator/Worker
+                    <strong className="text-starlight">Staking:</strong> Use
+                    these tokens to test staking as Validator/Worker
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <div className="text-green-500 mt-1">✨</div>
                   <div>
                     <strong className="text-starlight">Mode:</strong> Simulation
-                    - Claims บันทึกไว้และจะถูก allocate เมื่อ Mainnet เปิด
+                    - Claims are recorded and will be allocated when Mainnet
+                    launches
                   </div>
                 </div>
               </div>
@@ -362,7 +363,7 @@ function FaucetContent(): React.JSX.Element {
               🌌 Need more tokens? Join our{' '}
               <a
                 href="https://discord.gg/axionax"
-                className="text-horizon-blue hover:text-horizon-purple transition-colors"
+                className="text-horizon-blue hover:text-horizon-gold transition-colors"
               >
                 Discord
               </a>{' '}
@@ -370,8 +371,7 @@ function FaucetContent(): React.JSX.Element {
             </p>
           </div>
         </div>
-      </main>
-      <Footer />
+      </div>
     </div>
   );
 }
@@ -380,23 +380,21 @@ function FaucetContent(): React.JSX.Element {
 function FaucetLoading(): React.JSX.Element {
   return (
     <div className="min-h-screen bg-deep-space relative">
-      <div className="stars" />
-      <Navbar />
-      <main className="container-custom py-24 relative z-10">
+      <div className="stars" aria-hidden />
+      <div className="container-custom py-8 sm:py-10 relative z-10">
         <div className="max-w-2xl mx-auto">
           <div className="text-center mb-8">
             <h1 className="text-4xl font-bold mb-4">
-              <span className="text-horizon">💧 Testnet Faucet</span>
+              <span className="text-horizon">Testnet Faucet</span>
             </h1>
             <p className="text-starlight/70 text-lg">Loading...</p>
           </div>
           <div className="animate-pulse">
-            <div className="h-32 bg-horizon-purple/20 rounded-lg mb-6"></div>
-            <div className="h-64 bg-horizon-purple/20 rounded-lg"></div>
+            <div className="h-32 bg-amber-500/20 rounded-lg mb-6"></div>
+            <div className="h-64 bg-amber-500/20 rounded-lg"></div>
           </div>
         </div>
-      </main>
-      <Footer />
+      </div>
     </div>
   );
 }

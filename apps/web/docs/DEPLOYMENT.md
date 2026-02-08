@@ -1,5 +1,56 @@
 # AxionAX VPS Deployment Guide
 
+**Quick production checklist:** ตั้ง env ตาม `apps/web/.env.example` (อย่างน้อย `NEXT_PUBLIC_*`), รัน `pnpm --filter @axionax/web build` แล้ว `pnpm --filter @axionax/web start` หรือใช้ Vercel/Docker ตามด้านล่าง. รายละเอียด CI และ deploy targets ดูที่ [README § Build & Deploy – Ready for production deploy](../../README.md#-build--deploy).
+
+---
+
+## 🤖 CI/CD Deploy (GitHub Actions)
+
+Workflow `.github/workflows/ci-cd.yml` จะ **deploy จริง** เมื่อ push ขึ้น branch:
+
+- **Staging:** push ไป `develop` → deploy ไป server ของ staging
+- **Production:** push ไป `main` → deploy ไป server ของ production
+
+Build ใช้ **Next.js standalone output** (โฟลเดอร์เดียวมี `server.js` + `.next` + `node_modules`) แล้วส่งขึ้น VPS ด้วย **rsync** ผ่าน SSH.
+
+### Required secrets (ต่อ environment)
+
+ตั้งใน **Settings → Secrets and variables → Actions** แล้วเลือก environment **staging** หรือ **production** (แต่ละ environment ใช้ค่าแยกได้):
+
+| Secret | บังคับ | ตัวอย่าง | หมายเหตุ |
+|--------|--------|----------|----------|
+| `SSH_HOST` | ✅ | `217.216.109.5` | IP หรือ hostname ของ VPS |
+| `SSH_USER` | ✅ | `root` หรือ `deploy` | User สำหรับ SSH |
+| `SSH_PRIVATE_KEY` | ✅ | เนื้อหา private key (PEM) | ใช้คู่กับ public key ที่ใส่ใน server |
+| `REMOTE_PATH` | ✅ | `/var/www/axionax-web` | path บน server ที่จะ rsync เนื้อหา standalone ไปไว้ |
+| `DEPLOY_RESTART_CMD` | ไม่บังคับ | `pm2 restart axionax-web` | คำสั่งรันหลัง rsync เพื่อ restart app (ถ้าไม่ตั้ง จะแค่ sync ไฟล์) |
+
+### Server setup (รองรับ CI deploy)
+
+1. **สร้างโฟลเดอร์และสิทธิ์**
+   ```bash
+   sudo mkdir -p /var/www/axionax-web
+   sudo chown $USER:$USER /var/www/axionax-web
+   ```
+
+2. **ใส่ SSH public key** ของ GitHub Actions (จากคู่ของ `SSH_PRIVATE_KEY`) เข้า `~/.ssh/authorized_keys` ของ `SSH_USER` บน server
+
+3. **รัน app ครั้งแรก (หรือใช้ PM2)**
+   ```bash
+   cd /var/www/axionax-web
+   PORT=3000 node server.js
+   ```
+   หรือใช้ PM2:
+   ```bash
+   pm2 start server.js --name axionax-web
+   pm2 save && pm2 startup
+   ```
+   จากนั้นตั้ง `DEPLOY_RESTART_CMD` = `pm2 restart axionax-web`
+
+4. **Nginx (reverse proxy)** ชี้ domain ไปที่ `http://127.0.0.1:3000` ตามที่ใช้อยู่แล้วใน repo
+
+หลัง push ขึ้น `develop`/`main` workflow จะ build → upload artifact → download ใน deploy job → rsync ไป `REMOTE_PATH` → รัน `DEPLOY_RESTART_CMD` (ถ้ามี).
+
 ## 🚀 Complete Setup for VPS Deployment
 
 This guide will help you deploy the entire AxionAX infrastructure on a VPS (Linux or Windows), including:

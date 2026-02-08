@@ -22,9 +22,9 @@ export default function Button({
 
   const variantClasses = {
     primary:
-      'btn-primary hover:shadow-xl hover:shadow-primary-500/40 active:shadow-lg',
+      'btn-primary hover:shadow-xl hover:shadow-amber-500/40 active:shadow-lg',
     secondary: 'btn-secondary hover:shadow-lg',
-    outline: 'btn-outline hover:shadow-lg hover:shadow-primary-500/20',
+    outline: 'btn-outline hover:shadow-lg hover:shadow-amber-500/20',
     ghost: 'hover:bg-dark-800 text-dark-100 hover:text-white',
   };
 

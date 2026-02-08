@@ -33,7 +33,7 @@ export default function MockBadge({
         'ring-1 ring-amber-400/30 ring-offset-1 ring-offset-transparent'
       }
       style={{ animation: 'mock-badge-pulse 2s ease-in-out infinite' }}
-      title="ข้อมูลนี้เป็น Demo / Mock เนื่องจาก API หรือ Validator ไม่ตอบสนอง"
+      title="This is demo/mock data — API or validator not responding"
     >
       <span
         className="inline-block w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"

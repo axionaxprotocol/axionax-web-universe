@@ -1,20 +1,32 @@
 import type { Metadata } from 'next';
-import { Space_Grotesk, JetBrains_Mono } from 'next/font/google';
+import { Inter, Space_Grotesk, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import { Web3Provider } from '@/contexts/Web3Context';
 import { QueryProvider } from '@/providers/QueryProvider';
+import ExplorerLayout from '@/components/layout/ExplorerLayout';
 
-// Tech-focused fonts
+// Body & UI – neutral, readable (Phase 1: tech typography)
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+  weight: ['400', '500', '600', '700'],
+});
+
+// Headings – geometric, tech feel
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
   variable: '--font-space-grotesk',
   display: 'swap',
+  weight: ['500', '600', '700'],
 });
 
+// Technical data – addresses, hashes, block height, chain ID
 const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
-  variable: '--font-jetbrains',
+  variable: '--font-jetbrains-mono',
   display: 'swap',
+  weight: ['400', '500', '600'],
 });
 
 export const metadata: Metadata = {
@@ -45,12 +57,14 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
+      className={`${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
       suppressHydrationWarning
     >
-      <body className="font-sans">
+      <body className="font-sans antialiased text-base font-normal">
         <QueryProvider>
-          <Web3Provider>{children}</Web3Provider>
+          <Web3Provider>
+            <ExplorerLayout>{children}</ExplorerLayout>
+          </Web3Provider>
         </QueryProvider>
       </body>
     </html>

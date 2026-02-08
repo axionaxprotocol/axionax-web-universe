@@ -2,9 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { Loader2 } from 'lucide-react';
 import { useWeb3 } from '@/contexts/Web3Context';
-import Navbar from '@/components/layout/Navbar';
-import Footer from '@/components/layout/Footer';
 
 interface NodeInfo {
   id: string;
@@ -108,11 +107,11 @@ export default function NodeDashboardPage() {
   };
 
   const STATUS_COLORS: Record<string, string> = {
-    pending: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30',
-    active: 'bg-green-500/20 text-green-400 border-green-500/30',
+    pending: 'bg-tech-warning/20 text-tech-warning border-tech-warning/30',
+    active: 'bg-tech-success/20 text-tech-success border-tech-success/30',
     inactive: 'bg-gray-500/20 text-gray-400 border-gray-500/30',
-    suspended: 'bg-orange-500/20 text-orange-400 border-orange-500/30',
-    slashed: 'bg-red-500/20 text-red-400 border-red-500/30',
+    suspended: 'bg-tech-warning/20 text-tech-warning border-tech-warning/30',
+    slashed: 'bg-tech-error/20 text-tech-error border-tech-error/30',
   };
 
   const NODE_ICONS: Record<string, string> = {
@@ -122,53 +121,59 @@ export default function NodeDashboardPage() {
   };
 
   return (
-    <div className="min-h-screen bg-dark-950">
-      <Navbar />
-      <main className="pt-24 pb-16">
-        <div className="container mx-auto px-4">
+    <div className="min-h-screen">
+      <main className="py-10 pb-16">
+        <div className="container-custom">
           {/* Header */}
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-10">
             <div>
-              <h1 className="text-4xl font-bold text-white mb-2">
-                📊 Node Dashboard
+              <h1 className="text-3xl font-bold text-content mb-1">
+                Node Dashboard
               </h1>
-              <p className="text-dark-400">จัดการและตรวจสอบสถานะ node ของคุณ</p>
+              <p className="text-muted text-sm">
+                Manage and monitor your node status
+              </p>
             </div>
             <Link
               href="/join"
-              className="px-6 py-3 bg-gradient-to-r from-primary-500 to-purple-500 hover:from-primary-600 hover:to-purple-600 text-white font-semibold rounded-xl transition-all"
+              className="px-6 py-3 bg-tech-cyan/20 text-tech-cyan font-semibold rounded-lg hover:bg-tech-cyan/30 transition-colors"
             >
-              🚀 ลงทะเบียน Node ใหม่
+              Register New Node
             </Link>
           </div>
 
           {/* Network Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-            <div className="bg-dark-900/50 border border-dark-800 rounded-xl p-4">
-              <div className="text-dark-400 text-sm mb-1">Total Nodes</div>
-              <div className="text-3xl font-bold text-white">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-10">
+            <div className="rounded-lg border border-white/10 bg-black-hole/90 backdrop-blur-sm shadow-panel p-4">
+              <div className="text-muted text-xs font-semibold uppercase tracking-wider mb-1">
+                Total Nodes
+              </div>
+              <div className="text-2xl font-bold font-mono tabular-nums text-content">
                 {stats?.total || 0}
               </div>
             </div>
-            <div className="bg-dark-900/50 border border-dark-800 rounded-xl p-4">
-              <div className="text-dark-400 text-sm mb-1">
+            <div className="rounded-lg border border-white/10 bg-black-hole/90 backdrop-blur-sm shadow-panel p-4">
+              <div className="text-muted text-xs font-semibold uppercase tracking-wider mb-1">
                 Active Validators
               </div>
-              <div className="text-3xl font-bold text-green-400">
+              <div className="text-2xl font-bold font-mono tabular-nums text-tech-success">
                 {stats?.byStatus.active || 0}
               </div>
             </div>
-            <div className="bg-dark-900/50 border border-dark-800 rounded-xl p-4">
-              <div className="text-dark-400 text-sm mb-1">Total Staked</div>
-              <div className="text-2xl font-bold text-primary-400">
-                {stats ? formatAmount(stats.totalStaked) : '0'} AXX
+            <div className="rounded-lg border border-white/10 bg-black-hole/90 backdrop-blur-sm shadow-panel p-4">
+              <div className="text-muted text-xs font-semibold uppercase tracking-wider mb-1">
+                Total Staked
+              </div>
+              <div className="text-xl font-bold font-mono tabular-nums text-content">
+                {stats ? formatAmount(stats.totalStaked) : '0'}{' '}
+                <span className="text-muted text-sm font-normal">AXX</span>
               </div>
             </div>
-            <div className="bg-dark-900/50 border border-dark-800 rounded-xl p-4">
-              <div className="text-dark-400 text-sm mb-1">
+            <div className="rounded-lg border border-white/10 bg-black-hole/90 backdrop-blur-sm shadow-panel p-4">
+              <div className="text-muted text-xs font-semibold uppercase tracking-wider mb-1">
                 Pending Registration
               </div>
-              <div className="text-3xl font-bold text-yellow-400">
+              <div className="text-2xl font-bold font-mono tabular-nums text-tech-warning">
                 {stats?.byStatus.pending || 0}
               </div>
             </div>
@@ -176,30 +181,39 @@ export default function NodeDashboardPage() {
 
           {/* My Node Section */}
           {!account ? (
-            <div className="bg-dark-900/50 border border-dark-800 rounded-2xl p-8 text-center mb-8">
+            <div className="rounded-lg border border-white/10 bg-black-hole/90 backdrop-blur-sm shadow-panel p-8 text-center mb-10">
               <div className="text-6xl mb-4">🔗</div>
-              <h2 className="text-xl font-semibold text-white mb-2">
-                เชื่อมต่อ Wallet เพื่อดู Node ของคุณ
+              <h2 className="text-xl font-semibold text-content mb-2">
+                Connect wallet to view your node
               </h2>
-              <p className="text-dark-400 mb-4">
-                เชื่อมต่อ wallet ที่ใช้ลงทะเบียน node เพื่อดูสถานะและจัดการ
+              <p className="text-muted mb-4">
+                Connect the wallet used to register your node to view status and
+                manage
               </p>
             </div>
           ) : loading ? (
-            <div className="bg-dark-900/50 border border-dark-800 rounded-2xl p-8 text-center mb-8">
-              <div className="animate-spin w-12 h-12 border-4 border-primary-500 border-t-transparent rounded-full mx-auto mb-4" />
-              <p className="text-dark-400">กำลังโหลดข้อมูล Node...</p>
+            <div
+              className="rounded-lg border border-white/10 bg-black-hole/90 backdrop-blur-sm shadow-panel p-8 text-center mb-10"
+              role="status"
+              aria-live="polite"
+            >
+              <Loader2
+                className="w-12 h-12 animate-spin mx-auto mb-4 text-tech-cyan"
+                strokeWidth={2}
+                aria-hidden
+              />
+              <p className="text-muted">Loading node data...</p>
             </div>
           ) : myNode ? (
-            <div className="bg-dark-900/50 border border-dark-800 rounded-2xl overflow-hidden mb-8">
-              <div className="p-6 border-b border-dark-800">
+            <div className="rounded-lg border border-white/10 bg-black-hole/90 backdrop-blur-sm shadow-panel overflow-hidden mb-10">
+              <div className="p-6 border-b border-white/10 bg-white/[0.02]">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-4">
                     <div className="text-5xl">
                       {NODE_ICONS[myNode.nodeType]}
                     </div>
                     <div>
-                      <h2 className="text-2xl font-bold text-white">
+                      <h2 className="text-2xl font-bold text-content">
                         {myNode.nodeName}
                       </h2>
                       <div className="flex items-center gap-2 mt-1">
@@ -209,16 +223,18 @@ export default function NodeDashboardPage() {
                           {myNode.status.charAt(0).toUpperCase() +
                             myNode.status.slice(1)}
                         </span>
-                        <span className="text-dark-400 text-sm capitalize">
+                        <span className="text-muted text-sm capitalize">
                           {myNode.nodeType}
                         </span>
                       </div>
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="text-dark-400 text-sm">Uptime</div>
+                    <div className="text-muted text-xs font-semibold uppercase tracking-wider">
+                      Uptime
+                    </div>
                     <div
-                      className={`text-2xl font-bold ${myNode.uptime >= 95 ? 'text-green-400' : myNode.uptime >= 80 ? 'text-yellow-400' : 'text-red-400'}`}
+                      className={`text-2xl font-bold font-mono tabular-nums ${myNode.uptime >= 95 ? 'text-tech-success' : myNode.uptime >= 80 ? 'text-tech-warning' : 'text-tech-error'}`}
                     >
                       {myNode.uptime.toFixed(2)}%
                     </div>
@@ -227,36 +243,42 @@ export default function NodeDashboardPage() {
               </div>
 
               <div className="p-6">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-                  <div className="bg-dark-800/50 rounded-xl p-4">
-                    <div className="text-dark-400 text-sm mb-1">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mb-6">
+                  <div className="rounded-lg border border-white/10 bg-white/[0.02] p-4">
+                    <div className="text-muted text-xs font-semibold uppercase tracking-wider mb-1">
                       💰 Stake Amount
                     </div>
-                    <div className="text-xl font-bold text-primary-400">
-                      {formatAmount(myNode.stakeAmount)} AXX
+                    <div className="text-xl font-bold font-mono tabular-nums text-content">
+                      {formatAmount(myNode.stakeAmount)}{' '}
+                      <span className="text-muted text-sm font-normal">
+                        AXX
+                      </span>
                     </div>
                     {myNode.status === 'pending' && (
                       <Link
                         href={`/stake?node=${myNode.id}`}
-                        className="text-sm text-primary-400 hover:text-primary-300 mt-2 inline-block"
+                        className="text-sm text-tech-cyan hover:underline mt-2 inline-block"
                       >
                         → Stake tokens to activate
                       </Link>
                     )}
                   </div>
-                  <div className="bg-dark-800/50 rounded-xl p-4">
-                    <div className="text-dark-400 text-sm mb-1">
-                      🎁 Total Rewards
+                  <div className="rounded-lg border border-white/10 bg-white/[0.02] p-4">
+                    <div className="text-muted text-xs font-semibold uppercase tracking-wider mb-1">
+                      Total Rewards
                     </div>
-                    <div className="text-xl font-bold text-green-400">
-                      {formatAmount(myNode.totalRewards)} AXX
+                    <div className="text-xl font-bold font-mono tabular-nums text-tech-success">
+                      {formatAmount(myNode.totalRewards)}{' '}
+                      <span className="text-muted text-sm font-normal">
+                        AXX
+                      </span>
                     </div>
                   </div>
-                  <div className="bg-dark-800/50 rounded-xl p-4">
-                    <div className="text-dark-400 text-sm mb-1">
+                  <div className="rounded-lg border border-white/10 bg-white/[0.02] p-4">
+                    <div className="text-muted text-xs font-semibold uppercase tracking-wider mb-1">
                       🌐 Server IP
                     </div>
-                    <div className="text-lg font-mono text-white">
+                    <div className="text-lg font-mono text-content">
                       {myNode.serverIp}
                     </div>
                   </div>
@@ -264,15 +286,15 @@ export default function NodeDashboardPage() {
 
                 {/* Health History Chart (simplified) */}
                 {healthHistory.length > 0 && (
-                  <div className="bg-dark-800/50 rounded-xl p-4">
-                    <h3 className="text-lg font-semibold text-white mb-4">
+                  <div className="rounded-lg border border-white/10 bg-white/[0.02] p-4">
+                    <h3 className="text-lg font-semibold text-content mb-4">
                       📈 Health History (Last 24h)
                     </h3>
                     <div className="flex items-end gap-1 h-20">
                       {healthHistory.slice(0, 48).map((check, i) => (
                         <div
                           key={check.id || i}
-                          className={`flex-1 rounded-t ${check.isOnline ? 'bg-green-500' : 'bg-red-500'}`}
+                          className={`flex-1 rounded-t ${check.isOnline ? 'bg-tech-success' : 'bg-tech-error'}`}
                           style={{
                             height: check.isOnline
                               ? `${Math.min(100, (1000 - check.latencyMs) / 10)}%`
@@ -296,7 +318,7 @@ export default function NodeDashboardPage() {
                   {myNode.status === 'pending' && (
                     <Link
                       href={`/stake?node=${myNode.id}`}
-                      className="px-4 py-2 bg-primary-500 hover:bg-primary-600 text-white rounded-lg transition-colors"
+                      className="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-lg transition-colors"
                     >
                       💰 Stake to Activate
                     </Link>
@@ -308,7 +330,7 @@ export default function NodeDashboardPage() {
                     href="/validators"
                     className="px-4 py-2 bg-dark-700 hover:bg-dark-600 text-white rounded-lg transition-colors"
                   >
-                    📊 View Leaderboard
+                    View Leaderboard
                   </Link>
                   <button className="px-4 py-2 bg-dark-700 hover:bg-dark-600 text-white rounded-lg transition-colors">
                     📋 Copy Node Config
@@ -317,119 +339,118 @@ export default function NodeDashboardPage() {
               </div>
             </div>
           ) : (
-            <div className="bg-dark-900/50 border border-dark-800 rounded-2xl p-8 text-center mb-8">
+            <div className="rounded-lg border border-white/10 bg-black-hole/90 backdrop-blur-sm shadow-panel p-8 text-center mb-10">
               <div className="text-6xl mb-4">🔍</div>
-              <h2 className="text-xl font-semibold text-white mb-2">
-                ยังไม่มี Node ที่ลงทะเบียน
+              <h2 className="text-xl font-semibold text-content mb-2">
+                No node registered yet
               </h2>
-              <p className="text-dark-400 mb-6">
-                Wallet นี้ยังไม่ได้ลงทะเบียน node ใดๆ
+              <p className="text-muted mb-6">
+                This wallet has no registered node
               </p>
               <Link
                 href="/join"
-                className="px-6 py-3 bg-gradient-to-r from-primary-500 to-purple-500 hover:from-primary-600 hover:to-purple-600 text-white font-semibold rounded-xl transition-all inline-block"
+                className="px-6 py-3 bg-tech-cyan/20 text-tech-cyan font-semibold rounded-lg hover:bg-tech-cyan/30 transition-colors inline-block"
               >
-                🚀 ลงทะเบียน Node
+                Register Node
               </Link>
             </div>
           )}
 
           {/* Node Type Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <div className="bg-dark-900/50 border border-dark-800 rounded-2xl p-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+            <div className="rounded-lg border border-white/10 bg-black-hole/90 backdrop-blur-sm shadow-panel p-6">
               <div className="flex items-center gap-3 mb-4">
                 <div className="text-4xl">🛡️</div>
                 <div>
-                  <h3 className="text-xl font-bold text-white">Validators</h3>
-                  <p className="text-dark-400 text-sm">Block producers</p>
+                  <h3 className="text-xl font-bold text-content">Validators</h3>
+                  <p className="text-muted text-sm">Block producers</p>
                 </div>
               </div>
-              <div className="text-4xl font-bold text-primary-400 mb-2">
+              <div className="text-3xl font-bold font-mono tabular-nums text-content mb-1">
                 {stats?.byType.validator || 0}
               </div>
-              <div className="text-sm text-dark-400">
+              <div className="text-sm text-muted">
                 Stake required: 10,000 AXX
               </div>
             </div>
 
-            <div className="bg-dark-900/50 border border-dark-800 rounded-2xl p-6">
+            <div className="rounded-lg border border-white/10 bg-black-hole/90 backdrop-blur-sm shadow-panel p-6">
               <div className="flex items-center gap-3 mb-4">
                 <div className="text-4xl">⚙️</div>
                 <div>
-                  <h3 className="text-xl font-bold text-white">Workers</h3>
-                  <p className="text-dark-400 text-sm">Computation nodes</p>
+                  <h3 className="text-xl font-bold text-content">Workers</h3>
+                  <p className="text-muted text-sm">Computation nodes</p>
                 </div>
               </div>
-              <div className="text-4xl font-bold text-blue-400 mb-2">
+              <div className="text-3xl font-bold font-mono tabular-nums text-tech-cyan mb-1">
                 {stats?.byType.worker || 0}
               </div>
-              <div className="text-sm text-dark-400">
+              <div className="text-sm text-muted">
                 Stake required: 1,000 AXX
               </div>
             </div>
 
-            <div className="bg-dark-900/50 border border-dark-800 rounded-2xl p-6">
+            <div className="rounded-lg border border-white/10 bg-black-hole/90 backdrop-blur-sm shadow-panel p-6">
               <div className="flex items-center gap-3 mb-4">
                 <div className="text-4xl">📡</div>
                 <div>
-                  <h3 className="text-xl font-bold text-white">RPC Nodes</h3>
-                  <p className="text-dark-400 text-sm">API providers</p>
+                  <h3 className="text-xl font-bold text-content">RPC Nodes</h3>
+                  <p className="text-muted text-sm">API providers</p>
                 </div>
               </div>
-              <div className="text-4xl font-bold text-purple-400 mb-2">
+              <div className="text-3xl font-bold font-mono tabular-nums text-content mb-1">
                 {stats?.byType.rpc || 0}
               </div>
-              <div className="text-sm text-dark-400">No stake required</div>
+              <div className="text-sm text-muted">No stake required</div>
             </div>
           </div>
 
           {/* Quick Links */}
-          <div className="bg-blue-500/10 border border-blue-500/30 rounded-2xl p-6">
-            <h3 className="text-lg font-semibold text-blue-400 mb-4">
-              📚 Resources
+          <div className="rounded-lg border border-white/10 bg-tech-cyan/5 border-tech-cyan/20 p-6">
+            <h3 className="text-lg font-semibold text-tech-cyan mb-4">
+              Resources
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <Link
                 href="/docs"
-                className="p-4 bg-dark-800/50 rounded-xl hover:bg-dark-800 transition-colors"
+                className="p-4 rounded-lg border border-white/10 bg-black-hole/80 hover:bg-white/5 transition-colors"
               >
                 <div className="text-2xl mb-2">📖</div>
-                <div className="text-white font-medium">Documentation</div>
-                <div className="text-dark-400 text-sm">
+                <div className="text-content font-medium">Documentation</div>
+                <div className="text-muted text-sm">
                   Setup guides & tutorials
                 </div>
               </Link>
               <Link
                 href="/validators"
-                className="p-4 bg-dark-800/50 rounded-xl hover:bg-dark-800 transition-colors"
+                className="p-4 rounded-lg border border-white/10 bg-black-hole/80 hover:bg-white/5 transition-colors"
               >
                 <div className="text-2xl mb-2">🏆</div>
-                <div className="text-white font-medium">Leaderboard</div>
-                <div className="text-dark-400 text-sm">Top validators</div>
+                <div className="text-content font-medium">Leaderboard</div>
+                <div className="text-muted text-sm">Top validators</div>
               </Link>
               <Link
                 href="/faucet"
-                className="p-4 bg-dark-800/50 rounded-xl hover:bg-dark-800 transition-colors"
+                className="p-4 rounded-lg border border-white/10 bg-black-hole/80 hover:bg-white/5 transition-colors"
               >
-                <div className="text-2xl mb-2">💧</div>
-                <div className="text-white font-medium">Faucet</div>
-                <div className="text-dark-400 text-sm">Get testnet tokens</div>
+                <div className="text-2xl mb-2" aria-hidden />
+                <div className="text-content font-medium">Faucet</div>
+                <div className="text-muted text-sm">Get testnet tokens</div>
               </Link>
               <a
                 href="https://discord.gg/axionax"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-4 bg-dark-800/50 rounded-xl hover:bg-dark-800 transition-colors"
+                className="p-4 rounded-lg border border-white/10 bg-black-hole/80 hover:bg-white/5 transition-colors"
               >
                 <div className="text-2xl mb-2">💬</div>
-                <div className="text-white font-medium">Discord</div>
-                <div className="text-dark-400 text-sm">Community support</div>
+                <div className="text-content font-medium">Discord</div>
+                <div className="text-muted text-sm">Community support</div>
               </a>
             </div>
           </div>
         </div>
       </main>
-      <Footer />
     </div>
   );
 }

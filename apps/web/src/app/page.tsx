@@ -1,5 +1,3 @@
-﻿import Navbar from '@/components/layout/Navbar';
-import Footer from '@/components/layout/Footer';
 import Hero from '@/components/home/Hero';
 import Features from '@/components/home/Features';
 import QuickAccess from '@/components/home/QuickAccess';
@@ -8,21 +6,19 @@ import Statistics from '@/components/home/Statistics';
 import Technology from '@/components/home/Technology';
 import Roadmap from '@/components/home/Roadmap';
 import Community from '@/components/home/Community';
+import Footer from '@/components/layout/Footer';
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-dark-950">
-      <Navbar />
-      <main>
-        <Hero />
-        <QuickAccess />
-        <ValidatorStatus />
-        <Features />
-        <Statistics />
-        <Technology />
-        <Roadmap />
-        <Community />
-      </main>
+    <div className="min-h-screen">
+      <Hero />
+      <QuickAccess />
+      <ValidatorStatus />
+      <Features />
+      <Statistics />
+      <Technology />
+      <Roadmap />
+      <Community />
       <Footer />
     </div>
   );

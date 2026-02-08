@@ -10,9 +10,12 @@ export async function GET(request: NextRequest) {
 
   if (address) {
     try {
-      const res = await fetch(`${FAUCET_API_URL}/status?address=${encodeURIComponent(address)}`, {
-        signal: AbortSignal.timeout(5000),
-      });
+      const res = await fetch(
+        `${FAUCET_API_URL}/status?address=${encodeURIComponent(address)}`,
+        {
+          signal: AbortSignal.timeout(5000),
+        }
+      );
       if (res.ok) {
         const data = await res.json();
         return NextResponse.json({
@@ -83,7 +86,11 @@ export async function POST(request: NextRequest) {
     }
     if (res.status === 429) {
       return NextResponse.json(
-        { success: false, message: data.message || 'Cooldown. Try again later.', cooldown: data.cooldown },
+        {
+          success: false,
+          message: data.message || 'Cooldown. Try again later.',
+          cooldown: data.cooldown,
+        },
         { status: 429 }
       );
     }

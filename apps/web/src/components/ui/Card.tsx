@@ -29,16 +29,27 @@ interface CardHeaderProps {
 }
 
 export function CardHeader({ children, className = '' }: CardHeaderProps) {
-  return <div className={`mb-4 ${className}`}>{children}</div>;
+  return (
+    <div
+      className={`border-b border-white/10 bg-white/[0.02] px-4 py-4 sm:px-6 sm:py-4 rounded-t-lg ${className}`}
+    >
+      {children}
+    </div>
+  );
 }
 
 interface CardTitleProps {
   children: React.ReactNode;
   className?: string;
+  id?: string;
 }
 
-export function CardTitle({ children, className = '' }: CardTitleProps) {
-  return <h3 className={`text-xl font-bold ${className}`}>{children}</h3>;
+export function CardTitle({ children, className = '', id }: CardTitleProps) {
+  return (
+    <h3 id={id} className={`text-xl font-bold ${className}`}>
+      {children}
+    </h3>
+  );
 }
 
 interface CardContentProps {
@@ -47,5 +58,5 @@ interface CardContentProps {
 }
 
 export function CardContent({ children, className = '' }: CardContentProps) {
-  return <div className={className}>{children}</div>;
+  return <div className={`p-4 sm:p-6 ${className}`}>{children}</div>;
 }

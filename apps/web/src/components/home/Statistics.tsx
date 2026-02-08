@@ -49,19 +49,21 @@ const fetchStats = async (): Promise<LiveStats & { isMock?: boolean }> => {
 // รองรับ mobile-first responsive design ตาม Tailwind best practices
 export default function Statistics(): React.JSX.Element {
   // Use TanStack Query v5 for server state
-  const { data: stats, isLoading } = useQuery<LiveStats & { isMock?: boolean }>({
-    queryKey: ['live-stats'],
-    queryFn: fetchStats,
-    refetchInterval: 2000,
-    initialData: {
-      blocks: 0,
-      services: 9,
-      uptime: 48,
-      deployment: 100,
-      validators: 2,
-      isMock: true,
-    },
-  });
+  const { data: stats, isLoading } = useQuery<LiveStats & { isMock?: boolean }>(
+    {
+      queryKey: ['live-stats'],
+      queryFn: fetchStats,
+      refetchInterval: 2000,
+      initialData: {
+        blocks: 0,
+        services: 9,
+        uptime: 48,
+        deployment: 100,
+        validators: 2,
+        isMock: true,
+      },
+    }
+  );
 
   const formatNumber = (num: number): string => {
     return new Intl.NumberFormat('en-US').format(num);
@@ -220,7 +222,7 @@ export default function Statistics(): React.JSX.Element {
         </div>
 
         {/* Service Status Bar */}
-        <div className="mt-12 p-6 rounded-xl bg-black-hole/80 border border-horizon-purple/20 backdrop-blur-sm">
+        <div className="mt-12 p-6 rounded-xl bg-black-hole/80 border border-amber-500/20 backdrop-blur-sm">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-semibold text-starlight">
               Service Health
@@ -278,7 +280,7 @@ export default function Statistics(): React.JSX.Element {
         </div>
 
         {/* Validator Nodes Status */}
-        <div className="mt-6 p-6 rounded-xl bg-black-hole/80 border border-horizon-purple/20 backdrop-blur-sm">
+        <div className="mt-6 p-6 rounded-xl bg-black-hole/80 border border-amber-500/20 backdrop-blur-sm">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-semibold text-starlight">
               Validator Nodes
@@ -288,7 +290,7 @@ export default function Statistics(): React.JSX.Element {
             </span>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="p-4 bg-space-dust/30 rounded-lg border border-horizon-purple/15">
+            <div className="p-4 bg-space-dust/30 rounded-lg border border-amber-500/15">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-sm font-medium text-starlight/90">
                   🇪🇺 Validator EU
@@ -303,7 +305,7 @@ export default function Statistics(): React.JSX.Element {
                 <div>Container: axionax-validator-eu</div>
               </div>
             </div>
-            <div className="p-4 bg-space-dust/30 rounded-lg border border-horizon-purple/15">
+            <div className="p-4 bg-space-dust/30 rounded-lg border border-amber-500/15">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-sm font-medium text-starlight/90">
                   🇦🇺 Validator AU

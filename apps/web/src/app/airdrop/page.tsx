@@ -24,7 +24,7 @@ interface IndexerStats {
 }
 
 const TIER_NAMES = [
-  'ไม่มีสิทธิ์',
+  'Not eligible',
   'Bronze 🥉',
   'Silver 🥈',
   'Gold 🥇',
@@ -39,7 +39,7 @@ const TIER_COLORS = [
 ];
 
 export default function AirdropPage() {
-  const { account, isConnecting } = useWeb3();
+  const { account } = useWeb3();
   const [activityScore, setActivityScore] = useState<ActivityScore | null>(
     null
   );
@@ -84,11 +84,11 @@ export default function AirdropPage() {
           const data = await res.json();
           setActivityScore(data);
         } else {
-          setError('ไม่สามารถดึงข้อมูลได้');
+          setError('Failed to fetch data');
         }
       } catch (err) {
         console.error('Failed to fetch activity score:', err);
-        setError('API ไม่พร้อมใช้งาน - กรุณาลองใหม่ภายหลัง');
+        setError('API unavailable — please try again later');
       } finally {
         setLoading(false);
       }
@@ -108,10 +108,11 @@ export default function AirdropPage() {
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            🎁 Testnet Activity & Airdrop
+            Testnet Activity & Airdrop
           </h1>
           <p className="text-xl text-dark-400 max-w-3xl mx-auto">
-            เช็คคะแนนกิจกรรมของคุณบน Testnet และดูสิทธิ์ Airdrop สำหรับ Mainnet
+            Check your Testnet activity score and airdrop eligibility for
+            Mainnet
           </p>
         </div>
 
@@ -119,7 +120,7 @@ export default function AirdropPage() {
         <div className="bg-dark-900/50 border border-dark-800 rounded-2xl p-6 mb-8">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-xl font-semibold text-white flex items-center gap-2">
-              📊 Testnet Indexer Status
+              Testnet Indexer Status
               {indexerStats?.isRunning && (
                 <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
               )}
@@ -164,7 +165,7 @@ export default function AirdropPage() {
             </div>
           ) : (
             <div className="text-center text-dark-400 py-8">
-              <div className="animate-pulse">กำลังโหลดข้อมูล...</div>
+              <div className="animate-pulse">Loading...</div>
             </div>
           )}
         </div>
@@ -172,7 +173,7 @@ export default function AirdropPage() {
         {/* Activity Score Card */}
         <div className="bg-gradient-to-br from-dark-900 to-dark-800 border border-dark-700 rounded-2xl overflow-hidden">
           {/* Card Header */}
-          <div className="bg-gradient-to-r from-primary-500/20 to-purple-500/20 px-6 py-4 border-b border-dark-700">
+          <div className="bg-gradient-to-r from-amber-500/20 to-yellow-500/20 px-6 py-4 border-b border-dark-700">
             <h2 className="text-xl font-semibold text-white">
               🏆 Your Activity Score
             </h2>
@@ -183,28 +184,27 @@ export default function AirdropPage() {
               <div className="text-center py-12">
                 <div className="text-6xl mb-4">🔗</div>
                 <h3 className="text-xl font-semibold text-white mb-2">
-                  เชื่อมต่อ Wallet เพื่อดูคะแนน
+                  Connect wallet to view score
                 </h3>
                 <p className="text-dark-400 mb-6">
-                  เชื่อมต่อ wallet ของคุณเพื่อตรวจสอบคะแนนกิจกรรมและสิทธิ์
+                  Connect your wallet to check activity score and eligibility
                   Airdrop
                 </p>
               </div>
             ) : loading ? (
               <div className="text-center py-12">
-                <div className="animate-spin w-12 h-12 border-4 border-primary-500 border-t-transparent rounded-full mx-auto mb-4" />
-                <p className="text-dark-400">กำลังคำนวณคะแนน...</p>
+                <div className="animate-spin w-12 h-12 border-4 border-amber-500 border-t-transparent rounded-full mx-auto mb-4" />
+                <p className="text-dark-400">Calculating score...</p>
               </div>
             ) : error ? (
               <div className="text-center py-12">
                 <div className="text-6xl mb-4">⚠️</div>
                 <h3 className="text-xl font-semibold text-white mb-2">
-                  ไม่สามารถดึงข้อมูลได้
+                  Failed to fetch data
                 </h3>
                 <p className="text-dark-400">{error}</p>
                 <p className="text-sm text-dark-500 mt-4">
-                  หมายเหตุ: API อาจยังไม่พร้อมใช้งาน หรือยังไม่มีข้อมูลของ
-                  address นี้
+                  Note: API may be unavailable or this address has no data yet
                 </p>
               </div>
             ) : activityScore ? (
@@ -238,7 +238,7 @@ export default function AirdropPage() {
                 {/* Score Breakdown */}
                 <div className="bg-dark-800/50 rounded-xl p-4">
                   <h3 className="text-lg font-semibold text-white mb-4">
-                    📊 Score Breakdown
+                    Score Breakdown
                   </h3>
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                     {Object.entries(activityScore.breakdown).map(
@@ -260,14 +260,14 @@ export default function AirdropPage() {
                 </div>
 
                 {/* How to Earn More */}
-                <div className="bg-primary-500/10 border border-primary-500/30 rounded-xl p-4">
-                  <h3 className="text-lg font-semibold text-primary-400 mb-3">
-                    💡 เพิ่มคะแนนได้อย่างไร?
+                <div className="bg-amber-500/10 border border-amber-500/30 rounded-xl p-4">
+                  <h3 className="text-lg font-semibold text-amber-400 mb-3">
+                    How to earn more score?
                   </h3>
                   <ul className="space-y-2 text-dark-300">
                     <li className="flex items-center gap-2">
                       <span className="text-green-400">✓</span>
-                      ส่ง transactions บน Testnet
+                      Send transactions on Testnet
                     </li>
                     <li className="flex items-center gap-2">
                       <span className="text-green-400">✓</span>
@@ -275,15 +275,15 @@ export default function AirdropPage() {
                     </li>
                     <li className="flex items-center gap-2">
                       <span className="text-green-400">✓</span>
-                      Stake tokens กับ Validators
+                      Stake tokens with Validators
                     </li>
                     <li className="flex items-center gap-2">
                       <span className="text-green-400">✓</span>
-                      เข้าร่วม Governance voting
+                      Participate in governance voting
                     </li>
                     <li className="flex items-center gap-2">
                       <span className="text-green-400">✓</span>
-                      เป็น early adopter (block ต่ำ = คะแนนเพิ่ม!)
+                      Be an early adopter (lower block = higher score!)
                     </li>
                   </ul>
                 </div>
@@ -292,10 +292,10 @@ export default function AirdropPage() {
               <div className="text-center py-12">
                 <div className="text-6xl mb-4">🔍</div>
                 <h3 className="text-xl font-semibold text-white mb-2">
-                  ยังไม่มีข้อมูลกิจกรรม
+                  No activity data yet
                 </h3>
                 <p className="text-dark-400">
-                  ใช้งาน Testnet เพื่อสะสมคะแนนและรับสิทธิ์ Airdrop!
+                  Use Testnet to earn score and airdrop eligibility!
                 </p>
               </div>
             )}
@@ -345,19 +345,20 @@ export default function AirdropPage() {
               </h3>
               <ul className="text-dark-300 space-y-1 text-sm">
                 <li>
-                  • คะแนนจะถูกคำนวณจากกิจกรรมบน Testnet ทั้งหมดก่อน Mainnet
+                  • Score is calculated from all Testnet activity before Mainnet
                   launch
                 </li>
                 <li>
-                  • Snapshot จะถูกสร้างก่อน Mainnet และนำไปบรรจุใน Genesis Block
+                  • Snapshot will be created before Mainnet and included in
+                  Genesis Block
                 </li>
                 <li>
                   • Token บน Testnet (AXXt) ไม่มีมูลค่าจริง -
                   ใช้สำหรับทดสอบเท่านั้น
                 </li>
                 <li>
-                  • Airdrop amount เป็นการประมาณ - จำนวนจริงอาจเปลี่ยนแปลงตาม
-                  eligible addresses
+                  • Airdrop amount is an estimate — final amount may vary based
+                  on eligible addresses
                 </li>
               </ul>
             </div>

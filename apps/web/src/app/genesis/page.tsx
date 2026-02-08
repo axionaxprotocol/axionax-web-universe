@@ -142,23 +142,23 @@ export default function GenesisPage() {
             🌟 Genesis Block & Snapshots
           </h1>
           <p className="text-xl text-dark-400 max-w-3xl mx-auto">
-            ดู Genesis Snapshots และตรวจสอบการจัดสรร Token สำหรับ Mainnet
+            View Genesis snapshots and token allocation for Mainnet
           </p>
         </div>
 
         {loading ? (
           <div className="text-center py-20">
-            <div className="animate-spin w-12 h-12 border-4 border-primary-500 border-t-transparent rounded-full mx-auto mb-4" />
-            <p className="text-dark-400">กำลังโหลดข้อมูล...</p>
+            <div className="animate-spin w-12 h-12 border-4 border-amber-500 border-t-transparent rounded-full mx-auto mb-4" />
+            <p className="text-dark-400">Loading...</p>
           </div>
         ) : snapshots.length === 0 ? (
           <div className="text-center py-20">
             <div className="text-6xl mb-4">📦</div>
             <h3 className="text-xl font-semibold text-white mb-2">
-              ยังไม่มี Snapshot
+              No snapshot yet
             </h3>
             <p className="text-dark-400">
-              Genesis snapshot จะถูกสร้างก่อน Mainnet launch
+              Genesis snapshot will be created before Mainnet launch
             </p>
           </div>
         ) : (
@@ -175,7 +175,7 @@ export default function GenesisPage() {
                     onClick={() => setSelectedSnapshot(snap)}
                     className={`px-4 py-2 rounded-lg transition-all ${
                       selectedSnapshot?.id === snap.id
-                        ? 'bg-primary-500 text-white'
+                        ? 'bg-amber-500 text-white'
                         : 'bg-dark-800 text-dark-400 hover:bg-dark-700'
                     }`}
                   >
@@ -191,7 +191,7 @@ export default function GenesisPage() {
               <div className="bg-dark-900/50 border border-dark-800 rounded-2xl p-6">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
                   <h2 className="text-xl font-semibold text-white">
-                    📊 Snapshot Details
+                    Snapshot Details
                     {selectedSnapshot.isFinalized && (
                       <span className="ml-2 text-sm bg-green-500/20 text-green-400 px-2 py-1 rounded">
                         Finalized
@@ -201,12 +201,12 @@ export default function GenesisPage() {
                   <button
                     onClick={handleDownloadGenesis}
                     disabled={downloading || !selectedSnapshot.isFinalized}
-                    className="px-4 py-2 bg-primary-500 hover:bg-primary-600 disabled:bg-dark-700 disabled:text-dark-500 text-white rounded-lg transition-colors flex items-center gap-2"
+                    className="px-4 py-2 bg-amber-500 hover:bg-amber-600 disabled:bg-dark-700 disabled:text-dark-500 text-white rounded-lg transition-colors flex items-center gap-2"
                   >
                     {downloading ? (
                       <>
                         <div className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full" />
-                        กำลังดาวน์โหลด...
+                        Downloading...
                       </>
                     ) : (
                       <>📥 Download genesis.json</>
@@ -257,7 +257,7 @@ export default function GenesisPage() {
                           selectedSnapshot.merkleRoot
                         )
                       }
-                      className="text-primary-400 hover:text-primary-300 text-sm"
+                      className="text-amber-400 hover:text-amber-300 text-sm"
                     >
                       📋 Copy
                     </button>
@@ -278,11 +278,11 @@ export default function GenesisPage() {
                       value={searchAddress}
                       onChange={(e) => setSearchAddress(e.target.value)}
                       placeholder="0x..."
-                      className="flex-1 bg-dark-900 border border-dark-700 rounded-lg px-4 py-2 text-white placeholder-dark-500 focus:border-primary-500 focus:outline-none"
+                      className="flex-1 bg-dark-900 border border-dark-700 rounded-lg px-4 py-2 text-white placeholder-dark-500 focus:border-amber-500 focus:outline-none"
                     />
                     <button
                       onClick={handleSearch}
-                      className="px-6 py-2 bg-primary-500 hover:bg-primary-600 text-white rounded-lg transition-colors"
+                      className="px-6 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-lg transition-colors"
                     >
                       Search
                     </button>
@@ -322,7 +322,7 @@ export default function GenesisPage() {
                                 JSON.stringify(searchResult.merkleProof)
                               )
                             }
-                            className="text-primary-400 hover:text-primary-300 text-sm"
+                            className="text-amber-400 hover:text-amber-300 text-sm"
                           >
                             📋 Copy Proof ({searchResult.merkleProof.length}{' '}
                             items)
@@ -374,7 +374,7 @@ export default function GenesisPage() {
                               href={`https://explorer.axionax.xyz/address/${alloc.address}`}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="text-primary-400 hover:text-primary-300"
+                              className="text-amber-400 hover:text-amber-300"
                             >
                               {formatAddress(alloc.address)}
                             </a>
@@ -402,28 +402,29 @@ export default function GenesisPage() {
                 <div className="text-3xl">📜</div>
                 <div>
                   <h3 className="text-lg font-semibold text-blue-400 mb-2">
-                    Genesis Block คืออะไร?
+                    What is the Genesis Block?
                   </h3>
                   <p className="text-dark-300 mb-4">
-                    Genesis Block คือ Block แรกของ Mainnet
-                    ที่จะบรรจุข้อมูลการจัดสรร Token ให้กับผู้ใช้ Testnet โดยใช้
-                    Merkle Tree เพื่อความโปร่งใสและตรวจสอบได้
+                    The Genesis Block is the first block of Mainnet, containing
+                    token allocation data for Testnet users via a Merkle Tree
+                    for transparency and verification.
                   </p>
                   <ul className="text-dark-300 space-y-1 text-sm">
                     <li>
-                      • <strong>Merkle Root</strong> - Hash ที่รวมข้อมูลทั้งหมด
-                      ใช้ตรวจสอบความถูกต้อง
+                      • <strong>Merkle Root</strong> — Hash of all data used to
+                      verify integrity
                     </li>
                     <li>
-                      • <strong>Merkle Proof</strong> - หลักฐานที่พิสูจน์ว่า
-                      address อยู่ใน snapshot
+                      • <strong>Merkle Proof</strong> — Proof that an address is
+                      in the snapshot
                     </li>
                     <li>
-                      • <strong>Snapshot</strong> - บันทึกสถานะ ณ block ที่กำหนด
+                      • <strong>Snapshot</strong> — State record at a given
+                      block
                     </li>
                     <li>
-                      • <strong>Finalized</strong> - Snapshot ที่ถูก approve
-                      แล้ว จะไม่เปลี่ยนแปลง
+                      • <strong>Finalized</strong> — Approved snapshot that will
+                      not change
                     </li>
                   </ul>
                 </div>

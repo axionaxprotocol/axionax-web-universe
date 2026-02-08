@@ -4,7 +4,15 @@ const RPC_EU_URL = process.env.RPC_EU_URL || 'http://217.76.61.116:8545';
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
+    let body: unknown;
+    try {
+      body = await request.json();
+    } catch {
+      return NextResponse.json(
+        { jsonrpc: '2.0', error: { code: -32700, message: 'Parse error' }, id: null },
+        { status: 400 }
+      );
+    }
 
     const response = await fetch(RPC_EU_URL, {
       method: 'POST',

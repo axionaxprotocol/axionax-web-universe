@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { CircleDot, CircleOff, Loader2 } from 'lucide-react';
 import MockBadge from '@/components/ui/MockBadge';
 
 interface ValidatorInfo {
@@ -113,17 +114,6 @@ export default function ValidatorStatus(): React.JSX.Element {
     return () => clearInterval(interval);
   }, []);
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'online':
-        return 'bg-green-500';
-      case 'offline':
-        return 'bg-red-500';
-      default:
-        return 'bg-yellow-500 animate-pulse';
-    }
-  };
-
   const getLocationFlag = (location: string) => {
     switch (location) {
       case 'Europe':
@@ -140,7 +130,11 @@ export default function ValidatorStatus(): React.JSX.Element {
   const isChecking = validators.some((v) => v.status === 'checking');
 
   return (
-    <section className="section bg-dark-900/50" data-testid="network-status" aria-label={onlineCount > 0 ? 'Connected' : 'Checking'}>
+    <section
+      className="section bg-dark-900/50"
+      data-testid="network-status"
+      aria-label={onlineCount > 0 ? 'Connected' : 'Checking'}
+    >
       <div className="container-custom">
         <div className="text-center mb-12">
           <div className="flex flex-wrap items-center justify-center gap-3 mb-4">
@@ -158,7 +152,7 @@ export default function ValidatorStatus(): React.JSX.Element {
           {validators.map((validator, index) => (
             <div
               key={index}
-              className="bg-dark-800/50 border border-dark-700 rounded-2xl p-6 hover:border-primary-500/50 transition-all duration-300"
+              className="bg-dark-800/50 border border-dark-700 rounded-2xl p-6 hover:border-amber-500/50 transition-all duration-300"
             >
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-3">
@@ -173,10 +167,28 @@ export default function ValidatorStatus(): React.JSX.Element {
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
+                  {validator.status === 'online' ? (
+                    <CircleDot
+                      className="w-4 h-4 text-tech-success shrink-0"
+                      strokeWidth={2}
+                      aria-hidden
+                    />
+                  ) : validator.status === 'checking' ? (
+                    <Loader2
+                      className="w-4 h-4 text-tech-warning shrink-0 animate-spin"
+                      strokeWidth={2}
+                      aria-hidden
+                    />
+                  ) : (
+                    <CircleOff
+                      className="w-4 h-4 text-tech-error shrink-0"
+                      strokeWidth={2}
+                      aria-hidden
+                    />
+                  )}
                   <span
-                    className={`w-3 h-3 rounded-full ${getStatusColor(validator.status)}`}
-                  />
-                  <span className="text-sm capitalize text-dark-300">
+                    className={`text-sm capitalize ${validator.status === 'online' ? 'text-tech-success' : 'text-dark-300'}`}
+                  >
                     {validator.status}
                   </span>
                 </div>
@@ -184,7 +196,7 @@ export default function ValidatorStatus(): React.JSX.Element {
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="bg-dark-900/50 rounded-xl p-4">
-                  <div className="text-2xl font-bold text-primary-400">
+                  <div className="text-2xl font-bold text-amber-400 font-mono tabular-nums">
                     {validator.blockHeight !== null
                       ? validator.blockHeight.toLocaleString()
                       : '---'}
@@ -192,7 +204,7 @@ export default function ValidatorStatus(): React.JSX.Element {
                   <div className="text-dark-400 text-sm">Block Height</div>
                 </div>
                 <div className="bg-dark-900/50 rounded-xl p-4">
-                  <div className="text-2xl font-bold text-secondary-400">
+                  <div className="text-2xl font-bold text-secondary-400 font-mono tabular-nums">
                     {validator.peerCount !== null ? validator.peerCount : '---'}
                   </div>
                   <div className="text-dark-400 text-sm">Peers</div>
@@ -200,11 +212,11 @@ export default function ValidatorStatus(): React.JSX.Element {
               </div>
 
               <div className="mt-4 pt-4 border-t border-dark-700 flex justify-between items-center text-sm">
-                <code className="text-dark-400 bg-dark-900/50 px-2 py-1 rounded">
+                <code className="text-dark-400 bg-dark-900/50 px-2 py-1 rounded font-mono text-xs">
                   {validator.ip}:8545
                 </code>
                 {validator.latency !== null && (
-                  <span className="text-dark-400">
+                  <span className="text-dark-400 font-mono tabular-nums">
                     {validator.latency}ms latency
                   </span>
                 )}
@@ -215,7 +227,9 @@ export default function ValidatorStatus(): React.JSX.Element {
 
         <div className="text-center mt-8">
           <p className="text-dark-400 text-sm">
-            ✓ Connected via PoPC Consensus • Chain ID: 86137 • Updates every 10s
+            ✓ Connected via PoPC Consensus • Chain ID:{' '}
+            <span className="font-mono tabular-nums">86137</span> • Updates
+            every 10s
           </p>
         </div>
       </div>

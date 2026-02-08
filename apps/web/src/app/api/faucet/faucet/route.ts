@@ -49,7 +49,11 @@ export async function POST(request: NextRequest) {
 
     if (res.status === 429) {
       return NextResponse.json(
-        { success: false, message: data.message || 'Rate limit. Please try again later.', cooldown: data.cooldown },
+        {
+          success: false,
+          message: data.message || 'Rate limit. Please try again later.',
+          cooldown: data.cooldown,
+        },
         { status: 429 }
       );
     }
@@ -61,7 +65,8 @@ export async function POST(request: NextRequest) {
   } catch {
     return NextResponse.json({
       success: true,
-      message: 'Successfully sent testnet tokens. (Mock – faucet service offline)',
+      message:
+        'Successfully sent testnet tokens. (Mock – faucet service offline)',
       txHash: '0x' + Array(64).fill('0').join(''),
       amount: '10000',
       isMock: true,
