@@ -4,14 +4,14 @@
 
 ### Frontend Applications, SDK, Documentation & Marketplace Monorepo
 
-[![Protocol](https://img.shields.io/badge/Protocol-v1.8.0--testnet-purple?style=flat-square)](https://axionax.org)
+[![Protocol](https://img.shields.io/badge/Protocol-v2.1--Seed-purple?style=flat-square)](https://axionax.org)
 [![License](https://img.shields.io/badge/License-MIT-blue?style=flat-square)](LICENSE)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
 [![Next.js](https://img.shields.io/badge/Next.js-14-black?style=flat-square&logo=next.js)](https://nextjs.org/)
 [![pnpm](https://img.shields.io/badge/pnpm-8.0-orange?style=flat-square&logo=pnpm)](https://pnpm.io/)
 [![Status](https://img.shields.io/badge/Status-100%25%20Operational-green?style=flat-square)](https://axionax.org)
 
-**Modern Web Stack** • **Monorepo Architecture** • **Type-Safe** • **v1.8.0 Production Ready**
+**Modern Web Stack** • **Monorepo Architecture** • **Type-Safe** • **Series Seed Preparation**
 
 [Website](https://axionax.org) • [Documentation](https://axionaxprotocol.github.io/axionax-docs/) • [Core Universe](https://github.com/axionaxprotocol/axionax-core-universe)
 
@@ -21,7 +21,9 @@
 
 ## 📖 ภาพรวม (Overview)
 
-**axionax Web Universe** เป็น Monorepo ที่รวบรวมส่วนประกอบสำคัญทั้งหมดของ axionax Protocol ไว้ในที่เดียว ไม่ว่าจะเป็น Frontend Application, เอกสารคู่มือ (Documentation), SDK และ Marketplace โดยมีสถาปัตยกรรมที่ทันสมัยและจัดการ dependencies อย่างมีประสิทธิภาพด้วย pnpm workspaces
+**axionax Web Universe** เป็น Monorepo ที่รวบรวมส่วนประกอบสำคัญทั้งหมดของ **Axionax Protocol** ไว้ในที่เดียว ไม่ว่าจะเป็น Frontend Application, เอกสารคู่มือ (Documentation), SDK และ Marketplace โดยมีสถาปัตยกรรมที่ทันสมัยและจัดการ dependencies อย่างมีประสิทธิภาพด้วย pnpm workspaces
+
+📄 **เอกสารสรุปโครงการฉบับสมบูรณ์** (วิสัยทัศน์, สถาปัตยกรรม, ฮาร์ดแวร์, DeAI/Sentinels, Roadmap, การระดมทุน): **[MASTER_SUMMARY.md](MASTER_SUMMARY.md)** (v2.1, ก.พ. 2026)
 
 ### 🎯 โครงสร้างภายใน (What's Inside?)
 

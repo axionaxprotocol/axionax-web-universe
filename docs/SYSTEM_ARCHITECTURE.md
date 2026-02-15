@@ -1,10 +1,11 @@
 # รายงานสถาปัตยกรรมระบบ: axionax-web-universe
 
-**วันที่:** 13 ธันวาคม 2025  
-**Protocol Version:** v1.9.0-testnet
-**วิเคราะห์โดย:** Senior System Architect  
+**วันที่:** 13 ธันวาคม 2025 (อัปเดตอ้างอิง ก.พ. 2026)  
+**Protocol:** v2.1 — Series Seed Preparation ([Master Summary](../MASTER_SUMMARY.md))  
 **ขอบเขต:** `apps/web`, `apps/marketplace`, `apps/api`, `packages/sdk`, `packages/blockchain-utils`  
-**สถานะ:** All Systems Operational (100%) ✅
+**สถานะ:** All Systems Operational (100%) ✅  
+
+> สถาปัตยกรรมระดับโปรโตคอล (Core, DePIN, Geo-Hierarchy, Sentinels) ดูใน [MASTER_SUMMARY.md](../MASTER_SUMMARY.md)
 
 ---
 

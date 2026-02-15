@@ -4,7 +4,7 @@
 
 ### Frontend Applications, SDK, Documentation & Marketplace Monorepo
 
-[![Protocol](https://img.shields.io/badge/Protocol-v1.8.0--testnet-purple?style=flat-square)](https://axionax.org)
+[![Protocol](https://img.shields.io/badge/Protocol-v2.1--Seed-purple?style=flat-square)](https://axionax.org)
 [![License](https://img.shields.io/badge/License-MIT-blue?style=flat-square)](LICENSE)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
 [![Next.js](https://img.shields.io/badge/Next.js-14-black?style=flat-square&logo=next.js)](https://nextjs.org/)
@@ -15,7 +15,7 @@
 [![Code of Conduct](https://img.shields.io/badge/Code%20of%20Conduct-Contributor%20Covenant-purple?style=flat-square)](CODE_OF_CONDUCT.md)
 [![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-brightgreen?style=flat-square)](CONTRIBUTING.md)
 
-**Modern Web Stack** • **Monorepo Architecture** • **Type-Safe** • **v1.8.0 Production Ready**
+**Modern Web Stack** • **Monorepo Architecture** • **Type-Safe** • **Series Seed Preparation**
 
 [Website](https://axionax.org) • [Documentation](https://axionaxprotocol.github.io/axionax-docs/) • [Core Universe](https://github.com/axionaxprotocol/axionax-core-universe)
 
@@ -25,7 +25,9 @@
 
 ## 📖 Overview
 
-**axionax Web Universe** เป็น monorepo ที่รวมทุกอย่างที่เกี่ยวข้องกับ frontend, documentation, SDK และ marketplace ของ axionax Protocol ไว้ในที่เดียว ใช้ pnpm workspaces สำหรับการจัดการ dependencies ที่มีประสิทธิภาพ
+**axionax Web Universe** เป็น monorepo ที่รวมทุกอย่างที่เกี่ยวข้องกับ frontend, documentation, SDK และ marketplace ของ **Axionax Protocol** ไว้ในที่เดียว ใช้ pnpm workspaces สำหรับการจัดการ dependencies ที่มีประสิทธิภาพ
+
+📄 **เอกสารสรุปโครงการฉบับสมบูรณ์** (Vision, สถาปัตยกรรม, Hardware, DeAI/Sentinels, Roadmap, Fundraising): **[MASTER_SUMMARY.md](MASTER_SUMMARY.md)** (v2.1, ก.พ. 2026)
 
 ### 🎯 What's Inside?
 
@@ -33,44 +35,35 @@
 axionax-web-universe/
 ├── 📱 apps/
 │   ├── web/              # Official Website (Next.js 14)
-│   │   ├── src/          # Source code
-│   │   ├── public/       # Static assets
-│   │   └── package.json  # @axionax/web
-│   │
-│   ├── marketplace/      # Compute Marketplace dApp
-│   │   ├── src/          # Vite + React app
-│   │   └── package.json  # @axionax/marketplace
-│   │
+│   ├── marketplace/      # Compute Marketplace dApp (Vite + React)
 │   ├── api/              # Backend API (Hono + PostgreSQL)
-│   │   ├── src/          # API source code
-│   │   └── package.json  # @axionax/api
-│   │
 │   ├── genesis-generator/# Genesis Block Generator CLI
-│   │   ├── src/          # Generator source code
-│   │   └── package.json  # @axionax/genesis-generator
-│   │
-│   ├── faucet-api/       # Faucet API (Node)
+│   ├── faucet-api/       # Faucet API
 │   ├── mobile/           # Mobile app
-│   └── docs/             # Documentation (Jekyll/static, not a pnpm package)
-│       ├── *.md, *.html  # Guides, API reference, tutorials
-│       └── sentinels/    # Sentinel docs
+│   └── docs/             # Static docs (Jekyll, not pnpm package)
 │
 ├── 📦 packages/
 │   ├── sdk/              # TypeScript SDK
-│   │   ├── src/          # SDK source code
-│   │   └── package.json  # @axionax/sdk
-│   │
-│   ├── blockchain-utils/ # Shared Blockchain Utilities
-│   │   ├── src/          # Helpers, constants, types
-│   │   └── package.json  # @axionax/blockchain-utils
-│   │
-│   └── ui/               # Shared UI Components
-│       ├── src/          # React components
-│       └── package.json  # @axionax/ui
+│   ├── blockchain-utils/ # Shared blockchain helpers
+│   └── ui/               # Shared UI components
 │
-├── pnpm-workspace.yaml   # Workspace configuration
-├── package.json          # Root package
-└── pnpm-lock.yaml        # Lock file
+├── 📄 docs/              # Project docs (deploy, dev, architecture, audits)
+│   ├── DEPLOY.md
+│   ├── DEVELOPMENT.md
+│   ├── QUICK_START.md
+│   ├── SYSTEM_ARCHITECTURE.md
+│   └── audits/           # Audit reports
+│
+├── 🔧 scripts/           # Build, deploy, VPS, DB scripts
+│   ├── deploy.sh
+│   ├── vps-setup-from-git.sh
+│   └── ...
+│
+├── deploy-vps.ps1        # VPS deploy (Windows, run from root)
+├── MASTER_SUMMARY.md     # เอกสารสรุปโครงการฉบับสมบูรณ์
+├── pnpm-workspace.yaml
+├── package.json
+└── pnpm-lock.yaml
 ```
 
 ---
@@ -518,7 +511,7 @@ docker-compose up -d
 | **CI → VPS**  | ตั้ง secrets แล้ว push `main`/`develop` | ใช้ standalone + rsync ตาม [DEPLOYMENT.md](apps/web/docs/DEPLOYMENT.md) |
 | **Vercel**    | เชื่อม repo → build `pnpm --filter @axionax/web build`, root = repo root | รองรับ API routes |
 | **Node (VPS)**| Build แล้ว `pnpm --filter @axionax/web start` หรือ Docker ตาม [DEPLOYMENT.md](apps/web/docs/DEPLOYMENT.md) | ใช้ได้กับ full stack |
-| **GitHub Pages** | Workflow deploy-pages — ต้องใช้ static export และแอปมี `/api/*` จึงต้องแยก API หรือทำ static-only | ดู [DEPLOY.md](DEPLOY.md) |
+| **GitHub Pages** | Workflow deploy-pages — ต้องใช้ static export และแอปมี `/api/*` จึงต้องแยก API หรือทำ static-only | ดู [docs/DEPLOY.md](docs/DEPLOY.md) |
 
 **ก่อน deploy ครั้งแรก:**
 
