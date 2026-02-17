@@ -297,7 +297,7 @@ export default function EscrowPanel({
 
             {(escrowState?.status === EscrowStatus.Released ||
               escrowState?.status === EscrowStatus.Refunded) && (
-              <div className="text-center p-4 bg-void rounded-lg border border-amber-500/20">
+              <div className="text-center p-4 bg-black-hole/40 rounded-lg border border-white/10">
                 <p className="text-content">
                   Completed {formatCompletedDate(escrowState?.updatedAt)}
                 </p>

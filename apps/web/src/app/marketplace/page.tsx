@@ -41,7 +41,7 @@ export default function MarketplacePage(): React.JSX.Element {
       {/* Header */}
       <div>
         <div className="flex flex-wrap items-center gap-3 mb-2">
-          <h1 className="text-3xl md:text-4xl font-bold font-display text-accent">
+          <h1 className="text-3xl md:text-4xl font-bold font-display text-content">
             Compute Marketplace
           </h1>
           <MockBadge show label="Workers & Escrow" />

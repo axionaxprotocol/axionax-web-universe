@@ -80,26 +80,28 @@ export default function Roadmap(): React.JSX.Element {
         return <Badge variant="warning">In Progress</Badge>;
       case 'upcoming':
         return <Badge variant="info">Upcoming</Badge>;
+      case 'active':
+        return <Badge variant="success">Active</Badge>;
       default:
         return <Badge variant="default">Planned</Badge>;
     }
   };
 
   return (
-    <section className="section">
+    <section className="section bg-black-hole/30">
       <div className="container-custom">
         <div className="text-center mb-16">
-          <h2 className="bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-content mb-4">
             Roadmap
           </h2>
-          <p className="text-starlight/60 text-lg max-w-2xl mx-auto">
+          <p className="text-muted text-lg max-w-2xl mx-auto">
             Our journey to building the future of decentralized compute
           </p>
         </div>
 
         <div className="relative">
           {/* Timeline Line */}
-          <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-amber-500 via-yellow-500 to-amber-600 hidden md:block" />
+          <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-tech-cyan/20 via-tech-cyan/50 to-tech-cyan/20 hidden md:block" />
 
           <div className="space-y-12">
             {roadmapPhases.map((phase, index) => (
@@ -113,17 +115,19 @@ export default function Roadmap(): React.JSX.Element {
                 }
               >
                 {/* Timeline Dot */}
-                <div className="absolute left-0 md:left-1/2 top-6 w-4 h-4 bg-gradient-to-r from-amber-400 to-yellow-500 rounded-full border-4 border-deep-space transform md:-translate-x-1/2 hidden md:block shadow-lg shadow-amber-500/30" />
+                <div className="absolute left-0 md:left-1/2 top-6 w-4 h-4 bg-tech-cyan rounded-full border-4 border-black-hole transform md:-translate-x-1/2 hidden md:block shadow-[0_0_10px_rgba(34,197,94,0.5)]" />
 
                 <div
-                  className={`card-hover ${index % 2 === 0 ? 'md:mr-8' : 'md:ml-8'}`}
+                  className={`card-panel p-6 hover:border-tech-cyan/30 transition-all duration-300 ${
+                    index % 2 === 0 ? 'md:mr-8' : 'md:ml-8'
+                  }`}
                 >
                   <div className="flex items-center justify-between mb-4">
                     <div>
-                      <div className="text-sm text-amber-400 font-medium mb-1">
+                      <div className="text-sm text-tech-cyan font-medium mb-1">
                         {phase.phase}
                       </div>
-                      <h3 className="text-xl font-bold text-white">
+                      <h3 className="text-xl font-bold text-content">
                         {phase.title}
                       </h3>
                     </div>
@@ -134,15 +138,16 @@ export default function Roadmap(): React.JSX.Element {
                     {phase.items.map((item, itemIndex) => (
                       <li
                         key={itemIndex}
-                        className="flex items-start gap-3 text-dark-400"
+                        className="flex items-start gap-3 text-muted text-sm"
                       >
                         <svg
                           className={`w-5 h-5 mt-0.5 flex-shrink-0 ${
                             phase.status === 'completed'
-                              ? 'text-green-400'
-                              : phase.status === 'in-progress'
-                                ? 'text-yellow-400'
-                                : 'text-dark-600'
+                              ? 'text-tech-success'
+                              : phase.status === 'in-progress' ||
+                                  phase.status === 'active'
+                                ? 'text-tech-cyan'
+                                : 'text-muted'
                           }`}
                           fill="currentColor"
                           viewBox="0 0 20 20"
