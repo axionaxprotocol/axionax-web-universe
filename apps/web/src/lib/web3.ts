@@ -7,45 +7,23 @@
  * @deprecated Import directly from '@axionax/blockchain-utils' instead
  */
 
-// Re-export everything from blockchain-utils wallet
-export {
-  // Provider
+import {
   getProvider,
   isMetaMaskInstalled,
   isWalletAvailable,
-
-  // Accounts
   connectWallet,
   getAccounts,
   getCurrentAccount,
-
-  // Chain
-  getChainId as getCurrentChainId,
+  getChainId,
   switchChain,
   addChain,
   connectToAxionax,
-
-  // Balance
   getBalance,
   getTransactionCount,
-
-  // Token
-  addToken as addTokenToMetaMask,
-
-  // Events
+  addToken,
   onAccountsChanged,
   onChainChanged,
-
-  // Types
-  type EIP1193Provider,
-  type WalletError,
-  type AddTokenParams,
-  WALLET_ERROR_CODES,
-} from '@axionax/blockchain-utils';
-
-// Re-export chain config for backward compatibility
-export {
-  axionaxTestnet as AXIONAX_TESTNET_CONFIG,
+  axionaxTestnet,
   getMetaMaskNetworkParams,
   CHAIN_IDS,
   RPC_URLS,
@@ -54,13 +32,33 @@ export {
   formatUnits,
 } from '@axionax/blockchain-utils';
 
-// Legacy AXIONAX_TESTNET object for backward compatibility
-import {
-  axionaxTestnet,
+export type { EIP1193Provider, WalletError, AddTokenParams } from '@axionax/blockchain-utils';
+export { WALLET_ERROR_CODES } from '@axionax/blockchain-utils';
+
+export {
+  getProvider,
+  isMetaMaskInstalled,
+  isWalletAvailable,
+  connectWallet,
+  getAccounts,
+  getCurrentAccount,
+  getChainId as getCurrentChainId,
+  switchChain,
+  addChain,
+  connectToAxionax,
+  getBalance,
+  getTransactionCount,
+  addToken as addTokenToMetaMask,
+  onAccountsChanged,
+  onChainChanged,
+  getMetaMaskNetworkParams,
   CHAIN_IDS,
   RPC_URLS,
   EXPLORER_URLS,
-} from '@axionax/blockchain-utils';
+  formatAddress,
+  formatUnits,
+};
+export { axionaxTestnet as AXIONAX_TESTNET_CONFIG };
 
 export const AXIONAX_TESTNET = {
   chainId: '0x' + CHAIN_IDS.TESTNET.toString(16),

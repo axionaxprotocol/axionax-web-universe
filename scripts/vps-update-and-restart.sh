@@ -1,23 +1,69 @@
 #!/bin/bash
-# อัปเดตเว็บบน VPS: pull ล่าสุด → build → restart (รันบนเซิร์ฟเวอร์)
-# ใช้หลังตั้งครั้งแรกด้วย vps-setup-from-git.sh แล้ว
+# ==========================================================
+#  อัปเดตเว็บบน VPS: pull → build packages → build web → restart PM2
+#  Usage: ssh root@217.216.109.5 'bash -s' < scripts/vps-update-and-restart.sh
+#  (ใช้หลังตั้งครั้งแรกด้วย vps-setup-from-git.sh แล้ว)
+# ==========================================================
 
 set -e
+
 APP_DIR="${APP_DIR:-/opt/axionax-web-universe}"
 WEB_DIR="$APP_DIR/apps/web"
-RUN_DIR="$WEB_DIR/.next/standalone"
+STANDALONE_DIR="$WEB_DIR/.next/standalone"
 PORT="${PORT:-3000}"
-NODE_BIN="${NODE_BIN:-/usr/bin/node}"
+PM2_NAME="axionax-web"
 
+echo "=== 1. Pull latest code ==="
 cd "$APP_DIR"
 git pull origin main
-pnpm install --frozen-lockfile
-pnpm --filter @axionax/web build
-mkdir -p "$RUN_DIR/.next"
-cp -r "$WEB_DIR/.next/static" "$RUN_DIR/.next/" 2>/dev/null || true
 
-pkill -f "node.*server.js" 2>/dev/null || true
-sleep 2
-cd "$RUN_DIR"
-PORT=$PORT nohup $NODE_BIN server.js >> server.log 2>&1 &
-echo "Updated and restarted on port $PORT"
+echo ""
+echo "=== 2. Install dependencies ==="
+pnpm install --frozen-lockfile
+
+echo ""
+echo "=== 3. Build packages (blockchain-utils → sdk → web) ==="
+pnpm --filter @axionax/blockchain-utils build || echo "  (blockchain-utils build skipped or failed — continuing)"
+pnpm --filter @axionax/sdk build || echo "  (sdk build skipped or failed — continuing)"
+pnpm --filter @axionax/web build
+
+echo ""
+echo "=== 4. Prepare standalone ==="
+# outputFileTracingRoot = monorepo root → static ต้องอยู่ที่ standalone/apps/web/.next/static
+mkdir -p "$STANDALONE_DIR/apps/web/.next"
+cp -r "$WEB_DIR/.next/static" "$STANDALONE_DIR/apps/web/.next/"
+cp -r "$WEB_DIR/public" "$STANDALONE_DIR/apps/web/" 2>/dev/null || true
+
+echo ""
+echo "=== 5. Restart PM2 ==="
+if command -v pm2 &>/dev/null; then
+  # ถ้า process มีอยู่แล้ว → restart; ถ้าไม่มี → start ใหม่
+  if pm2 describe "$PM2_NAME" &>/dev/null; then
+    pm2 restart "$PM2_NAME"
+    echo "  Restarted $PM2_NAME"
+  else
+    cd "$STANDALONE_DIR"
+    PORT=$PORT pm2 start apps/web/server.js --name "$PM2_NAME"
+    echo "  Started $PM2_NAME"
+  fi
+  pm2 save
+else
+  echo "  PM2 not found — starting with nohup"
+  pkill -f "node.*server.js" 2>/dev/null || true
+  sleep 2
+  cd "$STANDALONE_DIR"
+  PORT=$PORT nohup node apps/web/server.js >> "$STANDALONE_DIR/server.log" 2>&1 &
+fi
+
+echo ""
+echo "=== 6. Verify ==="
+sleep 3
+HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 5 "http://127.0.0.1:$PORT" 2>/dev/null || echo "000")
+if [[ "$HTTP_CODE" == "200" ]]; then
+  echo "  ✓ Web is running at http://127.0.0.1:$PORT (HTTP $HTTP_CODE)"
+else
+  echo "  ✗ HTTP $HTTP_CODE — check: pm2 logs $PM2_NAME --err --lines 20"
+fi
+
+echo ""
+echo "Done! Updated and restarted on port $PORT"

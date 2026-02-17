@@ -6,6 +6,7 @@
 
 | เอกสาร | คำอธิบาย |
 |--------|----------|
+| [HOSTING.md](HOSTING.md) | **เตรียมโฮสต์เว็บ** — ตั้งค่า VPS ตั้งแต่ต้น (Build บน server, Nginx, PM2, SSL) |
 | [DEPLOY.md](DEPLOY.md) | วิธี deploy ขึ้น Server (CI/CD, GitHub Pages, VPS) |
 | [DEVELOPMENT.md](DEVELOPMENT.md) | สภาพแวดล้อมพัฒนา, Docker, คำสั่งที่ใช้บ่อย |
 | [QUICK_START.md](QUICK_START.md) | เริ่มต้นใช้งานภายใน 5 นาที |
