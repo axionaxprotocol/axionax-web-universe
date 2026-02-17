@@ -113,13 +113,13 @@ export default function Docs(): React.JSX.Element {
   ];
 
   return (
-    <div className="min-h-screen bg-dark-950">
-      <main className="container-custom py-8">
-        <div className="mb-8">
+    <div className="min-h-screen">
+      <main className="container-custom py-10">
+        <div className="mb-12 text-center">
           <h1 className="text-4xl font-bold gradient-text mb-4">
             Documentation v1.9.0
           </h1>
-          <p className="text-dark-400 text-lg">
+          <p className="text-muted text-lg max-w-2xl mx-auto">
             Everything you need to build on axionax - Protocol v1.9.0 Testnet
           </p>
         </div>
@@ -128,7 +128,7 @@ export default function Docs(): React.JSX.Element {
           {docSections.map((section) => (
             <Card key={section.title} hover>
               <CardHeader>
-                <CardTitle>{section.title}</CardTitle>
+                <CardTitle className="text-content">{section.title}</CardTitle>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-2">
@@ -139,7 +139,7 @@ export default function Docs(): React.JSX.Element {
                           href={item.href}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-dark-400 hover:text-amber-400 transition-colors text-sm flex items-center gap-1"
+                          className="text-muted hover:text-tech-cyan transition-colors text-sm flex items-center gap-1"
                         >
                           {item.name}
                           <svg
@@ -159,7 +159,7 @@ export default function Docs(): React.JSX.Element {
                       ) : (
                         <Link
                           href={item.href}
-                          className="text-dark-400 hover:text-amber-400 transition-colors text-sm"
+                          className="text-muted hover:text-tech-cyan transition-colors text-sm"
                         >
                           {item.name}
                         </Link>
@@ -173,8 +173,8 @@ export default function Docs(): React.JSX.Element {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          <Card className="bg-gradient-primary p-6 text-white">
-            <div className="mb-4">
+          <Card className="bg-gradient-primary p-6 text-white border-none">
+            <div className="mb-4 text-white">
               <svg
                 className="w-12 h-12"
                 fill="none"
@@ -189,7 +189,7 @@ export default function Docs(): React.JSX.Element {
                 />
               </svg>
             </div>
-            <h3 className="text-xl font-bold mb-2">Quick Start</h3>
+            <h3 className="text-xl font-bold mb-2 text-white">Quick Start</h3>
             <p className="text-white/80 mb-4">
               Get started with axionax in under 5 minutes
             </p>
@@ -203,8 +203,8 @@ export default function Docs(): React.JSX.Element {
             </a>
           </Card>
 
-          <Card className="bg-gradient-to-br from-secondary-900 to-secondary-800 p-6 text-white">
-            <div className="mb-4">
+          <Card className="bg-tech-cyan/10 border-tech-cyan/20 p-6">
+            <div className="mb-4 text-tech-cyan">
               <svg
                 className="w-12 h-12"
                 fill="none"
@@ -219,22 +219,22 @@ export default function Docs(): React.JSX.Element {
                 />
               </svg>
             </div>
-            <h3 className="text-xl font-bold mb-2">SDK & API</h3>
-            <p className="text-white/80 mb-4">
+            <h3 className="text-xl font-bold mb-2 text-tech-cyan">SDK & API</h3>
+            <p className="text-muted mb-4">
               Comprehensive SDK for TypeScript, Python, and Rust
             </p>
             <a
               href={`${DOCS_BASE}/API_REFERENCE.html`}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white font-semibold hover:underline inline-flex items-center gap-1"
+              className="text-tech-cyan font-semibold hover:underline inline-flex items-center gap-1"
             >
               View API Docs →
             </a>
           </Card>
 
-          <Card className="bg-gradient-to-br from-dark-800 to-dark-900 p-6 text-white border-amber-500/50">
-            <div className="mb-4">
+          <Card className="bg-white/5 border-white/10 p-6">
+            <div className="mb-4 text-content">
               <svg
                 className="w-12 h-12"
                 fill="none"
@@ -249,15 +249,15 @@ export default function Docs(): React.JSX.Element {
                 />
               </svg>
             </div>
-            <h3 className="text-xl font-bold mb-2">Tutorials</h3>
-            <p className="text-white/80 mb-4">
+            <h3 className="text-xl font-bold mb-2 text-content">Tutorials</h3>
+            <p className="text-muted mb-4">
               Learn from step-by-step tutorials and examples
             </p>
             <a
               href={`${DOCS_BASE}/TUTORIALS.md`}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white font-semibold hover:underline inline-flex items-center gap-1"
+              className="text-content font-semibold hover:underline inline-flex items-center gap-1"
             >
               Browse Tutorials →
             </a>
@@ -266,19 +266,19 @@ export default function Docs(): React.JSX.Element {
 
         <Card>
           <CardHeader>
-            <CardTitle>Quick Start Guide</CardTitle>
+            <CardTitle className="text-content">Quick Start Guide</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="prose prose-invert max-w-none">
-              <h3 className="text-xl font-semibold mb-4">1. Install the SDK</h3>
-              <div className="code-block mb-6">
+            <div className="prose prose-invert max-w-none text-muted">
+              <h3 className="text-xl font-semibold mb-4 text-content">1. Install the SDK</h3>
+              <div className="bg-black-hole p-4 rounded-lg border border-white/10 font-mono text-sm mb-6 text-content">
                 <code>npm install @axionax/sdk</code>
               </div>
 
-              <h3 className="text-xl font-semibold mb-4">
+              <h3 className="text-xl font-semibold mb-4 text-content">
                 2. Connect to Testnet
               </h3>
-              <div className="code-block mb-6">
+              <div className="bg-black-hole p-4 rounded-lg border border-white/10 font-mono text-sm mb-6 text-content">
                 <pre>{`import { axionaxClient } from '@axionax/sdk';
 
 const client = new axionaxClient({
@@ -291,8 +291,8 @@ const status = await client.getNetworkStatus();
 console.log(status);`}</pre>
               </div>
 
-              <h3 className="text-xl font-semibold mb-4">3. Create a Wallet</h3>
-              <div className="code-block mb-6">
+              <h3 className="text-xl font-semibold mb-4 text-content">3. Create a Wallet</h3>
+              <div className="bg-black-hole p-4 rounded-lg border border-white/10 font-mono text-sm mb-6 text-content">
                 <pre>{`// Create new wallet
 const wallet = client.createWallet();
 
@@ -303,11 +303,11 @@ const imported = client.importWallet(privateKey);
 const balance = await client.getBalance(wallet.address);`}</pre>
               </div>
 
-              <div className="mt-8 p-4 bg-amber-500/10 border border-amber-500/20 rounded-lg">
-                <p className="text-amber-400 font-semibold mb-2">
+              <div className="mt-8 p-4 bg-tech-cyan/10 border border-tech-cyan/20 rounded-lg">
+                <p className="text-tech-cyan font-semibold mb-2">
                   Complete Documentation Available
                 </p>
-                <p className="text-dark-400 text-sm mb-3">
+                <p className="text-muted text-sm mb-3">
                   Access our comprehensive documentation site with detailed
                   guides, tutorials, and API references:
                 </p>
@@ -316,7 +316,7 @@ const balance = await client.getBalance(wallet.address);`}</pre>
                     href={`${DOCS_BASE}/`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white font-semibold rounded-lg transition-colors"
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-tech-cyan hover:bg-tech-cyan-hover text-white font-semibold rounded-lg transition-colors"
                   >
                     <svg
                       className="w-4 h-4"
@@ -337,7 +337,7 @@ const balance = await client.getBalance(wallet.address);`}</pre>
                     href="https://github.com/axionaxprotocol"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2 bg-dark-700 hover:bg-dark-600 text-white font-semibold rounded-lg transition-colors"
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-lg transition-colors"
                   >
                     <svg
                       className="w-4 h-4"
@@ -358,7 +358,7 @@ const balance = await client.getBalance(wallet.address);`}</pre>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
           <Card>
             <CardHeader>
-              <CardTitle>Community & Support</CardTitle>
+              <CardTitle className="text-content">Community & Support</CardTitle>
             </CardHeader>
             <CardContent>
               <ul className="space-y-3">
@@ -367,7 +367,7 @@ const balance = await client.getBalance(wallet.address);`}</pre>
                     href="https://github.com/axionaxprotocol/axionax-core/issues"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-dark-400 hover:text-amber-400 transition-colors flex items-center gap-2"
+                    className="text-muted hover:text-tech-cyan transition-colors flex items-center gap-2"
                   >
                     <svg
                       className="w-5 h-5"
@@ -390,7 +390,7 @@ const balance = await client.getBalance(wallet.address);`}</pre>
                     href={`${DOCS_BASE}/CONTRIBUTING.md`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-dark-400 hover:text-amber-400 transition-colors flex items-center gap-2"
+                    className="text-muted hover:text-tech-cyan transition-colors flex items-center gap-2"
                   >
                     <svg
                       className="w-5 h-5"
@@ -413,7 +413,7 @@ const balance = await client.getBalance(wallet.address);`}</pre>
                     href={`${DOCS_BASE}/SECURITY.md`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-dark-400 hover:text-amber-400 transition-colors flex items-center gap-2"
+                    className="text-muted hover:text-tech-cyan transition-colors flex items-center gap-2"
                   >
                     <svg
                       className="w-5 h-5"
@@ -436,7 +436,7 @@ const balance = await client.getBalance(wallet.address);`}</pre>
                     href={`${DOCS_BASE}/ROADMAP.md`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-dark-400 hover:text-amber-400 transition-colors flex items-center gap-2"
+                    className="text-muted hover:text-tech-cyan transition-colors flex items-center gap-2"
                   >
                     <svg
                       className="w-5 h-5"
@@ -460,48 +460,48 @@ const balance = await client.getBalance(wallet.address);`}</pre>
 
           <Card>
             <CardHeader>
-              <CardTitle>Network Status</CardTitle>
+              <CardTitle className="text-content">Network Status</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                <div className="p-3 bg-amber-500/10 border border-amber-500/20 rounded-lg">
+                <div className="p-3 bg-tech-warning/10 border border-tech-warning/20 rounded-lg">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm font-semibold text-white">
+                    <span className="text-sm font-semibold text-content">
                       Testnet
                     </span>
-                    <span className="px-2 py-1 bg-yellow-500/20 text-yellow-400 text-xs rounded-full">
+                    <span className="px-2 py-1 bg-tech-warning/20 text-tech-warning text-xs rounded-full">
                       Coming Q1 2026
                     </span>
                   </div>
-                  <p className="text-xs text-dark-400">Chain ID: 86137</p>
+                  <p className="text-xs text-muted">Chain ID: 86137</p>
                 </div>
-                <div className="p-3 bg-dark-800 border border-dark-700 rounded-lg">
+                <div className="p-3 bg-white/[0.02] border border-white/10 rounded-lg">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm font-semibold text-white">
+                    <span className="text-sm font-semibold text-content">
                       Mainnet
                     </span>
-                    <span className="px-2 py-1 bg-blue-500/20 text-blue-400 text-xs rounded-full">
+                    <span className="px-2 py-1 bg-tech-cyan/20 text-tech-cyan text-xs rounded-full">
                       Q2 2026
                     </span>
                   </div>
-                  <p className="text-xs text-dark-400">Chain ID: 86150</p>
+                  <p className="text-xs text-muted">Chain ID: 86150</p>
                 </div>
-                <div className="p-3 bg-green-500/10 border border-green-500/20 rounded-lg">
+                <div className="p-3 bg-tech-success/10 border border-tech-success/20 rounded-lg">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm font-semibold text-white">
+                    <span className="text-sm font-semibold text-content">
                       Local Dev
                     </span>
-                    <span className="px-2 py-1 bg-green-500/20 text-green-400 text-xs rounded-full flex items-center gap-1">
-                      <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                    <span className="px-2 py-1 bg-tech-success/20 text-tech-success text-xs rounded-full flex items-center gap-1">
+                      <span className="w-2 h-2 bg-tech-success rounded-full animate-pulse"></span>
                       Active
                     </span>
                   </div>
-                  <p className="text-xs text-dark-400">Chain ID: 31337</p>
+                  <p className="text-xs text-muted">Chain ID: 31337</p>
                   <a
                     href={`${DOCS_BASE}/CHAIN_ID_CONFIGURATION.md`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-xs text-amber-400 hover:underline mt-2 inline-block"
+                    className="text-xs text-tech-warning hover:underline mt-2 inline-block"
                   >
                     Setup Guide →
                   </a>

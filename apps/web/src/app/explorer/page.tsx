@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { RPC_URLS } from '@axionax/blockchain-utils';
-import Card, { CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
 import MockBadge from '@/components/ui/MockBadge';
 
 interface Block {
@@ -150,86 +149,73 @@ export default function Explorer(): React.JSX.Element {
     }
   };
   return (
-    <div className="min-h-screen bg-deep-space relative">
-      <div className="stars" aria-hidden />
-      <div className="container-custom py-8 sm:py-10 relative z-10">
-        <div className="mb-8 text-center">
+    <div className="min-h-screen">
+      <main className="container-custom py-10">
+        <div className="mb-12 text-center">
           <div className="flex flex-wrap items-center justify-center gap-3 mb-4">
-            <h1 className="text-4xl font-bold">
-              <span className="text-horizon">Block Explorer</span>
+            <h1 className="text-3xl md:text-4xl font-bold text-content">
+              Block Explorer
             </h1>
             <MockBadge show={blocksData?.isMock ?? false} label="Blocks" />
           </div>
-          <p className="text-starlight/70 text-lg">
+          <p className="text-muted text-lg">
             Explore blocks, transactions, and addresses on the{' '}
-            <span className="text-horizon-blue">Axionax</span> testnet
+            <span className="text-tech-cyan">Axionax</span> testnet
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <div
-            className="card-cosmic hover:shadow-horizon-sm transition-all duration-300"
+            className="rounded-lg border border-white/10 bg-black-hole/90 backdrop-blur-sm shadow-panel p-6"
             data-testid="latest-block"
           >
-            <CardHeader>
-              <CardTitle className="text-horizon-orange">
-                ⬡ Latest Block
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div
-                className="text-3xl font-bold text-horizon-gold mb-2"
-                data-testid="block-number"
-              >
-                {isLoading
-                  ? '...'
-                  : `#${blocksData?.blocks[0]?.number.toLocaleString() || '0'}`}
-              </div>
-              <div className="text-sm text-starlight/50">
-                {isLoading
-                  ? 'Loading...'
-                  : blocksData?.blocks[0]
-                    ? formatTimestamp(blocksData.blocks[0].timestamp)
-                    : 'N/A'}
-              </div>
-            </CardContent>
+            <div className="text-xs font-semibold text-muted uppercase tracking-wider mb-1">
+              Latest Block
+            </div>
+            <div
+              className="text-2xl font-bold text-content font-mono mb-1"
+              data-testid="block-number"
+            >
+              {isLoading
+                ? '...'
+                : `#${blocksData?.blocks[0]?.number.toLocaleString() || '0'}`}
+            </div>
+            <div className="text-xs text-muted">
+              {isLoading
+                ? 'Loading...'
+                : blocksData?.blocks[0]
+                  ? formatTimestamp(blocksData.blocks[0].timestamp)
+                  : 'N/A'}
+            </div>
           </div>
 
-          <div className="card-cosmic hover:shadow-horizon-sm transition-all duration-300">
-            <CardHeader>
-              <CardTitle className="text-horizon-gold">Total Blocks</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold text-horizon-blue mb-2">
-                {isLoading ? '...' : blocksData?.total.toLocaleString() || '0'}
-              </div>
-              <div className="text-sm text-starlight/50">
-                Since testnet launch
-              </div>
-            </CardContent>
+          <div className="rounded-lg border border-white/10 bg-black-hole/90 backdrop-blur-sm shadow-panel p-6">
+            <div className="text-xs font-semibold text-muted uppercase tracking-wider mb-1">Total Blocks</div>
+            <div className="text-2xl font-bold text-content font-mono mb-1">
+              {isLoading ? '...' : blocksData?.total.toLocaleString() || '0'}
+            </div>
+            <div className="text-xs text-muted">
+              Since testnet launch
+            </div>
           </div>
 
-          <div className="card-cosmic hover:shadow-horizon-sm transition-all duration-300">
-            <CardHeader>
-              <CardTitle className="text-horizon-pink">
-                Active Validators
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold text-green-400 mb-2">2/2</div>
-              <div className="text-sm text-starlight/50">EU + AU regions</div>
-            </CardContent>
+          <div className="rounded-lg border border-white/10 bg-black-hole/90 backdrop-blur-sm shadow-panel p-6">
+            <div className="text-xs font-semibold text-muted uppercase tracking-wider mb-1">
+              Active Validators
+            </div>
+            <div className="text-2xl font-bold text-tech-success font-mono mb-1">2/2</div>
+            <div className="text-xs text-muted">EU + AU regions</div>
           </div>
         </div>
 
         {/* Search Section */}
-        <div className="card-cosmic mb-8">
-          <CardHeader>
-            <CardTitle className="text-horizon-blue">
+        <div className="card-panel mb-8">
+          <div className="p-6 border-b border-white/10">
+            <h2 className="text-lg font-semibold text-content">
               🔍 Search the Cosmos
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
+            </h2>
+          </div>
+          <div className="p-6">
             <div className="flex flex-col md:flex-row gap-4">
               <input
                 type="text"
@@ -237,44 +223,44 @@ export default function Explorer(): React.JSX.Element {
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
                 placeholder="Search by address (0x...) or transaction hash..."
-                className="flex-1 px-4 py-3 bg-void border border-amber-500/30 rounded-lg text-starlight placeholder-starlight/30 focus:outline-none focus:border-amber-500 focus:shadow-horizon-sm font-mono text-sm transition-all"
+                className="flex-1 px-4 py-3 bg-black-hole border border-white/10 rounded-lg text-content placeholder-muted focus:outline-none focus:border-tech-cyan focus:ring-1 focus:ring-tech-cyan/20 font-mono text-sm transition-all"
               />
               <button
                 onClick={handleSearch}
                 disabled={isSearching || !searchQuery.trim()}
-                className="btn-horizon disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-6 py-3 bg-tech-cyan/20 hover:bg-tech-cyan/30 text-tech-cyan font-semibold rounded-lg border border-tech-cyan/30 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isSearching ? 'Searching...' : 'Search'}
               </button>
             </div>
 
             {searchError && (
-              <div className="mt-4 p-4 bg-horizon-pink/10 border border-horizon-pink/30 rounded-lg text-horizon-pink">
+              <div className="mt-4 p-4 bg-tech-error/10 border border-tech-error/20 rounded-lg text-tech-error">
                 ❌ {searchError}
               </div>
             )}
 
             {searchResult && searchType === 'address' && (
-              <div className="mt-4 p-6 bg-void rounded-lg border border-amber-500/30">
-                <h3 className="text-lg font-semibold text-horizon-gold mb-4">
+              <div className="mt-4 p-6 bg-white/[0.02] rounded-lg border border-white/10">
+                <h3 className="text-lg font-semibold text-content mb-4">
                   📍 Address Details
                 </h3>
-                <div className="space-y-3">
+                <div className="space-y-3 font-mono text-sm">
                   <div>
-                    <span className="text-starlight/50">Address:</span>
-                    <span className="ml-2 font-mono text-starlight break-all">
+                    <span className="text-muted">Address:</span>
+                    <span className="ml-2 text-content break-all">
                       {searchResult.address}
                     </span>
                   </div>
                   <div>
-                    <span className="text-starlight/50">Balance:</span>
-                    <span className="ml-2 font-bold text-horizon-gold">
+                    <span className="text-muted">Balance:</span>
+                    <span className="ml-2 font-bold text-tech-cyan">
                       {searchResult.balance} AXX
                     </span>
                   </div>
                   <div>
-                    <span className="text-starlight/50">Nonce:</span>
-                    <span className="ml-2 text-starlight">
+                    <span className="text-muted">Nonce:</span>
+                    <span className="ml-2 text-content">
                       {searchResult.nonce}
                     </span>
                   </div>
@@ -283,61 +269,61 @@ export default function Explorer(): React.JSX.Element {
             )}
 
             {searchResult && searchType === 'tx' && (
-              <div className="mt-4 p-6 bg-void rounded-lg border border-amber-500/30">
-                <h3 className="text-lg font-semibold text-horizon-blue mb-4">
+              <div className="mt-4 p-6 bg-white/[0.02] rounded-lg border border-white/10">
+                <h3 className="text-lg font-semibold text-content mb-4">
                   📜 Transaction Details
                 </h3>
-                <div className="space-y-3 text-sm">
+                <div className="space-y-3 text-sm font-mono">
                   <div>
-                    <span className="text-starlight/50">Hash:</span>
-                    <span className="ml-2 font-mono text-starlight break-all">
+                    <span className="text-muted">Hash:</span>
+                    <span className="ml-2 text-content break-all">
                       {searchResult.hash}
                     </span>
                   </div>
                   <div>
-                    <span className="text-starlight/50">Block:</span>
-                    <span className="ml-2 text-horizon-gold">
+                    <span className="text-muted">Block:</span>
+                    <span className="ml-2 text-tech-cyan">
                       #{parseInt(searchResult.blockNumber, 16).toLocaleString()}
                     </span>
                   </div>
                   <div>
-                    <span className="text-starlight/50">From:</span>
-                    <span className="ml-2 font-mono text-starlight break-all">
+                    <span className="text-muted">From:</span>
+                    <span className="ml-2 text-content break-all">
                       {searchResult.from}
                     </span>
                   </div>
                   <div>
-                    <span className="text-starlight/50">To:</span>
-                    <span className="ml-2 font-mono text-starlight break-all">
+                    <span className="text-muted">To:</span>
+                    <span className="ml-2 text-content break-all">
                       {searchResult.to || 'Contract Creation'}
                     </span>
                   </div>
                   <div>
-                    <span className="text-starlight/50">Value:</span>
-                    <span className="ml-2 font-bold text-horizon-gold">
+                    <span className="text-muted">Value:</span>
+                    <span className="ml-2 font-bold text-tech-cyan">
                       {(parseInt(searchResult.value, 16) / 1e18).toFixed(4)} AXX
                     </span>
                   </div>
                   <div>
-                    <span className="text-starlight/50">Gas:</span>
-                    <span className="ml-2 text-starlight">
+                    <span className="text-muted">Gas:</span>
+                    <span className="ml-2 text-content">
                       {parseInt(searchResult.gas, 16).toLocaleString()}
                     </span>
                   </div>
                 </div>
               </div>
             )}
-          </CardContent>
+          </div>
         </div>
 
-        <div className="card-cosmic">
-          <CardHeader>
-            <CardTitle className="text-horizon">⬡ Recent Blocks</CardTitle>
-          </CardHeader>
-          <CardContent>
+        <div className="card-panel">
+          <div className="p-6 border-b border-white/10">
+            <h2 className="text-lg font-semibold text-content">⬡ Recent Blocks</h2>
+          </div>
+          <div className="p-6">
             {isLoading ? (
-              <div className="text-center py-8 text-starlight/50">
-                <div className="loading-spinner w-8 h-8 mx-auto mb-2"></div>
+              <div className="text-center py-8 text-muted">
+                <div className="loading-spinner w-8 h-8 mx-auto mb-2 border-tech-cyan border-t-transparent"></div>
                 Loading blocks from the cosmos...
               </div>
             ) : blocksData?.blocks && blocksData.blocks.length > 0 ? (
@@ -345,30 +331,30 @@ export default function Explorer(): React.JSX.Element {
                 {blocksData.blocks.map((block) => (
                   <div
                     key={block.number}
-                    className="flex flex-col md:flex-row md:items-center md:justify-between p-4 bg-void rounded-lg border border-amber-500/30/20 hover:border-amber-500/50 hover:shadow-horizon-sm transition-all duration-300 gap-3"
+                    className="flex flex-col md:flex-row md:items-center md:justify-between p-4 bg-white/[0.02] rounded-lg border border-white/5 hover:border-white/10 transition-all duration-300 gap-3"
                   >
                     <div className="flex items-center gap-4">
-                      <div className="text-horizon-orange font-mono text-lg">
+                      <div className="text-tech-cyan font-mono text-lg">
                         #{block.number.toLocaleString()}
                       </div>
-                      <div className="text-starlight/50 text-sm">
+                      <div className="text-muted text-sm">
                         {formatTimestamp(block.timestamp)}
                       </div>
                     </div>
                     <div className="flex items-center gap-4 text-sm">
                       <div>
-                        <span className="text-starlight/40">Txs:</span>{' '}
-                        <span className="text-horizon-blue">
+                        <span className="text-muted">Txs:</span>{' '}
+                        <span className="text-content">
                           {block.txCount}
                         </span>
                       </div>
                       <div>
-                        <span className="text-starlight/40">Gas:</span>{' '}
-                        <span className="text-horizon-gold">
+                        <span className="text-muted">Gas:</span>{' '}
+                        <span className="text-tech-warning">
                           {(parseInt(block.gasUsed) / 1_000_000).toFixed(2)}M
                         </span>
                       </div>
-                      <div className="hidden md:block font-mono text-xs text-starlight/30">
+                      <div className="hidden md:block font-mono text-xs text-muted/50">
                         {block.hash.slice(0, 10)}...{block.hash.slice(-8)}
                       </div>
                     </div>
@@ -376,20 +362,20 @@ export default function Explorer(): React.JSX.Element {
                 ))}
               </div>
             ) : (
-              <div className="text-center py-8 text-starlight/50">
+              <div className="text-center py-8 text-muted">
                 No blocks found in this dimension
               </div>
             )}
-          </CardContent>
+          </div>
         </div>
 
         <div className="mt-8 text-center">
-          <p className="text-starlight/40 text-sm">
+          <p className="text-muted text-sm">
             🌌 Explorer connected to live validators (EU + AU). Search for
             addresses or transactions above.
           </p>
         </div>
-      </div>
+      </main>
     </div>
   );
 }

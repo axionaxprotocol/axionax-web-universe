@@ -91,10 +91,10 @@ export default function Hero(): React.JSX.Element {
         <div className="max-w-4xl mx-auto text-center">
           {/* Badge */}
           <div className="mb-8 animate-fade-in-up">
-            <span className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-amber-900/30 to-yellow-900/30 border border-amber-500/40 rounded-full text-amber-100 text-sm font-medium backdrop-blur-sm shadow-lg shadow-amber-500/10">
-              <span className="relative flex h-2.5 w-2.5">
+            <span className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-amber-900/40 to-yellow-900/40 border border-amber-500/60 rounded-full text-amber-100 text-sm font-medium backdrop-blur-md shadow-[0_0_15px_rgba(255,165,0,0.3)] hover:shadow-[0_0_25px_rgba(255,165,0,0.5)] transition-shadow duration-300">
+              <span className="relative flex h-3 w-3">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-gradient-to-r from-amber-400 to-yellow-500"></span>
+                <span className="relative inline-flex rounded-full h-3 w-3 bg-gradient-to-r from-amber-400 to-yellow-500 shadow-[0_0_10px_rgba(255,215,0,0.8)]"></span>
               </span>
               🔥 Testnet Live • 2 Validators • Chain ID 86137
             </span>
@@ -102,12 +102,16 @@ export default function Hero(): React.JSX.Element {
 
           {/* Main Heading - single line on md+ for cleaner look */}
           <h1 className="mb-6 animate-fade-in-up animation-delay-200 text-balance lg:whitespace-nowrap">
-            <span className="text-starlight">Welcome to the </span>
+            <span className="text-starlight drop-shadow-lg">Welcome to the </span>
             <span
-              className="bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent"
-              style={{ textShadow: '0 0 40px rgba(255,215,0,0.3)' }}
+              className="bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent relative inline-block"
+              style={{ 
+                textShadow: '0 0 60px rgba(255,215,0,0.4)',
+                filter: 'drop-shadow(0 0 2px rgba(255,215,0,0.2))'
+              }}
             >
               Golden Era
+              <div className="absolute -inset-1 blur-2xl bg-gradient-to-r from-amber-500/20 via-yellow-500/20 to-amber-600/20 -z-10 opacity-50 animate-pulse"></div>
             </span>
           </h1>
 

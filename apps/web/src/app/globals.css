@@ -221,6 +221,10 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
   }
 
+  .card-panel {
+    @apply rounded-lg border border-white/10 bg-black-hole/90 backdrop-blur-sm shadow-panel overflow-hidden;
+  }
+
   .card-hover {
     @apply card hover:border-white/20 hover:shadow-[0_4px_12px_rgba(0,0,0,0.25)];
   }

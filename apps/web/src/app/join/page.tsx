@@ -123,8 +123,8 @@ export default function JoinNetworkPage() {
   const renderChooseStep = () => (
     <div className="space-y-8">
       <div className="text-center">
-        <h2 className="text-3xl font-bold text-white mb-4">Choose Node Type</h2>
-        <p className="text-dark-400">Select the type of node you want to run</p>
+        <h2 className="text-3xl font-bold text-content mb-4">Choose Node Type</h2>
+        <p className="text-muted">Select the type of node you want to run</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -137,25 +137,25 @@ export default function JoinNetworkPage() {
           <button
             key={type}
             onClick={() => handleNodeSelect(type)}
-            className="text-left p-6 bg-dark-800/50 border border-dark-700 rounded-2xl hover:border-amber-500/50 hover:bg-dark-800 transition-all group"
+            className="text-left p-6 bg-white/[0.02] border border-white/10 rounded-xl hover:border-tech-cyan/50 hover:bg-white/[0.05] transition-all group"
           >
-            <h3 className="text-xl font-bold text-white mb-2 group-hover:text-amber-400 transition-colors">
+            <h3 className="text-xl font-bold text-content mb-2 group-hover:text-tech-cyan transition-colors">
               {info.title}
             </h3>
-            <p className="text-dark-400 text-sm mb-4">{info.description}</p>
+            <p className="text-muted text-sm mb-4">{info.description}</p>
             <div className="space-y-1">
               {info.benefits.slice(0, 3).map((benefit, i) => (
                 <div
                   key={i}
-                  className="text-xs text-dark-500 flex items-center gap-1"
+                  className="text-xs text-muted/80 flex items-center gap-1"
                 >
-                  <span className="text-green-400">✓</span> {benefit}
+                  <span className="text-tech-success">✓</span> {benefit}
                 </div>
               ))}
             </div>
-            <div className="mt-4 pt-4 border-t border-dark-700">
-              <div className="text-xs text-dark-500">Minimum Stake</div>
-              <div className="text-amber-400 font-semibold">
+            <div className="mt-4 pt-4 border-t border-white/10">
+              <div className="text-xs text-muted/60">Minimum Stake</div>
+              <div className="text-tech-warning font-semibold">
                 {NODE_REQUIREMENTS[type].stake}
               </div>
             </div>
@@ -175,28 +175,28 @@ export default function JoinNetworkPage() {
         <div className="flex items-center gap-4">
           <button
             onClick={() => setStep('choose')}
-            className="text-dark-400 hover:text-white transition-colors"
+            className="text-muted hover:text-content transition-colors"
           >
             Back
           </button>
           <div>
-            <h2 className="text-3xl font-bold text-white flex items-center gap-3">
+            <h2 className="text-3xl font-bold text-content flex items-center gap-3">
               {info.title}
             </h2>
-            <p className="text-dark-400">
+            <p className="text-muted">
               Check requirements before installing
             </p>
           </div>
         </div>
 
         {/* Requirements Table */}
-        <div className="bg-dark-900/50 border border-dark-800 rounded-2xl overflow-hidden">
-          <div className="p-4 border-b border-dark-800">
-            <h3 className="text-lg font-semibold text-white">
+        <div className="bg-white/[0.02] border border-white/10 rounded-xl overflow-hidden">
+          <div className="p-4 border-b border-white/10">
+            <h3 className="text-lg font-semibold text-content">
               System Requirements
             </h3>
           </div>
-          <div className="divide-y divide-dark-800">
+          <div className="divide-y divide-white/5">
             {[
               { label: 'CPU', ...requirements.cpu },
               { label: 'RAM', ...requirements.ram },
@@ -205,44 +205,44 @@ export default function JoinNetworkPage() {
             ].map((req) => (
               <div key={req.label} className="flex items-center p-4">
                 <div className="flex-1">
-                  <div className="text-white font-medium">{req.label}</div>
+                  <div className="text-content font-medium">{req.label}</div>
                 </div>
                 <div className="flex-1 text-center">
-                  <div className="text-xs text-dark-500 mb-1">Minimum</div>
-                  <div className="text-dark-300">{req.min}</div>
+                  <div className="text-xs text-muted/60 mb-1">Minimum</div>
+                  <div className="text-muted">{req.min}</div>
                 </div>
                 <div className="flex-1 text-center">
-                  <div className="text-xs text-dark-500 mb-1">Recommended</div>
-                  <div className="text-green-400">{req.recommended}</div>
+                  <div className="text-xs text-muted/60 mb-1">Recommended</div>
+                  <div className="text-tech-success">{req.recommended}</div>
                 </div>
               </div>
             ))}
             <div className="flex items-center p-4">
               <div className="w-24 text-2xl">🔓</div>
               <div className="flex-1">
-                <div className="text-white font-medium">Public IP</div>
+                <div className="text-content font-medium">Public IP</div>
               </div>
               <div className="flex-1 text-center">
                 <span
                   className={
-                    requirements.publicIp ? 'text-amber-400' : 'text-green-400'
+                    requirements.publicIp ? 'text-tech-warning' : 'text-tech-success'
                   }
                 >
                   {requirements.publicIp ? 'Required' : 'Not required'}
                 </span>
               </div>
               <div className="flex-1 text-center">
-                <span className="text-dark-400">Static IP preferred</span>
+                <span className="text-muted">Static IP preferred</span>
               </div>
             </div>
-            <div className="flex items-center p-4 bg-amber-500/5">
+            <div className="flex items-center p-4 bg-tech-warning/5">
               <div className="w-24 text-2xl">💰</div>
               <div className="flex-1">
-                <div className="text-white font-medium">Stake Required</div>
+                <div className="text-content font-medium">Stake Required</div>
               </div>
               <div className="flex-1 text-center" />
               <div className="flex-1 text-center">
-                <div className="text-amber-400 font-bold">
+                <div className="text-tech-warning font-bold">
                   {requirements.stake}
                 </div>
               </div>
@@ -251,14 +251,14 @@ export default function JoinNetworkPage() {
         </div>
 
         {/* Benefits */}
-        <div className="bg-green-500/10 border border-green-500/30 rounded-2xl p-6">
-          <h3 className="text-lg font-semibold text-green-400 mb-4">
+        <div className="bg-tech-success/10 border border-tech-success/30 rounded-xl p-6">
+          <h3 className="text-lg font-semibold text-tech-success mb-4">
             ✨ Benefits
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {info.benefits.map((benefit, i) => (
-              <div key={i} className="flex items-center gap-2 text-dark-300">
-                <span className="text-green-400">✓</span> {benefit}
+              <div key={i} className="flex items-center gap-2 text-muted">
+                <span className="text-tech-success">✓</span> {benefit}
               </div>
             ))}
           </div>
@@ -268,7 +268,7 @@ export default function JoinNetworkPage() {
         <div className="flex gap-4">
           <button
             onClick={() => setStep('setup')}
-            className="flex-1 py-4 bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-500 text-white font-semibold rounded-xl transition-all"
+            className="flex-1 py-4 bg-tech-cyan hover:bg-tech-cyan-hover text-white font-semibold rounded-xl transition-all shadow-glow"
           >
             Server ready — proceed to next step
           </button>
@@ -346,68 +346,68 @@ sudo nginx -t && sudo systemctl reload nginx`,
         <div className="flex items-center gap-4">
           <button
             onClick={() => setStep('requirements')}
-            className="text-dark-400 hover:text-white transition-colors"
+            className="text-muted hover:text-content transition-colors"
           >
             Back
           </button>
           <div>
-            <h2 className="text-3xl font-bold text-white">
+            <h2 className="text-3xl font-bold text-content">
               🔧 Setup Instructions
             </h2>
-            <p className="text-dark-400">
+            <p className="text-muted">
               ทำตามขั้นตอนเพื่อติดตั้ง {NODE_DESCRIPTIONS[nodeType].title}
             </p>
           </div>
         </div>
 
         {/* Quick Setup */}
-        <div className="bg-dark-900/50 border border-dark-800 rounded-2xl overflow-hidden">
-          <div className="flex items-center justify-between p-4 border-b border-dark-800">
-            <h3 className="text-lg font-semibold text-white">
+        <div className="bg-white/[0.02] border border-white/10 rounded-xl overflow-hidden">
+          <div className="flex items-center justify-between p-4 border-b border-white/10">
+            <h3 className="text-lg font-semibold text-content">
               📜 Setup Commands
             </h3>
             <button
               onClick={() =>
                 copyToClipboard(setupCommands[nodeType], 'commands')
               }
-              className="px-4 py-2 bg-dark-700 hover:bg-dark-600 rounded-lg text-sm text-white transition-colors"
+              className="px-4 py-2 bg-white/5 hover:bg-white/10 rounded-lg text-sm text-white transition-colors"
             >
               {copied === 'commands' ? '✅ Copied!' : '📋 Copy All'}
             </button>
           </div>
-          <pre className="p-4 overflow-x-auto text-sm">
-            <code className="text-green-400">{setupCommands[nodeType]}</code>
+          <pre className="p-4 overflow-x-auto text-sm bg-black/50">
+            <code className="text-tech-success">{setupCommands[nodeType]}</code>
           </pre>
         </div>
 
         {/* Configuration Files */}
-        <div className="bg-dark-900/50 border border-dark-800 rounded-2xl p-6">
-          <h3 className="text-lg font-semibold text-white mb-4">
+        <div className="bg-white/[0.02] border border-white/10 rounded-xl p-6">
+          <h3 className="text-lg font-semibold text-content mb-4">
             ⚙️ Configuration
           </h3>
           <div className="space-y-4">
             <div>
-              <label className="block text-sm text-dark-400 mb-2">
+              <label className="block text-sm text-muted mb-2">
                 Chain ID
               </label>
               <div className="flex items-center gap-2">
-                <code className="flex-1 bg-dark-800 rounded-lg px-4 py-3 font-mono text-white">
+                <code className="flex-1 bg-black/50 border border-white/5 rounded-lg px-4 py-3 font-mono text-content">
                   86137
                 </code>
                 <button
                   onClick={() => copyToClipboard('86137', 'chainId')}
-                  className="px-3 py-3 bg-dark-700 hover:bg-dark-600 rounded-lg text-sm"
+                  className="px-3 py-3 bg-white/5 hover:bg-white/10 rounded-lg text-sm text-muted hover:text-content"
                 >
                   {copied === 'chainId' ? '✅' : '📋'}
                 </button>
               </div>
             </div>
             <div>
-              <label className="block text-sm text-dark-400 mb-2">
+              <label className="block text-sm text-muted mb-2">
                 Bootnode (P2P)
               </label>
               <div className="flex items-center gap-2">
-                <code className="flex-1 bg-dark-800 rounded-lg px-4 py-3 font-mono text-xs text-white overflow-x-auto">
+                <code className="flex-1 bg-black/50 border border-white/5 rounded-lg px-4 py-3 font-mono text-xs text-content overflow-x-auto">
                   enode://abc123...@217.76.61.116:30303
                 </code>
                 <button
@@ -417,25 +417,25 @@ sudo nginx -t && sudo systemctl reload nginx`,
                       'bootnode'
                     )
                   }
-                  className="px-3 py-3 bg-dark-700 hover:bg-dark-600 rounded-lg text-sm"
+                  className="px-3 py-3 bg-white/5 hover:bg-white/10 rounded-lg text-sm text-muted hover:text-content"
                 >
                   {copied === 'bootnode' ? '✅' : '📋'}
                 </button>
               </div>
             </div>
             <div>
-              <label className="block text-sm text-dark-400 mb-2">
+              <label className="block text-sm text-muted mb-2">
                 RPC Endpoint
               </label>
               <div className="flex items-center gap-2">
-                <code className="flex-1 bg-dark-800 rounded-lg px-4 py-3 font-mono text-white">
+                <code className="flex-1 bg-black/50 border border-white/5 rounded-lg px-4 py-3 font-mono text-content">
                   https://testnet-rpc.axionax.org
                 </code>
                 <button
                   onClick={() =>
                     copyToClipboard('https://testnet-rpc.axionax.org', 'rpc')
                   }
-                  className="px-3 py-3 bg-dark-700 hover:bg-dark-600 rounded-lg text-sm"
+                  className="px-3 py-3 bg-white/5 hover:bg-white/10 rounded-lg text-sm text-muted hover:text-content"
                 >
                   {copied === 'rpc' ? '✅' : '📋'}
                 </button>
@@ -445,25 +445,25 @@ sudo nginx -t && sudo systemctl reload nginx`,
         </div>
 
         {/* Important Notes */}
-        <div className="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-6">
-          <h3 className="text-lg font-semibold text-amber-400 mb-3">
+        <div className="bg-tech-warning/5 border border-tech-warning/20 rounded-xl p-6">
+          <h3 className="text-lg font-semibold text-tech-warning mb-3">
             ⚠️ Important Notes
           </h3>
-          <ul className="space-y-2 text-dark-300 text-sm">
+          <ul className="space-y-2 text-muted text-sm">
             <li className="flex items-start gap-2">
-              <span className="text-amber-400">•</span>
+              <span className="text-tech-warning">•</span>
               Back up private keys and recovery phrase securely
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-amber-400">•</span>
+              <span className="text-tech-warning">•</span>
               Ensure required ports are open (8545, 30303)
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-amber-400">•</span>
+              <span className="text-tech-warning">•</span>
               Use firewall and security best practices
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-amber-400">•</span>
+              <span className="text-tech-warning">•</span>
               Monitor node with Prometheus + Grafana (optional)
             </li>
           </ul>
@@ -473,7 +473,7 @@ sudo nginx -t && sudo systemctl reload nginx`,
         <div className="flex gap-4">
           <button
             onClick={() => setStep('register')}
-            className="flex-1 py-4 bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-500 text-white font-semibold rounded-xl transition-all"
+            className="flex-1 py-4 bg-tech-cyan hover:bg-tech-cyan-hover text-white font-semibold rounded-xl transition-all shadow-glow"
           >
             Installation complete — register your node
           </button>
@@ -490,17 +490,17 @@ sudo nginx -t && sudo systemctl reload nginx`,
         <div className="flex items-center gap-4">
           <button
             onClick={() => setStep('setup')}
-            className="text-dark-400 hover:text-white transition-colors"
+            className="text-muted hover:text-content transition-colors"
           >
             Back
           </button>
           <div>
-            <h2 className="text-3xl font-bold text-white">Register Node</h2>
-            <p className="text-dark-400">Fill in your node details</p>
+            <h2 className="text-3xl font-bold text-content">Register Node</h2>
+            <p className="text-muted">Fill in your node details</p>
           </div>
         </div>
 
-        <div className="bg-dark-900/50 border border-dark-800 rounded-2xl p-6">
+        <div className="bg-white/[0.02] border border-white/10 rounded-xl p-6">
           <form
             className="space-y-6"
             onSubmit={(e) => {
@@ -510,7 +510,7 @@ sudo nginx -t && sudo systemctl reload nginx`,
           >
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm text-dark-400 mb-2">
+                <label className="block text-sm text-muted mb-2">
                   Node Name *
                 </label>
                 <input
@@ -521,11 +521,11 @@ sudo nginx -t && sudo systemctl reload nginx`,
                   }
                   placeholder="My Validator Node"
                   required
-                  className="w-full bg-dark-800 border border-dark-700 rounded-lg px-4 py-3 text-white placeholder-dark-500 focus:border-amber-500 focus:outline-none"
+                  className="w-full input-primary"
                 />
               </div>
               <div>
-                <label className="block text-sm text-dark-400 mb-2">
+                <label className="block text-sm text-muted mb-2">
                   Operator Name *
                 </label>
                 <input
@@ -536,11 +536,11 @@ sudo nginx -t && sudo systemctl reload nginx`,
                   }
                   placeholder="John Doe"
                   required
-                  className="w-full bg-dark-800 border border-dark-700 rounded-lg px-4 py-3 text-white placeholder-dark-500 focus:border-amber-500 focus:outline-none"
+                  className="w-full input-primary"
                 />
               </div>
               <div>
-                <label className="block text-sm text-dark-400 mb-2">
+                <label className="block text-sm text-muted mb-2">
                   Email *
                 </label>
                 <input
@@ -551,11 +551,11 @@ sudo nginx -t && sudo systemctl reload nginx`,
                   }
                   placeholder="operator@example.com"
                   required
-                  className="w-full bg-dark-800 border border-dark-700 rounded-lg px-4 py-3 text-white placeholder-dark-500 focus:border-amber-500 focus:outline-none"
+                  className="w-full input-primary"
                 />
               </div>
               <div>
-                <label className="block text-sm text-dark-400 mb-2">
+                <label className="block text-sm text-muted mb-2">
                   Website (optional)
                 </label>
                 <input
@@ -565,11 +565,11 @@ sudo nginx -t && sudo systemctl reload nginx`,
                     setFormData({ ...formData, website: e.target.value })
                   }
                   placeholder="https://..."
-                  className="w-full bg-dark-800 border border-dark-700 rounded-lg px-4 py-3 text-white placeholder-dark-500 focus:border-amber-500 focus:outline-none"
+                  className="w-full input-primary"
                 />
               </div>
               <div className="md:col-span-2">
-                <label className="block text-sm text-dark-400 mb-2">
+                <label className="block text-sm text-muted mb-2">
                   Wallet Address *
                 </label>
                 <input
@@ -581,15 +581,15 @@ sudo nginx -t && sudo systemctl reload nginx`,
                   placeholder="0x..."
                   required
                   pattern="^0x[a-fA-F0-9]{40}$"
-                  className="w-full bg-dark-800 border border-dark-700 rounded-lg px-4 py-3 text-white placeholder-dark-500 focus:border-amber-500 focus:outline-none font-mono"
+                  className="w-full input-primary font-mono"
                 />
-                <p className="text-xs text-dark-500 mt-1">
+                <p className="text-xs text-muted/60 mt-1">
                   This address will receive rewards and must have stake{' '}
                   {NODE_REQUIREMENTS[nodeType].stake}
                 </p>
               </div>
               <div>
-                <label className="block text-sm text-dark-400 mb-2">
+                <label className="block text-sm text-muted mb-2">
                   Server IP *
                 </label>
                 <input
@@ -600,11 +600,11 @@ sudo nginx -t && sudo systemctl reload nginx`,
                   }
                   placeholder="123.456.789.0"
                   required
-                  className="w-full bg-dark-800 border border-dark-700 rounded-lg px-4 py-3 text-white placeholder-dark-500 focus:border-amber-500 focus:outline-none font-mono"
+                  className="w-full input-primary font-mono"
                 />
               </div>
               <div>
-                <label className="block text-sm text-dark-400 mb-2">
+                <label className="block text-sm text-muted mb-2">
                   Location
                 </label>
                 <select
@@ -612,7 +612,7 @@ sudo nginx -t && sudo systemctl reload nginx`,
                   onChange={(e) =>
                     setFormData({ ...formData, location: e.target.value })
                   }
-                  className="w-full bg-dark-800 border border-dark-700 rounded-lg px-4 py-3 text-white focus:border-amber-500 focus:outline-none"
+                  className="w-full input-primary"
                 >
                   <option value="">-- Select Region --</option>
                   <option value="asia-southeast">🇹🇭 Asia Southeast</option>
@@ -626,7 +626,7 @@ sudo nginx -t && sudo systemctl reload nginx`,
                 </select>
               </div>
               <div>
-                <label className="block text-sm text-dark-400 mb-2">
+                <label className="block text-sm text-muted mb-2">
                   RPC Port
                 </label>
                 <input
@@ -636,11 +636,11 @@ sudo nginx -t && sudo systemctl reload nginx`,
                     setFormData({ ...formData, rpcPort: e.target.value })
                   }
                   placeholder="8545"
-                  className="w-full bg-dark-800 border border-dark-700 rounded-lg px-4 py-3 text-white placeholder-dark-500 focus:border-amber-500 focus:outline-none font-mono"
+                  className="w-full input-primary font-mono"
                 />
               </div>
               <div>
-                <label className="block text-sm text-dark-400 mb-2">
+                <label className="block text-sm text-muted mb-2">
                   P2P Port
                 </label>
                 <input
@@ -650,13 +650,13 @@ sudo nginx -t && sudo systemctl reload nginx`,
                     setFormData({ ...formData, p2pPort: e.target.value })
                   }
                   placeholder="30303"
-                  className="w-full bg-dark-800 border border-dark-700 rounded-lg px-4 py-3 text-white placeholder-dark-500 focus:border-amber-500 focus:outline-none font-mono"
+                  className="w-full input-primary font-mono"
                 />
               </div>
             </div>
 
             {/* Terms */}
-            <label className="flex items-start gap-3 p-4 bg-dark-800/50 rounded-xl cursor-pointer">
+            <label className="flex items-start gap-3 p-4 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:bg-white/10 transition-colors">
               <input
                 type="checkbox"
                 checked={formData.acceptedTerms}
@@ -664,13 +664,13 @@ sudo nginx -t && sudo systemctl reload nginx`,
                   setFormData({ ...formData, acceptedTerms: e.target.checked })
                 }
                 required
-                className="mt-1 w-5 h-5 rounded border-dark-600 bg-dark-700 text-amber-500 focus:ring-amber-500"
+                className="mt-1 w-5 h-5 rounded border-white/20 bg-black/50 text-tech-cyan focus:ring-tech-cyan"
               />
-              <span className="text-sm text-dark-300">
+              <span className="text-sm text-muted">
                 I accept{' '}
                 <Link
                   href="/docs"
-                  className="text-amber-400 hover:text-amber-300"
+                  className="text-tech-cyan hover:text-tech-cyan-hover"
                 >
                   Terms of Service
                 </Link>{' '}
@@ -682,7 +682,7 @@ sudo nginx -t && sudo systemctl reload nginx`,
             <button
               type="submit"
               disabled={!formData.acceptedTerms}
-              className="w-full py-4 bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-500 disabled:from-dark-700 disabled:to-dark-700 text-white font-semibold rounded-xl transition-all"
+              className="w-full py-4 bg-tech-cyan hover:bg-tech-cyan-hover disabled:bg-white/5 disabled:text-muted disabled:shadow-none text-white font-semibold rounded-xl transition-all shadow-glow"
             >
               Register {NODE_DESCRIPTIONS[nodeType].title}
             </button>
@@ -699,21 +699,21 @@ sudo nginx -t && sudo systemctl reload nginx`,
       <div className="space-y-8">
         <div className="text-center py-8">
           <div className="text-6xl mb-4">🎉</div>
-          <h2 className="text-3xl font-bold text-white mb-2">
+          <h2 className="text-3xl font-bold text-content mb-2">
             Registration submitted!
           </h2>
-          <p className="text-dark-400">
+          <p className="text-muted">
             Your {NODE_DESCRIPTIONS[nodeType].title} is pending verification
           </p>
         </div>
 
-        <div className="bg-green-500/10 border border-green-500/30 rounded-2xl p-6">
-          <h3 className="text-lg font-semibold text-green-400 mb-4">
+        <div className="bg-tech-success/10 border border-tech-success/30 rounded-2xl p-6">
+          <h3 className="text-lg font-semibold text-tech-success mb-4">
             Next steps
           </h3>
-          <ol className="space-y-3 text-dark-300">
+          <ol className="space-y-3 text-muted">
             <li className="flex items-start gap-3">
-              <span className="w-6 h-6 bg-green-500/20 rounded-full flex items-center justify-center text-green-400 text-sm shrink-0">
+              <span className="w-6 h-6 bg-tech-success/20 rounded-full flex items-center justify-center text-tech-success text-sm shrink-0">
                 1
               </span>
               <div>
@@ -722,7 +722,7 @@ sudo nginx -t && sudo systemctl reload nginx`,
               </div>
             </li>
             <li className="flex items-start gap-3">
-              <span className="w-6 h-6 bg-green-500/20 rounded-full flex items-center justify-center text-green-400 text-sm shrink-0">
+              <span className="w-6 h-6 bg-tech-success/20 rounded-full flex items-center justify-center text-tech-success text-sm shrink-0">
                 2
               </span>
               <div>
@@ -731,7 +731,7 @@ sudo nginx -t && sudo systemctl reload nginx`,
               </div>
             </li>
             <li className="flex items-start gap-3">
-              <span className="w-6 h-6 bg-green-500/20 rounded-full flex items-center justify-center text-green-400 text-sm shrink-0">
+              <span className="w-6 h-6 bg-tech-success/20 rounded-full flex items-center justify-center text-tech-success text-sm shrink-0">
                 3
               </span>
               <div>
@@ -740,7 +740,7 @@ sudo nginx -t && sudo systemctl reload nginx`,
               </div>
             </li>
             <li className="flex items-start gap-3">
-              <span className="w-6 h-6 bg-green-500/20 rounded-full flex items-center justify-center text-green-400 text-sm shrink-0">
+              <span className="w-6 h-6 bg-tech-success/20 rounded-full flex items-center justify-center text-tech-success text-sm shrink-0">
                 4
               </span>
               <div>
@@ -752,36 +752,36 @@ sudo nginx -t && sudo systemctl reload nginx`,
         </div>
 
         {/* Node Info Summary */}
-        <div className="bg-dark-900/50 border border-dark-800 rounded-2xl p-6">
-          <h3 className="text-lg font-semibold text-white mb-4">
+        <div className="bg-white/[0.02] border border-white/10 rounded-xl p-6">
+          <h3 className="text-lg font-semibold text-content mb-4">
             Node details
           </h3>
           <div className="grid grid-cols-2 gap-4 text-sm">
             <div>
-              <span className="text-dark-400">Node Name:</span>
-              <span className="ml-2 text-white">{formData.nodeName}</span>
+              <span className="text-muted">Node Name:</span>
+              <span className="ml-2 text-content">{formData.nodeName}</span>
             </div>
             <div>
-              <span className="text-dark-400">Type:</span>
-              <span className="ml-2 text-white">
+              <span className="text-muted">Type:</span>
+              <span className="ml-2 text-content">
                 {NODE_DESCRIPTIONS[nodeType].title}
               </span>
             </div>
             <div>
-              <span className="text-dark-400">Server IP:</span>
-              <span className="ml-2 text-white font-mono">
+              <span className="text-muted">Server IP:</span>
+              <span className="ml-2 text-content font-mono">
                 {formData.serverIp}
               </span>
             </div>
             <div>
-              <span className="text-dark-400">Location:</span>
-              <span className="ml-2 text-white">
+              <span className="text-muted">Location:</span>
+              <span className="ml-2 text-content">
                 {formData.location || 'Not specified'}
               </span>
             </div>
             <div className="col-span-2">
-              <span className="text-dark-400">Wallet:</span>
-              <span className="ml-2 text-white font-mono text-xs">
+              <span className="text-muted">Wallet:</span>
+              <span className="ml-2 text-content font-mono text-xs">
                 {formData.walletAddress}
               </span>
             </div>
@@ -792,13 +792,13 @@ sudo nginx -t && sudo systemctl reload nginx`,
         <div className="flex gap-4">
           <Link
             href="/validators"
-            className="flex-1 py-4 bg-dark-800 hover:bg-dark-700 text-white text-center font-semibold rounded-xl transition-colors"
+            className="flex-1 py-4 bg-white/5 hover:bg-white/10 text-white text-center font-semibold rounded-xl transition-colors"
           >
             View Validator Leaderboard
           </Link>
           <Link
             href={`/faucet?address=${formData.walletAddress}`}
-            className="flex-1 py-4 bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-500 text-white text-center font-semibold rounded-xl transition-all"
+            className="flex-1 py-4 bg-tech-cyan hover:bg-tech-cyan-hover text-white text-center font-semibold rounded-xl transition-all shadow-glow"
           >
             Get Testnet Tokens
           </Link>
@@ -808,15 +808,15 @@ sudo nginx -t && sudo systemctl reload nginx`,
   };
 
   return (
-    <div className="min-h-screen bg-dark-950">
-      <main className="py-8 pb-16">
+    <div className="min-h-screen">
+      <main className="py-10 pb-16">
         <div className="container mx-auto px-4 max-w-4xl">
           {/* Header */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            <h1 className="text-3xl md:text-5xl font-bold text-content mb-4">
               Join Axionax Network
             </h1>
-            <p className="text-xl text-dark-400 max-w-2xl mx-auto">
+            <p className="text-lg text-muted max-w-2xl mx-auto">
               Join Axionax Testnet as a Validator, Worker or RPC node Node
             </p>
           </div>
@@ -829,7 +829,7 @@ sudo nginx -t && sudo systemctl reload nginx`,
                   <div
                     className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium transition-all ${
                       step === s
-                        ? 'bg-amber-500 text-white'
+                        ? 'bg-tech-cyan text-white shadow-glow'
                         : [
                               'choose',
                               'requirements',
@@ -837,8 +837,8 @@ sudo nginx -t && sudo systemctl reload nginx`,
                               'register',
                               'verify',
                             ].indexOf(step) > i
-                          ? 'bg-green-500 text-white'
-                          : 'bg-dark-800 text-dark-500'
+                          ? 'bg-tech-success text-white'
+                          : 'bg-white/5 text-muted'
                     }`}
                   >
                     {[
@@ -861,8 +861,8 @@ sudo nginx -t && sudo systemctl reload nginx`,
                           'register',
                           'verify',
                         ].indexOf(step) > i
-                          ? 'bg-green-500'
-                          : 'bg-dark-800'
+                          ? 'bg-tech-success'
+                          : 'bg-white/10'
                       }`}
                     />
                   )}
@@ -872,7 +872,7 @@ sudo nginx -t && sudo systemctl reload nginx`,
           </div>
 
           {/* Content */}
-          <div className="bg-dark-900/50 border border-dark-800 rounded-2xl p-8">
+          <div className="card-panel p-8">
             {step === 'choose' && renderChooseStep()}
             {step === 'requirements' && renderRequirementsStep()}
             {step === 'setup' && renderSetupStep()}
@@ -881,14 +881,14 @@ sudo nginx -t && sudo systemctl reload nginx`,
           </div>
 
           {/* Help Section */}
-          <div className="mt-8 bg-blue-500/10 border border-blue-500/30 rounded-2xl p-6">
+          <div className="mt-8 bg-tech-cyan/5 border border-tech-cyan/20 rounded-lg p-6">
             <div className="flex items-start gap-4">
               <div className="text-3xl">💬</div>
               <div>
-                <h3 className="text-lg font-semibold text-blue-400 mb-2">
+                <h3 className="text-lg font-semibold text-tech-cyan mb-2">
                   Need help?
                 </h3>
-                <p className="text-dark-300 text-sm mb-3">
+                <p className="text-muted text-sm mb-3">
                   For questions or installation issues, contact:
                 </p>
                 <div className="flex flex-wrap gap-3">
@@ -910,7 +910,7 @@ sudo nginx -t && sudo systemctl reload nginx`,
                   </a>
                   <Link
                     href="/docs"
-                    className="px-4 py-2 bg-dark-700 hover:bg-dark-600 text-white rounded-lg text-sm transition-colors"
+                    className="px-4 py-2 bg-white/5 hover:bg-white/10 text-muted rounded-lg text-sm transition-colors"
                   >
                     Documentation
                   </Link>

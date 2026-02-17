@@ -19,6 +19,9 @@ interface StoredWallet {
   createdAt: number;
 }
 
+const formatAddress = (addr: string) =>
+  `${addr.slice(0, 8)}...${addr.slice(-6)}`;
+
 export default function WalletPage() {
   const [activeTab, setActiveTab] = useState<TabType>('create');
   const [wallet, setWallet] = useState<GeneratedWallet | ImportedWallet | null>(
@@ -173,156 +176,151 @@ export default function WalletPage() {
     setShowPrivateKey(false);
   };
 
-  const formatAddress = (addr: string) =>
-    `${addr.slice(0, 8)}...${addr.slice(-6)}`;
-
   return (
-    <div className="min-h-screen bg-dark-950">
-      <main className="py-8 pb-16">
-        <div className="container mx-auto px-4 max-w-4xl">
-          {/* Header */}
-          <div className="text-center mb-8">
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-              Wallet Manager
-            </h1>
-            <p className="text-xl text-dark-400 max-w-2xl mx-auto">
-              Create or import a wallet to join Axionax Testnet
-            </p>
+    <div className="min-h-screen">
+      <main className="container-custom py-10">
+        <div className="text-center mb-12">
+          <h1 className="text-3xl md:text-4xl font-bold text-content mb-4">
+            Wallet Manager
+          </h1>
+          <p className="text-muted text-lg max-w-2xl mx-auto">
+            Create or import a wallet to join Axionax Testnet
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Left: My Wallets */}
+          <div className="lg:col-span-1">
+            <div className="card-panel p-6">
+              <h2 className="text-lg font-semibold text-content mb-6 flex items-center gap-2">
+                📋 My Wallets
+                <span className="text-xs bg-tech-cyan/10 text-tech-cyan px-2 py-0.5 rounded-full border border-tech-cyan/20">
+                  {storedWallets.length}
+                </span>
+              </h2>
+
+              {storedWallets.length === 0 ? (
+                <div className="text-center py-8 text-muted">
+                  <div className="text-4xl mb-3 opacity-50">🔐</div>
+                  <p className="text-sm font-medium">No wallet yet</p>
+                  <p className="text-xs mt-1 opacity-70">
+                    Create or import a new wallet
+                  </p>
+                </div>
+              ) : (
+                <div className="space-y-2">
+                  {storedWallets.map((w) => (
+                    <div
+                      key={w.address}
+                      onClick={() => setSelectedWallet(w.address)}
+                      className={`p-3 rounded-lg cursor-pointer transition-all border ${
+                        selectedWallet === w.address
+                          ? 'bg-tech-cyan/10 border-tech-cyan/30'
+                          : 'bg-white/[0.02] border-white/5 hover:border-white/10 hover:bg-white/[0.04]'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <div className={`font-medium text-sm ${selectedWallet === w.address ? 'text-tech-cyan' : 'text-content'}`}>
+                            {w.name}
+                          </div>
+                          <div className="font-mono text-xs text-muted mt-0.5">
+                            {formatAddress(w.address)}
+                          </div>
+                        </div>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            if (confirm('Delete this wallet?'))
+                              deleteWallet(w.address);
+                          }}
+                          className="text-muted hover:text-tech-error p-1.5 rounded-md hover:bg-white/5 transition-colors"
+                        >
+                          🗑️
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Selected Wallet Info */}
+              {selectedWallet && (
+                <div className="mt-6 pt-6 border-t border-white/10">
+                  <div className="text-xs text-muted font-medium uppercase tracking-wider mb-1">Balance</div>
+                  <div className="text-2xl font-bold text-content font-mono">
+                    {balance} <span className="text-tech-cyan text-lg">AXX</span>
+                  </div>
+                  <div className="mt-4 space-y-3">
+                    <Link
+                      href={`/faucet?address=${selectedWallet}`}
+                      className="block w-full text-center py-2.5 px-4 bg-tech-cyan/10 hover:bg-tech-cyan/20 border border-tech-cyan/30 text-tech-cyan rounded-lg text-sm font-medium transition-colors"
+                    >
+                      Get Testnet Tokens
+                    </Link>
+                    <button
+                      onClick={() =>
+                        copyToClipboard(selectedWallet, 'address')
+                      }
+                      className="w-full py-2.5 px-4 bg-white/[0.02] hover:bg-white/[0.05] border border-white/10 text-content rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2"
+                    >
+                      {copied === 'address'
+                        ? '✅ Copied!'
+                        : '📋 Copy Address'}
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {/* Left: My Wallets */}
-            <div className="lg:col-span-1">
-              <div className="bg-dark-900/50 border border-dark-800 rounded-2xl p-4">
-                <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-                  📋 My Wallets
-                  <span className="text-xs bg-primary-500/20 text-amber-400 px-2 py-0.5 rounded-full">
-                    {storedWallets.length}
-                  </span>
-                </h2>
-
-                {storedWallets.length === 0 ? (
-                  <div className="text-center py-8 text-dark-400">
-                    <div className="text-4xl mb-2">🔐</div>
-                    <p className="text-sm">No wallet yet</p>
-                    <p className="text-xs mt-1">
-                      Create or import a new wallet
-                    </p>
-                  </div>
-                ) : (
-                  <div className="space-y-2">
-                    {storedWallets.map((w) => (
-                      <div
-                        key={w.address}
-                        onClick={() => setSelectedWallet(w.address)}
-                        className={`p-3 rounded-xl cursor-pointer transition-all ${
-                          selectedWallet === w.address
-                            ? 'bg-primary-500/20 border border-primary-500/50'
-                            : 'bg-dark-800/50 border border-dark-700 hover:border-dark-600'
-                        }`}
-                      >
-                        <div className="flex items-center justify-between">
-                          <div>
-                            <div className="font-medium text-white text-sm">
-                              {w.name}
-                            </div>
-                            <div className="font-mono text-xs text-dark-400">
-                              {formatAddress(w.address)}
-                            </div>
-                          </div>
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              if (confirm('Delete this wallet?'))
-                                deleteWallet(w.address);
-                            }}
-                            className="text-dark-500 hover:text-red-400 p-1"
-                          >
-                            🗑️
-                          </button>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-
-                {/* Selected Wallet Info */}
-                {selectedWallet && (
-                  <div className="mt-4 pt-4 border-t border-dark-700">
-                    <div className="text-sm text-dark-400 mb-1">Balance</div>
-                    <div className="text-2xl font-bold text-green-400">
-                      {balance} AXX
-                    </div>
-                    <div className="mt-3 space-y-2">
-                      <Link
-                        href={`/faucet?address=${selectedWallet}`}
-                        className="block w-full text-center py-2 px-4 bg-primary-500 hover:bg-amber-600 text-white rounded-lg text-sm transition-colors"
-                      >
-                        Get Testnet Tokens
-                      </Link>
-                      <button
-                        onClick={() =>
-                          copyToClipboard(selectedWallet, 'address')
-                        }
-                        className="w-full py-2 px-4 bg-dark-800 hover:bg-dark-700 text-white rounded-lg text-sm transition-colors flex items-center justify-center gap-2"
-                      >
-                        {copied === 'address'
-                          ? '✅ Copied!'
-                          : '📋 Copy Address'}
-                      </button>
-                    </div>
-                  </div>
-                )}
+          {/* Right: Create/Import */}
+          <div className="lg:col-span-2">
+            <div className="card-panel">
+              {/* Tabs */}
+              <div className="flex border-b border-white/10 bg-white/[0.02]">
+                <button
+                  onClick={() => {
+                    resetForm();
+                    setActiveTab('create');
+                  }}
+                  className={`flex-1 py-4 px-4 text-sm font-medium transition-all ${
+                    activeTab === 'create'
+                      ? 'text-tech-cyan border-b-2 border-tech-cyan bg-tech-cyan/5'
+                      : 'text-muted hover:text-content hover:bg-white/[0.02]'
+                  }`}
+                >
+                  Create New
+                </button>
+                <button
+                  onClick={() => {
+                    resetForm();
+                    setActiveTab('import-mnemonic');
+                  }}
+                  className={`flex-1 py-4 px-4 text-sm font-medium transition-all ${
+                    activeTab === 'import-mnemonic'
+                      ? 'text-tech-cyan border-b-2 border-tech-cyan bg-tech-cyan/5'
+                      : 'text-muted hover:text-content hover:bg-white/[0.02]'
+                  }`}
+                >
+                  Import Phrase
+                </button>
+                <button
+                  onClick={() => {
+                    resetForm();
+                    setActiveTab('import-key');
+                  }}
+                  className={`flex-1 py-4 px-4 text-sm font-medium transition-all ${
+                    activeTab === 'import-key'
+                      ? 'text-tech-cyan border-b-2 border-tech-cyan bg-tech-cyan/5'
+                      : 'text-muted hover:text-content hover:bg-white/[0.02]'
+                  }`}
+                >
+                  Import Private Key
+                </button>
               </div>
-            </div>
 
-            {/* Right: Create/Import */}
-            <div className="lg:col-span-2">
-              <div className="bg-dark-900/50 border border-dark-800 rounded-2xl overflow-hidden">
-                {/* Tabs */}
-                <div className="flex border-b border-dark-700">
-                  <button
-                    onClick={() => {
-                      resetForm();
-                      setActiveTab('create');
-                    }}
-                    className={`flex-1 py-4 px-4 text-sm font-medium transition-colors ${
-                      activeTab === 'create'
-                        ? 'bg-primary-500/10 text-amber-400 border-b-2 border-primary-500'
-                        : 'text-dark-400 hover:text-white'
-                    }`}
-                  >
-                    Create New Wallet
-                  </button>
-                  <button
-                    onClick={() => {
-                      resetForm();
-                      setActiveTab('import-mnemonic');
-                    }}
-                    className={`flex-1 py-4 px-4 text-sm font-medium transition-colors ${
-                      activeTab === 'import-mnemonic'
-                        ? 'bg-primary-500/10 text-amber-400 border-b-2 border-primary-500'
-                        : 'text-dark-400 hover:text-white'
-                    }`}
-                  >
-                    📝 Import Mnemonic
-                  </button>
-                  <button
-                    onClick={() => {
-                      resetForm();
-                      setActiveTab('import-key');
-                    }}
-                    className={`flex-1 py-4 px-4 text-sm font-medium transition-colors ${
-                      activeTab === 'import-key'
-                        ? 'bg-primary-500/10 text-amber-400 border-b-2 border-primary-500'
-                        : 'text-dark-400 hover:text-white'
-                    }`}
-                  >
-                    🔑 Import Private Key
-                  </button>
-                </div>
-
-                <div className="p-6">
+              <div className="p-6 sm:p-8">
                   {/* Error Message */}
                   {error && (
                     <div className="mb-4 p-4 bg-red-500/10 border border-red-500/30 rounded-xl text-red-400 text-sm">
@@ -348,7 +346,7 @@ export default function WalletPage() {
                           </div>
 
                           <div>
-                            <label className="block text-sm text-dark-400 mb-2">
+                            <label className="block text-sm text-muted mb-2">
                               Wallet name (optional)
                             </label>
                             <input
@@ -356,14 +354,14 @@ export default function WalletPage() {
                               value={walletName}
                               onChange={(e) => setWalletName(e.target.value)}
                               placeholder="My Testnet Wallet"
-                              className="w-full bg-dark-800 border border-dark-700 rounded-lg px-4 py-3 text-white placeholder-dark-500 focus:border-primary-500 focus:outline-none"
+                              className="w-full bg-black-hole/50 border border-white/10 rounded-lg px-4 py-3 text-content placeholder-muted focus:border-tech-cyan focus:ring-1 focus:ring-tech-cyan/20 focus:outline-none transition-all"
                             />
                           </div>
 
                           <button
                             onClick={handleCreateWallet}
                             disabled={loading}
-                            className="w-full py-4 bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-500 text-white font-semibold rounded-xl transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+                            className="w-full py-3.5 bg-tech-cyan/20 hover:bg-tech-cyan/30 text-tech-cyan font-semibold rounded-lg border border-tech-cyan/30 transition-all disabled:opacity-50 flex items-center justify-center gap-2"
                           >
                             {loading ? (
                               <>
@@ -500,7 +498,7 @@ export default function WalletPage() {
                           </div>
 
                           <div>
-                            <label className="block text-sm text-dark-400 mb-2">
+                            <label className="block text-sm text-muted mb-2">
                               Recovery Phrase (Mnemonic)
                             </label>
                             <textarea
@@ -510,15 +508,15 @@ export default function WalletPage() {
                               }
                               placeholder="word1 word2 word3 word4 word5 word6 word7 word8 word9 word10 word11 word12"
                               rows={4}
-                              className="w-full bg-dark-800 border border-dark-700 rounded-lg px-4 py-3 text-white placeholder-dark-500 focus:border-primary-500 focus:outline-none font-mono"
+                              className="w-full bg-black-hole/50 border border-white/10 rounded-lg px-4 py-3 text-content placeholder-muted focus:border-tech-cyan focus:ring-1 focus:ring-tech-cyan/20 focus:outline-none font-mono"
                             />
-                            <p className="text-xs text-dark-500 mt-1">
+                            <p className="text-xs text-muted mt-1 opacity-70">
                               Separate each word with a space
                             </p>
                           </div>
 
                           <div>
-                            <label className="block text-sm text-dark-400 mb-2">
+                            <label className="block text-sm text-muted mb-2">
                               Wallet name (optional)
                             </label>
                             <input
@@ -526,14 +524,14 @@ export default function WalletPage() {
                               value={walletName}
                               onChange={(e) => setWalletName(e.target.value)}
                               placeholder="My Imported Wallet"
-                              className="w-full bg-dark-800 border border-dark-700 rounded-lg px-4 py-3 text-white placeholder-dark-500 focus:border-primary-500 focus:outline-none"
+                              className="w-full bg-black-hole/50 border border-white/10 rounded-lg px-4 py-3 text-content placeholder-muted focus:border-tech-cyan focus:ring-1 focus:ring-tech-cyan/20 focus:outline-none"
                             />
                           </div>
 
                           <button
                             onClick={handleImportMnemonic}
                             disabled={loading || !mnemonic.trim()}
-                            className="w-full py-4 bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-500 text-white font-semibold rounded-xl transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+                            className="w-full py-3.5 bg-tech-cyan/20 hover:bg-tech-cyan/30 text-tech-cyan font-semibold rounded-lg border border-tech-cyan/30 transition-all disabled:opacity-50 flex items-center justify-center gap-2"
                           >
                             {loading ? (
                               <>
@@ -576,7 +574,7 @@ export default function WalletPage() {
                           </div>
 
                           <div>
-                            <label className="block text-sm text-dark-400 mb-2">
+                            <label className="block text-sm text-muted mb-2">
                               Private Key
                             </label>
                             <input
@@ -584,15 +582,15 @@ export default function WalletPage() {
                               value={privateKey}
                               onChange={(e) => setPrivateKey(e.target.value)}
                               placeholder="0x... or 64 hex characters"
-                              className="w-full bg-dark-800 border border-dark-700 rounded-lg px-4 py-3 text-white placeholder-dark-500 focus:border-primary-500 focus:outline-none font-mono"
+                              className="w-full bg-black-hole/50 border border-white/10 rounded-lg px-4 py-3 text-content placeholder-muted focus:border-tech-cyan focus:ring-1 focus:ring-tech-cyan/20 focus:outline-none font-mono"
                             />
-                            <p className="text-xs text-dark-500 mt-1">
+                            <p className="text-xs text-muted mt-1 opacity-70">
                               ⚠️ อย่าแชร์ private key กับใคร
                             </p>
                           </div>
 
                           <div>
-                            <label className="block text-sm text-dark-400 mb-2">
+                            <label className="block text-sm text-muted mb-2">
                               Wallet name (optional)
                             </label>
                             <input
@@ -600,14 +598,14 @@ export default function WalletPage() {
                               value={walletName}
                               onChange={(e) => setWalletName(e.target.value)}
                               placeholder="My Imported Wallet"
-                              className="w-full bg-dark-800 border border-dark-700 rounded-lg px-4 py-3 text-white placeholder-dark-500 focus:border-primary-500 focus:outline-none"
+                              className="w-full bg-black-hole/50 border border-white/10 rounded-lg px-4 py-3 text-content placeholder-muted focus:border-tech-cyan focus:ring-1 focus:ring-tech-cyan/20 focus:outline-none"
                             />
                           </div>
 
                           <button
                             onClick={handleImportPrivateKey}
                             disabled={loading || !privateKey.trim()}
-                            className="w-full py-4 bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-500 text-white font-semibold rounded-xl transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+                            className="w-full py-3.5 bg-tech-cyan/20 hover:bg-tech-cyan/30 text-tech-cyan font-semibold rounded-lg border border-tech-cyan/30 transition-all disabled:opacity-50 flex items-center justify-center gap-2"
                           >
                             {loading ? (
                               <>
@@ -633,48 +631,47 @@ export default function WalletPage() {
                       )}
                     </>
                   )}
-                </div>
               </div>
             </div>
           </div>
 
           {/* Quick Start Guide */}
-          <div className="mt-8 bg-gradient-to-br from-amber-500/10 to-yellow-500/10 border border-primary-500/30 rounded-2xl p-6">
-            <h2 className="text-xl font-semibold text-white mb-4">
+          <div className="mt-8 bg-black-hole/50 border border-white/10 rounded-lg p-6">
+            <h2 className="text-xl font-semibold text-content mb-4">
               Get Started with Testnet
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="flex items-start gap-3">
-                <div className="w-8 h-8 bg-primary-500/20 rounded-full flex items-center justify-center text-amber-400 font-bold shrink-0">
+                <div className="w-8 h-8 bg-tech-cyan/10 rounded-full flex items-center justify-center text-tech-cyan font-bold shrink-0 border border-tech-cyan/20">
                   1
                 </div>
                 <div>
-                  <div className="font-medium text-white">Create Wallet</div>
-                  <div className="text-sm text-dark-400">
+                  <div className="font-medium text-content">Create Wallet</div>
+                  <div className="text-sm text-muted">
                     Create or import your wallet
                   </div>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <div className="w-8 h-8 bg-primary-500/20 rounded-full flex items-center justify-center text-amber-400 font-bold shrink-0">
+                <div className="w-8 h-8 bg-tech-cyan/10 rounded-full flex items-center justify-center text-tech-cyan font-bold shrink-0 border border-tech-cyan/20">
                   2
                 </div>
                 <div>
-                  <div className="font-medium text-white">
+                  <div className="font-medium text-content">
                     Get Testnet Tokens
                   </div>
-                  <div className="text-sm text-dark-400">
+                  <div className="text-sm text-muted">
                     Go to Faucet to get free AXX
                   </div>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <div className="w-8 h-8 bg-primary-500/20 rounded-full flex items-center justify-center text-amber-400 font-bold shrink-0">
+                <div className="w-8 h-8 bg-tech-cyan/10 rounded-full flex items-center justify-center text-tech-cyan font-bold shrink-0 border border-tech-cyan/20">
                   3
                 </div>
                 <div>
-                  <div className="font-medium text-white">Get started!</div>
-                  <div className="text-sm text-dark-400">
+                  <div className="font-medium text-content">Get started!</div>
+                  <div className="text-sm text-muted">
                     Try transactions and earn activity score
                   </div>
                 </div>
@@ -683,33 +680,33 @@ export default function WalletPage() {
           </div>
 
           {/* Network Info */}
-          <div className="mt-6 bg-dark-900/50 border border-dark-800 rounded-2xl p-6">
-            <h3 className="text-lg font-semibold text-white mb-4">
+          <div className="mt-6 bg-black-hole/50 border border-white/10 rounded-lg p-6">
+            <h3 className="text-lg font-semibold text-content mb-4">
               🌐 Network Information
             </h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
               <div>
-                <div className="text-dark-400">Network Name</div>
-                <div className="text-white font-medium">
+                <div className="text-muted">Network Name</div>
+                <div className="text-content font-medium">
                   {AXIONAX_TESTNET.chainName}
                 </div>
               </div>
               <div>
-                <div className="text-dark-400">Chain ID</div>
-                <div className="text-white font-medium">
+                <div className="text-muted">Chain ID</div>
+                <div className="text-content font-medium">
                   {AXIONAX_TESTNET.chainIdDecimal}
                 </div>
               </div>
               <div>
-                <div className="text-dark-400">Currency</div>
-                <div className="text-white font-medium">
+                <div className="text-muted">Currency</div>
+                <div className="text-content font-medium">
                   {AXIONAX_TESTNET.nativeCurrency.symbol}
                 </div>
               </div>
               <div>
-                <div className="text-dark-400">RPC URL</div>
-                <div className="text-white font-medium text-xs truncate">
-                  {AXIONAX_TESTNET.rpcUrls[0]}
+                <div className="text-muted">RPC URL</div>
+                <div className="text-tech-cyan font-medium text-xs truncate cursor-pointer hover:underline" title={AXIONAX_TESTNET.rpcUrls[0]}>
+                  {AXIONAX_TESTNET.rpcUrls[0].replace('https://', '')}
                 </div>
               </div>
             </div>
@@ -739,54 +736,54 @@ function WalletSuccess({
   return (
     <div className="space-y-6">
       <div className="text-center py-4">
-        <div className="text-6xl mb-4">🎉</div>
-        <h3 className="text-2xl font-bold text-white">Wallet ready!</h3>
-        <p className="text-dark-400 mt-2">Your wallet has been saved</p>
+        <div className="text-6xl mb-4 animate-bounce">🎉</div>
+        <h3 className="text-2xl font-bold text-content">Wallet ready!</h3>
+        <p className="text-muted mt-2">Your wallet has been saved</p>
       </div>
 
       {/* Address */}
-      <div className="bg-dark-800/50 rounded-xl p-4">
+      <div className="bg-black-hole/50 rounded-lg p-4 border border-white/10">
         <div className="flex justify-between items-center mb-2">
-          <span className="text-sm text-dark-400">Address</span>
+          <span className="text-sm text-muted">Address</span>
           <button
             onClick={() => copyToClipboard(wallet.address, 'address')}
-            className="text-xs bg-dark-700 hover:bg-dark-600 px-3 py-1 rounded text-white"
+            className="text-xs bg-white/5 hover:bg-white/10 px-3 py-1 rounded text-content transition-colors"
           >
             {copied === 'address' ? '✅ Copied!' : '📋 Copy'}
           </button>
         </div>
-        <div className="font-mono text-white break-all text-sm bg-dark-900 rounded p-2">
+        <div className="font-mono text-content break-all text-sm bg-black-hole rounded p-2 border border-white/5">
           {wallet.address}
         </div>
       </div>
 
       {/* Private Key */}
-      <div className="bg-dark-800/50 border border-amber-500/30 rounded-xl p-4">
+      <div className="bg-tech-warning/5 border border-tech-warning/20 rounded-lg p-4">
         <div className="flex justify-between items-center mb-2">
-          <span className="text-sm text-amber-400">🔐 Private Key</span>
+          <span className="text-sm text-tech-warning font-medium">🔐 Private Key</span>
           <div className="flex gap-2">
             <button
               onClick={() => setShowPrivateKey(!showPrivateKey)}
-              className="text-xs bg-dark-700 hover:bg-dark-600 px-3 py-1 rounded text-white"
+              className="text-xs bg-black-hole/50 hover:bg-black-hole px-3 py-1 rounded text-content border border-white/5 transition-colors"
             >
               {showPrivateKey ? '🙈 Hide' : '👁️ Show'}
             </button>
             {showPrivateKey && (
               <button
                 onClick={() => copyToClipboard(wallet.privateKey, 'privateKey')}
-                className="text-xs bg-dark-700 hover:bg-dark-600 px-3 py-1 rounded text-white"
+                className="text-xs bg-black-hole/50 hover:bg-black-hole px-3 py-1 rounded text-content border border-white/5 transition-colors"
               >
                 {copied === 'privateKey' ? '✅ Copied!' : '📋 Copy'}
               </button>
             )}
           </div>
         </div>
-        <div className="font-mono text-white break-all text-sm bg-dark-900 rounded p-2">
+        <div className="font-mono text-content break-all text-sm bg-black-hole rounded p-2 border border-white/5">
           {showPrivateKey
             ? wallet.privateKey
             : '••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••'}
         </div>
-        <p className="text-xs text-amber-400/70 mt-2">
+        <p className="text-xs text-tech-warning/80 mt-2">
           Never share your private key. Anyone with this key can access your
           wallet.
         </p>
@@ -796,13 +793,13 @@ function WalletSuccess({
       <div className="flex gap-3">
         <button
           onClick={onReset}
-          className="flex-1 py-3 bg-dark-800 hover:bg-dark-700 text-white rounded-xl transition-colors"
+          className="flex-1 py-3 bg-white/5 hover:bg-white/10 text-content rounded-lg transition-colors border border-white/10"
         >
           Add New Wallet
         </button>
         <Link
           href={`/faucet?address=${wallet.address}`}
-          className="flex-1 py-3 bg-primary-500 hover:bg-amber-600 text-white text-center font-semibold rounded-xl transition-colors"
+          className="flex-1 py-3 bg-tech-cyan/20 hover:bg-tech-cyan/30 text-tech-cyan text-center font-semibold rounded-lg transition-colors border border-tech-cyan/30"
         >
           Get Testnet Tokens
         </Link>

@@ -144,7 +144,7 @@ export default function NodeDashboardPage() {
 
           {/* Network Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-10">
-            <div className="rounded-lg border border-white/10 bg-black-hole/90 backdrop-blur-sm shadow-panel p-4">
+            <div className="card-panel p-4">
               <div className="text-muted text-xs font-semibold uppercase tracking-wider mb-1">
                 Total Nodes
               </div>
@@ -152,7 +152,7 @@ export default function NodeDashboardPage() {
                 {stats?.total || 0}
               </div>
             </div>
-            <div className="rounded-lg border border-white/10 bg-black-hole/90 backdrop-blur-sm shadow-panel p-4">
+            <div className="card-panel p-4">
               <div className="text-muted text-xs font-semibold uppercase tracking-wider mb-1">
                 Active Validators
               </div>
@@ -160,7 +160,7 @@ export default function NodeDashboardPage() {
                 {stats?.byStatus.active || 0}
               </div>
             </div>
-            <div className="rounded-lg border border-white/10 bg-black-hole/90 backdrop-blur-sm shadow-panel p-4">
+            <div className="card-panel p-4">
               <div className="text-muted text-xs font-semibold uppercase tracking-wider mb-1">
                 Total Staked
               </div>
@@ -169,7 +169,7 @@ export default function NodeDashboardPage() {
                 <span className="text-muted text-sm font-normal">AXX</span>
               </div>
             </div>
-            <div className="rounded-lg border border-white/10 bg-black-hole/90 backdrop-blur-sm shadow-panel p-4">
+            <div className="card-panel p-4">
               <div className="text-muted text-xs font-semibold uppercase tracking-wider mb-1">
                 Pending Registration
               </div>
@@ -181,8 +181,8 @@ export default function NodeDashboardPage() {
 
           {/* My Node Section */}
           {!account ? (
-            <div className="rounded-lg border border-white/10 bg-black-hole/90 backdrop-blur-sm shadow-panel p-8 text-center mb-10">
-              <div className="text-6xl mb-4">🔗</div>
+            <div className="card-panel p-8 text-center mb-10">
+              <div className="text-6xl mb-4 grayscale opacity-50">🔗</div>
               <h2 className="text-xl font-semibold text-content mb-2">
                 Connect wallet to view your node
               </h2>
@@ -193,19 +193,15 @@ export default function NodeDashboardPage() {
             </div>
           ) : loading ? (
             <div
-              className="rounded-lg border border-white/10 bg-black-hole/90 backdrop-blur-sm shadow-panel p-8 text-center mb-10"
+              className="card-panel p-8 text-center mb-10"
               role="status"
               aria-live="polite"
             >
-              <Loader2
-                className="w-12 h-12 animate-spin mx-auto mb-4 text-tech-cyan"
-                strokeWidth={2}
-                aria-hidden
-              />
+              <div className="loading-spinner w-12 h-12 mx-auto mb-4" />
               <p className="text-muted">Loading node data...</p>
             </div>
           ) : myNode ? (
-            <div className="rounded-lg border border-white/10 bg-black-hole/90 backdrop-blur-sm shadow-panel overflow-hidden mb-10">
+            <div className="card-panel overflow-hidden mb-10">
               <div className="p-6 border-b border-white/10 bg-white/[0.02]">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-4">
@@ -304,7 +300,7 @@ export default function NodeDashboardPage() {
                         />
                       ))}
                     </div>
-                    <div className="flex justify-between text-xs text-dark-500 mt-2">
+                    <div className="flex justify-between text-xs text-muted mt-2">
                       <span>24h ago</span>
                       <span>Now</span>
                     </div>
@@ -313,34 +309,34 @@ export default function NodeDashboardPage() {
               </div>
 
               {/* Actions */}
-              <div className="p-6 border-t border-dark-800 bg-dark-800/30">
+              <div className="p-6 border-t border-white/10 bg-white/[0.02]">
                 <div className="flex flex-wrap gap-3">
                   {myNode.status === 'pending' && (
                     <Link
                       href={`/stake?node=${myNode.id}`}
-                      className="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-lg transition-colors"
+                      className="px-4 py-2 bg-tech-warning hover:bg-tech-warning/80 text-black font-semibold rounded-lg transition-colors"
                     >
                       💰 Stake to Activate
                     </Link>
                   )}
-                  <button className="px-4 py-2 bg-dark-700 hover:bg-dark-600 text-white rounded-lg transition-colors">
+                  <button className="px-4 py-2 bg-white/5 hover:bg-white/10 text-white rounded-lg transition-colors">
                     🔄 Refresh Status
                   </button>
                   <Link
                     href="/validators"
-                    className="px-4 py-2 bg-dark-700 hover:bg-dark-600 text-white rounded-lg transition-colors"
+                    className="px-4 py-2 bg-white/5 hover:bg-white/10 text-white rounded-lg transition-colors"
                   >
                     View Leaderboard
                   </Link>
-                  <button className="px-4 py-2 bg-dark-700 hover:bg-dark-600 text-white rounded-lg transition-colors">
+                  <button className="px-4 py-2 bg-white/5 hover:bg-white/10 text-white rounded-lg transition-colors">
                     📋 Copy Node Config
                   </button>
                 </div>
               </div>
             </div>
           ) : (
-            <div className="rounded-lg border border-white/10 bg-black-hole/90 backdrop-blur-sm shadow-panel p-8 text-center mb-10">
-              <div className="text-6xl mb-4">🔍</div>
+            <div className="card-panel p-8 text-center mb-10">
+              <div className="text-6xl mb-4 grayscale opacity-50">🔍</div>
               <h2 className="text-xl font-semibold text-content mb-2">
                 No node registered yet
               </h2>
@@ -349,7 +345,7 @@ export default function NodeDashboardPage() {
               </p>
               <Link
                 href="/join"
-                className="px-6 py-3 bg-tech-cyan/20 text-tech-cyan font-semibold rounded-lg hover:bg-tech-cyan/30 transition-colors inline-block"
+                className="px-6 py-3 bg-tech-cyan hover:bg-tech-cyan-hover text-white font-semibold rounded-lg transition-colors inline-block shadow-glow"
               >
                 Register Node
               </Link>
@@ -358,7 +354,7 @@ export default function NodeDashboardPage() {
 
           {/* Node Type Stats */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-            <div className="rounded-lg border border-white/10 bg-black-hole/90 backdrop-blur-sm shadow-panel p-6">
+            <div className="card-panel p-6">
               <div className="flex items-center gap-3 mb-4">
                 <div className="text-4xl">🛡️</div>
                 <div>
@@ -374,7 +370,7 @@ export default function NodeDashboardPage() {
               </div>
             </div>
 
-            <div className="rounded-lg border border-white/10 bg-black-hole/90 backdrop-blur-sm shadow-panel p-6">
+            <div className="card-panel p-6">
               <div className="flex items-center gap-3 mb-4">
                 <div className="text-4xl">⚙️</div>
                 <div>
@@ -390,7 +386,7 @@ export default function NodeDashboardPage() {
               </div>
             </div>
 
-            <div className="rounded-lg border border-white/10 bg-black-hole/90 backdrop-blur-sm shadow-panel p-6">
+            <div className="card-panel p-6">
               <div className="flex items-center gap-3 mb-4">
                 <div className="text-4xl">📡</div>
                 <div>
@@ -406,14 +402,14 @@ export default function NodeDashboardPage() {
           </div>
 
           {/* Quick Links */}
-          <div className="rounded-lg border border-white/10 bg-tech-cyan/5 border-tech-cyan/20 p-6">
+          <div className="rounded-lg border border-tech-cyan/20 bg-tech-cyan/5 p-6">
             <h3 className="text-lg font-semibold text-tech-cyan mb-4">
               Resources
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <Link
                 href="/docs"
-                className="p-4 rounded-lg border border-white/10 bg-black-hole/80 hover:bg-white/5 transition-colors"
+                className="p-4 rounded-lg border border-white/10 bg-black/50 hover:bg-white/5 transition-colors"
               >
                 <div className="text-2xl mb-2">📖</div>
                 <div className="text-content font-medium">Documentation</div>
@@ -423,7 +419,7 @@ export default function NodeDashboardPage() {
               </Link>
               <Link
                 href="/validators"
-                className="p-4 rounded-lg border border-white/10 bg-black-hole/80 hover:bg-white/5 transition-colors"
+                className="p-4 rounded-lg border border-white/10 bg-black/50 hover:bg-white/5 transition-colors"
               >
                 <div className="text-2xl mb-2">🏆</div>
                 <div className="text-content font-medium">Leaderboard</div>
@@ -431,7 +427,7 @@ export default function NodeDashboardPage() {
               </Link>
               <Link
                 href="/faucet"
-                className="p-4 rounded-lg border border-white/10 bg-black-hole/80 hover:bg-white/5 transition-colors"
+                className="p-4 rounded-lg border border-white/10 bg-black/50 hover:bg-white/5 transition-colors"
               >
                 <div className="text-2xl mb-2" aria-hidden />
                 <div className="text-content font-medium">Faucet</div>
@@ -441,7 +437,7 @@ export default function NodeDashboardPage() {
                 href="https://discord.gg/axionax"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-4 rounded-lg border border-white/10 bg-black-hole/80 hover:bg-white/5 transition-colors"
+                className="p-4 rounded-lg border border-white/10 bg-black/50 hover:bg-white/5 transition-colors"
               >
                 <div className="text-2xl mb-2">💬</div>
                 <div className="text-content font-medium">Discord</div>
