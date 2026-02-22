@@ -1,10 +1,10 @@
 'use client';
 
-import React from 'react';
+import React, { Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 
-export default function StakePage(): React.JSX.Element {
+function StakeContent(): React.JSX.Element {
   const searchParams = useSearchParams();
   const nodeId = searchParams.get('node');
 
@@ -80,5 +80,19 @@ export default function StakePage(): React.JSX.Element {
         </Link>
       </main>
     </div>
+  );
+}
+
+export default function StakePage(): React.JSX.Element {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="loading-spinner w-10 h-10" />
+        </div>
+      }
+    >
+      <StakeContent />
+    </Suspense>
   );
 }
