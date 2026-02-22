@@ -25,6 +25,7 @@ export default function Footer(): React.JSX.Element {
     ],
     company: [
       { name: 'Home', href: '/' },
+      { name: 'Pitch Deck', href: '/pitch' },
       { name: 'Join Network', href: '/join' },
       { name: 'Dashboard', href: '/dashboard' },
     ],
