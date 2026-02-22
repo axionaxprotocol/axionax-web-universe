@@ -57,7 +57,7 @@ export default function Navbar(): React.JSX.Element {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-deep-space/80 backdrop-blur-xl border-b border-amber-500/20">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#05050A]/80 backdrop-blur-xl border-b border-white/5">
       <div className="container-custom">
         <div className="flex items-center justify-between h-16">
           {/* Golden Atom Logo */}
@@ -67,7 +67,7 @@ export default function Navbar(): React.JSX.Element {
               alt="Axionax Logo"
               className="w-10 h-10 rounded-full object-cover shadow-horizon-sm group-hover:shadow-horizon group-hover:scale-110 transition-all duration-300"
             />
-            <span className="text-xl font-bold bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent">
+            <span className="text-xl font-bold bg-gradient-to-r from-[#60A5FA] to-[#A855F7] bg-clip-text text-transparent">
               Axionax
             </span>
           </Link>
@@ -109,7 +109,7 @@ export default function Navbar(): React.JSX.Element {
           {/* Mobile menu button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 rounded-lg text-starlight hover:bg-amber-500/20 transition-colors"
+            className="md:hidden p-2 rounded-lg text-starlight hover:bg-white/10 transition-colors"
             aria-label="Toggle menu"
           >
             <svg
@@ -132,13 +132,13 @@ export default function Navbar(): React.JSX.Element {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="md:hidden py-4 border-t border-amber-500/20 animate-fade-in">
+          <div className="md:hidden py-4 border-t border-white/10 animate-fade-in">
             <div className="flex flex-col space-y-2">
               {navigation.map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="text-starlight/70 hover:text-starlight hover:bg-amber-500/10 transition-colors px-4 py-3 rounded-lg"
+                  className="text-starlight/70 hover:text-starlight hover:bg-white/5 transition-colors px-4 py-3 rounded-lg"
                   onClick={() => setIsOpen(false)}
                   target={item.href.startsWith('http') ? '_blank' : undefined}
                   rel={
@@ -150,7 +150,7 @@ export default function Navbar(): React.JSX.Element {
                   {item.name}
                 </Link>
               ))}
-              <div className="px-4 pt-4 flex flex-col gap-3 border-t border-amber-500/20">
+              <div className="px-4 pt-4 flex flex-col gap-3 border-t border-white/10">
                 <button
                   onClick={addNetwork}
                   className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-tech-cyan/10 text-tech-cyan hover:bg-tech-cyan/20 transition-colors text-sm font-medium border border-tech-cyan/20"

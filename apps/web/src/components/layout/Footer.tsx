@@ -34,7 +34,7 @@ export default function Footer(): React.JSX.Element {
   };
 
   return (
-    <footer className="bg-black-hole border-t border-amber-500/20/20">
+    <footer className="bg-[#05050A] border-t border-white/5">
       <div className="container-custom py-14">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-10">
           {/* Logo and Description */}
@@ -45,7 +45,7 @@ export default function Footer(): React.JSX.Element {
                 alt="Axionax Logo"
                 className="w-8 h-8 rounded-full object-cover"
               />
-              <span className="text-xl font-bold bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent">
+              <span className="text-xl font-bold bg-gradient-to-r from-[#60A5FA] to-[#A855F7] bg-clip-text text-transparent">
                 Axionax
               </span>
             </Link>
@@ -63,7 +63,7 @@ export default function Footer(): React.JSX.Element {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-starlight/60 hover:text-horizon-gold transition-colors text-sm"
+                    className="text-starlight/60 hover:text-tech-cyan transition-colors text-sm"
                   >
                     {link.name}
                   </Link>
@@ -80,7 +80,7 @@ export default function Footer(): React.JSX.Element {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-starlight/60 hover:text-horizon-gold transition-colors text-sm"
+                    className="text-starlight/60 hover:text-tech-cyan transition-colors text-sm"
                     target={link.href.startsWith('http') ? '_blank' : undefined}
                     rel={
                       link.href.startsWith('http')
@@ -103,7 +103,7 @@ export default function Footer(): React.JSX.Element {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-starlight/60 hover:text-horizon-gold transition-colors text-sm"
+                    className="text-starlight/60 hover:text-tech-cyan transition-colors text-sm"
                     target={link.href.startsWith('http') ? '_blank' : undefined}
                     rel={
                       link.href.startsWith('http')
@@ -126,7 +126,7 @@ export default function Footer(): React.JSX.Element {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-starlight/60 hover:text-horizon-gold transition-colors text-sm"
+                    className="text-starlight/60 hover:text-tech-cyan transition-colors text-sm"
                   >
                     {link.name}
                   </Link>
@@ -137,7 +137,7 @@ export default function Footer(): React.JSX.Element {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-amber-500/20/15 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-starlight/50 text-sm">
             © {new Date().getFullYear()} Axionax Protocol v1.9.0 · Trusted World
             Computer
@@ -147,7 +147,7 @@ export default function Footer(): React.JSX.Element {
               href="https://github.com/axionaxprotocol"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-starlight/50 hover:text-horizon-gold transition-colors"
+              className="text-starlight/50 hover:text-tech-cyan transition-colors"
               aria-label="GitHub"
             >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -158,7 +158,7 @@ export default function Footer(): React.JSX.Element {
               href="https://twitter.com/axionax"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-starlight/50 hover:text-horizon-gold transition-colors"
+              className="text-starlight/50 hover:text-tech-cyan transition-colors"
               aria-label="Twitter"
             >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -169,7 +169,7 @@ export default function Footer(): React.JSX.Element {
               href="https://discord.gg/axionax"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-starlight/50 hover:text-horizon-gold transition-colors"
+              className="text-starlight/50 hover:text-tech-cyan transition-colors"
               aria-label="Discord"
             >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
