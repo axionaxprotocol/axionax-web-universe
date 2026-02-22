@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import ConnectButton from '@/components/wallet/ConnectButton';
 import ThemeToggle from '@/components/ui/ThemeToggle';
+import { useUIStore } from '@/stores/uiStore';
 import { AXIONAX_TESTNET } from '@/lib/web3';
 
 const mainNav = [
@@ -27,6 +28,8 @@ export default function ExplorerLayout({
 }): React.JSX.Element {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const theme = useUIStore((s) => s.theme);
+  const isLight = theme === 'light';
 
   const addNetwork = async () => {
     if (typeof window === 'undefined') return;
@@ -61,9 +64,19 @@ export default function ExplorerLayout({
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0f] text-starlight flex flex-col">
+    <div
+      className={`min-h-screen flex flex-col ${
+        isLight
+          ? 'bg-[#F8FAFC] text-slate-900'
+          : 'bg-[#0a0a0f] text-starlight'
+      }`}
+    >
       {/* Top bar – io.net style */}
-      <header className="sticky top-0 z-30 flex items-center justify-between h-14 px-4 sm:px-6 lg:px-8 border-b border-amber-500/20 bg-[#0a0a0f]/95 backdrop-blur">
+      <header
+        className={`sticky top-0 z-30 flex items-center justify-between h-14 px-4 sm:px-6 lg:px-8 border-b border-amber-500/20 backdrop-blur ${
+          isLight ? 'bg-[#F8FAFC]/95' : 'bg-[#0a0a0f]/95'
+        }`}
+      >
         <Link href="/" className="flex items-center gap-2.5 shrink-0">
           <img
             src="/assets/img/axionax-logo-new.png"
@@ -78,14 +91,18 @@ export default function ExplorerLayout({
         <div className="hidden lg:flex items-center gap-6">
           <Link
             href="/docs"
-            className="text-sm text-starlight/70 hover:text-amber-400 transition-colors"
+            className={`text-sm transition-colors hover:text-amber-500 ${
+              isLight ? 'text-slate-600' : 'text-starlight/70 hover:text-amber-400'
+            }`}
           >
             Docs
           </Link>
           <button
             type="button"
             onClick={addNetwork}
-            className="text-sm text-starlight/70 hover:text-amber-400 transition-colors"
+            className={`text-sm transition-colors hover:text-amber-500 ${
+              isLight ? 'text-slate-600' : 'text-starlight/70 hover:text-amber-400'
+            }`}
           >
             Add Network
           </button>
@@ -96,7 +113,9 @@ export default function ExplorerLayout({
         <button
           type="button"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="lg:hidden p-2 rounded-lg text-starlight/70 hover:bg-amber-500/10 hover:text-amber-400"
+          className={`lg:hidden p-2 rounded-lg transition-colors hover:bg-amber-500/10 hover:text-amber-500 ${
+            isLight ? 'text-slate-600' : 'text-starlight/70 hover:text-amber-400'
+          }`}
           aria-label="Menu"
         >
           <svg
@@ -116,7 +135,11 @@ export default function ExplorerLayout({
       </header>
 
       {/* Horizontal nav */}
-      <nav className="sticky top-14 z-20 flex items-center gap-1 px-4 sm:px-6 lg:px-8 py-2 border-b border-amber-500/15 bg-[#0d0d12]/90 overflow-x-auto">
+      <nav
+        className={`sticky top-14 z-20 flex items-center gap-1 px-4 sm:px-6 lg:px-8 py-2 border-b border-amber-500/15 overflow-x-auto ${
+          isLight ? 'bg-[#F1F5F9]/95' : 'bg-[#0d0d12]/90'
+        }`}
+      >
         {mainNav.map((item) => {
           const isActive =
             pathname === item.href ||
@@ -127,8 +150,10 @@ export default function ExplorerLayout({
               href={item.href}
               className={`shrink-0 px-3 py-2 rounded-md text-sm font-medium transition-colors whitespace-nowrap ${
                 isActive
-                  ? 'bg-amber-500/20 text-amber-400'
-                  : 'text-starlight/60 hover:text-amber-300 hover:bg-amber-500/10'
+                  ? 'bg-amber-500/20 text-amber-600'
+                  : isLight
+                    ? 'text-slate-600 hover:text-amber-600 hover:bg-amber-500/10'
+                    : 'text-starlight/60 hover:text-amber-300 hover:bg-amber-500/10'
               }`}
             >
               {item.name}
@@ -145,14 +170,20 @@ export default function ExplorerLayout({
             onClick={() => setMobileMenuOpen(false)}
             aria-hidden
           />
-          <div className="fixed top-14 left-0 right-0 z-50 lg:hidden bg-[#0d0d12] border-b border-amber-500/20 p-4 max-h-[70vh] overflow-y-auto">
+          <div
+            className={`fixed top-14 left-0 right-0 z-50 lg:hidden border-b border-amber-500/20 p-4 max-h-[70vh] overflow-y-auto ${
+              isLight ? 'bg-[#F1F5F9]' : 'bg-[#0d0d12]'
+            }`}
+          >
             <div className="flex flex-col gap-1">
               {mainNav.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="px-4 py-3 rounded-lg text-starlight hover:bg-amber-500/10"
+                  className={`px-4 py-3 rounded-lg hover:bg-amber-500/10 ${
+                    isLight ? 'text-slate-900' : 'text-starlight'
+                  }`}
                 >
                   {item.name}
                 </Link>
@@ -160,7 +191,9 @@ export default function ExplorerLayout({
               <div className="border-t border-amber-500/20 mt-3 pt-3 flex flex-wrap gap-2">
                 <Link
                   href="/docs"
-                  className="px-4 py-2 text-sm text-starlight/80 hover:text-amber-400"
+                  className={`px-4 py-2 text-sm hover:text-amber-500 ${
+                    isLight ? 'text-slate-700' : 'text-starlight/80 hover:text-amber-400'
+                  }`}
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Docs
@@ -168,7 +201,9 @@ export default function ExplorerLayout({
                 <button
                   type="button"
                   onClick={addNetwork}
-                  className="px-4 py-2 text-sm text-starlight/80 hover:text-amber-400"
+                  className={`px-4 py-2 text-sm hover:text-amber-500 ${
+                    isLight ? 'text-slate-700' : 'text-starlight/80 hover:text-amber-400'
+                  }`}
                 >
                   Add Network
                 </button>

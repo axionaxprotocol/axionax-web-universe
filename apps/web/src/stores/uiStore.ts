@@ -24,7 +24,7 @@ const applyThemeClass = (theme: 'dark' | 'light') => {
 export const useUIStore = create<UIState>()(
   persist(
     (set) => ({
-      theme: 'dark',
+      theme: 'light',
       toggleTheme: () =>
         set((state) => {
           const newTheme = state.theme === 'dark' ? 'light' : 'dark';

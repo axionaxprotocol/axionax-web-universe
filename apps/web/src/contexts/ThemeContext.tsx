@@ -19,16 +19,16 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>('dark');
+  const [theme, setThemeState] = useState<Theme>('light');
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
-    // Check localStorage first, then system preference
+    // Check localStorage first; default to light for better visibility
     const stored = localStorage.getItem('axionax-theme') as Theme | null;
     if (stored) {
       setThemeState(stored);
-    } else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+    } else {
       setThemeState('light');
     }
   }, []);

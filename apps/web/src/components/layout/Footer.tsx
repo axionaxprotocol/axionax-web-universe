@@ -8,28 +8,25 @@ export default function Footer(): React.JSX.Element {
       { name: 'Explorer', href: '/explorer' },
       { name: 'Faucet', href: '/faucet' },
       { name: 'Wallet', href: '/wallet' },
-      { name: 'Staking', href: '/staking' },
+      { name: 'Validators', href: '/validators' },
+      { name: 'Marketplace', href: '/marketplace' },
     ],
     developers: [
       { name: 'Documentation', href: '/docs' },
       { name: 'API Reference', href: '/docs/api' },
-      {
-        name: 'SDK',
-        href: '/docs/sdk',
-      },
+      { name: 'SDK', href: '/docs/sdk' },
       { name: 'GitHub', href: 'https://github.com/axionaxprotocol' },
     ],
     community: [
       { name: 'Discord', href: 'https://discord.gg/axionax' },
       { name: 'Twitter', href: 'https://twitter.com/axionax' },
       { name: 'Telegram', href: 'https://t.me/axionax' },
-      { name: 'Blog', href: '/blog' },
+      { name: 'Docs & Updates', href: '/docs' },
     ],
     company: [
-      { name: 'About', href: '/about' },
-      { name: 'Careers', href: '/careers' },
-      { name: 'Privacy Policy', href: '/privacy' },
-      { name: 'Terms of Service', href: '/terms' },
+      { name: 'Home', href: '/' },
+      { name: 'Join Network', href: '/join' },
+      { name: 'Dashboard', href: '/dashboard' },
     ],
   };
 
