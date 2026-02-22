@@ -18,13 +18,13 @@ const VALIDATORS = [
   {
     name: 'Validator EU',
     location: 'Europe',
-    ip: '217.76.61.116',
+    ip: '217.76.***.***',
     rpcUrl: '/api/rpc/eu',
   },
   {
     name: 'Validator AU',
     location: 'Australia',
-    ip: '46.250.244.4',
+    ip: '46.250.***.***',
     rpcUrl: '/api/rpc/au',
   },
 ];

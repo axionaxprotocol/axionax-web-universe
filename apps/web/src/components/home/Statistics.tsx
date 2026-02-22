@@ -10,6 +10,10 @@ interface LiveStats {
   uptime: number;
   deployment: number;
   validators: number;
+  nodes?: {
+    eu: boolean;
+    au: boolean;
+  };
 }
 
 interface StatsApiResponse {
@@ -23,6 +27,10 @@ interface StatsApiResponse {
   deployment: number;
   validators: {
     online: number;
+  };
+  nodes?: {
+    eu: boolean;
+    au: boolean;
   };
   isMock?: boolean;
 }
@@ -41,6 +49,7 @@ const fetchStats = async (): Promise<LiveStats & { isMock?: boolean }> => {
     uptime: data.uptime.hours,
     deployment: data.deployment,
     validators: data.validators.online,
+    nodes: data.nodes,
     isMock: data.isMock ?? false,
   };
 };
@@ -58,6 +67,7 @@ export default function Statistics(): React.JSX.Element {
         uptime: 48,
         deployment: 100,
         validators: 2,
+        nodes: { eu: false, au: false },
         isMock: true,
       },
     }
@@ -276,12 +286,12 @@ export default function Statistics(): React.JSX.Element {
                 <span className="text-sm font-medium text-content">
                   🇪🇺 Validator EU
                 </span>
-                <span className="px-2 py-0.5 bg-tech-success/10 text-tech-success text-xs rounded border border-tech-success/20">
-                  Online
+                <span className={`px-2 py-0.5 text-xs rounded border ${stats.nodes?.eu ? 'bg-tech-success/10 text-tech-success border-tech-success/20' : 'bg-tech-error/10 text-tech-error border-tech-error/20'}`}>
+                  {stats.nodes?.eu ? 'Online' : 'Offline'}
                 </span>
               </div>
               <div className="text-xs text-muted space-y-1 font-mono">
-                <div>IP: 217.76.61.116</div>
+                <div>IP: 217.76.***.***</div>
                 <div>Uptime: 29h+</div>
                 <div>Container: axionax-validator-eu</div>
               </div>
@@ -291,12 +301,12 @@ export default function Statistics(): React.JSX.Element {
                 <span className="text-sm font-medium text-content">
                   🇦🇺 Validator AU
                 </span>
-                <span className="px-2 py-0.5 bg-tech-success/10 text-tech-success text-xs rounded border border-tech-success/20">
-                  Online
+                <span className={`px-2 py-0.5 text-xs rounded border ${stats.nodes?.au ? 'bg-tech-success/10 text-tech-success border-tech-success/20' : 'bg-tech-error/10 text-tech-error border-tech-error/20'}`}>
+                  {stats.nodes?.au ? 'Online' : 'Offline'}
                 </span>
               </div>
               <div className="text-xs text-muted space-y-1 font-mono">
-                <div>IP: 46.250.244.4</div>
+                <div>IP: 46.250.***.***</div>
                 <div>Uptime: 29h+</div>
                 <div>Container: axionax-validator-au</div>
               </div>

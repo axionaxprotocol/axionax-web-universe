@@ -86,7 +86,7 @@ export async function GET() {
     const validatorsOnline = (euHealth ? 1 : 0) + (auHealth ? 1 : 0);
 
     const isMock = validatorsOnline === 0;
-    const stats: StatsResponse & { isMock?: boolean } = {
+    const stats: StatsResponse & { isMock?: boolean; nodes?: { eu: boolean; au: boolean } } = {
       blockNumber,
       services: {
         healthy: validatorsOnline > 0 ? 9 : 0,
@@ -99,6 +99,10 @@ export async function GET() {
       validators: {
         online: validatorsOnline,
         total: 2,
+      },
+      nodes: {
+        eu: euHealth,
+        au: auHealth,
       },
       timestamp: Date.now(),
       isMock,
@@ -120,6 +124,7 @@ export async function GET() {
       uptime: { hours: 0 },
       deployment: 100,
       validators: { online: 0, total: 2 },
+      nodes: { eu: false, au: false },
       timestamp: Date.now(),
       isMock: true,
     });

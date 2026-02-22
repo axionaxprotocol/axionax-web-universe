@@ -21,14 +21,14 @@ const VALIDATORS: Omit<ValidatorInfo, 'status' | 'blockHeight' | 'latency'>[] =
     {
       name: 'AU Validator AU',
       location: 'Asia-Pacific (Australia)',
-      ip: '46.250.244.4',
+      ip: '46.250.***.***',
       rpcUrl: '/api/rpc/au',
       uptime: '99.8%',
     },
     {
       name: 'NL Validator EU',
       location: 'Europe (Netherlands)',
-      ip: '217.76.61.116',
+      ip: '217.76.***.***',
       rpcUrl: '/api/rpc/eu',
       uptime: '99.9%',
     },
