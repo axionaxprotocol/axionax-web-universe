@@ -206,7 +206,7 @@
   }
 
   .input {
-    @apply w-full px-4 py-3 bg-black-hole border border-white/10 rounded-lg text-starlight placeholder-muted focus:outline-none focus:border-tech-cyan focus:ring-2 focus:ring-tech-cyan/20 transition-all;
+    @apply w-full px-4 py-3 bg-black-hole border border-white/10 rounded-lg text-starlight placeholder-slate-400 focus:outline-none focus:border-tech-cyan focus:ring-2 focus:ring-tech-cyan/20 transition-all;
   }
 
   .badge {
