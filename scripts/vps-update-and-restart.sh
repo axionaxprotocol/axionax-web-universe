@@ -32,7 +32,8 @@ echo "=== 4. Prepare standalone ==="
 # outputFileTracingRoot = monorepo root → static ต้องอยู่ที่ standalone/apps/web/.next/static
 mkdir -p "$STANDALONE_DIR/apps/web/.next"
 cp -r "$WEB_DIR/.next/static" "$STANDALONE_DIR/apps/web/.next/"
-cp -r "$WEB_DIR/public" "$STANDALONE_DIR/apps/web/" 2>/dev/null || true
+cp -r "$WEB_DIR/public/"* "$STANDALONE_DIR/apps/web/public/" 2>/dev/null || true
+cp -r "$WEB_DIR/public" "$STANDALONE_DIR/" 2>/dev/null || true
 
 echo ""
 echo "=== 5. Restart PM2 ==="
