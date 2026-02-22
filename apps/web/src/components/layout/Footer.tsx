@@ -15,7 +15,7 @@ export default function Footer(): React.JSX.Element {
       { name: 'API Reference', href: '/docs/api' },
       {
         name: 'SDK',
-        href: 'https://github.com/axionaxprotocol/axionax-sdk-ts',
+        href: '/docs/sdk',
       },
       { name: 'GitHub', href: 'https://github.com/axionaxprotocol' },
     ],

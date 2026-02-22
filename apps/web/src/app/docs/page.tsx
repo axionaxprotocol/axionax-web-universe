@@ -2,31 +2,19 @@ import Card, { CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
 import Link from 'next/link';
 
 export default function Docs(): React.JSX.Element {
-  const DOCS_BASE = 'https://axionaxprotocol.github.io/axionax-docs';
-
   const docSections = [
     {
       title: 'Getting Started',
       items: [
         {
           name: 'Quick Start',
-          href: `${DOCS_BASE}/QUICKSTART.html`,
-          external: true,
-        },
-        {
-          name: 'Getting Started',
-          href: `${DOCS_BASE}/GETTING_STARTED.html`,
-          external: true,
+          href: '/docs/quick-start',
+          external: false,
         },
         {
           name: 'Developer Guide',
-          href: `${DOCS_BASE}/DEVELOPER_GUIDE.md`,
-          external: true,
-        },
-        {
-          name: 'Chain ID Configuration',
-          href: `${DOCS_BASE}/CHAIN_ID_CONFIGURATION.md`,
-          external: true,
+          href: '/docs/quick-start',
+          external: false,
         },
       ],
     },
@@ -35,28 +23,18 @@ export default function Docs(): React.JSX.Element {
       items: [
         {
           name: 'Architecture',
-          href: `${DOCS_BASE}/ARCHITECTURE.html`,
-          external: true,
-        },
-        {
-          name: 'Architecture Compliance v1.9.0',
-          href: `${DOCS_BASE}/ARCHITECTURE_COMPLIANCE_v1.9.0.md`,
-          external: true,
+          href: '/docs/architecture',
+          external: false,
         },
         {
           name: 'API Reference',
-          href: `${DOCS_BASE}/API_REFERENCE.html`,
-          external: true,
+          href: '/docs/api',
+          external: false,
         },
         {
-          name: 'State RPC Usage',
-          href: `${DOCS_BASE}/STATE_RPC_USAGE.html`,
-          external: true,
-        },
-        {
-          name: 'Tokenomics',
-          href: `${DOCS_BASE}/TOKENOMICS.md`,
-          external: true,
+          name: 'DeAI Layer',
+          href: '/docs/deai',
+          external: false,
         },
       ],
     },
@@ -64,24 +42,14 @@ export default function Docs(): React.JSX.Element {
       title: 'Development',
       items: [
         {
-          name: 'Build Guide',
-          href: `${DOCS_BASE}/BUILD.html`,
-          external: true,
+          name: 'SDK (TypeScript)',
+          href: '/docs/sdk',
+          external: false,
         },
         {
           name: 'Testing Guide',
-          href: `${DOCS_BASE}/TESTING_GUIDE.md`,
-          external: true,
-        },
-        {
-          name: 'Tutorials',
-          href: `${DOCS_BASE}/TUTORIALS.md`,
-          external: true,
-        },
-        {
-          name: 'SDK (TypeScript)',
-          href: 'https://github.com/axionaxprotocol/axionax-sdk-ts',
-          external: true,
+          href: '/docs/sdk',
+          external: false,
         },
       ],
     },
@@ -90,23 +58,13 @@ export default function Docs(): React.JSX.Element {
       items: [
         {
           name: 'Node Integration',
-          href: `${DOCS_BASE}/NODE_INTEGRATION.html`,
-          external: true,
-        },
-        {
-          name: 'Testnet Integration',
-          href: `${DOCS_BASE}/TESTNET_INTEGRATION.html`,
-          external: true,
+          href: '/docs/deployment',
+          external: false,
         },
         {
           name: 'VPS Validator Setup',
-          href: `${DOCS_BASE}/VPS_VALIDATOR_SETUP.md`,
-          external: true,
-        },
-        {
-          name: 'RPC Node Deployment',
-          href: `${DOCS_BASE}/RPC_NODE_DEPLOYMENT.md`,
-          external: true,
+          href: '/docs/deployment',
+          external: false,
         },
       ],
     },
@@ -194,9 +152,7 @@ export default function Docs(): React.JSX.Element {
               Get started with axionax in under 5 minutes
             </p>
             <a
-              href={`${DOCS_BASE}/QUICKSTART.html`}
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/docs/quick-start"
               className="text-white font-semibold hover:underline inline-flex items-center gap-1"
             >
               Start Building →
@@ -224,9 +180,7 @@ export default function Docs(): React.JSX.Element {
               Comprehensive SDK for TypeScript, Python, and Rust
             </p>
             <a
-              href={`${DOCS_BASE}/API_REFERENCE.html`}
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/docs/api"
               className="text-tech-cyan font-semibold hover:underline inline-flex items-center gap-1"
             >
               View API Docs →
@@ -254,9 +208,7 @@ export default function Docs(): React.JSX.Element {
               Learn from step-by-step tutorials and examples
             </p>
             <a
-              href={`${DOCS_BASE}/TUTORIALS.md`}
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/docs/sdk"
               className="text-content font-semibold hover:underline inline-flex items-center gap-1"
             >
               Browse Tutorials →
@@ -313,9 +265,7 @@ const balance = await client.getBalance(wallet.address);`}</pre>
                 </p>
                 <div className="flex flex-wrap gap-3">
                   <a
-                    href={`${DOCS_BASE}/`}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href="/docs"
                     className="inline-flex items-center gap-2 px-4 py-2 bg-tech-cyan hover:bg-tech-cyan-hover text-white font-semibold rounded-lg transition-colors"
                   >
                     <svg
@@ -387,9 +337,7 @@ const balance = await client.getBalance(wallet.address);`}</pre>
                 </li>
                 <li>
                   <a
-                    href={`${DOCS_BASE}/CONTRIBUTING.md`}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href="/docs/deployment"
                     className="text-muted hover:text-tech-cyan transition-colors flex items-center gap-2"
                   >
                     <svg
@@ -410,9 +358,7 @@ const balance = await client.getBalance(wallet.address);`}</pre>
                 </li>
                 <li>
                   <a
-                    href={`${DOCS_BASE}/SECURITY.md`}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href="/docs/architecture"
                     className="text-muted hover:text-tech-cyan transition-colors flex items-center gap-2"
                   >
                     <svg
@@ -433,9 +379,7 @@ const balance = await client.getBalance(wallet.address);`}</pre>
                 </li>
                 <li>
                   <a
-                    href={`${DOCS_BASE}/ROADMAP.md`}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href="/docs/quick-start"
                     className="text-muted hover:text-tech-cyan transition-colors flex items-center gap-2"
                   >
                     <svg
@@ -498,9 +442,7 @@ const balance = await client.getBalance(wallet.address);`}</pre>
                   </div>
                   <p className="text-xs text-muted">Chain ID: 31337</p>
                   <a
-                    href={`${DOCS_BASE}/CHAIN_ID_CONFIGURATION.md`}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href="/docs/deployment"
                     className="text-xs text-tech-warning hover:underline mt-2 inline-block"
                   >
                     Setup Guide →
