@@ -108,7 +108,7 @@ curl http://localhost:8545/health
 {
   "status": "healthy",
   "network": "axionax-testnet-1",
-  "chainId": "888",
+  "chainId": "86137",
   "blockNumber": 1000,
   "timestamp": 1762959327153
 }

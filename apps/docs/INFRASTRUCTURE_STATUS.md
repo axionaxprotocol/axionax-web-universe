@@ -121,12 +121,12 @@ Real-time status of all axionax Protocol testnet services.
 - ✅ Transaction simulation (3s mining)
 - ✅ Account balance tracking
 - ✅ Gas estimation
-- ✅ Chain ID: 888 (axionax-testnet-1)
+- ✅ Chain ID: 86137 (axionax-testnet-1)
 
 **Sample Request**:
 ```bash
 curl http://217.216.109.5:8545/health
-# Response: {"status":"healthy","network":"axionax-testnet-1","chainId":"888"}
+# Response: {"status":"healthy","network":"axionax-testnet-1","chainId":"86137"}
 ```
 
 **Supported Methods**:

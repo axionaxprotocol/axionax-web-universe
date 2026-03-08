@@ -2,7 +2,7 @@
 
 **Date**: November 5, 2025  
 **Network**: Axionax Public Testnet  
-**Chain ID**: `axionax-testnet-1`
+**Chain ID**: `86137` (0x15079)
 
 ---
 
@@ -23,28 +23,28 @@ The testnet is now open for developers, validators, and community members to exp
 | **RPC Node** | https://rpc.axionax.org | JSON-RPC endpoint for transactions |
 | **WebSocket** | wss://rpc.axionax.org/ws | Real-time event subscriptions |
 | **Block Explorer** | https://explorer.axionax.org | View blocks, transactions, accounts |
-| **Testnet Faucet** | https://faucet.axionax.org | Request test AXX tokens |
+| **Testnet Faucet** | https://faucet.axionax.org | Request test AXXt tokens |
 | **Website** | https://axionax.org | Documentation and resources |
 
 ### Network Parameters
 
-- **Chain ID**: `axionax-testnet-1`
+- **Chain ID**: `86137` (0x15079)
 - **Block Time**: ~6 seconds
-- **Token Symbol**: AXX
+- **Token Symbol**: AXXt (Testnet)
 - **Consensus**: Proof of Probabilistic Checking (PoPC)
 - **Max Validators**: 100
-- **Min Validator Stake**: 10,000 AXX
+- **Min Validator Stake**: 10,000 AXXt
 
 ---
 
 ## 💰 Get Testnet Tokens
 
-Visit our faucet to receive test AXX tokens:
+Visit our faucet to receive test AXXt tokens:
 
 1. Go to https://faucet.axionax.org
 2. Enter your wallet address
 3. Complete the verification
-4. Receive 100 AXX (once per 24 hours)
+4. Receive 100 AXXt (once per 24 hours)
 
 *Note: Testnet tokens have no real value and are for testing purposes only.*
 
@@ -65,7 +65,7 @@ import { AxionaxClient } from '@axionax/sdk';
 
 const client = new AxionaxClient({
   rpcUrl: 'https://rpc.axionax.org',
-  chainId: 1001
+  chainId: 86137
 });
 
 // Get latest block

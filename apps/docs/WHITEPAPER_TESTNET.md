@@ -918,7 +918,7 @@ cd core && cargo build --release --bin axionax-node
 [network]
 listen_address = "0.0.0.0:26656"
 external_address = "YOUR_PUBLIC_IP:26656"
-seeds = ["seed1.testnet.axionax.io:26656", "seed2.testnet.axionax.io:26656"]
+seeds = ["seed1.testnet.axionax.org:26656", "seed2.testnet.axionax.org:26656"]
 
 [consensus]
 timeout_propose = "500ms"

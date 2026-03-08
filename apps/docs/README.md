@@ -1,4 +1,4 @@
-﻿# axionax protocol Documentation 📚
+# axionax protocol Documentation 📚
 
 Official technical documentation for **axionax protocol** - a Layer-1 blockchain
 for high-performance decentralized compute markets.
@@ -30,7 +30,7 @@ for high-performance decentralized compute markets.
 | PostgreSQL | 5432 | ✅ Healthy | Connection pool ready (48h+ uptime) |
 | Redis | 6379 | ✅ Healthy | Cache layer operational (48h+ uptime) |
 | Nginx | 80/443 | ✅ Healthy | SSL configured (48h+ uptime) |
-| RPC Node | 8545/8546 | ✅ Healthy | Mock JSON-RPC server, chainId 888 (22h+ uptime) |
+| RPC Node | 8545/8546 | ✅ Healthy | Mock JSON-RPC server, chainId 86137 (22h+ uptime) |
 | Grafana | 3030 | ✅ Healthy | v12.2.1, dashboards accessible (19h+ uptime) |
 | Prometheus | 9090 | ✅ Running | Metrics collection active (19h+ uptime) |
 | Web Interface | 3000 | ✅ Running | axionax-web frontend (27h+ uptime) |

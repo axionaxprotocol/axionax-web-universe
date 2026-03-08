@@ -25,7 +25,7 @@
 
 - สร้างเครือข่าย **Universal Grid** ที่เปลี่ยนอุปกรณ์ Edge Computing (Raspberry Pi, PC, Mac) ให้เป็น Node ประมวลผล AI  
 - ใช้สถาปัตยกรรม **Geo-Hierarchy** เพื่อรองรับการขยายตัวสู่ **11 ล้านโหนด**  
-- ยืนยันความถูกต้องด้วย **PoPC** (Proof of Processing Capability)
+- ยืนยันความถูกต้องด้วย **PoPC** (Proof of Probabilistic Checking)
 
 ---
 
@@ -37,7 +37,7 @@
 |--------|-------------|
 | **Repository** | [axionax-core-universe](https://github.com/axionaxprotocol/axionax-core-universe) |
 | **ภาษา** | Rust (80% — Core Logic) + Python (20% — DeAI Layer) |
-| **Consensus** | PoPC (Proof of Processing Capability) |
+| **Consensus** | PoPC (Proof of Probabilistic Checking) |
 | **การตรวจสอบ** | สุ่มตรวจทางสถิติ (Probabilistic Checking) แทนการรันซ้ำทั้งหมด — \(O(s)\) vs \(O(n)\) |
 | **Finality** | Sub-second (~0.5 วินาที) |
 | **Validator Committee** | ใช้ VRF (Verifiable Random Function) ในการเลือก |

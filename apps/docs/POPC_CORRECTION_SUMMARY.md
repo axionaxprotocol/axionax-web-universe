@@ -307,7 +307,7 @@ Validation reduction: 97.3%
 For questions about PoPC or this update:
 - **Discord**: #technical-discussion
 - **GitHub**: Open an issue in axionax-core
-- **Email**: tech@axionax.io
+- **Email**: tech@axionax.org
 
 ---
 

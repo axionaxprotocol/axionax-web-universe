@@ -43,7 +43,7 @@ cp .env.example .env
 Example `.env`:
 ```env
 NEXT_PUBLIC_RPC_URL=http://217.216.109.5:8545
-NEXT_PUBLIC_CHAIN_ID=888
+NEXT_PUBLIC_CHAIN_ID=86137
 NEXT_PUBLIC_NETWORK_NAME=axionax-testnet-1
 ```
 
@@ -125,7 +125,7 @@ The axionax testnet is currently deployed on VPS vmi2895217:
 
 - **RPC HTTP**: http://217.216.109.5:8545
 - **RPC WebSocket**: ws://217.216.109.5:8546
-- **Chain ID**: 888
+- **Chain ID**: 86137
 - **Network Name**: axionax-testnet-1
 
 ### MetaMask Configuration
@@ -137,8 +137,8 @@ Add axionax testnet to MetaMask:
 3. Enter details:
    - **Network Name**: AxionAX Testnet
    - **RPC URL**: http://217.216.109.5:8545
-   - **Chain ID**: 888
-   - **Currency Symbol**: AXX
+   - **Chain ID**: 86137
+   - **Currency Symbol**: AXXt
    - **Block Explorer**: http://217.216.109.5:3001 (when available)
 
 ---
@@ -197,7 +197,7 @@ axionax-web/
 | Variable | Description | Default |
 |----------|-------------|---------|
 | `NEXT_PUBLIC_RPC_URL` | RPC endpoint URL | `http://localhost:8545` |
-| `NEXT_PUBLIC_CHAIN_ID` | Chain ID | `888` |
+| `NEXT_PUBLIC_CHAIN_ID` | Chain ID | `86137` |
 | `NEXT_PUBLIC_NETWORK_NAME` | Network name | `axionax-testnet-1` |
 | `NEXT_PUBLIC_EXPLORER_URL` | Block explorer URL | `http://localhost:3001` |
 | `NEXT_PUBLIC_FAUCET_URL` | Faucet API URL | `http://localhost:3002` |
@@ -211,7 +211,7 @@ import { AxionAXClient } from '@axionax/sdk';
 
 const client = new AxionAXClient({
   rpcUrl: process.env.NEXT_PUBLIC_RPC_URL,
-  chainId: parseInt(process.env.NEXT_PUBLIC_CHAIN_ID || '888')
+  chainId: parseInt(process.env.NEXT_PUBLIC_CHAIN_ID || '86137')
 });
 ```
 

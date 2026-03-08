@@ -235,7 +235,7 @@ export default function Docs(): React.JSX.Element {
 
 const client = new axionaxClient({
   network: 'testnet',
-  endpoint: 'https://rpc.testnet.axionax.io'
+  endpoint: 'https://axionax.org/rpc/'
 });
 
 // Get network status
