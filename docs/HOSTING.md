@@ -1,22 +1,22 @@
-# เตรียมโฮสต์เว็บ (Website Hosting Guide)
+# Website Hosting Guide
 
-คู่มือตั้งค่า hosting เว็บ axionax ตั้งแต่ต้น — เลือกได้ 2 ทาง
+Guide for setting up axionax web hosting from scratch — two options:
 
-| ทาง | เหมาะกับ | สรุป |
-|-----|----------|------|
-| **1. Build บนเซิร์ฟเวอร์** | เริ่มใหม่, VPS เปล่า | Clone repo บน VPS → build → รันด้วย PM2 → ตั้ง Nginx |
-| **2. Build ที่เครื่องแล้วส่งขึ้นไป** | อัปเดตบ่อยจาก PC | รัน `deploy-vps.ps1` จาก Windows → ส่งไฟล์ขึ้น VPS → restart |
+| Option | Best for | Summary |
+|--------|----------|---------|
+| **1. Build on server** | Fresh start, empty VPS | Clone repo on VPS → build → run with PM2 → configure Nginx |
+| **2. Build locally then upload** | Frequent updates from PC | Run `deploy-vps.ps1` from Windows → upload files to VPS → restart |
 
 ---
 
-## ทางที่ 1: Build บนเซิร์ฟเวอร์ (แนะนำสำหรับเริ่มใหม่)
+## Option 1: Build on Server (recommended for fresh setup)
 
-### ขั้นที่ 1 — เตรียม VPS
+### Step 1 — Prepare VPS
 
-SSH เข้าเซิร์ฟเวอร์ (เช่น `ssh root@217.216.109.5`) แล้วรัน:
+SSH into server (e.g. `ssh root@217.216.109.5`) and run:
 
 ```bash
-# อัปเดตระบบ (Ubuntu/Debian)
+# Update system (Ubuntu/Debian)
 apt update && apt upgrade -y
 
 # Node.js 20
@@ -28,87 +28,87 @@ npm install -g pnpm
 apt-get install -y git
 ```
 
-ตรวจสอบ: `node -v` (v20.x), `pnpm -v`, `git --version`
+Verify: `node -v` (v20.x), `pnpm -v`, `git --version`
 
 ---
 
-### ขั้นที่ 2 — Clone, Build, เตรียม Standalone
+### Step 2 — Clone, Build, Prepare Standalone
 
 ```bash
-# Clone (หรือใช้สคริปต์เดียวด้านล่าง)
+# Clone (or use single script below)
 export APP_DIR=/opt/axionax-web-universe
 git clone --depth 1 -b main https://github.com/axionaxprotocol/axionax-web-universe.git $APP_DIR
 cd $APP_DIR
 
-# Install + Build (ต้อง build packages ก่อน — web ใช้ @axionax/sdk, @axionax/blockchain-utils)
+# Install + Build (build packages first — web uses @axionax/sdk, @axionax/blockchain-utils)
 pnpm install --frozen-lockfile
 pnpm --filter @axionax/blockchain-utils build
 pnpm --filter @axionax/sdk build
 pnpm --filter @axionax/web build
 
-# เตรียม standalone
-# ⚠️ สำคัญ: outputFileTracingRoot ชี้ไป monorepo root
-# ทำให้ server.js อยู่ที่ standalone/apps/web/server.js (ไม่ใช่ standalone/server.js)
-# static + public ต้อง copy ไปที่ standalone/apps/web/.next/static
+# Prepare standalone
+# ⚠️ Important: outputFileTracingRoot points to monorepo root
+# server.js is at standalone/apps/web/server.js (not standalone/server.js)
+# static + public must be copied to standalone/apps/web/.next/static
 mkdir -p apps/web/.next/standalone/apps/web/.next
 cp -r apps/web/.next/static apps/web/.next/standalone/apps/web/.next/
 cp -r apps/web/public apps/web/.next/standalone/apps/web/ 2>/dev/null || true
 ```
 
-**ทางลัด — รันสคริปต์เดียว:** (จากเครื่องคุณ ส่งไปรันบนเซิร์ฟเวอร์)
+**Shortcut — run single script:** (from your machine, send to run on server)
 
 ```bash
 ssh root@217.216.109.5 'bash -s' < scripts/vps-setup-from-git.sh
 ```
 
-สคริปต์จะติดตั้ง Node/pnpm ถ้ายังไม่มี, clone, build, และรันแอปชั่วคราว (ขั้นถัดไปแนะนำให้ใช้ PM2 แทน nohup)
+Script will install Node/pnpm if missing, clone, build, and run app temporarily (next step recommends PM2 instead of nohup)
 
 ---
 
-### ขั้นที่ 3 — รันแอปด้วย PM2 (ให้รันต่อหลัง restart)
+### Step 3 — Run app with PM2 (persists after restart)
 
-บนเซิร์ฟเวอร์:
+On server:
 
 ```bash
-# ติดตั้ง PM2
+# Install PM2
 npm install -g pm2
 
-# รันแอป
-# ⚠️ สำคัญ: ต้องใช้ path apps/web/server.js (เพราะ outputFileTracingRoot = monorepo root)
+# Run app
+# ⚠️ Important: must use path apps/web/server.js (outputFileTracingRoot = monorepo root)
 cd /opt/axionax-web-universe/apps/web/.next/standalone
 PORT=3000 pm2 start apps/web/server.js --name axionax-web
 
-# บันทึก + เปิดรันอัตโนมัติหลัง reboot
+# Save + auto-start after reboot
 pm2 save
 pm2 startup
-# รันคำสั่งที่ PM2 แนะนำ (มักเป็น env PATH=... pm2 startup ...)
+# Run the command PM2 suggests (usually env PATH=... pm2 startup ...)
 ```
 
-ตรวจสอบ: `pm2 list` และ `ss -tlnp | grep 3000`
+Verify: `pm2 list` and `ss -tlnp | grep 3000`
 
 ---
 
-### ขั้นที่ 4 — ตั้ง Nginx (proxy ไปที่ port 3000)
+### Step 4 — Configure Nginx (proxy to port 3000)
 
-เว็บเป็นแอป Node (Next.js) — **ต้องใช้ proxy ไปที่ 127.0.0.1:3000** ไม่ใช่ `root` ไปโฟลเดอร์ static
+Web is a Node app (Next.js) — **must proxy to 127.0.0.1:3000** not `root` to static folder
 
-1. สร้าง config (แก้ `server_name` และ path SSL ตามจริง):
+1. Create config (edit `server_name` and SSL path as needed):
 
 ```bash
 sudo nano /etc/nginx/sites-available/axionax-web
 ```
 
-2. วางเนื้อหาด้านล่าง (สำหรับ HTTP ก่อน — ใส่ SSL ภายหลังได้):
+2. Paste content below (HTTP first — add SSL later):
 
 ```nginx
-# Upstream: แอปรันที่ port 3000
+# Upstream: app runs on port 3000
 upstream web_frontend {
     server 127.0.0.1:3000;
 }
 
 server {
     listen 80;
-    server_name axionax.org www.axionax.org;   # แก้เป็น domain หรือ IP
+    server_name axionax.org www.axionax.org;   # Change to your domain or IP
 
     location /api/ {
         proxy_pass http://web_frontend;
@@ -132,7 +132,7 @@ server {
 }
 ```
 
-3. เปิดใช้และรีโหลด Nginx:
+3. Enable and reload Nginx:
 
 ```bash
 sudo ln -s /etc/nginx/sites-available/axionax-web /etc/nginx/sites-enabled/
@@ -142,55 +142,55 @@ sudo systemctl reload nginx
 
 ---
 
-### ขั้นที่ 5 — SSL (Optional)
+### Step 5 — SSL (Optional)
 
 ```bash
 sudo apt install -y certbot python3-certbot-nginx
 sudo certbot --nginx -d axionax.org -d www.axionax.org
 ```
 
-จากนั้น Nginx จะถูก certbot แก้ให้ใช้ HTTPS อัตโนมัติ
+Certbot will auto-update Nginx for HTTPS.
 
 ---
 
-## ทางที่ 2: Build ที่เครื่องแล้วส่งขึ้นไป
+## Option 2: Build locally then upload
 
-จาก **Windows** (โฟลเดอร์ root ของ repo):
+From **Windows** (repo root):
 
 ```powershell
 .\deploy-vps.ps1
 ```
 
-- Build แอปแบบ standalone → อัดเป็น tar → ส่งขึ้น VPS → แตกไฟล์ที่ `/var/www/axionax`
-- บนเซิร์ฟเวอร์ต้อง **รัน Node** เอง (เช่น PM2) และ **Nginx ต้อง proxy ไปที่ 3000**
+- Build app as standalone → tar → upload to VPS → extract to `/var/www/axionax`
+- Server must **run Node** (e.g. PM2) and **Nginx must proxy to 3000**
 
-รายละเอียดเพิ่ม (ค่าเริ่มต้น, restart, แก้ปัญหา): [DEPLOY.md](DEPLOY.md)
-
----
-
-## Checklist หลังตั้งค่า
-
-- [ ] `ss -tlnp | grep 3000` — มี process รันที่ port 3000
-- [ ] `curl -s http://127.0.0.1:3000 | head -5` — ได้ HTML กลับมา
-- [ ] เปิดเว็บผ่าน domain หรือ IP (และ HTTPS ถ้าตั้ง SSL แล้ว)
-- [ ] `pm2 restart axionax-web` — restart ได้และเว็บกลับมาทำงาน
+More details (defaults, restart, troubleshooting): [DEPLOY.md](DEPLOY.md)
 
 ---
 
-## เช็คสถานะ VPS (Health Check)
+## Post-setup checklist
 
-รันสคริปต์เช็ครวดเดียว (จากเครื่องคุณ):
+- [ ] `ss -tlnp | grep 3000` — process running on port 3000
+- [ ] `curl -s http://127.0.0.1:3000 | head -5` — returns HTML
+- [ ] Open site via domain or IP (and HTTPS if SSL configured)
+- [ ] `pm2 restart axionax-web` — restart works and site recovers
+
+---
+
+## VPS health check
+
+Run script from your machine:
 
 ```bash
 ssh root@217.216.109.5 'bash -s' < scripts/vps-standalone-check.sh
 ```
 
-สคริปต์จะเช็ค: Node/PM2/Nginx, ไฟล์ server.js + static, PM2 process, port 3000, HTTP response, disk/memory
+Script checks: Node/PM2/Nginx, server.js + static files, PM2 process, port 3000, HTTP response, disk/memory
 
-### เช็คด้วยมือ (Quick Commands)
+### Manual checks
 
 ```bash
-# PM2 สถานะ
+# PM2 status
 pm2 list
 pm2 logs axionax-web --lines 20
 
@@ -211,25 +211,25 @@ free -m
 
 ---
 
-## แก้ปัญหาเบื้องต้น
+## Troubleshooting
 
-| อาการ | ตรวจสอบ | แก้ |
-|--------|----------|-----|
-| PM2 stopped / crash loop | `pm2 logs axionax-web --err` | ดู error → แก้ → `pm2 restart axionax-web` |
-| `Cannot find module server.js` | path ผิด (outputFileTracingRoot) | ต้องรัน `apps/web/server.js` ไม่ใช่ `server.js` ดูขั้นที่ 3 |
-| เปิดเว็บไม่ขึ้น | Port 3000 มี process ไหม | `cd .../standalone && PORT=3000 pm2 start apps/web/server.js --name axionax-web` |
-| เปิดผ่าน IP ได้ แต่ผ่าน domain ไม่ได้ | Nginx ชี้ไป 127.0.0.1:3000 ไหม | ตรวจ `proxy_pass http://web_frontend;` และ upstream |
-| CSS/JS หาย (หน้าเว็บเปล่า) | static ไม่ได้ copy | `mkdir -p .../standalone/apps/web/.next && cp -r .../apps/web/.next/static .../standalone/apps/web/.next/` |
-| หลัง deploy หน้าเว็บยังเก่า | Process เก่ายังรันอยู่ | `pm2 restart axionax-web` หรือ kill แล้ว start ใหม่ |
+| Symptom | Check | Fix |
+|---------|-------|-----|
+| PM2 stopped / crash loop | `pm2 logs axionax-web --err` | Fix error → `pm2 restart axionax-web` |
+| `Cannot find module server.js` | Wrong path (outputFileTracingRoot) | Must run `apps/web/server.js` not `server.js` — see Step 3 |
+| Site not loading | Process on port 3000? | `cd .../standalone && PORT=3000 pm2 start apps/web/server.js --name axionax-web` |
+| Works via IP but not domain | Nginx pointing to 127.0.0.1:3000? | Verify `proxy_pass http://web_frontend;` and upstream |
+| CSS/JS missing (blank page) | Static not copied | `mkdir -p .../standalone/apps/web/.next && cp -r .../apps/web/.next/static .../standalone/apps/web/.next/` |
+| Old content after deploy | Old process still running | `pm2 restart axionax-web` or kill and start fresh |
 
 ---
 
-## อัปเดตเว็บ (หลังตั้งครั้งแรกแล้ว)
+## Update site (after initial setup)
 
-รันสคริปต์เดียว (จากเครื่องคุณ):
+Run from your machine:
 
 ```bash
 ssh root@217.216.109.5 'bash -s' < scripts/vps-update-and-restart.sh
 ```
 
-สคริปต์จะ: `git pull` → build packages → build web → copy static → restart PM2 → verify HTTP 200
+Script: `git pull` → build packages → build web → copy static → restart PM2 → verify HTTP 200

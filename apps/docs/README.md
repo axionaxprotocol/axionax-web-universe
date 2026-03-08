@@ -3,7 +3,7 @@
 Official technical documentation for **axionax protocol** - a Layer-1 blockchain
 for high-performance decentralized compute markets.
 
-> **📄 เอกสารหลัก (ตัวล่าสุด):** [WHITEPAPER.md](../../WHITEPAPER.md) v2.1 · [MASTER_SUMMARY.md](../../MASTER_SUMMARY.md) v2.1
+> **📄 Canonical docs (latest):** [WHITEPAPER.md](../../WHITEPAPER.md) v2.1 · [MASTER_SUMMARY.md](../../MASTER_SUMMARY.md) v2.1
 
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Protocol](https://img.shields.io/badge/Protocol-axionax-purple)](https://axionax.org)

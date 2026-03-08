@@ -1,28 +1,28 @@
-# เอกสารโครงการ (Project Documentation)
+# Project Documentation
 
-เอกสารระดับ monorepo และการ deploy
+Monorepo-level documentation and deployment guides.
 
-## 📑 สารบัญ
+## Table of Contents
 
-| เอกสาร | คำอธิบาย |
-|--------|----------|
-| [HOSTING.md](HOSTING.md) | **เตรียมโฮสต์เว็บ** — ตั้งค่า VPS ตั้งแต่ต้น (Build บน server, Nginx, PM2, SSL) |
-| [DEPLOY.md](DEPLOY.md) | วิธี deploy ขึ้น Server (CI/CD, GitHub Pages, VPS) |
-| [DEVELOPMENT.md](DEVELOPMENT.md) | สภาพแวดล้อมพัฒนา, Docker, คำสั่งที่ใช้บ่อย |
-| [QUICK_START.md](QUICK_START.md) | เริ่มต้นใช้งานภายใน 5 นาที |
-| [SYSTEM_ARCHITECTURE.md](SYSTEM_ARCHITECTURE.md) | รายงานสถาปัตยกรรมระบบ axionax-web-universe (tech stack, data flow) |
+| Document | Description |
+|----------|-------------|
+| [HOSTING.md](HOSTING.md) | **Web hosting setup** — VPS setup from scratch (Build on server, Nginx, PM2, SSL) |
+| [DEPLOY.md](DEPLOY.md) | Deploy to Server (CI/CD, GitHub Pages, VPS) |
+| [DEVELOPMENT.md](DEVELOPMENT.md) | Development environment, Docker, common commands |
+| [QUICK_START.md](QUICK_START.md) | Get started in 5 minutes |
+| [SYSTEM_ARCHITECTURE.md](SYSTEM_ARCHITECTURE.md) | axionax-web-universe system architecture (tech stack, data flow) |
 
-## 🔍 Audits
+## Audits
 
-| ไฟล์ | คำอธิบาย |
-|------|----------|
-| [audits/AUDIT_REPORT_v1.md](audits/AUDIT_REPORT_v1.md) | รายงาน audit เวอร์ชัน 1 |
-| [audits/AUDIT_REPORT_v1.9.0.md](audits/AUDIT_REPORT_v1.9.0.md) | รายงาน audit เวอร์ชัน 1.9.0 |
+| File | Description |
+|------|-------------|
+| [audits/AUDIT_REPORT_v1.md](audits/AUDIT_REPORT_v1.md) | Audit report v1 |
+| [audits/AUDIT_REPORT_v1.9.0.md](audits/AUDIT_REPORT_v1.9.0.md) | Audit report v1.9.0 |
 
 ---
 
-**เอกสารหลัก (ตัวล่าสุด):**
+**Canonical protocol docs:**
 - [WHITEPAPER.md](../WHITEPAPER.md) — White Paper v2.1
-- [MASTER_SUMMARY.md](../MASTER_SUMMARY.md) — สรุปโครงการ v2.1 (Vision, DePIN, Roadmap)
+- [MASTER_SUMMARY.md](../MASTER_SUMMARY.md) — Project summary v2.1 (Vision, DePIN, Roadmap)
 
-**เอกสารแอป/บริการย่อย:** [apps/web/docs/](../apps/web/docs/), [apps/docs/](../apps/docs/)
+**App/service docs:** [apps/web/docs/](../apps/web/docs/), [apps/docs/](../apps/docs/)

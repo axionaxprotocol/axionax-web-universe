@@ -1,25 +1,25 @@
-# รายงานความสอดคล้องของเอกสาร (Documentation Consistency Report)
+# Documentation Consistency Report
 
-**วันที่ตรวจสอบ:** March 2026  
-**เอกสารหลัก (ตัวล่าสุด):** WHITEPAPER.md v2.1 · MASTER_SUMMARY.md v2.1
+**Date:** March 2026  
+**Canonical Docs:** WHITEPAPER.md v2.1 · MASTER_SUMMARY.md v2.1
 
 ---
 
-## เอกสารหลัก (Canonical — ใช้ตัวนี้เท่านั้น)
+## Canonical Documentation (Use Latest Only)
 
-| เอกสาร | ตำแหน่ง | เวอร์ชัน | หมายเหตุ |
-|--------|---------|----------|----------|
-| **White Paper** | [WHITEPAPER.md](../WHITEPAPER.md) | v2.1-testnet | เอกสารหลักโปรโตคอล |
-| **Master Summary** | [MASTER_SUMMARY.md](../MASTER_SUMMARY.md) | v2.1 | สรุปโครงการ วิสัยทัศน์ DePIN |
+| Document | Location | Version | Notes |
+|----------|----------|---------|-------|
+| **White Paper** | [WHITEPAPER.md](../WHITEPAPER.md) | v2.1-testnet | Primary protocol document |
+| **Master Summary** | [MASTER_SUMMARY.md](../MASTER_SUMMARY.md) | v2.1 | Project summary, DePIN vision |
 | **Tokenomics (Mainnet)** | [apps/docs/TOKENOMICS.md](../apps/docs/TOKENOMICS.md) | — | Mainnet 1T AXX |
 | **Tokenomics (Testnet)** | [apps/docs/TOKENOMICS_TESTNET.md](../apps/docs/TOKENOMICS_TESTNET.md) | — | Testnet AXXt |
 
 ---
 
-## ค่ามาตรฐาน (อ้างอิงจากเอกสารล่าสุด)
+## Standard Values (from Latest Docs)
 
-| รายการ | ค่า |
-|--------|-----|
+| Item | Value |
+|------|-------|
 | **PoPC** | Proof of Probabilistic Checking |
 | **Chain ID (Testnet)** | 86137 (0x15079) |
 | **Domain** | axionax.org |
@@ -29,13 +29,13 @@
 
 ---
 
-## สถานะการแก้ไข (March 2026)
+## Status (March 2026)
 
-✅ PoPC naming ตรงกัน  
-✅ Chain ID 86137 ทั่วทั้งโปรเจกต์  
+✅ PoPC naming consistent  
+✅ Chain ID 86137 across project  
 ✅ Domain axionax.org  
-✅ Token AXX/AXXt ถูกต้อง  
+✅ Token AXX/AXXt correct  
 
 ---
 
-*อัปเดตตาม WHITEPAPER.md v2.1 และ MASTER_SUMMARY.md v2.1*
+*Updated per WHITEPAPER.md v2.1 and MASTER_SUMMARY.md v2.1*
