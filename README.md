@@ -60,7 +60,8 @@ axionax-web-universe/
 │   └── ...
 │
 ├── deploy-vps.ps1        # VPS deploy (Windows, run from root)
-├── MASTER_SUMMARY.md     # เอกสารสรุปโครงการฉบับสมบูรณ์
+├── MASTER_SUMMARY.md     # เอกสารสรุปโครงการ (v2.1)
+├── WHITEPAPER.md         # White Paper หลัก (v2.1)
 ├── pnpm-workspace.yaml
 ├── package.json
 └── pnpm-lock.yaml

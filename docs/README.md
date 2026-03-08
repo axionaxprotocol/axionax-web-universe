@@ -21,6 +21,8 @@
 
 ---
 
-**เอกสารระดับโปรโตคอล** (Vision, DePIN, Roadmap, Fundraising): [MASTER_SUMMARY.md](../MASTER_SUMMARY.md) (ที่ root)
+**เอกสารหลัก (ตัวล่าสุด):**
+- [WHITEPAPER.md](../WHITEPAPER.md) — White Paper v2.1
+- [MASTER_SUMMARY.md](../MASTER_SUMMARY.md) — สรุปโครงการ v2.1 (Vision, DePIN, Roadmap)
 
 **เอกสารแอป/บริการย่อย:** [apps/web/docs/](../apps/web/docs/), [apps/docs/](../apps/docs/)
