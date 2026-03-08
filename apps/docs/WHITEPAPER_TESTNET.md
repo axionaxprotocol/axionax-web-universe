@@ -1,22 +1,23 @@
 # Axionax Protocol White Paper v.testnet
-## The Next-Generation Layer-1 Blockchain Protocol
+## DePIN Layer-1 — The Operating System for the Next Civilization
 
-**Version:** v1.8.0-testnet  
-**Date:** December 5, 2025  
+**Version:** v2.1-testnet  
+**Date:** March 2026  
 **Status:** Testnet Active - Protocol Compliant ✅  
 
 ---
 
 ## Executive Summary
 
-Axionax Protocol is a revolutionary Layer-1 blockchain designed to address the blockchain trilemma through innovative consensus mechanisms and architectural decisions. With our unique **Proof of Probabilistic Checking (PoPC)**, we achieve unprecedented transaction throughput (45,000+ TPS) while maintaining decentralization and security.
+Axionax Protocol is a **DePIN (Decentralized Physical Infrastructure Network)** Layer-1 blockchain building a **"Civilization OS"** — turning Edge devices (Raspberry Pi, PC, Mac) into AI compute nodes on a high-performance chain. With our unique **Proof of Probabilistic Checking (PoPC)** and **Geo-Hierarchy** architecture, we achieve 45,000+ TPS while scaling toward **11 million nodes**.
 
 ### Key Highlights
-- **45,000+ TPS** - Industry-leading transaction throughput
-- **Sub-second finality** - 0.5s average block time
-- **99.95% uptime** - Enterprise-grade reliability
-- **Zero magic numbers** - Production-ready code quality
-- **Complexity <8** - Maintainable codebase (47% reduction)
+- **DePIN + DeAI** — Edge AI compute network with 7 Sentinels (network immune system)
+- **45,000+ TPS** — Industry-leading transaction throughput
+- **Sub-second finality** — 0.5s average block time
+- **Geo-Hierarchy** — 5-tier topology (Edge → Metro → National → Regional → Global)
+- **Self-Sufficient** — No runtime dependency on external APIs (PyPI, npm, cloud)
+- **Monolith MK-I** — Production hardware (Scout/Vanguard) with Split-Brain (Project HYDRA)
 
 ---
 
@@ -25,7 +26,7 @@ Axionax Protocol is a revolutionary Layer-1 blockchain designed to address the b
 1. [Introduction](#1-introduction)
 2. [Technical Architecture](#2-technical-architecture)
 3. [Consensus Mechanism: PoPC](#3-consensus-mechanism-popc)
-4. [Advanced Features](#4-advanced-features)
+4. [Advanced Features](#4-advanced-features) — ASR, PPC, DA, Smart Contracts, [DeAI & 7 Sentinels](#45-deai--the-7-sentinels), [Monolith & HAL](#46-monolith-hardware--hal), [Self-Sufficiency](#47-self-sufficiency)
 5. [Code Quality & Refactoring](#5-code-quality--refactoring)
 6. [Performance Benchmarks](#6-performance-benchmarks)
 7. [Security Model](#7-security-model)
@@ -41,29 +42,31 @@ Axionax Protocol is a revolutionary Layer-1 blockchain designed to address the b
 
 ### 1.1 The Problem
 
-Current blockchain platforms face critical limitations:
+Current blockchain and AI infrastructure face critical limitations:
 
-- **Scalability Crisis**: Most L1 chains handle <10,000 TPS
-- **High Latency**: Block finality takes minutes to hours
-- **Poor Code Quality**: Technical debt and magic numbers plague production codebases
-- **Complex Consensus**: Difficult to validate and maintain
+- **AI Compute Crisis**: Shortage of compute chips and monopolization by Big Tech (Centralized AI)
+- **Data Privacy**: Risk of sending personal data to foreign clouds for processing
+- **Scalability Crisis**: Most L1 chains handle <10,000 TPS; block finality takes minutes
+- **Energy Inefficiency**: Traditional data centers consume massive energy
+- **External Dependencies**: Many protocols rely on PyPI, npm, or cloud APIs at runtime
 
 ### 1.2 Our Solution
 
 Axionax Protocol introduces:
 
-1. **Proof of Probabilistic Checking (PoPC)** - Adaptive multi-phase validation with probabilistic guarantees
-2. **Adaptive State Retention (ASR)** - Intelligent state management
-3. **Parallel Processing Chain (PPC)** - Concurrent transaction execution
-4. **Verifiable Random Function (VRF)** - Cryptographic fairness
-5. **Data Availability Layer (DA)** - Efficient state distribution
+1. **DePIN + Universal Grid** — Turn Edge devices (Raspberry Pi, PC, Mac) into AI compute nodes
+2. **Proof of Probabilistic Checking (PoPC)** — Statistical verification (O(s) vs O(n)); 45k+ TPS
+3. **Geo-Hierarchy** — 5-tier network topology scaling toward 11 million nodes
+4. **7 Sentinels** — AI-powered network immune system (fraud detection, reputation, dispute resolution)
+5. **Hardware Abstraction Layer (HAL)** — SILICON | NPU (Hailo) | PHOTONIC backends
+6. **Self-Sufficiency** — Protocol runs without PyPI/npm/external API at runtime
 
 ### 1.3 Vision
 
-To become the **infrastructure layer** for the next generation of decentralized applications, combining:
-- **Developer Experience**: Clean APIs, comprehensive SDKs
+To become the **"Civilization OS"** — the operating system for the next civilization:
+- **Trusted World Computer**: Math-based trust; smart contracts call AI models directly (PyO3 bridge)
 - **Enterprise Performance**: 45k+ TPS, sub-second finality
-- **Code Excellence**: Production-ready, maintainable codebase
+- **Developer Experience**: Clean APIs, TypeScript SDK, comprehensive docs
 
 ---
 
@@ -102,36 +105,45 @@ To become the **infrastructure layer** for the next generation of decentralized 
 └─────────────────────────────────────────────────────────────┘
 ```
 
-### 2.2 Technology Stack
+### 2.2 Geo-Hierarchy (Network Topology)
+
+Network organized in 5 tiers to reduce data density and scale toward 11M+ nodes:
+
+| Tier | Role | Scale |
+|------|------|-------|
+| **Tier 5** (Edge Workers) | Monolith Scout/Vanguard; AI inference | 10M+ nodes |
+| **Tier 4** (Metro Aggregators) | Aggregate proofs, batching at metro level | — |
+| **Tier 3** (National Gateways) | Traffic, data sovereignty at country level | — |
+| **Tier 2** (Regional Titans) | Super nodes for LLM training | — |
+| **Tier 1** (Global Root) | Space/Foundation nodes; global state root | — |
+
+### 2.3 Technology Stack
 
 | Component | Technology | Purpose |
 |-----------|-----------|---------|
-| Core Protocol | Rust (80%) | High performance, memory safety |
-| Smart Contracts | Python (10%) | Developer-friendly contract language |
-| SDK & Tools | TypeScript (10%) | Web3 integration, tooling |
-| Consensus | PoPC (Probabilistic Checking) + VRF | Secure, scalable consensus |
-| State Management | ASR + Merkle Trees | Efficient state handling |
-| Execution | PPC (Parallel) | Concurrent transaction processing |
+| Core Protocol | Rust (~80%) | Blockchain, consensus, network, staking, governance |
+| DeAI Layer | Python (~20%) | Worker node, HAL, optical simulation |
+| SDK & Tools | TypeScript | Web3 integration (axionax-web-universe) |
+| Consensus | PoPC + VRF | Secure, scalable consensus |
+| Interop | PyO3 Bridge | Smart contracts call AI models directly |
 
-### 2.3 Repository Structure
+### 2.4 Repository Structure
 
 ```
-axionax-protocol/
-├── axionax-core/           # Core protocol implementation
-│   ├── consensus/          # PoPC (Proof of Probabilistic Checking) engine
-│   ├── execution/          # Transaction execution
-│   ├── state/              # State management (ASR)
-│   └── network/            # P2P networking
-├── axionax-sdk-ts/         # TypeScript SDK v2.0
-│   ├── client/             # RPC client
-│   ├── errors/             # Custom error classes (4 types)
-│   ├── types/              # TypeScript interfaces
-│   └── utils/              # Helper methods
-├── axionax-web/            # Web interface
-├── axionax-marketplace/    # NFT marketplace dApp
-├── axionax-docs/           # Documentation hub
-├── axionax-deploy/         # Deployment scripts
-└── axionax-devtools/       # Developer tools
+axionax-core-universe/          # Blockchain Core (this doc)
+├── core/                       # Rust + Python
+│   ├── blockchain, consensus, crypto, network, state
+│   ├── rpc, staking, governance
+│   ├── ppc, da, asr, vrf       # Posted Price, Data Availability, VRF
+│   ├── deai/                   # Worker, HAL, optical simulation
+│   └── bridge/rust-python      # PyO3 bindings
+├── configs/                    # Monolith TOML (sentinel, worker, scout)
+├── ops/deploy/                 # VPS, Docker, Nginx, Genesis
+└── tools/                      # Faucet, devtools
+
+axionax-web-universe/           # Frontend (separate repo)
+├── apps/web, marketplace, api, faucet-api
+└── packages/sdk, blockchain-utils, ui
 ```
 
 ---
@@ -360,12 +372,62 @@ Ensures all validators can access block data efficiently:
 **Language Support:**
 - **Python**: Primary smart contract language (developer-friendly)
 - **Rust**: High-performance contract runtime
-- **WASM**: Future support for multi-language contracts
+- **WASM + EVM**: Compatible; future multi-language support
 
 **Safety Features:**
 - Gas metering and execution limits
 - Sandboxed execution environment
 - Formal verification tools (planned)
+
+### 4.5 DeAI & The 7 Sentinels
+
+**DeAI (Decentralized AI)** runs on Worker nodes and integrates with the chain via PyO3 bridge. Smart contracts can call AI models directly.
+
+**The 7 Sentinels** — AI models on Sentinel nodes forming the network's immune system:
+
+| Sentinel | Role |
+|----------|------|
+| **AION-VX** | Temporal integrity (time, ordering) |
+| **SERAPH-VX** | Network defense (DDoS, eclipse, Sybil) |
+| **ORION-VX** | Fraud detection (fake/invalid results) |
+| **DIAOCHAN-VX** | Reputation scoring |
+| **VULCAN-VX** | Hardware verification (TEE, attestation) |
+| **THEMIS-VX** | Dispute resolution |
+| **NOESIS-VX** | GenAI core; governance analysis |
+
+**Project HYDRA** (`hydra_manager.py`): Manages Split-Brain on Monolith MK-I — left Hailo for Sentinel, right for Worker.
+
+### 4.6 Monolith Hardware & HAL
+
+**Hardware Abstraction Layer (HAL)** — ComputeBackend switches by config:
+
+| Backend | Technology | Status |
+|---------|------------|--------|
+| **SILICON** | CPU/GPU (PyTorch) | ✅ Ready |
+| **NPU** | Hailo (Monolith MK-I) | ✅ Ready |
+| **PHOTONIC** | Optical simulation (MK-II) | 🔶 Simulation |
+| **HYBRID** | Multiple backends | ✅ Ready |
+
+**Monolith Roadmap:**
+
+| Gen | Codename | Timeline | Core Tech |
+|-----|----------|----------|-----------|
+| **MK-I** | Vanguard/Scout | 2026 | RPi 5 + Hailo-10H |
+| **MK-II** | Prism | 2027–2028 | Photonic (3,000× faster) |
+| **MK-III** | Ethereal | 2029–2032 | Speed of Light |
+| **MK-IV** | Gaia | 2035+ | Bio-Synthetic / Quantum |
+
+### 4.7 Self-Sufficiency
+
+The protocol **runs independently** at runtime — no mandatory dependency on PyPI, npm, crates.io, or external APIs:
+
+- **Rust**: Binary compiled in advance
+- **Python**: Dependencies installed/bundled before runtime
+- **DeAI**: Models loaded from local/cache; no mandatory cloud API
+- **Bootnodes**: Operator-defined (network's own nodes or private)
+- **Telemetry**: Optional; node works if endpoint is down
+
+**Cyber Defense**: 7 Sentinels + PoPC + ASR provide security without centralized vendors.
 
 ---
 
@@ -614,84 +676,62 @@ impl SlashableOffense {
 
 ## 8. Tokenomics
 
-### 8.1 AXON Token
+### 8.1 AXX Token
+
+**Testnet (Current):** AXXt (Axionax Testnet Token) — 1 Billion supply, Chain ID 86137, Faucet: https://faucet.axionax.org
+
+**Mainnet (Planned):** AXX (Axionax Token) — 1 Trillion supply, fixed cap
 
 **Token Utility:**
 1. **Gas Fees**: Pay for transaction execution
 2. **Staking**: Validator participation and security
 3. **Governance**: Protocol parameter voting
-4. **Incentives**: Rewards for validators and developers
+4. **Compute Marketplace**: Workers receive AXX for jobs; clients pay AXX
+5. **Incentives**: Rewards for validators and developers
 
-**Token Specifications:**
-- **Symbol**: AXON
+**Token Specifications (Mainnet):**
+- **Symbol**: AXX
 - **Type**: Native L1 token
-- **Max Supply**: 1,000,000,000 AXON (1 billion)
-- **Initial Supply**: 200,000,000 AXON (20%)
+- **Max Supply**: 1,000,000,000,000 AXX (1 trillion)
 - **Decimals**: 18
 
-### 8.2 Token Distribution
+### 8.2 Token Distribution (Mainnet)
 
 ```
-Total Supply: 1,000,000,000 AXON
+Total Supply: 1,000,000,000,000 AXX (1 Trillion)
 
 Distribution Breakdown:
-├── Team & Advisors:     15%  (150M) - 4-year vesting
-├── Early Investors:     10%  (100M) - 3-year vesting
-├── Public Sale:         5%   (50M)  - TGE unlock
-├── Ecosystem Fund:      30%  (300M) - 5-year release
-├── Validator Rewards:   25%  (250M) - 10-year emission
-├── Treasury:            10%  (100M) - DAO controlled
-└── Liquidity Mining:    5%   (50M)  - 2-year program
+├── Ecosystem Reserve:    45%  (450B) - Staking rewards, grants
+├── Team & Advisors:      20%  (200B) - 4-year vesting
+├── Early Investors:      10%  (100B) - 2-year vesting
+├── Public Sale:          10%  (100B) - TGE unlock
+├── Foundation:           8%   (80B)  - 3-year vesting
+├── Community Airdrops:   5%   (50B)  - Early adopters, testnet
+└── Liquidity Provision:  2%   (20B)  - DEX liquidity
 ```
 
 ### 8.3 Emission Schedule
 
-**Validator Rewards:**
-- Year 1: 50M AXON (20% of rewards pool)
-- Year 2: 40M AXON (16%)
-- Year 3: 32M AXON (12.8%)
-- Years 4-10: Decreasing by 20% annually (geometric decay)
-
-**Formula:**
-```
-Yearly Emission = 50M × (0.8)^(year - 1)
-```
+**Staking Rewards:** ~2.25% APY from Ecosystem Reserve
 
 ### 8.4 Staking Economics
 
 **Validator Requirements:**
-- Minimum stake: 100,000 AXON
+- Minimum stake: 100,000 AXX
 - Maximum validators: 200 (mainnet launch)
-- Delegation: Supported (min 1,000 AXON)
-
-**Rewards Calculation:**
-```rust
-fn calculate_validator_reward(
-    validator_stake: u128,
-    total_staked: u128,
-    blocks_proposed: u32,
-    blocks_validated: u32,
-    yearly_emission: u128,
-) -> u128 {
-    let base_reward = (validator_stake * yearly_emission) / total_staked;
-    let performance_bonus = (blocks_proposed * 10 + blocks_validated) as u128;
-    let uptime_multiplier = calculate_uptime_multiplier(validator);
-    
-    (base_reward + performance_bonus) * uptime_multiplier / 100
-}
-```
+- Delegation: Supported (min 1,000 AXX)
 
 **Expected APY:**
-- High participation (90% staked): 8-12% APY
-- Medium participation (60% staked): 12-18% APY
-- Low participation (30% staked): 18-25% APY
+- High participation: 8-12% APY
+- Medium participation: 12-18% APY
+- Low participation: 18-25% APY
 
 ### 8.5 Fee Structure
 
 **Transaction Fees:**
-- Base fee: 0.001 AXON (~$0.01 at $10 token price)
-- Priority fee: User-defined (dynamic)
-- Fee burning: 50% burned, 50% to validators
+- Base fee: Dynamic (network congestion)
+- Priority fee: User-defined
+- Fee burn: Governance-controlled
 
 **Gas Limits:**
 - Simple transfer: 21,000 gas
@@ -701,7 +741,7 @@ fn calculate_validator_reward(
 ### 8.6 Governance
 
 **On-Chain Governance:**
-- Proposal submission: 10,000 AXON required
+- Proposal submission: 10,000 AXX required
 - Voting period: 7 days
 - Quorum: 10% of circulating supply
 - Passing threshold: 66% approval
@@ -800,14 +840,19 @@ fn calculate_validator_reward(
 - [ ] Academic research partnerships
 - [ ] Enterprise adoption
 
-### 9.5 Long-Term Vision (2028+)
+### 9.5 Long-Term Vision (Project Ascension)
 
-**2028-2030: Infrastructure Layer**
+**Phase 3 — Evolution (2027):**
+- [ ] Photonic chip (MK-II Prism)
+- [ ] Enterprise API
+- [ ] 10+ dApps, $100M+ TVL
+
+**Phase 4 — Ascension (2028+):**
 - [ ] 100,000+ TPS (sharding)
-- [ ] Interoperability protocol (IBC-compatible)
-- [ ] Decentralized storage integration
-- [ ] AI/ML compute marketplace
-- [ ] Global adoption (1M+ daily active users)
+- [ ] Space nodes, Global Neural Grid
+- [ ] MK-III Ethereal, MK-IV Gaia (Bio-Synthetic)
+- [ ] 9 Pillars of Interaction (Neural Link Watch, Omni-Vision Glasses, etc.)
+- [ ] 4 Engines: Mirror World, Bio-Foundry, Kronos Finance, Generative Reality
 
 ---
 
@@ -847,26 +892,22 @@ curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 sudo apt install -y nodejs
 
 # Clone repository
-git clone https://github.com/axionaxprotocol/axionax-core.git
-cd axionax-core
+git clone https://github.com/axionaxprotocol/axionax-core-universe.git
+cd axionax-core-universe
 ```
 
 2. **Build Validator Node**
 ```bash
 # Build release binary
-cargo build --release --bin axionax-validator
+cd core && cargo build --release --bin axionax-node
 
-# Verify installation
-./target/release/axionax-validator --version
+# Verify installation (from core/ directory)
+./target/release/axionax-node --version
 ```
 
 3. **Generate Keys**
 ```bash
-# Create validator keys
-axionax-validator keys generate \
-    --output-dir ~/.axionax/keys \
-    --key-type validator
-
+# Create validator keys (see core-universe docs for exact command)
 # Backup your keys securely!
 ```
 
@@ -891,18 +932,13 @@ warm_cache_size = 10000
 
 [validator]
 moniker = "your-validator-name"
-stake_amount = 100000  # 100k AXON
+stake_amount = 100000  # 100k AXX
 ```
 
 5. **Start Validator**
 ```bash
-# Run as systemd service (recommended)
-sudo cp axionax-validator.service /etc/systemd/system/
-sudo systemctl enable axionax-validator
-sudo systemctl start axionax-validator
-
-# Check logs
-journalctl -u axionax-validator -f
+# Run as systemd service (see ops/deploy in core-universe for service file)
+# Check logs: journalctl -u axionax-node -f
 ```
 
 ### 10.2 Developer Participation
@@ -910,60 +946,36 @@ journalctl -u axionax-validator -f
 **Build a dApp:**
 
 ```typescript
-// Install SDK
-npm install @axionaxprotocol/sdk-ts
+// Install SDK (from axionax-web-universe monorepo)
+pnpm add @axionax/sdk
 
 // Quick start
-import { AxionaxClient, NetworkStats } from '@axionaxprotocol/sdk-ts';
+import { createClient, getBalance, formatAXX } from '@axionax/sdk';
 
-const client = new AxionaxClient({
-  endpoint: 'https://testnet-rpc.axionax.io',
-  network: 'testnet',
-});
+const client = await createClient();
+// RPC: https://axionax.org/rpc/ or http://217.76.61.116:8545 (EU), http://46.250.244.4:8545 (AU)
+// Chain ID: 86137
 
-// Send transaction
-async function transfer() {
-  try {
-    const tx = await client.sendTransaction({
-      to: '0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb',
-      amount: '1000000000000000000', // 1 AXON
-      gasLimit: 21000,
-    });
-    
-    console.log('Transaction hash:', tx.hash);
-    await tx.wait(); // Wait for finality
-    console.log('Transaction confirmed!');
-  } catch (error) {
-    if (error instanceof NetworkError) {
-      console.error('Network issue:', error.message);
-    } else if (error instanceof ValidationError) {
-      console.error('Invalid transaction:', error.message);
-    }
-  }
-}
-
-// Query statistics
-const stats: NetworkStats = await client.getNetworkStats();
-console.log(`TPS: ${stats.tps}, Validators: ${stats.validatorCount}`);
+// Use client for escrow, jobs, workers; use getBalance(provider, address) for token balance
 ```
 
 **Resources:**
-- 📘 **Documentation**: https://docs.axionax.io
+- 📘 **Documentation**: https://axionaxprotocol.github.io/axionax-docs/
+- 🌐 **Website**: https://axionax.org
 - 🧑‍💻 **GitHub**: https://github.com/axionaxprotocol
 - 💬 **Discord**: https://discord.gg/axionax
-- 🐦 **Twitter**: https://twitter.com/AxionaxProtocol
 
 ### 10.3 Testnet Incentives
 
 **Validator Rewards:**
-- Top 10 performers: 50,000 AXON each (mainnet allocation)
-- All qualified validators: 10,000 AXON minimum
+- Top 10 performers: 50,000 AXX each (mainnet allocation)
+- All qualified validators: 10,000 AXX minimum
 - Qualification: 90%+ uptime, <5% missed blocks
 
 **Developer Grants:**
-- Best dApp: $50,000 USDT + 100,000 AXON
-- 2nd-3rd place: $20,000 USDT + 50,000 AXON each
-- Notable mentions: $5,000 USDT + 10,000 AXON (5 winners)
+- Best dApp: $50,000 USDT + 100,000 AXX
+- 2nd-3rd place: $20,000 USDT + 50,000 AXX each
+- Notable mentions: $5,000 USDT + 10,000 AXX (5 winners)
 
 **Bug Bounty:**
 - Critical: $10,000 - $50,000
@@ -979,9 +991,9 @@ console.log(`TPS: ${stats.tps}, Validators: ${stats.validatorCount}`);
 - **Friday**: Validator roundtable (Community call)
 
 **Contests:**
-- Best tutorial/guide: 5,000 AXON
-- Best integration: 10,000 AXON
-- Best security finding: Up to 50,000 AXON
+- Best tutorial/guide: 5,000 AXX
+- Best integration: 10,000 AXX
+- Best security finding: Up to 50,000 AXX
 
 ---
 
@@ -1020,24 +1032,33 @@ console.log(`TPS: ${stats.tps}, Validators: ${stats.validatorCount}`);
 
 ## 12. Conclusion
 
-Axionax Protocol represents a **paradigm shift** in Layer-1 blockchain technology:
+Axionax Protocol represents a **paradigm shift** in DePIN and Layer-1 blockchain technology:
 
+✅ **DePIN + DeAI**: Edge devices as AI compute nodes; 7 Sentinels for network security  
 ✅ **Unmatched Performance**: 45,000+ TPS with sub-second finality  
-✅ **Production-Ready Code**: Zero magic numbers, <8 complexity, 91% test coverage  
-✅ **Innovative Consensus**: PoPC's probabilistic checking with 99.9%+ statistical confidence  
-✅ **Developer-First**: TypeScript SDK v2.0 with comprehensive error handling  
-✅ **Community-Driven**: Transparent governance and generous incentive programs  
+✅ **Geo-Hierarchy**: 5-tier topology scaling toward 11 million nodes  
+✅ **Self-Sufficient**: No runtime dependency on external APIs  
+✅ **Monolith Hardware**: MK-I (Scout/Vanguard) in production; MK-II–IV roadmap  
+✅ **Innovative Consensus**: PoPC with 99.9%+ statistical confidence  
+✅ **Developer-First**: TypeScript SDK, PyO3 bridge, comprehensive docs  
+
+### Fundraising (Series Seed)
+
+| Item | Value |
+|------|-------|
+| **Target** | $2,000,000 (10% equity/tokens) |
+| **Use of Funds** | 40% R&D, 30% Manufacturing, 30% Ecosystem |
+| **Advantages** | 10–30× cost vs competitors; Hardware-Native Security; Privacy-focused local inference |
 
 ### Join the Revolution
 
-**Testnet launches Q1 2026**. Be part of the next generation of blockchain infrastructure.
+**Testnet active** — Chain ID 86137, RPC: https://axionax.org/rpc/, Faucet: https://faucet.axionax.org
 
 📞 **Contact:**
-- **Website**: https://axionax.io
-- **Email**: team@axionax.io
+- **Website**: https://axionax.org
+- **Email**: team@axionax.org
 - **GitHub**: https://github.com/axionaxprotocol
 - **Discord**: https://discord.gg/axionax
-- **Twitter**: https://twitter.com/AxionaxProtocol
 
 ---
 
@@ -1064,7 +1085,7 @@ peer_timeout: 30s
 sync_mode: fast
 
 # Gas
-base_gas_price: 0.001 AXON
+base_gas_price: 0.001 AXX
 max_gas_per_block: 50M
 max_gas_per_tx: 10M
 ```
@@ -1082,9 +1103,14 @@ max_gas_per_tx: 10M
 
 ### Appendix D: Glossary
 
-- **ASR**: Adaptive State Retention
+- **AXX**: Axionax Token (mainnet)
+- **AXXt**: Axionax Testnet Token
+- **ASR**: Adaptive State Retention (state) / Auto-Selection Router (VRF worker selection)
+- **DeAI**: Decentralized AI
+- **DePIN**: Decentralized Physical Infrastructure Network
+- **HAL**: Hardware Abstraction Layer
 - **PoPC**: Proof of Probabilistic Checking
-- **PPC**: Parallel Processing Chain
+- **PPC**: Parallel Processing Chain / Posted Price Controller
 - **VRF**: Verifiable Random Function
 - **DA**: Data Availability
 - **TPS**: Transactions Per Second
@@ -1092,9 +1118,10 @@ max_gas_per_tx: 10M
 
 ---
 
-**Document Version**: v0.9.0 (Testnet Release)  
-**Last Updated**: December 5, 2025  
-**Protocol**: v1.8.0-testnet (Fully Compliant)  
+**Document Version**: v2.1 (Testnet Release)  
+**Last Updated**: March 2026  
+**Protocol**: v2.1-testnet (DePIN + DeAI Compliant)  
+**Repositories**: [axionax-core-universe](https://github.com/axionaxprotocol/axionax-core-universe) · [axionax-web-universe](https://github.com/axionaxprotocol/axionax-web-universe)  
 **License**: Creative Commons BY-NC-SA 4.0  
 
-© 2025 Axionax Protocol. All rights reserved.
+© 2026 Axionax Protocol. All rights reserved.
