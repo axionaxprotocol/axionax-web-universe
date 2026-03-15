@@ -5,11 +5,11 @@ RUN npm install -g pnpm
 
 WORKDIR /app
 
-# Copy package files
+# Copy package files (monorepo lockfile may be at root; allow install without it)
 COPY package.json pnpm-lock.yaml* ./
 
-# Install dependencies
-RUN pnpm install --frozen-lockfile
+# Install dependencies (use frozen lockfile only when present, e.g. when context is monorepo root)
+RUN if [ -f pnpm-lock.yaml ]; then pnpm install --frozen-lockfile; else pnpm install; fi
 
 # Copy source
 COPY . .
