@@ -46,7 +46,7 @@ $gitStatus = git status --porcelain
 if ($gitStatus) {
     Write-Host "⚠️  Warning: You have uncommitted changes:" -ForegroundColor Yellow
     Write-Host $gitStatus
-    $response = Read-Host "`nContinue anyway? (y/N)"
+    $response = Read-Host "Continue anyway? [y/N]"
     if ($response -ne "y" -and $response -ne "Y") {
         Write-Host "❌ Deployment cancelled" -ForegroundColor Red
         exit 1
@@ -61,7 +61,7 @@ Write-Host "Testing connection to ${VPS_IP}..." -ForegroundColor Cyan
 
 try {
     # Test SSH connection with timeout
-    $testConnection = Test-Connection -ComputerName $VPS_IP -Count 1 -TimeoutSeconds 5 -ErrorAction Stop
+    $testConnection = Test-Connection -ComputerName $VPS_IP -Count 1 -ErrorAction Stop
     Write-Host "✅ VPS is reachable (ping: $($testConnection.Latency)ms)" -ForegroundColor Green
     
     # Test SSH port
@@ -77,23 +77,21 @@ try {
         $httpTest = Invoke-WebRequest -Uri "http://${VPS_IP}" -TimeoutSec 5 -UseBasicParsing -ErrorAction SilentlyContinue
         Write-Host "✅ Current website status: HTTP $($httpTest.StatusCode)" -ForegroundColor Green
     } catch {
-        Write-Host "ℹ️  Website not responding (may be first deployment)" -ForegroundColor Cyan
+        Write-Host " Website not responding (may be first deployment)" -ForegroundColor Cyan
     }
-    
 } catch {
-    Write-Host "❌ Cannot reach VPS at ${VPS_IP}" -ForegroundColor Red
+    Write-Host " Cannot reach VPS at ${VPS_IP}" -ForegroundColor Red
     Write-Host "   Error: $($_.Exception.Message)" -ForegroundColor Gray
     Write-Host "`n   Please check:" -ForegroundColor Yellow
     Write-Host "   1. VPS is powered on" -ForegroundColor White
     Write-Host "   2. Network/Firewall allows connection" -ForegroundColor White
     Write-Host "   3. VPS IP is correct: ${VPS_IP}" -ForegroundColor White
-    $response = Read-Host "`nContinue anyway? (y/N)"
+    $response = Read-Host "Continue anyway? [y/N]"
     if ($response -ne "y" -and $response -ne "Y") {
-        Write-Host "❌ Deployment cancelled" -ForegroundColor Red
+        Write-Host " Deployment cancelled" -ForegroundColor Red
         exit 1
     }
 }
-
 
 # 2. Run tests
 if (-not $SkipTests) {
@@ -118,15 +116,10 @@ if (-not $SkipTests) {
 Write-Host "`n[3/7] Running security audit..." -ForegroundColor Yellow
 npm audit --audit-level=high
 if ($LASTEXITCODE -ne 0) {
-    Write-Host "⚠️  Warning: High severity vulnerabilities found!" -ForegroundColor Yellow
+    Write-Host " Warning: High severity vulnerabilities found!" -ForegroundColor Yellow
     Write-Host "Run 'npm audit fix' to resolve issues." -ForegroundColor Yellow
-    $response = Read-Host "`nContinue deployment anyway? (y/N)"
-    if ($response -ne "y" -and $response -ne "Y") {
-        Write-Host "❌ Deployment cancelled" -ForegroundColor Red
-        exit 1
-    }
 }
-Write-Host "✅ Security audit completed" -ForegroundColor Green
+Write-Host " Security audit completed" -ForegroundColor Green
 
 # 4. Build production
 Write-Host "`n[4/7] Building production bundle..." -ForegroundColor Yellow
@@ -155,10 +148,10 @@ if ($LASTEXITCODE -eq 0) {
             exit 1
         }
     } else {
-        Write-Host "✅ Changes pushed to GitHub" -ForegroundColor Green
+        Write-Host " Changes pushed to GitHub" -ForegroundColor Green
     }
 } else {
-    Write-Host "ℹ️  No changes to commit" -ForegroundColor Cyan
+    Write-Host " No changes to commit" -ForegroundColor Cyan
 }
 
 # 6. Deploy to VPS
@@ -275,22 +268,22 @@ try {
 
 # Final summary
 Write-Host "`n" + ("=" * 70) -ForegroundColor Cyan
-Write-Host "🎉 Deployment Summary" -ForegroundColor Green
+Write-Host "Deployment Summary" -ForegroundColor Green
 Write-Host ("=" * 70) -ForegroundColor Cyan
-Write-Host "✅ Pre-checks:   Passed" -ForegroundColor Green
-Write-Host "✅ Build:        Success" -ForegroundColor Green
-Write-Host "✅ Security:     Scanned" -ForegroundColor Green
-Write-Host "✅ GitHub:       Pushed" -ForegroundColor Green
-Write-Host "✅ VPS Deploy:   Complete" -ForegroundColor Green
-Write-Host "✅ Verification: Done" -ForegroundColor Green
+Write-Host " Pre-checks:   Passed" -ForegroundColor Green
+Write-Host " Build:        Success" -ForegroundColor Green
+Write-Host " Security:     Scanned" -ForegroundColor Green
+Write-Host " GitHub:       Pushed" -ForegroundColor Green
+Write-Host " VPS Deploy:   Complete" -ForegroundColor Green
+Write-Host " Verification: Done" -ForegroundColor Green
 Write-Host ("=" * 70) -ForegroundColor Cyan
-Write-Host "`n🌐 Website URLs:" -ForegroundColor Cyan
+Write-Host "`nWebsite URLs:" -ForegroundColor Cyan
 Write-Host "   HTTP:  http://${VPS_IP}" -ForegroundColor White
 Write-Host "   HTTPS: https://axionax.org (if SSL configured)" -ForegroundColor White
-Write-Host "`n📝 Useful commands:" -ForegroundColor Cyan
+Write-Host "`nUseful commands:" -ForegroundColor Cyan
 Write-Host "   View logs:    ssh ${SSH_USER}@${VPS_IP} 'cd ${DEPLOY_PATH} && docker-compose logs -f'" -ForegroundColor White
 Write-Host "   Restart:      ssh ${SSH_USER}@${VPS_IP} 'cd ${DEPLOY_PATH} && docker-compose restart'" -ForegroundColor White
 Write-Host "   Check status: ssh ${SSH_USER}@${VPS_IP} 'cd ${DEPLOY_PATH} && docker-compose ps'" -ForegroundColor White
 $completionTime = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'
-Write-Host "`n✨ Deployment completed at: $completionTime" -ForegroundColor Green
+Write-Host "Deployment completed at: $completionTime" -ForegroundColor Green
 Write-Host ""
