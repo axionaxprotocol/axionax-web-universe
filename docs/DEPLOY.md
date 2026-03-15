@@ -1,119 +1,116 @@
-# Deploy ขึ้น Server
+# Deploy to Server
 
-มี 3 ทางหลัก: **CI → VPS** (อัตโนมัติเมื่อ push), **GitHub Pages** (static), และ **VPS เอง** (SSH ส่งไฟล์เอง)
+Three main options: **CI → VPS** (auto on push), **GitHub Pages** (static), and **VPS manual** (SSH upload)
 
 ---
 
-## 0. CI/CD → VPS (แนะนำถ้าใช้ GitHub Actions)
+## 0. CI/CD → VPS (recommended with GitHub Actions)
 
 - **Workflow:** `.github/workflows/ci-cd.yml`
-- **Trigger:** Push ไป `develop` = deploy staging; push ไป `main` = deploy production
-- **ขั้นตอน:** Build แอป web แบบ standalone → rsync ขึ้น VPS ผ่าน SSH → (ถ้าตั้งไว้) รันคำสั่ง restart บน server
-- **สิ่งที่ต้องตั้ง:** ใน repo → Settings → Secrets and variables → Actions → เลือก environment **staging** / **production** แล้วใส่ secrets: `SSH_HOST`, `SSH_USER`, `SSH_PRIVATE_KEY`, `REMOTE_PATH`, และถ้าต้องการ restart: `DEPLOY_RESTART_CMD` (เช่น `pm2 restart axionax-web`)
-- รายละเอียดการตั้งค่า server และ SSH ดูที่ [apps/web/docs/DEPLOYMENT.md](../apps/web/docs/DEPLOYMENT.md) หัวข้อ "CI/CD Deploy (GitHub Actions)"
+- **Trigger:** Push to `develop` = deploy staging; push to `main` = deploy production
+- **Steps:** Build web app as standalone → rsync to VPS via SSH → (if configured) run restart command on server
+- **Setup:** Repo → Settings → Secrets and variables → Actions → select environment **staging** / **production** and add secrets: `SSH_HOST`, `SSH_USER`, `SSH_PRIVATE_KEY`, `REMOTE_PATH`, and optionally `DEPLOY_RESTART_CMD` (e.g. `pm2 restart axionax-web`)
+- Server and SSH setup details: [apps/web/docs/DEPLOYMENT.md](../apps/web/docs/DEPLOYMENT.md) section "CI/CD Deploy (GitHub Actions)"
 
 ---
 
-## 1. GitHub Pages (อัตโนมัติเมื่อ push ขึ้น main)
+## 1. GitHub Pages (auto on push to main)
 
 - **Workflow:** `.github/workflows/deploy-pages.yml`
-- **Trigger:** Push ไปที่ branch `main` (เมื่อมีเปลี่ยนใน `apps/web/**` หรือ `packages/**`)
-- **ขั้นตอน:** Build `@axionax/web` → อัปโหลด `apps/web/out` → Deploy ไป GitHub Pages
+- **Trigger:** Push to branch `main` (when changes in `apps/web/**` or `packages/**`)
+- **Steps:** Build `@axionax/web` → upload `apps/web/out` → Deploy to GitHub Pages
 
-**สิ่งที่ต้องทำใน Repo:**
+**Repo setup:**
 
-1. เปิด **Settings → Pages**
-2. **Source:** เลือก **GitHub Actions**
-3. หลัง push ขึ้น `main` workflow จะรันและ deploy ให้
-4. ดู URL ได้ที่ **Environments → github-pages** หรือ `https://<org>.github.io/<repo>/`
+1. Open **Settings → Pages**
+2. **Source:** Select **GitHub Actions**
+3. After push to `main` workflow runs and deploys
+4. URL at **Environments → github-pages** or `https://<org>.github.io/<repo>/`
 
-**ถ้าใช้ custom domain (เช่น axionax.org):** ใส่ใน Settings → Pages → Custom domain และตั้งค่า CNAME ตาม [docs/DNS_SETUP.md](../apps/web/docs/DNS_SETUP.md)
+**Custom domain (e.g. axionax.org):** Add in Settings → Pages → Custom domain and configure CNAME per [docs/DNS_SETUP.md](../apps/web/docs/DNS_SETUP.md)
 
 ---
 
-## 2. VPS (SSH ขึ้น server เอง)
+## 2. VPS (SSH to server manually)
 
-ใช้เมื่อมี VPS (เช่น Linux/Windows) และต้องการ deploy ขึ้น server นั้น
+Use when you have a VPS (Linux/Windows) and want to deploy there.
 
-### ทางเลือก: Pull + Build บนเซิร์ฟเวอร์ (เริ่มใหม่ง่าย)
+### Option: Pull + Build on server (easy for fresh start)
 
-ไม่ต้องส่งไฟล์จากเครื่อง — บน VPS แค่ clone repo แล้ว build ตรงนั้น:
+No file upload from your machine — on VPS just clone repo and build there:
 
-1. SSH เข้า VPS แล้วรัน (หรือส่งสคริปต์ไปรัน):
+1. SSH into VPS and run (or send script to run):
    ```bash
    bash -c "$(curl -fsSL https://raw.githubusercontent.com/axionaxprotocol/axionax-web-universe/main/scripts/vps-setup-from-git.sh)"
    ```
-   หรือ copy เนื้อหาจาก [scripts/vps-setup-from-git.sh](../scripts/vps-setup-from-git.sh) ไปรันบนเซิร์ฟเวอร์
+   Or copy content from [scripts/vps-setup-from-git.sh](../scripts/vps-setup-from-git.sh) and run on server
 
-2. ครั้งถัดไปที่อยากอัปเดต: เข้า VPS แล้วรัน [scripts/vps-update-and-restart.sh](../scripts/vps-update-and-restart.sh) (หรือ `git pull && pnpm install && pnpm --filter @axionax/web build` แล้ว restart process)
+2. For updates: SSH into VPS and run [scripts/vps-update-and-restart.sh](../scripts/vps-update-and-restart.sh) (or `git pull && pnpm install && pnpm --filter @axionax/web build` then restart process)
 
-3. ต้องให้ Nginx proxy ไปที่ `http://127.0.0.1:3000` (ดู [apps/web/nginx/conf.d/axionax-standalone.conf.example](../apps/web/nginx/conf.d/axionax-standalone.conf.example))
+3. Nginx must proxy to `http://127.0.0.1:3000` (see [apps/web/nginx/conf.d/axionax-standalone.conf.example](../apps/web/nginx/conf.d/axionax-standalone.conf.example))
 
-ค่าเริ่มต้นในสคริปต์: โฟลเดอร์แอป `/opt/axionax-web-universe`, port 3000
+Default script values: app folder `/opt/axionax-web-universe`, port 3000
 
-### รันจาก root (แนะนำ — build + อัปโหลด static)
+### Run from root (recommended — build + upload static)
 
-จากโฟลเดอร์ root ของ repo:
+From repo root:
 
 ```powershell
 # Windows PowerShell
 .\deploy-vps.ps1
 ```
 
-- **ทำอะไร:** `pnpm install` → build `@axionax/web` → อัปโหลด `apps/web/out` ไปที่ VPS ผ่าน SCP
-- **ค่าเริ่มต้น:** VPS_IP=`217.216.109.5`, VPS_USER=`root`, REMOTE_PATH=`/var/www/axionax`
-- **เปลี่ยนค่า:** ตั้ง env หรือส่งพารามิเตอร์ เช่น  
-  `$env:VPS_IP="1.2.3.4"; .\deploy-vps.ps1`  
-  หรือ  
-  `.\deploy-vps.ps1 -VPS_IP 1.2.3.4 -VPS_USER ubuntu -REMOTE_PATH /var/www/html`
-- **ข้าม build:** `.\deploy-vps.ps1 -SkipBuild` (ใช้เมื่อ build ไว้แล้ว)
+- **What it does:** `pnpm install` → build `@axionax/web` → upload `apps/web/out` to VPS via SCP
+- **Defaults:** VPS_IP=`217.216.109.5`, VPS_USER=`root`, REMOTE_PATH=`/var/www/axionax`
+- **Override:** Set env or pass params: `$env:VPS_IP="1.2.3.4"; .\deploy-vps.ps1` or `.\deploy-vps.ps1 -VPS_IP 1.2.3.4 -VPS_USER ubuntu -REMOTE_PATH /var/www/html`
+- **Skip build:** `.\deploy-vps.ps1 -SkipBuild` (when already built)
 
-**เงื่อนไข:** ต้อง SSH เข้า VPS ได้ (เช่น `ssh root@217.216.109.5`) และบน server ต้อง **รัน Node** (`node server.js`) และ **Nginx ต้อง proxy ไปที่ port 3000** (ไม่ใช่ serve ไฟล์ static จากโฟลเดอร์)
+**Requirements:** Must be able to SSH to VPS (e.g. `ssh root@217.216.109.5`) and server must **run Node** (`node server.js`) and **Nginx must proxy to port 3000** (not serve static files from folder)
 
-**ถ้าหน้าเว็บยังเก่า (deploy แล้วแต่ยังเห็นของเดิม):**
+**If site still shows old content after deploy:**
 
-1. **ต้องมี process Node รันอยู่** — หลัง deploy ต้อง restart ให้โหลดโค้ดใหม่  
-   - ถ้าไม่มี PM2: `ssh root@217.216.109.5 "cd /var/www/axionax && pkill -f 'node server.js' 2>/dev/null; sleep 1; PORT=3000 nohup node server.js > server.log 2>&1 &"`  
-   - หรือ deploy พร้อม restart: `$env:RESTART_CMD="pkill -f 'node server.js' 2>/dev/null; sleep 1; PORT=3000 nohup node server.js > server.log 2>&1 &"; .\deploy-vps.ps1 -SkipBuild`
+1. **Node process must be running** — after deploy restart to load new code  
+   - Without PM2: `ssh root@217.216.109.5 "cd /var/www/axionax && pkill -f 'node server.js' 2>/dev/null; sleep 1; PORT=3000 nohup node server.js > server.log 2>&1 &"`  
+   - Or deploy with restart: `$env:RESTART_CMD="pkill -f 'node server.js' 2>/dev/null; sleep 1; PORT=3000 nohup node server.js > server.log 2>&1 &"; .\deploy-vps.ps1 -SkipBuild`
 
-2. **Nginx ต้อง proxy ไปที่ 127.0.0.1:3000** — ถ้า Nginx ใช้ `root /var/www/axionax` และ `index index.html` จะได้แต่ static เก่า  
-   - ต้องใช้ `proxy_pass http://127.0.0.1:3000` สำหรับ location `/` และ `/api/`  
-   - ดูตัวอย่าง: [apps/web/nginx/conf.d/axionax-standalone.conf.example](../apps/web/nginx/conf.d/axionax-standalone.conf.example)
+2. **Nginx must proxy to 127.0.0.1:3000** — if Nginx uses `root /var/www/axionax` and `index index.html` you get old static only  
+   - Use `proxy_pass http://127.0.0.1:3000` for location `/` and `/api/`  
+   - Example: [apps/web/nginx/conf.d/axionax-standalone.conf.example](../apps/web/nginx/conf.d/axionax-standalone.conf.example)
 
-3. **เช็คบนเซิร์ฟเวอร์:** รัน `ssh root@217.216.109.5 'bash -s' < scripts/vps-standalone-check.sh` เพื่อดูว่ามี process รันไหม และ port 3000 เปิดไหม
+3. **Check server:** Run `ssh root@217.216.109.5 'bash -s' < scripts/vps-standalone-check.sh` to verify process and port 3000
 
-### สคริปต์อื่น (ถ้าใช้ flow แบบ git + docker บน server)
+### Other scripts (if using git + docker flow on server)
 
-| สคริปต์ | รันจาก | หมายเหตุ |
-|--------|--------|----------|
-| `deploy-vps.ps1` (ที่ root) | โฟลเดอร์ root | **แนะนำ** — build + ส่งเฉพาะ static ขึ้น VPS |
-| `apps/web/scripts/deploy-to-vps.ps1` | โฟลเดอร์ `apps/web` | Windows, build + push GitHub แล้วบน server ทำ git pull + docker-compose |
-| `apps/web/scripts/deploy-to-vps.sh` | โฟลเดอร์ `apps/web` | Linux/macOS, rsync `out/` ไป VPS (ต้องมี VPS_PASS) |
-| `scripts/deploy.sh` | โฟลเดอร์ root | ส่งทั้ง monorepo ไปที่ VPS แล้วรัน `docker-compose` |
+| Script | Run from | Notes |
+|--------|----------|-------|
+| `deploy-vps.ps1` (at root) | Root folder | **Recommended** — build + upload static to VPS |
+| `apps/web/scripts/deploy-to-vps.ps1` | `apps/web` folder | Windows, build + push GitHub then server does git pull + docker-compose |
+| `apps/web/scripts/deploy-to-vps.sh` | `apps/web` folder | Linux/macOS, rsync `out/` to VPS (requires VPS_PASS) |
+| `scripts/deploy.sh` | Root folder | Upload full monorepo to VPS then run `docker-compose` |
 
-### เงื่อนไขสำหรับ VPS
+### VPS requirements
 
-- **SSH:** เข้าได้ด้วย `ssh user@VPS_IP` (และถ้าต้องการ ไม่ใช้ password ให้ใช้ SSH key)
-- **ที่อยู่บน server:** สคริปต์ใน repo บางตัวตั้งค่าให้ clone/pull ที่ `/opt/axionax-web` หรือ `/var/www/axionax-marketplace` — ต้องให้ path ตรงกับที่ server มี
-- **ถ้าใช้ Docker:** บน server ต้องมี Docker + Docker Compose และมี `docker-compose.yml` ที่ใช้รัน web/API ตามที่ตั้งใจ
+- **SSH:** Access via `ssh user@VPS_IP` (use SSH key for passwordless)
+- **Server paths:** Some repo scripts assume clone/pull at `/opt/axionax-web` or `/var/www/axionax-marketplace` — ensure paths match your server
+- **Docker:** If using Docker, server needs Docker + Docker Compose and `docker-compose.yml` for web/API
 
-### แก้ IP / path ในสคริปต์
+### Change IP / path in scripts
 
-- **PowerShell (VPS):** แก้ใน `apps/web/scripts/deploy-to-vps.ps1`  
+- **PowerShell (VPS):** Edit `apps/web/scripts/deploy-to-vps.ps1`  
   - `$VPS_IP`  
   - `$SSH_USER`  
   - `$DEPLOY_PATH`
-- **Bash (root):** แก้ใน `scripts/deploy.sh`  
+- **Bash (root):** Edit `scripts/deploy.sh`  
   - `VPS_IP`  
   - `USER`  
   - `REMOTE_DIR`
 
 ---
 
-## สรุป
+## Summary
 
-- **Deploy ขึ้น server ได้เลยไหม?**
-  - **GitHub Pages:** ได้เลย — push ขึ้น `main` แล้วเปิด Pages จาก **GitHub Actions** ใน Settings → Pages
-  - **VPS:** ได้ถ้ามี server + SSH และแก้ IP/path ในสคริปต์ให้ตรงกับ server ของคุณ
+- **Can deploy to server?**
+  - **GitHub Pages:** Yes — push to `main` then enable Pages from **GitHub Actions** in Settings → Pages
+  - **VPS:** Yes if you have server + SSH and update IP/path in scripts to match your server
 
-รายละเอียด VPS แบบเต็ม (Docker, Nginx, DNS): [apps/web/docs/DEPLOYMENT.md](../apps/web/docs/DEPLOYMENT.md)
+Full VPS details (Docker, Nginx, DNS): [apps/web/docs/DEPLOYMENT.md](../apps/web/docs/DEPLOYMENT.md)

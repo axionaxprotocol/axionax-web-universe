@@ -25,9 +25,9 @@
 
 ## 📖 Overview
 
-**axionax Web Universe** เป็น monorepo ที่รวมทุกอย่างที่เกี่ยวข้องกับ frontend, documentation, SDK และ marketplace ของ **Axionax Protocol** ไว้ในที่เดียว ใช้ pnpm workspaces สำหรับการจัดการ dependencies ที่มีประสิทธิภาพ
+**axionax Web Universe** is a monorepo that consolidates frontend, documentation, SDK, and marketplace for **Axionax Protocol**. Uses pnpm workspaces for efficient dependency management.
 
-📄 **เอกสารสรุปโครงการฉบับสมบูรณ์:** [MASTER_SUMMARY.md](MASTER_SUMMARY.md) · **เตรียมโฮสต์เว็บ:** [docs/HOSTING.md](docs/HOSTING.md)
+📄 **Project Summary:** [MASTER_SUMMARY.md](MASTER_SUMMARY.md) · **White Paper:** [WHITEPAPER.md](WHITEPAPER.md) · **Hosting:** [docs/HOSTING.md](docs/HOSTING.md)
 
 ### 🎯 What's Inside?
 
@@ -60,7 +60,8 @@ axionax-web-universe/
 │   └── ...
 │
 ├── deploy-vps.ps1        # VPS deploy (Windows, run from root)
-├── MASTER_SUMMARY.md     # เอกสารสรุปโครงการฉบับสมบูรณ์
+├── MASTER_SUMMARY.md     # Project summary (v2.1)
+├── WHITEPAPER.md         # White Paper (v2.1)
 ├── pnpm-workspace.yaml
 ├── package.json
 └── pnpm-lock.yaml
@@ -494,30 +495,30 @@ docker-compose up -d
 
 **CI (GitHub Actions):**
 
-- Push/PR ไป `main` หรือ `develop` รัน: lint, type-check, build (web + marketplace), tests, security audit.
-- **Deploy จริง:** push ไป `develop` → deploy staging (rsync ขึ้น VPS); push ไป `main` → deploy production (rsync ขึ้น VPS).
-- Build ของ `apps/web` ใช้ **standalone output** (โฟลเดอร์เดียวมี `server.js`) แล้ว rsync ผ่าน SSH. ต้องตั้ง **secrets** ต่อ environment (staging/production): `SSH_HOST`, `SSH_USER`, `SSH_PRIVATE_KEY`, `REMOTE_PATH`, และถ้าต้องการ restart หลัง sync: `DEPLOY_RESTART_CMD` (เช่น `pm2 restart axionax-web`). รายละเอียดและวิธีตั้ง server ดูที่ [apps/web/docs/DEPLOYMENT.md#cicd-deploy-github-actions](apps/web/docs/DEPLOYMENT.md#-cicd-deploy-github-actions).
+- Push/PR to `main` or `develop` runs: lint, type-check, build (web + marketplace), tests, security audit.
+- **Production deploy:** push to `develop` → deploy staging (rsync to VPS); push to `main` → deploy production (rsync to VPS).
+- `apps/web` build uses **standalone output** (single folder with `server.js`) then rsync via SSH. Set **secrets** for environment (staging/production): `SSH_HOST`, `SSH_USER`, `SSH_PRIVATE_KEY`, `REMOTE_PATH`, and optionally `DEPLOY_RESTART_CMD` (e.g. `pm2 restart axionax-web`). See [apps/web/docs/DEPLOYMENT.md#cicd-deploy-github-actions](apps/web/docs/DEPLOYMENT.md#-cicd-deploy-github-actions).
 
 **Environment (production):**
 
-- คัดลอก `apps/web/.env.example` เป็น `.env.local` หรือ set บน server (หรือใน host เช่น Vercel).
-- ตัวแปรที่ต้องตั้งอย่างน้อย: `NEXT_PUBLIC_CHAIN_ID`, `NEXT_PUBLIC_RPC_URL` (หรือใช้ค่าใน .env.example), `NEXT_PUBLIC_API_URL` ถ้าใช้ API แยก.
-- RPC proxy (`/api/rpc/eu`, `/api/rpc/au`) ใช้ `RPC_EU_URL` / `RPC_AU_URL` (ไม่บังคับ มี default).
+- Copy `apps/web/.env.example` to `.env.local` or set on server (or host like Vercel).
+- Required env vars: `NEXT_PUBLIC_CHAIN_ID`, `NEXT_PUBLIC_RPC_URL` (or use .env.example defaults), `NEXT_PUBLIC_API_URL` if using separate API.
+- RPC proxy (`/api/rpc/eu`, `/api/rpc/au`) uses `RPC_EU_URL` / `RPC_AU_URL` (optional, has defaults).
 
 **Deploy targets:**
 
-| Target        | วิธี | หมายเหตุ |
-|---------------|------|----------|
-| **CI → VPS**  | ตั้ง secrets แล้ว push `main`/`develop` | ใช้ standalone + rsync ตาม [DEPLOYMENT.md](apps/web/docs/DEPLOYMENT.md) |
-| **Vercel**    | เชื่อม repo → build `pnpm --filter @axionax/web build`, root = repo root | รองรับ API routes |
-| **Node (VPS)**| Build แล้ว `pnpm --filter @axionax/web start` หรือ Docker ตาม [DEPLOYMENT.md](apps/web/docs/DEPLOYMENT.md) | ใช้ได้กับ full stack |
-| **GitHub Pages** | Workflow deploy-pages — ต้องใช้ static export และแอปมี `/api/*` จึงต้องแยก API หรือทำ static-only | ดู [docs/DEPLOY.md](docs/DEPLOY.md) |
+| Target        | Method | Notes |
+|---------------|--------|-------|
+| **CI → VPS**  | Set secrets, push `main`/`develop` | Standalone + rsync per [DEPLOYMENT.md](apps/web/docs/DEPLOYMENT.md) |
+| **Vercel**    | Connect repo → build `pnpm --filter @axionax/web build`, root = repo root | API routes supported |
+| **Node (VPS)**| Build then `pnpm --filter @axionax/web start` or Docker per [DEPLOYMENT.md](apps/web/docs/DEPLOYMENT.md) | Full stack |
+| **GitHub Pages** | deploy-pages workflow — requires static export; app has `/api/*` so must separate API or static-only | See [docs/DEPLOY.md](docs/DEPLOY.md) |
 
-**ก่อน deploy ครั้งแรก:**
+**Before first deploy:**
 
-1. ตั้ง env ตาม `.env.example` (อย่างน้อย `NEXT_PUBLIC_*`).
-2. รัน `pnpm build` ที่ root ให้ผ่าน.
-3. ถ้าใช้ CI deploy ขึ้น VPS: ตั้ง environment secrets ตามตารางด้านบน และเตรียม server ตาม [DEPLOYMENT.md § CI/CD Deploy](apps/web/docs/DEPLOYMENT.md#-cicd-deploy-github-actions).
+1. Set env per `.env.example` (at least `NEXT_PUBLIC_*`).
+2. Run `pnpm build` at root until it passes.
+3. For CI deploy to VPS: set environment secrets per table above and prepare server per [DEPLOYMENT.md § CI/CD Deploy](apps/web/docs/DEPLOYMENT.md#-cicd-deploy-github-actions).
 
 ---
 

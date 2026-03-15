@@ -52,7 +52,7 @@ Sample Size Calculation:
   - Line 26: Validation Layer description
   - Line 223: Roadmap Phase 1
 
-### 2. White Paper (WHITEPAPER_TESTNET.md)
+### 2. White Paper (WHITEPAPER.md)
 - ✅ **Executive Summary** (Line 12)
 - ✅ **Table of Contents** (Line 27)
 - ✅ **Introduction** (Line 55)
@@ -307,7 +307,7 @@ Validation reduction: 97.3%
 For questions about PoPC or this update:
 - **Discord**: #technical-discussion
 - **GitHub**: Open an issue in axionax-core
-- **Email**: tech@axionax.io
+- **Email**: tech@axionax.org
 
 ---
 

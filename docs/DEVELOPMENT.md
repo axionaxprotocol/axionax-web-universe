@@ -106,7 +106,7 @@ axionax-web-universe/
 └── docker-compose.dev.yml   # Development services
 ```
 
-### 5. Software versions (รุ่นล่าสุด)
+### 5. Software versions (latest)
 
 Dependencies are kept at **latest stable** within current major versions. After `pnpm install`, you get:
 

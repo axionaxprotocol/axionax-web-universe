@@ -149,7 +149,7 @@ docker-compose -f docker-compose.vps.yml restart grafana
 ```bash
 # RPC Node
 curl http://localhost:8545/health
-# Response: {"status":"healthy","network":"axionax-testnet-1","chainId":"888"...}
+# Response: {"status":"healthy","network":"axionax-testnet-1","chainId":"86137"...}
 
 # Prometheus
 curl http://localhost:9090/-/healthy

@@ -18,7 +18,7 @@ Welcome to the official documentation for axionax protocol - a next-generation d
 | **Monitoring** | ✅ 2/2 Healthy | Grafana v12.2.1, Prometheus |
 | **Applications** | ✅ 2/2 Healthy | Explorer API, Faucet API |
 
-**VPS**: vmi2895217 (217.216.109.5) • **Chain ID**: 888 • **Network**: axionax-testnet-1
+**VPS**: vmi2895217 (217.216.109.5) • **Chain ID**: 86137 • **Network**: axionax-testnet-1
 
 📊 **[Full Infrastructure Status](https://github.com/axionaxprotocol/axionax-docs/blob/main/INFRASTRUCTURE_STATUS.md)** | **[Health Checks Guide](HEALTH_CHECKS.md)** | **[Monitoring Setup](MONITORING.md)**
 

@@ -6,7 +6,7 @@
 > 
 > **Current Testnet Configuration:**
 > - Testnet uses simplified token model for testing
-> - Total Supply: 1 Billion AXX (for testing)
+> - Total Supply: 1 Billion AXXt (for testing)
 > - No vesting implementation (immediate distribution)
 > - See [TOKENOMICS_TESTNET.md](./TOKENOMICS_TESTNET.md) for current testnet configuration
 
