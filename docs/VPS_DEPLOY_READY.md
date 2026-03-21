@@ -60,10 +60,27 @@ export APP_DIR=/opt/axionax-web-universe
 
 ## 5. อัปเดตหลัง push ไป `main` แล้ว
 
-บน VPS:
+**Linux / macOS / Git Bash** (ไฟล์ `.sh` ต้องเป็น **LF** — repo ตั้ง `.gitattributes` แล้ว):
 
 ```bash
 ssh root@YOUR_VPS_IP 'bash -s' < scripts/vps-update-and-restart.sh
+```
+
+**Windows PowerShell — อย่าใช้** `Get-Content -Raw ... | ssh ... bash -s` เพราะ **CRLF** ทำให้บน Linux เกิด `$'\r': command not found` และ `pnpm` พารามิเตอร์พัง
+
+ให้รันแทน:
+
+```powershell
+cd D:\axionax-web-universe   # โฟลเดอร์ repo
+.\scripts\vps-update-from-windows.ps1
+# หรือระบุ host: .\scripts\vps-update-from-windows.ps1 -HostName root@YOUR_VPS_IP
+```
+
+**ทางเลือก:** `scp` ขึ้น VPS แล้ว `sed` ตัด `\r` ก่อนรัน:
+
+```powershell
+scp .\scripts\vps-update-and-restart.sh root@YOUR_VPS_IP:/tmp/vps-update.sh
+ssh root@YOUR_VPS_IP "sed -i 's/\r$//' /tmp/vps-update.sh && bash /tmp/vps-update.sh"
 ```
 
 หรือคัดลอกคำสั่งจาก `scripts/vps-update-and-restart.sh` ไปรันทีละบล็อก:

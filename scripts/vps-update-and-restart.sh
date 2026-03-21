@@ -1,7 +1,8 @@
 #!/bin/bash
 # ==========================================================
 #  อัปเดตเว็บบน VPS: pull → build packages → build web → restart PM2
-#  Usage: ssh root@217.216.109.5 'bash -s' < scripts/vps-update-and-restart.sh
+#  Usage (Linux/macOS/Git Bash): ssh root@IP 'bash -s' < scripts/vps-update-and-restart.sh
+#  Usage (Windows PowerShell):   .\scripts\vps-update-from-windows.ps1
 #  (ใช้หลังตั้งครั้งแรกด้วย vps-setup-from-git.sh แล้ว)
 # ==========================================================
 
