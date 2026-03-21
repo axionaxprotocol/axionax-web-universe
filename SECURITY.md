@@ -4,12 +4,12 @@
 
 We take security seriously and actively maintain the following versions:
 
-| Version | Supported          | Status |
-| ------- | ------------------ | ------ |
+| Version | Supported          | Status           |
+| ------- | ------------------ | ---------------- |
 | 1.8.x   | :white_check_mark: | Active (Testnet) |
-| 1.7.x   | :x:                | End of Life |
-| 1.6.x   | :x:                | End of Life |
-| < 1.6   | :x:                | End of Life |
+| 1.7.x   | :x:                | End of Life      |
+| 1.6.x   | :x:                | End of Life      |
+| < 1.6   | :x:                | End of Life      |
 
 **Note**: Only the latest testnet version (1.8.x) receives security updates.
 
@@ -26,17 +26,21 @@ We value the security community and believe in responsible disclosure. If you di
 Instead, please use one of the following methods:
 
 #### 1. GitHub Security Advisory (Preferred)
+
 1. Go to the [Security tab](https://github.com/axionaxprotocol/axionax-web-universe/security)
 2. Click "Report a vulnerability"
 3. Fill out the form with details
 
 #### 2. Email
+
 Send details to: **security@axionax.org**
 
 Encrypt sensitive information using our PGP key (available upon request).
 
 #### 3. Discord (For urgent issues)
+
 Direct message to: `@security-team` in our Discord server
+
 - Join: https://discord.gg/axionax
 - Request private channel for disclosure
 
@@ -48,30 +52,36 @@ Please provide as much information as possible:
 
 ```markdown
 ### Vulnerability Details
+
 - **Type**: (e.g., XSS, SQL Injection, Authentication bypass)
 - **Component**: (e.g., Web Frontend, Explorer API, Smart Contract)
 - **Severity**: (Critical / High / Medium / Low)
 
 ### Environment
+
 - **Version**: (e.g., v1.8.0-testnet)
 - **Browser/Client**: (if applicable)
 - **Network**: (testnet/mainnet)
 
 ### Steps to Reproduce
+
 1. Step one
 2. Step two
 3. ...
 
 ### Impact
+
 Description of what an attacker could achieve
 
 ### Proof of Concept
+
 - Screenshots
 - Video recording
 - Code snippet
 - Request/Response logs
 
 ### Suggested Fix (Optional)
+
 Your recommendation for remediation
 ```
 
@@ -82,33 +92,37 @@ Your recommendation for remediation
 We commit to the following response times:
 
 | Severity | First Response | Status Update | Fix Timeline |
-|----------|---------------|---------------|--------------|
-| Critical | 24 hours      | Every 48h     | 7 days       |
-| High     | 48 hours      | Weekly        | 30 days      |
-| Medium   | 5 days        | Bi-weekly     | 90 days      |
-| Low      | 7 days        | Monthly       | Best effort  |
+| -------- | -------------- | ------------- | ------------ |
+| Critical | 24 hours       | Every 48h     | 7 days       |
+| High     | 48 hours       | Weekly        | 30 days      |
+| Medium   | 5 days         | Bi-weekly     | 90 days      |
+| Low      | 7 days         | Monthly       | Best effort  |
 
 ### Severity Definitions
 
 **Critical**
+
 - Remote code execution
 - Unauthorized fund access
 - Complete system compromise
 - Database breach
 
 **High**
+
 - Authentication bypass
 - Privilege escalation
 - Data exposure
 - DoS affecting all users
 
 **Medium**
+
 - XSS or CSRF vulnerabilities
 - Information disclosure
 - Limited DoS
 - Security misconfiguration
 
 **Low**
+
 - Minor information leakage
 - Theoretical vulnerabilities
 - Best practice violations
@@ -120,6 +134,7 @@ We commit to the following response times:
 ### Current Security Practices
 
 #### Infrastructure
+
 - ✅ HTTPS/TLS 1.3 encryption on all endpoints
 - ✅ Rate limiting on all API endpoints
 - ✅ DDoS protection via Cloudflare
@@ -129,6 +144,7 @@ We commit to the following response times:
 - ✅ SSH key-only authentication
 
 #### Application Security
+
 - ✅ Input validation and sanitization
 - ✅ CORS policies properly configured
 - ✅ CSP (Content Security Policy) headers
@@ -139,6 +155,7 @@ We commit to the following response times:
 - ✅ Password hashing (bcrypt/argon2)
 
 #### Smart Contracts
+
 - ✅ Audited by professional firms
 - ✅ OpenZeppelin battle-tested libraries
 - ✅ Reentrancy guards
@@ -147,10 +164,12 @@ We commit to the following response times:
 - ✅ Emergency pause mechanism
 
 #### Dependency audit
+
 - Run `pnpm security:audit` (or `pnpm audit --audit-level=moderate`) regularly.
 - As of the latest audit, **2 vulnerabilities** remain (both in `apps/web`): Next.js DoS issues fixed only in Next 15 (>=15.0.8 and >=15.5.10). Upgrading to Next 15 and React 19 will resolve them; we stay on Next 14 for React 18 compatibility until that upgrade is planned.
 
 #### Monitoring
+
 - ✅ Real-time alerting (Prometheus + Grafana)
 - ✅ Error tracking (Sentry)
 - ✅ Log aggregation
@@ -165,14 +184,15 @@ We commit to the following response times:
 
 We offer rewards for valid security vulnerabilities:
 
-| Severity | Reward Range | Eligibility |
-|----------|-------------|-------------|
+| Severity | Reward Range     | Eligibility                    |
+| -------- | ---------------- | ------------------------------ |
 | Critical | $5,000 - $10,000 | Smart contracts, core protocol |
-| High     | $1,000 - $5,000  | Backend services, APIs |
-| Medium   | $250 - $1,000    | Frontend, DoS vulnerabilities |
-| Low      | $50 - $250       | Information disclosure |
+| High     | $1,000 - $5,000  | Backend services, APIs         |
+| Medium   | $250 - $1,000    | Frontend, DoS vulnerabilities  |
+| Low      | $50 - $250       | Information disclosure         |
 
-**Payment Methods**: 
+**Payment Methods**:
+
 - AXX tokens (vested)
 - USDC/USDT
 - ETH
@@ -180,6 +200,7 @@ We offer rewards for valid security vulnerabilities:
 ### Eligibility Requirements
 
 To be eligible for a reward:
+
 - ✅ Be the first to report the vulnerability
 - ✅ Follow responsible disclosure guidelines
 - ✅ Provide sufficient detail to reproduce
@@ -190,6 +211,7 @@ To be eligible for a reward:
 ### Out of Scope
 
 The following are **NOT** eligible for rewards:
+
 - ❌ Known issues already in our backlog
 - ❌ Issues in third-party dependencies (report to them)
 - ❌ Social engineering attacks
@@ -206,10 +228,10 @@ The following are **NOT** eligible for rewards:
 
 ### Completed Audits
 
-| Date | Auditor | Scope | Report |
-|------|---------|-------|--------|
-| 2026 Q3 | TBD | Smart Contracts | Planned |
-| 2026 Q3 | TBD | Protocol Security | Planned |
+| Date    | Auditor | Scope             | Report  |
+| ------- | ------- | ----------------- | ------- |
+| 2026 Q3 | TBD     | Smart Contracts   | Planned |
+| 2026 Q3 | TBD     | Protocol Security | Planned |
 
 ### Upcoming Audits
 
@@ -222,6 +244,7 @@ The following are **NOT** eligible for rewards:
 ## Security Best Practices for Users
 
 ### For Regular Users
+
 - ✅ Never share your private keys
 - ✅ Use hardware wallets for large amounts
 - ✅ Verify URLs before connecting wallet
@@ -230,6 +253,7 @@ The following are **NOT** eligible for rewards:
 - ✅ Use strong, unique passwords
 
 ### For Developers
+
 - ✅ Review smart contracts before interaction
 - ✅ Test thoroughly on testnet first
 - ✅ Use established libraries (OpenZeppelin)
@@ -238,6 +262,7 @@ The following are **NOT** eligible for rewards:
 - ✅ Keep dependencies updated
 
 ### For Validators
+
 - ✅ Secure your validator keys
 - ✅ Use dedicated hardware
 - ✅ Implement monitoring and alerts
@@ -281,9 +306,9 @@ Subscribe to security notifications:
 
 We recognize security researchers who help us:
 
-| Researcher | Date | Vulnerability | Severity |
-|-----------|------|---------------|----------|
-| *Your name here* | - | - | - |
+| Researcher       | Date | Vulnerability | Severity |
+| ---------------- | ---- | ------------- | -------- |
+| _Your name here_ | -    | -             | -        |
 
 ---
 
@@ -316,6 +341,7 @@ Before submitting code:
 ## Compliance
 
 Axionax complies with:
+
 - ✅ GDPR (General Data Protection Regulation)
 - ✅ SOC 2 Type II (in progress)
 - ✅ ISO 27001 (planned)
@@ -325,6 +351,7 @@ Axionax complies with:
 ## Contact
 
 For security-related questions:
+
 - **Email**: security@axionax.org
 - **Discord**: https://discord.gg/axionax (#security)
 - **GitHub**: Open a Security Advisory
@@ -333,4 +360,4 @@ For security-related questions:
 
 **Last Updated**: December 5, 2025 | v1.8.0-testnet
 
-*This security policy is subject to change. Please check back regularly for updates.*
+_This security policy is subject to change. Please check back regularly for updates._

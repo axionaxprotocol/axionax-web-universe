@@ -10,20 +10,20 @@ You need to set up several subdomains under `axionax.org` to host different test
 
 ### Production Testnet Services
 
-| Subdomain | Purpose | Port | SSL |
-|-----------|---------|------|-----|
-| `testnet-rpc.axionax.org` | JSON-RPC HTTP endpoint | 8545 | ✅ Yes |
-| `testnet-ws.axionax.org` | WebSocket endpoint | 8546 | ✅ Yes |
+| Subdomain                      | Purpose                   | Port | SSL    |
+| ------------------------------ | ------------------------- | ---- | ------ |
+| `testnet-rpc.axionax.org`      | JSON-RPC HTTP endpoint    | 8545 | ✅ Yes |
+| `testnet-ws.axionax.org`       | WebSocket endpoint        | 8546 | ✅ Yes |
 | `testnet-explorer.axionax.org` | Blockscout block explorer | 4000 | ✅ Yes |
-| `testnet-faucet.axionax.org` | Token faucet service | 3000 | ✅ Yes |
+| `testnet-faucet.axionax.org`   | Token faucet service      | 3000 | ✅ Yes |
 
 ### Optional Services
 
-| Subdomain | Purpose | Port | SSL |
-|-----------|---------|------|-----|
-| `docs.axionax.org` | Documentation site (GitHub Pages) | - | ✅ Yes |
-| `api.axionax.org` | REST API (if needed) | 8080 | ✅ Yes |
-| `status.axionax.org` | Network status page | 80 | ✅ Yes |
+| Subdomain            | Purpose                           | Port | SSL    |
+| -------------------- | --------------------------------- | ---- | ------ |
+| `docs.axionax.org`   | Documentation site (GitHub Pages) | -    | ✅ Yes |
+| `api.axionax.org`    | REST API (if needed)              | 8080 | ✅ Yes |
+| `status.axionax.org` | Network status page               | 80   | ✅ Yes |
 
 ## 🔧 DNS Configuration
 
@@ -40,6 +40,7 @@ A       testnet-faucet      YOUR_VPS_IP         Auto    ✅ Proxied (optional)
 ```
 
 **Example with IP `203.0.113.42`:**
+
 ```
 A       testnet-rpc         203.0.113.42        Auto    ❌
 A       testnet-ws          203.0.113.42        Auto    ❌
@@ -92,7 +93,7 @@ For each subdomain:
 2. Type: `A`
 3. Name: `testnet-rpc` (for example)
 4. IPv4 address: `YOUR_VPS_IP`
-5. Proxy status: 
+5. Proxy status:
    - RPC/WS: **DNS only** (gray cloud) ← Important for WebSocket
    - Explorer/Faucet: **Proxied** (orange cloud) ← DDoS protection
 6. TTL: **Auto**
@@ -136,6 +137,7 @@ When you run the deployment scripts, Certbot will automatically:
 4. Set up auto-renewal
 
 **Requirements:**
+
 - DNS records must be pointing to your server
 - Ports 80 and 443 must be open
 - No other service using ports 80/443
@@ -193,6 +195,7 @@ sudo firewall-cmd --reload
 After DNS setup, verify each service:
 
 ### 1. DNS Resolution
+
 ```bash
 # All should return your VPS IP
 dig testnet-rpc.axionax.org +short
@@ -202,6 +205,7 @@ dig testnet-faucet.axionax.org +short
 ```
 
 ### 2. SSL Certificates
+
 ```bash
 # Check if HTTPS works
 curl -I https://testnet-rpc.axionax.org
@@ -210,6 +214,7 @@ curl -I https://testnet-faucet.axionax.org
 ```
 
 ### 3. Service Availability
+
 ```bash
 # RPC endpoint
 curl -X POST -H "Content-Type: application/json" \
@@ -233,17 +238,19 @@ curl https://testnet-faucet.axionax.org
 **Symptoms:** `dig` returns no results
 
 **Solutions:**
+
 - Wait 5-10 minutes for DNS propagation
 - Check Cloudflare dashboard for correct records
 - Verify domain nameservers point to Cloudflare
 - Flush local DNS cache:
+
   ```bash
   # Linux
   sudo systemd-resolve --flush-caches
-  
+
   # macOS
   sudo dscacheutil -flushcache
-  
+
   # Windows
   ipconfig /flushdns
   ```
@@ -253,6 +260,7 @@ curl https://testnet-faucet.axionax.org
 **Symptoms:** Certbot returns error
 
 **Solutions:**
+
 - Ensure DNS records are live (wait 10 minutes after adding)
 - Check ports 80/443 are open
 - Verify no other service is using port 80
@@ -264,6 +272,7 @@ curl https://testnet-faucet.axionax.org
 **Symptoms:** WS connection times out
 
 **Solutions:**
+
 - Disable Cloudflare proxy for `testnet-ws.axionax.org` (must be DNS only)
 - Ensure port 8546 is open
 - Check nginx WebSocket configuration
@@ -274,6 +283,7 @@ curl https://testnet-faucet.axionax.org
 **Symptoms:** 429 Too Many Requests
 
 **Solutions:**
+
 - Use "DNS only" for RPC/WS subdomains
 - Configure Cloudflare rate limiting rules
 - Consider Cloudflare Enterprise for higher limits
@@ -299,6 +309,7 @@ Before public launch:
 ### Cloudflare (Recommended)
 
 **Pros:**
+
 - Free SSL certificates
 - DDoS protection
 - Global CDN
@@ -306,6 +317,7 @@ Before public launch:
 - Fast propagation
 
 **Cons:**
+
 - WebSocket requires "DNS only" mode
 - Rate limiting on free tier
 
@@ -314,10 +326,12 @@ Before public launch:
 ### Namecheap
 
 **Pros:**
+
 - Simple interface
 - Good for domain registration
 
 **Cons:**
+
 - Slower propagation
 - No built-in DDoS protection
 
@@ -326,12 +340,14 @@ Before public launch:
 ### Route 53 (AWS)
 
 **Pros:**
+
 - High availability
 - Programmable (API/CLI)
 - Health checks
 - Traffic routing
 
 **Cons:**
+
 - Pay-per-query
 - Complex UI
 

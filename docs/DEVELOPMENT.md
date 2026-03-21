@@ -1,11 +1,12 @@
 # Axionax Development Environment
+
 # Quick start scripts for full-stack development
 
 ## Repos
 
-| Repo | Role |
-|------|------|
-| **axionax-web-universe** (this repo) | Frontend (Next.js, Marketplace), SDK, Faucet API, docs |
+| Repo                                                                                  | Role                                                             |
+| ------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| **axionax-web-universe** (this repo)                                                  | Frontend (Next.js, Marketplace), SDK, Faucet API, docs           |
 | **[axionax-core-universe](https://github.com/axionaxprotocol/axionax-core-universe)** | **Backend**: blockchain node, validators (EU/AU), consensus, ops |
 
 Validator node setup, persistence, Docker/volume config, and chain data live in **axionax-core-universe**. This repo only connects to validators via RPC (e.g. 217.76.61.116, 46.250.244.4).
@@ -15,11 +16,13 @@ Validator node setup, persistence, Docker/volume config, and chain data live in 
 ## 🚀 Quick Start
 
 ### Prerequisites
+
 - Docker & Docker Compose
 - Node.js 18+ & pnpm
 - Rust (for core development)
 
 ### 1. First Time Setup
+
 ```bash
 # Clone repository
 git clone https://github.com/axionaxprotocol/axionax-web-universe.git
@@ -32,15 +35,19 @@ pnpm install
 ### 2. Development Modes
 
 #### 🌐 Web Only (Connect to Live Testnet)
+
 ```bash
 # Uses live validators (217.76.61.116, 46.250.244.4)
 pnpm dev
 ```
+
 - Web: http://localhost:3000
 - Marketplace: http://localhost:5173
 
 #### 🐳 Full Stack (Local Blockchain)
+
 Requires Node + DB + Redis + Web/Marketplace. For a local blockchain node, clone [axionax-core-universe](https://github.com/axionaxprotocol/axionax-core-universe) to `./core-universe` and uncomment the `axionax-node` service in `docker-compose.dev.yml`.
+
 ```bash
 # Start services (web, DB, Redis, Prometheus, Grafana, Adminer)
 docker-compose -f docker-compose.dev.yml up -d
@@ -61,7 +68,9 @@ Services:
 | 🗄️ Adminer | http://localhost:8080 | Database UI |
 
 #### 🦀 Core Development (Rust)
+
 Core (blockchain node) is in a separate repository. For local node development:
+
 ```bash
 # Clone core repo (optional, for full-stack local dev)
 git clone https://github.com/axionaxprotocol/axionax-core-universe.git core-universe
@@ -110,25 +119,26 @@ axionax-web-universe/
 
 Dependencies are kept at **latest stable** within current major versions. After `pnpm install`, you get:
 
-| Stack | Version |
-|-------|---------|
-| Node | 18+ |
-| pnpm | 8+ |
-| Next.js (web) | 14.2.x |
-| React | 18.3.x |
-| Vite (marketplace) | 5.x |
-| TypeScript | 5.7+ |
-| Tailwind CSS | 3.4.x |
-| ethers | 6.16+ |
-| viem | 2.39+ |
-| Hono (api) | 4.11+ |
-| Drizzle | 0.38+ |
+| Stack              | Version |
+| ------------------ | ------- |
+| Node               | 18+     |
+| pnpm               | 8+      |
+| Next.js (web)      | 14.2.x  |
+| React              | 18.3.x  |
+| Vite (marketplace) | 5.x     |
+| TypeScript         | 5.7+    |
+| Tailwind CSS       | 3.4.x   |
+| ethers             | 6.16+   |
+| viem               | 2.39+   |
+| Hono (api)         | 4.11+   |
+| Drizzle            | 0.38+   |
 
 To refresh to latest within semver: `pnpm update -r`. To check for newer majors: `pnpm outdated -r`.
 
 ### 6. Environment Variables
 
 Copy example env files:
+
 ```bash
 cp .env.example .env
 cp apps/web/.env.example apps/web/.env.local
@@ -138,6 +148,7 @@ cp apps/marketplace/.env.example apps/marketplace/.env
 ### 7. Connecting to Live Testnet
 
 RPC Endpoints:
+
 - **HTTPS (Recommended)**: https://axionax.org/rpc/
 - **EU Validator**: http://217.76.61.116:8545
 - **AU Validator**: http://46.250.244.4:8545

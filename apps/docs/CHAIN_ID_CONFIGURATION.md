@@ -8,25 +8,27 @@ axionax Protocol uses different Chain IDs for different network environments to 
 
 ### Production Networks
 
-| Network | Chain ID | Status | RPC Endpoint | Purpose |
-|---------|----------|--------|--------------|---------|
-| **Mainnet** | 86150 | Reserved | TBD | Production network for real-world usage |
-| **Testnet** | 86137 | Active | Coming Q1 2026 | Public testnet for testing and development |
+| Network     | Chain ID | Status   | RPC Endpoint   | Purpose                                    |
+| ----------- | -------- | -------- | -------------- | ------------------------------------------ |
+| **Mainnet** | 86150    | Reserved | TBD            | Production network for real-world usage    |
+| **Testnet** | 86137    | Active   | Coming Q1 2026 | Public testnet for testing and development |
 
 ### Development Networks
 
-| Network | Chain ID | Status | RPC Endpoint | Purpose |
-|---------|----------|--------|--------------|---------|
-| **Local Development** | 31337 | Active | localhost:8545 | Local development and testing |
+| Network               | Chain ID | Status | RPC Endpoint   | Purpose                       |
+| --------------------- | -------- | ------ | -------------- | ----------------------------- |
+| **Local Development** | 31337    | Active | localhost:8545 | Local development and testing |
 
 ---
 
 ## Chain ID 31337 (Local Development)
 
 ### Purpose
+
 Chain ID `31337` is the standard Ethereum development chain ID used by local blockchain development tools like Hardhat, Anvil, and Ganache. axionax uses this chain ID for local development to maintain compatibility with existing Ethereum tooling.
 
 ### When to Use
+
 - Local development on your machine
 - Running unit tests
 - Integration testing before deploying to testnet
@@ -35,17 +37,19 @@ Chain ID `31337` is the standard Ethereum development chain ID used by local blo
 ### Configuration
 
 #### JavaScript/TypeScript (SDK)
+
 ```typescript
 import { axionaxClient } from '@axionax/sdk';
 
 const client = new axionaxClient({
   network: 'local',
   chainId: 31337,
-  endpoint: 'http://localhost:8545'
+  endpoint: 'http://localhost:8545',
 });
 ```
 
 #### Python (DeAI Integration)
+
 ```python
 from axionax import Axionax
 
@@ -56,6 +60,7 @@ axionax = Axionax(
 ```
 
 #### Docker Compose
+
 ```yaml
 environment:
   - CHAIN_ID=31337
@@ -66,12 +71,14 @@ environment:
 ### Starting Local Node
 
 #### Using axionax-core
+
 ```bash
 cd axionax-core
 cargo run --release -- --dev --chain-id 31337
 ```
 
 #### Using Docker
+
 ```bash
 docker-compose -f docker-compose.dev.yml up -d
 ```
@@ -90,12 +97,15 @@ docker-compose -f docker-compose.dev.yml up -d
 ## Chain ID 86137 (Testnet)
 
 ### Purpose
+
 Public testnet for community testing, validator onboarding, and dApp development before mainnet launch.
 
 ### Status
+
 **Coming Q1 2026** - Currently in preparation phase
 
 ### Planned Features
+
 - Faucet for free testnet tokens
 - Block explorer
 - RPC endpoints in multiple regions
@@ -103,11 +113,12 @@ Public testnet for community testing, validator onboarding, and dApp development
 - Validator participation
 
 ### Configuration (Preview)
+
 ```typescript
 const client = new axionaxClient({
   network: 'testnet',
   chainId: 86137,
-  endpoint: 'https://rpc.testnet.axionax.org'
+  endpoint: 'https://rpc.testnet.axionax.org',
 });
 ```
 
@@ -116,12 +127,15 @@ const client = new axionaxClient({
 ## Chain ID 86150 (Mainnet)
 
 ### Purpose
+
 Production mainnet for real-world usage with real economic value.
 
 ### Status
+
 **Reserved** - Launch planned for Q2 2026 after successful testnet validation
 
 ### Requirements Before Mainnet
+
 - [ ] Security audit completion
 - [ ] 3+ months of testnet operation
 - [ ] Validator network establishment (minimum 20 validators)
@@ -133,6 +147,7 @@ Production mainnet for real-world usage with real economic value.
 ## Switching Between Networks
 
 ### Environment Variables
+
 ```bash
 # Local Development
 export AXIONAX_CHAIN_ID=31337
@@ -148,6 +163,7 @@ export AXIONAX_RPC_URL=https://rpc.axionax.org
 ```
 
 ### Configuration File (.axionax.config.json)
+
 ```json
 {
   "networks": {
@@ -176,6 +192,7 @@ export AXIONAX_RPC_URL=https://rpc.axionax.org
 ### Adding axionax Networks to MetaMask
 
 #### Local Development (31337)
+
 ```
 Network Name: axionax Local
 RPC URL: http://localhost:8545
@@ -185,6 +202,7 @@ Block Explorer: http://localhost:3001 (if running local explorer)
 ```
 
 #### Testnet (86137) - Coming Soon
+
 ```
 Network Name: axionax Testnet
 RPC URL: https://rpc.testnet.axionax.org
@@ -194,6 +212,7 @@ Block Explorer: https://explorer.testnet.axionax.org
 ```
 
 #### Mainnet (86150) - Coming Q2 2026
+
 ```
 Network Name: axionax
 RPC URL: https://rpc.axionax.org
@@ -207,31 +226,37 @@ Block Explorer: https://explorer.axionax.org
 ## Troubleshooting
 
 ### Wrong Chain ID Error
+
 ```
 Error: Chain ID mismatch. Expected 86137, got 31337
 ```
 
 **Solution:**
+
 1. Check your RPC URL matches the intended network
 2. Verify environment variables are set correctly
 3. Clear MetaMask's cached nonce (Settings → Advanced → Reset Account)
 
 ### Cannot Connect to Local Node
+
 ```
 Error: Cannot connect to http://localhost:8545
 ```
 
 **Solution:**
+
 1. Ensure local node is running: `docker-compose ps`
 2. Check firewall settings allow localhost connections
 3. Verify port 8545 is not in use by another service
 
 ### Transaction on Wrong Network
+
 ```
 Error: Transaction sent to wrong network
 ```
 
 **Solution:**
+
 1. Always verify chain ID before signing transactions
 2. Use network-specific wallets for different environments
 3. Never reuse private keys across networks
@@ -241,12 +266,14 @@ Error: Transaction sent to wrong network
 ## Best Practices
 
 ### Development Workflow
+
 1. **Start with local (31337)** for rapid iteration
 2. **Test on testnet (86137)** before mainnet deployment
 3. **Validate thoroughly** on testnet with real scenarios
 4. **Deploy to mainnet (86150)** only after complete validation
 
 ### Security
+
 - ✅ Use different accounts for each network
 - ✅ Never use development keys in production
 - ✅ Always verify chain ID before transactions
@@ -254,12 +281,13 @@ Error: Transaction sent to wrong network
 - ✅ Use hardware wallets for mainnet
 
 ### Testing Strategy
+
 ```typescript
 // Always specify chain ID explicitly in tests
 const CHAIN_IDS = {
   LOCAL: 31337,
   TESTNET: 86137,
-  MAINNET: 86150
+  MAINNET: 86150,
 };
 
 describe('Smart Contract Tests', () => {

@@ -222,7 +222,9 @@ export default function Docs(): React.JSX.Element {
           </CardHeader>
           <CardContent>
             <div className="prose prose-invert max-w-none text-muted">
-              <h3 className="text-xl font-semibold mb-4 text-content">1. Install the SDK</h3>
+              <h3 className="text-xl font-semibold mb-4 text-content">
+                1. Install the SDK
+              </h3>
               <div className="bg-black-hole p-4 rounded-lg border border-white/10 font-mono text-sm mb-6 text-content">
                 <code>npm install @axionax/sdk</code>
               </div>
@@ -243,7 +245,9 @@ const status = await client.getNetworkStatus();
 console.log(status);`}</pre>
               </div>
 
-              <h3 className="text-xl font-semibold mb-4 text-content">3. Create a Wallet</h3>
+              <h3 className="text-xl font-semibold mb-4 text-content">
+                3. Create a Wallet
+              </h3>
               <div className="bg-black-hole p-4 rounded-lg border border-white/10 font-mono text-sm mb-6 text-content">
                 <pre>{`// Create new wallet
 const wallet = client.createWallet();
@@ -308,7 +312,9 @@ const balance = await client.getBalance(wallet.address);`}</pre>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
           <Card>
             <CardHeader>
-              <CardTitle className="text-content">Community & Support</CardTitle>
+              <CardTitle className="text-content">
+                Community & Support
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <ul className="space-y-3">
@@ -408,13 +414,14 @@ const balance = await client.getBalance(wallet.address);`}</pre>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                <div className="p-3 bg-tech-warning/10 border border-tech-warning/20 rounded-lg">
+                <div className="p-3 bg-tech-success/10 border border-tech-success/20 rounded-lg">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-sm font-semibold text-content">
                       Testnet
                     </span>
-                    <span className="px-2 py-1 bg-tech-warning/20 text-tech-warning text-xs rounded-full">
-                      Coming Q1 2026
+                    <span className="px-2 py-1 bg-tech-success/20 text-tech-success text-xs rounded-full flex items-center gap-1">
+                      <span className="w-2 h-2 bg-tech-success rounded-full animate-pulse" />
+                      Live
                     </span>
                   </div>
                   <p className="text-xs text-muted">Chain ID: 86137</p>
@@ -425,7 +432,7 @@ const balance = await client.getBalance(wallet.address);`}</pre>
                       Mainnet
                     </span>
                     <span className="px-2 py-1 bg-tech-cyan/20 text-tech-cyan text-xs rounded-full">
-                      Q2 2026
+                      Planned
                     </span>
                   </div>
                   <p className="text-xs text-muted">Chain ID: 86150</p>

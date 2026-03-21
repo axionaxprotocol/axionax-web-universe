@@ -61,11 +61,13 @@ rustup default nightly
 ### 3. Build the Rust Core
 
 **Using Cargo:**
+
 ```bash
 cargo build --release
 ```
 
 **Using Make:**
+
 ```bash
 make build-rust
 ```
@@ -90,6 +92,7 @@ npm run build
 ```
 
 **Build with version info:**
+
 ```bash
 cargo build --release --features "version-info"
 # Or set environment variables
@@ -115,6 +118,7 @@ npm test
 ```
 
 Expected output:
+
 ```
 axionax Core v1.8.0
 Protocol:   v1.8.0-testnet (Compliant ✅)
@@ -144,6 +148,7 @@ cargo build --release --target x86_64-pc-windows-gnu
 ```
 
 Or use Make:
+
 ```bash
 make build-all
 ```
@@ -175,6 +180,7 @@ docker compose up -d
 ### Running Tests
 
 **Rust Tests:**
+
 ```bash
 # Run all tests
 cargo test
@@ -190,6 +196,7 @@ cargo bench
 ```
 
 **Python Tests:**
+
 ```bash
 cd deai
 source venv/bin/activate
@@ -199,6 +206,7 @@ python -m unittest discover tests/
 ```
 
 **TypeScript Tests:**
+
 ```bash
 cd sdk
 npm test
@@ -206,6 +214,7 @@ npm run test:coverage
 ```
 
 **Integration Tests:**
+
 ```bash
 # Run all integration tests
 make test-integration
@@ -217,6 +226,7 @@ cargo test --features integration
 ### Code Quality
 
 **Rust:**
+
 ```bash
 # Format code
 cargo fmt
@@ -229,6 +239,7 @@ make lint-rust
 ```
 
 **Python:**
+
 ```bash
 cd deai
 source venv/bin/activate
@@ -247,6 +258,7 @@ mypy deai/
 ```
 
 **TypeScript:**
+
 ```bash
 cd sdk
 
@@ -263,6 +275,7 @@ npm run type-check
 ### Development Mode
 
 **Run Rust node in dev mode:**
+
 ```bash
 # Run with debug logging
 RUST_LOG=debug cargo run -- start --network testnet --dev
@@ -272,6 +285,7 @@ make dev
 ```
 
 **Run with watch mode:**
+
 ```bash
 # Install cargo-watch
 cargo install cargo-watch
@@ -281,6 +295,7 @@ cargo watch -x run
 ```
 
 **Python development:**
+
 ```bash
 cd deai
 source venv/bin/activate
@@ -295,11 +310,13 @@ ptw -- tests/
 ### Hot Reload
 
 **Rust (with cargo-watch):**
+
 ```bash
 cargo watch -x 'run -- start'
 ```
 
 **TypeScript SDK:**
+
 ```bash
 cd sdk
 npm run dev  # with watch mode
@@ -330,6 +347,7 @@ axionax-core/
 ### Rust Build Errors
 
 **Solution:**
+
 ```bash
 # Clean build cache
 cargo clean
@@ -344,6 +362,7 @@ cargo build --release
 ### Python Module Not Found
 
 **Solution:**
+
 ```bash
 cd deai
 python3 -m venv venv
@@ -354,6 +373,7 @@ pip install -r requirements.txt
 ### TypeScript Errors
 
 **Solution:**
+
 ```bash
 cd sdk
 rm -rf node_modules package-lock.json
@@ -369,6 +389,7 @@ make build
 ### Docker Build Fails
 
 **Solution:**
+
 ```bash
 # Clean Docker build cache
 docker builder prune
@@ -382,10 +403,12 @@ docker build --no-cache -t axionax-core:v1.5.0 .
 ### Visual Studio Code
 
 Install recommended extensions:
+
 - Go (golang.go)
 - Docker (ms-azuretools.vscode-docker)
 
 Create `.vscode/settings.json`:
+
 ```json
 {
   "go.useLanguageServer": true,

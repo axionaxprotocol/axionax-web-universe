@@ -22,6 +22,7 @@
 ## 🏗️ System Overview
 
 ### Infrastructure
+
 - **VPS**: vmi2895217 @ 217.216.109.5
 - **OS**: Ubuntu 22.04 LTS
 - **RAM**: 8GB
@@ -29,6 +30,7 @@
 - **Disk**: 72GB SSD
 
 ### Services Architecture
+
 ```
 ┌─────────────────────────────────────────┐
 │         Nginx (Reverse Proxy)           │
@@ -63,23 +65,25 @@
 ```
 
 ### Service Status Summary
-| Service | Port | Container Name | Status |
-|---------|------|----------------|--------|
-| Nginx | 80/443 | nginx | ✅ Running |
-| Web | 3000 | axionax-web | ✅ Running |
-| Explorer API | 3001 | explorer-api | ✅ Running |
-| Faucet API | 3002 | faucet-api | ✅ Running |
-| RPC Server | 8545/8546 | rpc-server | ✅ Running |
-| PostgreSQL | 5432 | postgres | ✅ Running |
-| Redis | 6379 | redis | ✅ Running |
-| Grafana | 3030 | grafana | ✅ Running |
-| Prometheus | 9090 | prometheus | ✅ Running |
+
+| Service      | Port      | Container Name | Status     |
+| ------------ | --------- | -------------- | ---------- |
+| Nginx        | 80/443    | nginx          | ✅ Running |
+| Web          | 3000      | axionax-web    | ✅ Running |
+| Explorer API | 3001      | explorer-api   | ✅ Running |
+| Faucet API   | 3002      | faucet-api     | ✅ Running |
+| RPC Server   | 8545/8546 | rpc-server     | ✅ Running |
+| PostgreSQL   | 5432      | postgres       | ✅ Running |
+| Redis        | 6379      | redis          | ✅ Running |
+| Grafana      | 3030      | grafana        | ✅ Running |
+| Prometheus   | 9090      | prometheus     | ✅ Running |
 
 ---
 
 ## 🩺 Health Check Commands
 
 ### Quick Health Check (All Services)
+
 ```bash
 #!/bin/bash
 # Run this to check all services at once
@@ -143,6 +147,7 @@ echo "=== Health Check Complete ==="
 ### Individual Service Checks
 
 #### Nginx
+
 ```bash
 # Check status
 systemctl status nginx
@@ -158,6 +163,7 @@ tail -f /var/log/nginx/error.log
 ```
 
 #### Docker Containers
+
 ```bash
 # List all containers
 docker ps -a
@@ -172,6 +178,7 @@ docker stats
 ```
 
 #### PostgreSQL
+
 ```bash
 # Connect to database
 docker exec -it postgres psql -U axionax -d axionax_db
@@ -185,6 +192,7 @@ docker exec postgres psql -U axionax -d axionax_db -c \
 ```
 
 #### Redis
+
 ```bash
 # Check memory usage
 docker exec redis redis-cli info memory
@@ -197,6 +205,7 @@ docker exec redis redis-cli monitor
 ```
 
 #### RPC Server
+
 ```bash
 # Get block number
 curl -X POST http://localhost:8545 \
@@ -221,6 +230,7 @@ curl -X POST http://localhost:8545 \
 ### Start/Stop/Restart Services
 
 #### Using Docker Compose
+
 ```bash
 # Start all services
 cd /path/to/docker-compose
@@ -239,6 +249,7 @@ docker-compose restart faucet-api
 ```
 
 #### Individual Containers
+
 ```bash
 # Restart a container
 docker restart <container_name>
@@ -256,6 +267,7 @@ docker-compose up -d <service_name>
 ```
 
 #### Nginx
+
 ```bash
 # Reload configuration (no downtime)
 sudo nginx -s reload
@@ -271,6 +283,7 @@ sudo systemctl start nginx
 ```
 
 ### View Logs
+
 ```bash
 # Real-time logs (all services)
 docker-compose logs -f
@@ -290,11 +303,13 @@ docker logs axionax-web > /tmp/web.log 2>&1
 ### Problem: Service Not Responding
 
 #### Symptoms
+
 - HTTP 502 Bad Gateway
 - Connection timeout
 - Container shows as "Up" but not working
 
 #### Diagnosis
+
 ```bash
 # Check container status
 docker ps | grep <service_name>
@@ -314,6 +329,7 @@ nc -zv localhost <port>
 ```
 
 #### Solutions
+
 ```bash
 # Restart the service
 docker restart <container_name>
@@ -333,11 +349,13 @@ docker inspect <container_name> | jq '.[0].Mounts'
 ### Problem: Database Connection Errors
 
 #### Symptoms
+
 - "Connection refused"
 - "Too many connections"
 - Services can't connect to PostgreSQL
 
 #### Diagnosis
+
 ```bash
 # Check PostgreSQL is running
 docker ps | grep postgres
@@ -358,6 +376,7 @@ docker exec postgres psql -U axionax -d axionax_db -c \
 ```
 
 #### Solutions
+
 ```bash
 # Restart PostgreSQL
 docker restart postgres
@@ -370,13 +389,14 @@ docker restart postgres
 
 # Kill idle connections
 docker exec postgres psql -U axionax -d axionax_db -c \
-  "SELECT pg_terminate_backend(pid) FROM pg_stat_activity 
+  "SELECT pg_terminate_backend(pid) FROM pg_stat_activity
    WHERE state = 'idle' AND state_change < current_timestamp - INTERVAL '10 minutes';"
 ```
 
 ### Problem: High Memory Usage
 
 #### Diagnosis
+
 ```bash
 # Check system memory
 free -h
@@ -390,6 +410,7 @@ docker stats --no-stream --format \
 ```
 
 #### Solutions
+
 ```bash
 # Restart high-memory service
 docker restart <container_name>
@@ -407,6 +428,7 @@ docker system prune -a --volumes
 ### Problem: Disk Space Full
 
 #### Diagnosis
+
 ```bash
 # Check disk usage
 df -h
@@ -422,6 +444,7 @@ du -sh /var/log/*
 ```
 
 #### Solutions
+
 ```bash
 # Clean up Docker
 docker system prune -a --volumes
@@ -443,6 +466,7 @@ sudo apt-get clean
 ### Service Down - Quick Recovery
 
 #### Step 1: Assess the Situation
+
 ```bash
 # Check what's down
 ./health-check.sh
@@ -454,6 +478,7 @@ free -h
 ```
 
 #### Step 2: Check Logs
+
 ```bash
 # Recent errors
 docker logs <service> --since 10m | grep -i error
@@ -463,6 +488,7 @@ sudo journalctl -xe --since "10 minutes ago"
 ```
 
 #### Step 3: Restart Service
+
 ```bash
 # Try restart first
 docker restart <service>
@@ -475,6 +501,7 @@ curl http://localhost:<port>/health
 ```
 
 #### Step 4: Recreate if Needed
+
 ```bash
 # Stop and remove
 docker stop <service>
@@ -490,6 +517,7 @@ docker logs <service> -f
 ### Complete System Failure
 
 #### Full Restart Procedure
+
 ```bash
 #!/bin/bash
 # Emergency full restart
@@ -540,6 +568,7 @@ echo "=== Restart Complete at: $(date) ==="
 ### Data Corruption Recovery
 
 #### If PostgreSQL is corrupted
+
 ```bash
 # Stop services
 docker-compose down
@@ -564,10 +593,12 @@ docker exec postgres psql -U axionax -d axionax_db -c \
 Access: http://217.216.109.5:3030
 
 **Login**:
+
 - Username: `admin`
 - Password: (check `/secrets/grafana-password`)
 
 **Dashboards**:
+
 1. **System Overview** - CPU, Memory, Disk, Network
 2. **Service Health** - All services status
 3. **RPC Metrics** - Request rate, latency, errors
@@ -578,6 +609,7 @@ Access: http://217.216.109.5:3030
 Access: http://217.216.109.5:9090
 
 **Key Metrics**:
+
 ```promql
 # Service uptime
 up{job="axionax"}
@@ -595,12 +627,14 @@ histogram_quantile(0.95, http_request_duration_seconds_bucket)
 ### Alert Rules
 
 **Critical Alerts** (Page immediately):
+
 - Service down > 2 minutes
 - Disk usage > 90%
 - Memory usage > 95%
 - Error rate > 10%
 
 **Warning Alerts** (Notify):
+
 - Service down > 30 seconds
 - Disk usage > 80%
 - Memory usage > 85%
@@ -619,6 +653,7 @@ histogram_quantile(0.95, http_request_duration_seconds_bucket)
 **Location**: `/backups/`
 
 ### Manual Backup
+
 ```bash
 #!/bin/bash
 # Manual backup script
@@ -646,6 +681,7 @@ echo "Backup completed: $TIMESTAMP"
 ```
 
 ### Restore from Backup
+
 ```bash
 #!/bin/bash
 # Restore from backup
@@ -676,12 +712,14 @@ echo "Restore completed"
 ## 🔄 Maintenance Tasks
 
 ### Daily Tasks (Automated)
+
 - ✅ Health checks every 5 minutes
 - ✅ Log rotation
 - ✅ Backup at 02:00 UTC
 - ✅ Metrics collection
 
 ### Weekly Tasks
+
 ```bash
 # Clean up Docker
 docker system prune -f
@@ -698,6 +736,7 @@ grep -i error /var/log/nginx/error.log | tail -100
 ```
 
 ### Monthly Tasks
+
 ```bash
 # Update Docker images
 docker-compose pull
@@ -715,6 +754,7 @@ ls -lh /backups/
 ```
 
 ### SSL Certificate Renewal
+
 ```bash
 # Auto-renew (runs automatically)
 sudo certbot renew
@@ -731,16 +771,19 @@ sudo certbot renew --dry-run
 ## 📞 Escalation & Contacts
 
 ### On-Call Rotation
+
 - **Primary**: DevOps Team (Discord #ops-alerts)
 - **Secondary**: Backend Team
 - **Emergency**: CTO
 
 ### Escalation Path
+
 1. **Level 1** (0-15 min): On-call engineer
 2. **Level 2** (15-30 min): Team lead
 3. **Level 3** (30+ min): CTO + All hands
 
 ### Contact Information
+
 - **Discord**: #ops-emergency
 - **Email**: ops@axionax.org
 - **Phone**: (Emergency only, check internal docs)
@@ -758,4 +801,4 @@ sudo certbot renew --dry-run
 
 **Keep this runbook updated!** Last reviewed: December 5, 2025
 
-*For questions or improvements, contact the DevOps team.*
+_For questions or improvements, contact the DevOps team._

@@ -229,7 +229,8 @@ export default function AirdropPage() {
 
                   <div className="text-center md:text-right">
                     <div className="text-3xl font-bold text-tech-success font-mono">
-                      {formatAmount(activityScore.airdropAmount)} <span className="text-lg">AXX</span>
+                      {formatAmount(activityScore.airdropAmount)}{' '}
+                      <span className="text-lg">AXX</span>
                     </div>
                     <div className="text-muted">Estimated Airdrop</div>
                   </div>

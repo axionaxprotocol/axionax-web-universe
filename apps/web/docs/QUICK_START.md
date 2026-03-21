@@ -41,6 +41,7 @@ cp .env.example .env
 ```
 
 Example `.env`:
+
 ```env
 NEXT_PUBLIC_RPC_URL=http://217.216.109.5:8545
 NEXT_PUBLIC_CHAIN_ID=86137
@@ -194,13 +195,13 @@ axionax-web/
 
 ### Environment Variables
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `NEXT_PUBLIC_RPC_URL` | RPC endpoint URL | `http://localhost:8545` |
-| `NEXT_PUBLIC_CHAIN_ID` | Chain ID | `86137` |
-| `NEXT_PUBLIC_NETWORK_NAME` | Network name | `axionax-testnet-1` |
+| Variable                   | Description        | Default                 |
+| -------------------------- | ------------------ | ----------------------- |
+| `NEXT_PUBLIC_RPC_URL`      | RPC endpoint URL   | `http://localhost:8545` |
+| `NEXT_PUBLIC_CHAIN_ID`     | Chain ID           | `86137`                 |
+| `NEXT_PUBLIC_NETWORK_NAME` | Network name       | `axionax-testnet-1`     |
 | `NEXT_PUBLIC_EXPLORER_URL` | Block explorer URL | `http://localhost:3001` |
-| `NEXT_PUBLIC_FAUCET_URL` | Faucet API URL | `http://localhost:3002` |
+| `NEXT_PUBLIC_FAUCET_URL`   | Faucet API URL     | `http://localhost:3002` |
 
 ### RPC Connection
 
@@ -211,7 +212,7 @@ import { AxionAXClient } from '@axionax/sdk';
 
 const client = new AxionAXClient({
   rpcUrl: process.env.NEXT_PUBLIC_RPC_URL,
-  chainId: parseInt(process.env.NEXT_PUBLIC_CHAIN_ID || '86137')
+  chainId: parseInt(process.env.NEXT_PUBLIC_CHAIN_ID || '86137'),
 });
 ```
 
@@ -263,13 +264,13 @@ docker-compose logs web
 
 ### Live Services (as of Nov 13, 2025)
 
-| Service | Status | Endpoint |
-|---------|--------|----------|
-| Web Interface | ✅ Running | http://217.216.109.5:3000 |
-| RPC HTTP | ✅ Healthy | http://217.216.109.5:8545 |
-| RPC WebSocket | ✅ Healthy | ws://217.216.109.5:8546 |
-| Explorer API | 🔧 Debugging | http://217.216.109.5:3001 |
-| Faucet API | 🔧 Debugging | http://217.216.109.5:3002 |
+| Service       | Status       | Endpoint                  |
+| ------------- | ------------ | ------------------------- |
+| Web Interface | ✅ Running   | http://217.216.109.5:3000 |
+| RPC HTTP      | ✅ Healthy   | http://217.216.109.5:8545 |
+| RPC WebSocket | ✅ Healthy   | ws://217.216.109.5:8546   |
+| Explorer API  | 🔧 Debugging | http://217.216.109.5:3001 |
+| Faucet API    | 🔧 Debugging | http://217.216.109.5:3002 |
 
 **Overall**: 7/9 services operational (78%)
 

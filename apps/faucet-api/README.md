@@ -27,6 +27,7 @@ npm run dev
 ## API Endpoints
 
 ### GET /health
+
 Check faucet status and balance.
 
 ```bash
@@ -34,6 +35,7 @@ curl https://axionax.org/faucet/health
 ```
 
 Response:
+
 ```json
 {
   "ok": true,
@@ -47,6 +49,7 @@ Response:
 ```
 
 ### GET /request?address=0x...
+
 Request testnet AXX tokens.
 
 ```bash
@@ -54,6 +57,7 @@ curl "https://axionax.org/faucet/request?address=0xYourAddress"
 ```
 
 Success:
+
 ```json
 {
   "ok": true,
@@ -67,6 +71,7 @@ Success:
 ```
 
 Cooldown:
+
 ```json
 {
   "ok": false,
@@ -76,6 +81,7 @@ Cooldown:
 ```
 
 ### GET /stats
+
 Get faucet statistics.
 
 ```bash
@@ -84,16 +90,16 @@ curl https://axionax.org/faucet/stats
 
 ## Environment Variables
 
-| Variable | Default | Description |
-|----------|---------|-------------|
-| PORT | 3002 | Server port |
-| RPC_URL | https://axionax.org/rpc/ | Blockchain RPC endpoint |
-| CHAIN_ID | 86137 | Chain ID |
-| FAUCET_PRIVATE_KEY | (required) | Private key of faucet wallet |
-| FAUCET_AMOUNT | 10 | Amount to send per request |
-| COOLDOWN_HOURS | 24 | Hours between requests |
-| REDIS_URL | redis://localhost:6379 | Redis connection URL |
-| CORS_ORIGINS | https://axionax.org | Allowed CORS origins |
+| Variable           | Default                  | Description                  |
+| ------------------ | ------------------------ | ---------------------------- |
+| PORT               | 3002                     | Server port                  |
+| RPC_URL            | https://axionax.org/rpc/ | Blockchain RPC endpoint      |
+| CHAIN_ID           | 86137                    | Chain ID                     |
+| FAUCET_PRIVATE_KEY | (required)               | Private key of faucet wallet |
+| FAUCET_AMOUNT      | 10                       | Amount to send per request   |
+| COOLDOWN_HOURS     | 24                       | Hours between requests       |
+| REDIS_URL          | redis://localhost:6379   | Redis connection URL         |
+| CORS_ORIGINS       | https://axionax.org      | Allowed CORS origins         |
 
 ## Docker
 

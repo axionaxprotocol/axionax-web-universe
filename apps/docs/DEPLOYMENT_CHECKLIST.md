@@ -22,6 +22,7 @@
 ### Code Review Checklist
 
 #### ✅ Code Quality
+
 - [ ] All tests passing (`pnpm test`)
 - [ ] No linting errors (`pnpm lint`)
 - [ ] No TypeScript errors (`pnpm type-check`)
@@ -31,6 +32,7 @@
 - [ ] Performance testing completed
 
 #### ✅ Documentation
+
 - [ ] CHANGELOG.md updated with new version
 - [ ] README.md updated (if needed)
 - [ ] API documentation updated
@@ -38,6 +40,7 @@
 - [ ] Migration guides written (if breaking changes)
 
 #### ✅ Version Control
+
 - [ ] All changes committed to feature branch
 - [ ] Feature branch merged to `develop`
 - [ ] `develop` branch passing CI/CD
@@ -46,6 +49,7 @@
 - [ ] Git tags created for release
 
 #### ✅ Security Review
+
 - [ ] Environment variables secured
 - [ ] No hardcoded credentials
 - [ ] CORS policies reviewed
@@ -61,6 +65,7 @@
 ### Step 1: Environment Preparation
 
 #### Backup Current State
+
 ```bash
 # Backup database
 docker exec axionax-postgres pg_dump -U axionax axionax_testnet > backup-$(date +%Y%m%d-%H%M%S).sql
@@ -77,6 +82,7 @@ docker commit axionax-web axionax-web-snapshot-$(date +%Y%m%d-%H%M%S)
 ```
 
 #### Stop Services (if required)
+
 ```bash
 # Check current status
 docker-compose ps
@@ -93,6 +99,7 @@ docker-compose stop faucet-api
 ### Step 2: Deploy New Version
 
 #### Pull Latest Code
+
 ```bash
 cd /var/www/axionax-web-universe
 git fetch origin
@@ -105,6 +112,7 @@ git describe --tags
 ```
 
 #### Update Dependencies
+
 ```bash
 # Clean install
 pnpm install --frozen-lockfile
@@ -118,6 +126,7 @@ ls -la apps/marketplace/dist
 ```
 
 #### Update Environment Variables
+
 ```bash
 # Review .env changes
 cat .env.example
@@ -130,6 +139,7 @@ node -e "require('dotenv').config(); console.log('✅ Environment loaded')"
 ```
 
 #### Database Migrations
+
 ```bash
 # Check pending migrations
 docker exec -it axionax-postgres psql -U axionax -d axionax_testnet -c "\dt"
@@ -144,6 +154,7 @@ docker exec -it axionax-postgres psql -U axionax -d axionax_testnet -c "SELECT v
 ### Step 3: Start Services
 
 #### Start in Order
+
 ```bash
 # 1. Infrastructure services
 docker-compose up -d postgres redis
@@ -165,6 +176,7 @@ docker-compose up -d prometheus grafana
 ```
 
 #### Verify Services
+
 ```bash
 # Check all containers
 docker-compose ps
@@ -188,6 +200,7 @@ curl -X POST http://localhost:8545 \
 ### Smoke Tests
 
 #### Test Web Application
+
 ```bash
 # Homepage loads
 curl -I https://axionax.org | grep "200 OK"
@@ -201,6 +214,7 @@ curl https://axionax.org/api/stats
 ```
 
 #### Test Explorer API
+
 ```bash
 # Health check
 curl https://explorer-api.axionax.org/api/health
@@ -213,6 +227,7 @@ curl https://explorer-api.axionax.org/api/transactions?limit=10
 ```
 
 #### Test Faucet API
+
 ```bash
 # Health check
 curl https://faucet-api.axionax.org/api/health
@@ -222,6 +237,7 @@ curl https://faucet-api.axionax.org/api/info
 ```
 
 #### Test RPC Server
+
 ```bash
 # Block number
 curl -X POST https://testnet-rpc.axionax.org \
@@ -242,6 +258,7 @@ curl -X POST https://testnet-rpc.axionax.org \
 ### Integration Tests
 
 #### Run Automated Tests
+
 ```bash
 # E2E tests
 pnpm --filter @axionax/web test:e2e
@@ -254,6 +271,7 @@ pnpm test:api
 ```
 
 #### Manual Testing Checklist
+
 - [ ] Login/Authentication works
 - [ ] Wallet connection works (MetaMask, WalletConnect)
 - [ ] Account page displays correct balance
@@ -267,6 +285,7 @@ pnpm test:api
 ### Performance Validation
 
 #### Load Time Checks
+
 ```bash
 # Measure page load time
 curl -o /dev/null -s -w "time_total: %{time_total}s\n" https://axionax.org
@@ -278,6 +297,7 @@ npx lighthouse https://axionax.org \
 ```
 
 #### Resource Usage
+
 ```bash
 # Check container resource usage
 docker stats --no-stream
@@ -295,6 +315,7 @@ top -bn1 | head -20
 ### Update Monitoring
 
 #### Update Grafana Dashboards
+
 ```bash
 # Access Grafana
 open https://grafana.axionax.org
@@ -304,6 +325,7 @@ open https://grafana.axionax.org
 ```
 
 #### Update Alerts
+
 ```bash
 # Review Prometheus rules
 cat /etc/prometheus/rules/*.yml
@@ -315,6 +337,7 @@ curl -X POST http://localhost:9090/-/reload
 ### Documentation Updates
 
 #### Update Public Docs
+
 - [ ] Deploy documentation site
 - [ ] Update version number in docs
 - [ ] Add release notes
@@ -322,6 +345,7 @@ curl -X POST http://localhost:9090/-/reload
 - [ ] Update screenshots (if UI changed)
 
 #### Update Internal Docs
+
 - [ ] Update deployment log
 - [ ] Document any issues encountered
 - [ ] Update runbook with new procedures
@@ -330,6 +354,7 @@ curl -X POST http://localhost:9090/-/reload
 ### Notifications
 
 #### Send Deployment Notifications
+
 ```bash
 # Discord webhook
 curl -X POST https://discord.com/api/webhooks/YOUR_WEBHOOK \
@@ -351,6 +376,7 @@ curl -X POST https://discord.com/api/webhooks/YOUR_WEBHOOK \
 ```
 
 #### Update Status Page
+
 ```bash
 # Update status.axionax.org if you have one
 # Or update #announcements Discord channel
@@ -361,6 +387,7 @@ curl -X POST https://discord.com/api/webhooks/YOUR_WEBHOOK \
 ## 🔙 Rollback Procedures
 
 ### When to Rollback
+
 - Critical bug discovered in production
 - Performance degradation >50%
 - Service availability <99%
@@ -370,6 +397,7 @@ curl -X POST https://discord.com/api/webhooks/YOUR_WEBHOOK \
 ### Quick Rollback
 
 #### Revert to Previous Docker Image
+
 ```bash
 # List available images
 docker images | grep axionax-web
@@ -389,6 +417,7 @@ curl http://localhost:3000/api/health
 ```
 
 #### Revert Git Version
+
 ```bash
 # Find previous release tag
 git tag -l
@@ -405,6 +434,7 @@ docker-compose up -d --build
 ### Database Rollback
 
 #### Restore Database Backup
+
 ```bash
 # Stop services
 docker-compose stop
@@ -417,6 +447,7 @@ docker-compose up -d
 ```
 
 #### Revert Migration
+
 ```bash
 # Check migration status
 pnpm --filter @axionax/web prisma migrate status
@@ -430,6 +461,7 @@ pnpm --filter @axionax/web prisma migrate resolve --rolled-back MIGRATION_NAME
 ### Full System Rollback
 
 #### Complete Rollback Script
+
 ```bash
 #!/bin/bash
 set -e
@@ -469,6 +501,7 @@ echo "✅ Rollback complete"
 ### Post-Rollback
 
 #### Verify Rollback
+
 ```bash
 # Check version
 curl https://axionax.org/api/version
@@ -481,6 +514,7 @@ docker-compose logs -f --tail=100
 ```
 
 #### Document Rollback
+
 - [ ] Note rollback time and reason
 - [ ] Identify root cause of failure
 - [ ] Create incident report
@@ -494,6 +528,7 @@ docker-compose logs -f --tail=100
 ### Production Environment
 
 **File**: `.env.production`
+
 ```bash
 # Application
 NODE_ENV=production
@@ -541,6 +576,7 @@ SMTP_PASS=APP_SPECIFIC_PASSWORD
 ### Staging Environment
 
 **File**: `.env.staging`
+
 ```bash
 # Application
 NODE_ENV=staging
@@ -582,6 +618,7 @@ ENABLE_DEBUG=true
 ### Prometheus Targets
 
 **File**: `prometheus/prometheus.yml`
+
 ```yaml
 global:
   scrape_interval: 15s
@@ -591,27 +628,27 @@ scrape_configs:
   - job_name: 'axionax-web'
     static_configs:
       - targets: ['axionax-web:9090']
-    
+
   - job_name: 'explorer-api'
     static_configs:
       - targets: ['explorer-api:9091']
-    
+
   - job_name: 'faucet-api'
     static_configs:
       - targets: ['faucet-api:9092']
-    
+
   - job_name: 'rpc-server'
     static_configs:
       - targets: ['rpc-server:9093']
-    
+
   - job_name: 'postgres'
     static_configs:
       - targets: ['postgres-exporter:9187']
-    
+
   - job_name: 'redis'
     static_configs:
       - targets: ['redis-exporter:9121']
-    
+
   - job_name: 'node'
     static_configs:
       - targets: ['node-exporter:9100']
@@ -620,6 +657,7 @@ scrape_configs:
 ### Alert Rules
 
 **File**: `prometheus/alerts.yml`
+
 ```yaml
 groups:
   - name: axionax_alerts
@@ -632,9 +670,9 @@ groups:
         labels:
           severity: critical
         annotations:
-          summary: "Service {{ $labels.job }} is down"
-          description: "{{ $labels.job }} has been down for more than 2 minutes."
-      
+          summary: 'Service {{ $labels.job }} is down'
+          description: '{{ $labels.job }} has been down for more than 2 minutes.'
+
       # High error rate
       - alert: HighErrorRate
         expr: rate(http_requests_total{status=~"5.."}[5m]) > 0.05
@@ -642,9 +680,9 @@ groups:
         labels:
           severity: warning
         annotations:
-          summary: "High error rate on {{ $labels.job }}"
-          description: "Error rate is {{ $value }} for {{ $labels.job }}."
-      
+          summary: 'High error rate on {{ $labels.job }}'
+          description: 'Error rate is {{ $value }} for {{ $labels.job }}.'
+
       # High response time
       - alert: HighResponseTime
         expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m])) > 1
@@ -652,9 +690,9 @@ groups:
         labels:
           severity: warning
         annotations:
-          summary: "High response time on {{ $labels.job }}"
-          description: "95th percentile response time is {{ $value }}s."
-      
+          summary: 'High response time on {{ $labels.job }}'
+          description: '95th percentile response time is {{ $value }}s.'
+
       # High memory usage
       - alert: HighMemoryUsage
         expr: (node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes > 0.9
@@ -662,9 +700,9 @@ groups:
         labels:
           severity: warning
         annotations:
-          summary: "High memory usage"
-          description: "Memory usage is above 90%."
-      
+          summary: 'High memory usage'
+          description: 'Memory usage is above 90%.'
+
       # High disk usage
       - alert: HighDiskUsage
         expr: (node_filesystem_size_bytes - node_filesystem_avail_bytes) / node_filesystem_size_bytes > 0.85
@@ -672,9 +710,9 @@ groups:
         labels:
           severity: warning
         annotations:
-          summary: "High disk usage on {{ $labels.mountpoint }}"
-          description: "Disk usage is above 85%."
-      
+          summary: 'High disk usage on {{ $labels.mountpoint }}'
+          description: 'Disk usage is above 85%.'
+
       # Database connection issues
       - alert: DatabaseConnectionError
         expr: pg_up == 0
@@ -682,13 +720,14 @@ groups:
         labels:
           severity: critical
         annotations:
-          summary: "Cannot connect to PostgreSQL"
-          description: "PostgreSQL is unreachable."
+          summary: 'Cannot connect to PostgreSQL'
+          description: 'PostgreSQL is unreachable.'
 ```
 
 ### Health Check Script
 
 **File**: `scripts/health-check.sh`
+
 ```bash
 #!/bin/bash
 
@@ -709,11 +748,11 @@ check_endpoint() {
     local name=$1
     local url=$2
     local expected=$3
-    
+
     echo -n "Checking $name... "
-    
+
     response=$(curl -s -o /dev/null -w "%{http_code}" "$url" 2>/dev/null)
-    
+
     if [ "$response" = "$expected" ]; then
         echo -e "${GREEN}✓ OK${NC} (HTTP $response)"
     else
@@ -726,13 +765,13 @@ check_endpoint() {
 check_rpc() {
     local name=$1
     local url=$2
-    
+
     echo -n "Checking $name... "
-    
+
     response=$(curl -s -X POST "$url" \
         -H "Content-Type: application/json" \
         -d '{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":1}')
-    
+
     if echo "$response" | grep -q "result"; then
         echo -e "${GREEN}✓ OK${NC}"
     else
@@ -782,6 +821,7 @@ fi
 ```
 
 **Make executable**:
+
 ```bash
 chmod +x scripts/health-check.sh
 ```
@@ -791,6 +831,7 @@ chmod +x scripts/health-check.sh
 ## 📝 Deployment Log Template
 
 **File**: `deployments/2025-12-05-v1.8.0.md`
+
 ```markdown
 # Deployment: v1.8.0-testnet
 
@@ -815,6 +856,7 @@ chmod +x scripts/health-check.sh
 **Downtime**: 0 minutes (rolling deployment)
 
 ### Steps Executed
+
 1. Pulled latest code from `main` branch
 2. Ran `pnpm install --frozen-lockfile`
 3. Ran `pnpm build`
@@ -836,12 +878,14 @@ chmod +x scripts/health-check.sh
 ## Metrics
 
 **Before Deployment**:
+
 - Response time (p95): 245ms
 - Error rate: 0.02%
 - Memory usage: 3.2GB
 - CPU usage: 28%
 
 **After Deployment**:
+
 - Response time (p95): 198ms
 - Error rate: 0.01%
 - Memory usage: 3.0GB
@@ -870,6 +914,7 @@ Deployment completed successfully. Performance improvements observed due to opti
 ## 📞 Emergency Contacts
 
 ### On-Call Schedule
+
 ```
 Monday-Wednesday: @devops-lead
 Thursday-Friday: @sre-engineer
@@ -878,6 +923,7 @@ Backup: @cto
 ```
 
 ### Contact Methods
+
 - **Urgent**: Signal group "axionax-oncall"
 - **Non-urgent**: Discord #deployments
 - **Escalation**: Email cto@axionax.org

@@ -40,6 +40,7 @@ By participating in this project, you agree to abide by our Code of Conduct:
 
 1. Fork the repository on GitHub
 2. Clone your fork locally:
+
    ```bash
    git clone https://github.com/YOUR_USERNAME/axionax-web-universe.git
    cd axionax-web-universe
@@ -88,6 +89,7 @@ git checkout -b fix/issue-description
 ```
 
 Branch naming conventions:
+
 - `feature/` - New features
 - `fix/` - Bug fixes
 - `docs/` - Documentation updates
@@ -130,6 +132,7 @@ git commit -m "fix: resolve issue with component"
 ```
 
 Commit message format:
+
 ```
 <type>(<scope>): <subject>
 
@@ -139,6 +142,7 @@ Commit message format:
 ```
 
 **Types**:
+
 - `feat`: New feature
 - `fix`: Bug fix
 - `docs`: Documentation changes
@@ -149,6 +153,7 @@ Commit message format:
 - `perf`: Performance improvements
 
 **Example**:
+
 ```
 feat(web): add dark mode toggle
 
@@ -185,21 +190,26 @@ git push origin feature/your-feature-name
 
 ```markdown
 ## Description
+
 Brief description of what this PR does
 
 ## Type of Change
+
 - [ ] Bug fix
 - [ ] New feature
 - [ ] Breaking change
 - [ ] Documentation update
 
 ## How to Test
+
 Steps to test the changes
 
 ## Screenshots (if applicable)
+
 Add screenshots here
 
 ## Checklist
+
 - [ ] Tests added/updated
 - [ ] Documentation updated
 - [ ] No breaking changes (or documented)
@@ -227,6 +237,7 @@ Add screenshots here
 - Add JSDoc comments for functions
 
 **Example**:
+
 ```typescript
 /**
  * Fetches user data from the API
@@ -248,6 +259,7 @@ async function getUserData(userId: string): Promise<User> {
 - Use **React.memo** for optimization when needed
 
 **Example**:
+
 ```typescript
 import React from 'react';
 
@@ -301,6 +313,7 @@ packages/
 - Aim for >80% code coverage
 
 **Example**:
+
 ```typescript
 import { render, screen } from '@testing-library/react';
 import { Button } from './Button';
@@ -393,6 +406,7 @@ pnpm test:e2e
 ### Recognition
 
 Contributors will be:
+
 - Listed in CONTRIBUTORS.md
 - Mentioned in release notes
 - Invited to contributor-only channels

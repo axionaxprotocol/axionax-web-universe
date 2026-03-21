@@ -4,6 +4,7 @@ title: axionax protocol Documentation
 ---
 
 # axionax protocol v1.9.0
+
 **Decentralized Compute Network with Proof-of-Probabilistic-Checking**
 
 Welcome to the official documentation for axionax protocol - a next-generation decentralized compute infrastructure powered by novel consensus mechanisms.
@@ -12,11 +13,11 @@ Welcome to the official documentation for axionax protocol - a next-generation d
 
 **Deployment Progress: 100% Complete (All Services Operational)**
 
-| Category | Status | Details |
-|----------|--------|---------|
+| Category           | Status         | Details                                |
+| ------------------ | -------------- | -------------------------------------- |
 | **Infrastructure** | ✅ 5/5 Healthy | PostgreSQL, Redis, Nginx/SSL, RPC Node |
-| **Monitoring** | ✅ 2/2 Healthy | Grafana v12.2.1, Prometheus |
-| **Applications** | ✅ 2/2 Healthy | Explorer API, Faucet API |
+| **Monitoring**     | ✅ 2/2 Healthy | Grafana v12.2.1, Prometheus            |
+| **Applications**   | ✅ 2/2 Healthy | Explorer API, Faucet API               |
 
 **VPS**: vmi2895217 (217.216.109.5) • **Chain ID**: 86137 • **Network**: axionax-testnet-1
 
@@ -31,16 +32,19 @@ Welcome to the official documentation for axionax protocol - a next-generation d
 We provide automated dependency installers for all major platforms:
 
 #### 🐧 Linux (Ubuntu/Debian/CentOS/RHEL/Arch/Alpine)
+
 ```bash
 curl -sSL https://raw.githubusercontent.com/axionaxprotocol/axionax-core/main/scripts/install_dependencies_linux.sh | bash
 ```
 
 #### 🪟 Windows (PowerShell as Administrator)
+
 ```powershell
 irm https://raw.githubusercontent.com/axionaxprotocol/axionax-core/main/scripts/install_dependencies_windows.ps1 | iex
 ```
 
 #### 🍎 macOS (10.15+)
+
 ```bash
 curl -sSL https://raw.githubusercontent.com/axionaxprotocol/axionax-core/main/scripts/install_dependencies_macos.sh | bash
 ```
@@ -70,43 +74,52 @@ python3 tests/integration_simple.py
 ## 📚 Core Documentation
 
 ### Architecture & Design
+
 - [Architecture Overview](../ARCHITECTURE.md)
 - [Architecture Compliance v1.8.0](./ARCHITECTURE_COMPLIANCE_v1.8.0.md)
 - [New Architecture](../NEW_ARCHITECTURE.md)
 - [Project Structure](../PROJECT_STRUCTURE.md)
 
 ### Core Modules (v1.9.0)
+
 - **PoPC** - Proof-of-Probabilistic-Checking Consensus (sample_size=1000, confidence=0.99)
 - **ASR** - Auto-Selection Router (K=64, max_quota=12.5%)
 - **PPC** - Posted Price Controller (utilization-based pricing)
 - **DA** - Data Availability Subsystem (erasure coding with replication)
 
 ### Development
+
 - [API Reference](./API_REFERENCE.md)
 - [Testing Guide](../TESTING_GUIDE.md)
 - [Contributing Guidelines](../CONTRIBUTING.md)
 
 ## 🔐 Security & Governance
+
 - [Security Implementation](../SECURITY.md)
 - [Governance Model](../GOVERNANCE.md)
 - [Tokenomics](../TOKENOMICS.md)
 
 ## 🌐 Testnet
+
 - [Testnet Integration](./TESTNET_INTEGRATION.md)
 - [Testnet in a Box](../axionax_v1.5_Testnet_in_a_Box/)
 
 ## 📈 Project Status
+
 - [Current Status](../STATUS.md)
 - [Roadmap](../ROADMAP.md)
 - [Project Completion](../PROJECT_COMPLETION.md)
 
 ## 🔗 Resources
+
 - [GitHub Repository](https://github.com/axionaxprotocol/axionax-core)
 - [Open Issues](https://github.com/axionaxprotocol/axionax-core/issues)
 - [v1.9.0 Testnet Milestone](https://github.com/axionaxprotocol/axionax-core/milestone/1)
 
 ## 📜 License
+
 axionax protocol is open source software. See [LICENSE](../LICENSE) and [LICENSE NOTICE](../LICENSE_NOTICE.md) for details.
 
 ---
-*Documentation for axionax protocol v1.9.0 Testnet - Last Updated: December 5, 2025*
+
+_Documentation for axionax protocol v1.9.0 Testnet - Last Updated: December 5, 2025_

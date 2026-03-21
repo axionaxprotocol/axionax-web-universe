@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-  EscrowStatus,
-  EscrowTransaction,
-  escrowService,
-} from '@axionax/sdk';
+import { EscrowStatus, EscrowTransaction, escrowService } from '@axionax/sdk';
 
 type DepositState = 'idle' | 'loading' | 'success' | 'error';
 
@@ -16,7 +12,9 @@ export const EscrowPanel: React.FC<EscrowPanelProps> = ({
   jobId,
   className = '',
 }) => {
-  const [escrowState, setEscrowState] = useState<EscrowTransaction | null>(null);
+  const [escrowState, setEscrowState] = useState<EscrowTransaction | null>(
+    null
+  );
   const [depositState, setDepositState] = useState<DepositState>('idle');
   const [amount, setAmount] = useState<string>('0');
   const [loading, setLoading] = useState<boolean>(false);
@@ -114,7 +112,9 @@ export const EscrowPanel: React.FC<EscrowPanelProps> = ({
         <div className="p-6 border-b border-slate-800 bg-slate-900/50">
           <div className="flex justify-between items-center mb-2">
             <h2 className="text-xl font-bold text-white">Escrow Contract</h2>
-            <div className={`px-3 py-1 rounded-full text-xs font-medium border ${getStatusColor(escrowState?.status)}`}>
+            <div
+              className={`px-3 py-1 rounded-full text-xs font-medium border ${getStatusColor(escrowState?.status)}`}
+            >
               {getDisplayStatus(escrowState?.status)}
             </div>
           </div>
@@ -125,15 +125,25 @@ export const EscrowPanel: React.FC<EscrowPanelProps> = ({
 
         {/* Content */}
         <div className="p-6 space-y-6">
-          
           {/* Amount Card */}
           <div className="bg-slate-950 rounded-lg p-5 border border-slate-800 relative overflow-hidden group">
             <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-16 w-16 text-blue-500"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                />
               </svg>
             </div>
-            
+
             <p className="text-slate-400 text-sm mb-1">Locked Amount</p>
             <div className="flex items-baseline gap-2">
               <span className="text-3xl font-bold text-white tracking-tight">
@@ -151,7 +161,7 @@ export const EscrowPanel: React.FC<EscrowPanelProps> = ({
                 <label className="block text-slate-400 text-xs mb-2 uppercase tracking-wider font-semibold">
                   Deposit Amount (AXX)
                 </label>
-                <input 
+                <input
                   type="number"
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
@@ -162,10 +172,15 @@ export const EscrowPanel: React.FC<EscrowPanelProps> = ({
             )}
 
             <div className="grid grid-cols-2 gap-3">
-              {(!escrowState || escrowState.status === EscrowStatus.Pending) && (
+              {(!escrowState ||
+                escrowState.status === EscrowStatus.Pending) && (
                 <button
                   onClick={handleDeposit}
-                  disabled={depositState === 'loading' || !amount || parseFloat(amount) <= 0}
+                  disabled={
+                    depositState === 'loading' ||
+                    !amount ||
+                    parseFloat(amount) <= 0
+                  }
                   className={`col-span-2 w-full py-3 px-4 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 border ${
                     depositState === 'success'
                       ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/50 shadow-emerald-500/20'
@@ -177,19 +192,56 @@ export const EscrowPanel: React.FC<EscrowPanelProps> = ({
                   }`}
                 >
                   {depositState === 'loading' && (
-                    <svg className="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" aria-hidden="true">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                    <svg
+                      className="animate-spin h-5 w-5"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      />
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      />
                     </svg>
                   )}
                   {depositState === 'success' && (
-                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    <svg
+                      className="h-5 w-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M5 13l4 4L19 7"
+                      />
                     </svg>
                   )}
                   {depositState === 'error' && (
-                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    <svg
+                      className="h-5 w-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
                     </svg>
                   )}
                   {depositState === 'loading' && 'Processing...'}
@@ -220,13 +272,18 @@ export const EscrowPanel: React.FC<EscrowPanelProps> = ({
             </div>
 
             {/* Completed State Info */}
-            {(escrowState?.status === EscrowStatus.Released || escrowState?.status === EscrowStatus.Refunded) && (
+            {(escrowState?.status === EscrowStatus.Released ||
+              escrowState?.status === EscrowStatus.Refunded) && (
               <div className="text-center p-4 bg-slate-800/50 rounded-lg border border-slate-700">
                 <p className="text-slate-300">
-                  Transaction completed on {escrowState.updatedAt.toLocaleDateString()}
+                  Transaction completed on{' '}
+                  {escrowState.updatedAt.toLocaleDateString()}
                 </p>
                 {escrowState.txHash && (
-                  <a href="#" className="text-xs text-blue-400 hover:text-blue-300 mt-1 block truncate">
+                  <a
+                    href="#"
+                    className="text-xs text-blue-400 hover:text-blue-300 mt-1 block truncate"
+                  >
                     {escrowState.txHash}
                   </a>
                 )}

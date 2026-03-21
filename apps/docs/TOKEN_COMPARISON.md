@@ -8,20 +8,20 @@ This document provides a clear comparison between testnet and mainnet token conf
 
 ## 📊 Quick Comparison
 
-| Feature | Testnet (Current) | Mainnet (Planned) |
-|---------|-------------------|-------------------|
-| **Token Symbol** | **AXXt** | **AXX** |
-| **Token Name** | Axionax Testnet Token | Axionax Token |
-| **Total Supply** | 1 Billion AXXt | 1 Trillion AXX |
-| **Initial Mint** | 100 Million (10%) | Per allocation plan |
-| **Max Supply** | 1,000,000,000 AXXt | 1,000,000,000,000 AXX |
-| **Yearly Mint Cap** | 100M AXXt (10%) | 100B AXX (10%) |
-| **Vesting** | ❌ Not implemented | ✅ Full vesting schedules |
-| **Allocation** | Simple (single mint) | Complex (7 categories) |
-| **Governance** | Simplified | Full DAO |
-| **Staking Rewards** | Basic | 2.25% APY with metrics |
-| **Token Value** | ❌ No real value | ✅ Real economic value |
-| **Network** | Testnet (86137) | Mainnet (TBA) |
+| Feature             | Testnet (Current)     | Mainnet (Planned)         |
+| ------------------- | --------------------- | ------------------------- |
+| **Token Symbol**    | **AXXt**              | **AXX**                   |
+| **Token Name**      | Axionax Testnet Token | Axionax Token             |
+| **Total Supply**    | 1 Billion AXXt        | 1 Trillion AXX            |
+| **Initial Mint**    | 100 Million (10%)     | Per allocation plan       |
+| **Max Supply**      | 1,000,000,000 AXXt    | 1,000,000,000,000 AXX     |
+| **Yearly Mint Cap** | 100M AXXt (10%)       | 100B AXX (10%)            |
+| **Vesting**         | ❌ Not implemented    | ✅ Full vesting schedules |
+| **Allocation**      | Simple (single mint)  | Complex (7 categories)    |
+| **Governance**      | Simplified            | Full DAO                  |
+| **Staking Rewards** | Basic                 | 2.25% APY with metrics    |
+| **Token Value**     | ❌ No real value      | ✅ Real economic value    |
+| **Network**         | Testnet (86137)       | Mainnet (TBA)             |
 
 ---
 
@@ -30,20 +30,24 @@ This document provides a clear comparison between testnet and mainnet token conf
 ### 1. Total Supply
 
 #### Testnet
+
 ```solidity
 ERC20("axionax Testnet Token", "AXXt")
 uint256 public constant MAX_SUPPLY = 1_000_000_000 * 10**18;  // 1 Billion
 ```
+
 - **Symbol**: AXXt (with 't' suffix)
 - **Why**: Simplified for testing
 - **Benefit**: Easier to manage test allocations
 - **Status**: Production-ready contract
 
 #### Mainnet
+
 ```
 Symbol: AXX (production token)
 Total Supply: 1,000,000,000,000 AXX (1 Trillion)
 ```
+
 - **Symbol**: AXX (clean, professional)
 - **Why**: Support full ecosystem growth
 - **Benefit**: Adequate supply for global adoption
@@ -54,18 +58,21 @@ Total Supply: 1,000,000,000,000 AXX (1 Trillion)
 ### 2. Initial Distribution
 
 #### Testnet
+
 ```solidity
 constructor(address initialOwner) {
     ERC20("axionax Testnet Token", "AXXt")
     _mint(initialOwner, 100_000_000 * 10**18);  // 100M AXXt to owner
 }
 ```
+
 - **Symbol**: AXXt
 - **Distribution**: Single mint to deployer
 - **Purpose**: Quick setup for testing
 - **Vesting**: None (immediate availability)
 
 #### Mainnet
+
 ```
 Symbol: AXX
 Genesis Allocation (1 Trillion AXX total):
@@ -77,6 +84,7 @@ Genesis Allocation (1 Trillion AXX total):
 ├── Airdrops:           50B AXX ( 5%) - various
 └── Liquidity:          20B AXX ( 2%) - immediate
 ```
+
 - **Symbol**: AXX
 - **Distribution**: Multiple allocations with vesting
 - **Purpose**: Fair, sustainable distribution
@@ -87,23 +95,26 @@ Genesis Allocation (1 Trillion AXX total):
 ### 3. Minting Control
 
 #### Testnet
+
 ```solidity
 uint256 public constant YEARLY_MINT_CAP = 100_000_000 * 10**18;  // 100M AXXt/year
 
-function mint(address to, uint256 amount, string calldata reason) 
-    external onlyOwner 
+function mint(address to, uint256 amount, string calldata reason)
+    external onlyOwner
 {
     require(totalSupply() + amount <= MAX_SUPPLY, "max supply exceeded");
     require(yearlyMinted[currentYear()] + amount <= YEARLY_MINT_CAP, "yearly cap exceeded");
     // ... mint logic
 }
 ```
+
 - **Token**: AXXt
 - **Cap**: 100M AXXt per year
 - **Control**: Owner can mint up to cap
 - **Purpose**: Testing reward distribution
 
 #### Mainnet
+
 ```
 Symbol: AXX
 Yearly Mint Cap: 100,000,000,000 AXX (100B/year)
@@ -111,6 +122,7 @@ Yearly Mint Cap: 100,000,000,000 AXX (100B/year)
 - Governance-controlled minting
 - Transparent on-chain reason
 ```
+
 - **Token**: AXX
 - **Cap**: 100B AXX per year (10% of max)
 - **Control**: DAO governance approval
@@ -123,6 +135,7 @@ Yearly Mint Cap: 100,000,000,000 AXX (100B/year)
 #### Both Testnet & Mainnet
 
 ✅ **Shared Features:**
+
 - ERC-20 Standard compliance
 - Burnable (users can burn their tokens)
 - ERC-20 Permit (gasless approvals)
@@ -131,6 +144,7 @@ Yearly Mint Cap: 100,000,000,000 AXX (100B/year)
 - Transparent minting with reason
 
 ❌ **Testnet Missing:**
+
 - Vesting contracts integration
 - Allocation enforcement
 - Governance-controlled minting
@@ -138,6 +152,7 @@ Yearly Mint Cap: 100,000,000,000 AXX (100B/year)
 - DAO voting power tracking
 
 ✅ **Mainnet Additional:**
+
 - Full vesting schedule implementation
 - Multi-sig governance control
 - Automated reward distribution
@@ -204,7 +219,7 @@ Yearly Mint Cap: 100,000,000,000 AXX (100B/year)
 /**
  * @title AXXt Token (Testnet Version)
  * @notice Testnet token of the axionax Protocol
- * 
+ *
  * ⚠️ TESTNET CONFIGURATION
  * Symbol: AXXt (with 't' suffix for testnet)
  * This contract uses simplified tokenomics for testing.
@@ -213,7 +228,7 @@ Yearly Mint Cap: 100,000,000,000 AXX (100B/year)
 contract AXXToken is ERC20, ERC20Burnable, ERC20Permit, Ownable {
     uint256 public constant MAX_SUPPLY = 1_000_000_000 * 10**18;      // 1B AXXt
     uint256 public constant YEARLY_MINT_CAP = 100_000_000 * 10**18;   // 100M AXXt
-    
+
     constructor(address initialOwner) {
         ERC20("axionax Testnet Token", "AXXt")
         _mint(initialOwner, 100_000_000 * 10**18);  // 100M AXXt initial
@@ -222,6 +237,7 @@ contract AXXToken is ERC20, ERC20Burnable, ERC20Permit, Ownable {
 ```
 
 **Deployment:**
+
 - Network: Axionax Testnet (86137)
 - Address: Check deployment docs
 - Status: ✅ Deployed and operational
@@ -238,13 +254,13 @@ contract AXXToken is ERC20, ERC20Burnable, ERC20Permit, Ownable {
 contract AXXToken is ERC20, ERC20Burnable, ERC20Permit, Ownable {
     uint256 public constant MAX_SUPPLY = 1_000_000_000_000 * 10**18;      // 1T AXX
     uint256 public constant YEARLY_MINT_CAP = 100_000_000_000 * 10**18;   // 100B AXX
-    
+
     // No initial mint in constructor - handled by genesis
     constructor(address initialOwner) {
         ERC20("axionax Token", "AXX")
         // Genesis allocations handled separately
     }
-    
+
     // Additional governance controls
     // Vesting contract integration
     // Slashing mechanisms
@@ -252,6 +268,7 @@ contract AXXToken is ERC20, ERC20Burnable, ERC20Permit, Ownable {
 ```
 
 **Deployment:**
+
 - Network: Axionax Mainnet (TBA)
 - Address: TBA
 - Status: 🚧 Specification ready
@@ -284,12 +301,14 @@ contract AXXToken is ERC20, ERC20Burnable, ERC20Permit, Ownable {
 #### Potential Testnet Participant Rewards
 
 🎁 **Possible Mainnet Airdrops:**
+
 - Active testnet users
 - Bug bounty participants
 - Community contributors
 - Validator operators
 
 📊 **Criteria (TBA):**
+
 - Transaction volume on testnet
 - Validator uptime
 - Bugs reported and fixed
@@ -300,16 +319,19 @@ contract AXXToken is ERC20, ERC20Burnable, ERC20Permit, Ownable {
 ## 📚 Documentation References
 
 ### Testnet Documentation
+
 - [TOKENOMICS_TESTNET.md](./TOKENOMICS_TESTNET.md) - Full testnet spec
 - [ADD_TOKEN_TO_METAMASK.md](./ADD_TOKEN_TO_METAMASK.md) - Setup guide
 - [TESTNET_INTEGRATION.md](./TESTNET_INTEGRATION.md) - Developer guide
 
 ### Mainnet Documentation
+
 - [TOKENOMICS.md](./TOKENOMICS.md) - Full mainnet spec
 - [GOVERNANCE.md](./GOVERNANCE.md) - Governance system
 - [AXX_Upgrade_v1.6.md](./AXX_Upgrade_v1.6.md) - Token evolution
 
 ### Smart Contracts
+
 - [AXXToken.sol](../../core-universe/packages/contracts/contracts/AXXToken.sol) - Token contract
 - [Staking.sol](../../core-universe/packages/contracts/contracts/Staking.sol) - Staking contract
 - [Governance.sol](../../core-universe/packages/contracts/contracts/Governance.sol) - Governance contract

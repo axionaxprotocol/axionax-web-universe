@@ -130,7 +130,7 @@ axionax-docs/
 ### Use H3 for subsections
 
 **Bold** for emphasis
-*Italic* for subtle emphasis
+_Italic_ for subtle emphasis
 `code` for inline code
 [link text](url) for links
 
@@ -153,11 +153,11 @@ const example = "code"
 ````markdown
 ```typescript
 // Always include language for syntax highlighting
-import { AxionaxClient } from '@axionax/sdk'
+import { AxionaxClient } from '@axionax/sdk';
 
-const client = new AxionaxClient('http://localhost:8545')
-const balance = await client.getBalance('0x...')
-console.log('Balance:', balance)
+const client = new AxionaxClient('http://localhost:8545');
+const balance = await client.getBalance('0x...');
+console.log('Balance:', balance);
 ```
 
 ```bash
@@ -178,12 +178,15 @@ contract MyToken {
 
 ```markdown
 # Store images in images/ directory
+
 ![Alt text](images/architecture-diagram.png)
 
 # External images
+
 ![Logo](https://axionax.org/logo.png)
 
 # With caption
+
 <figure>
   <img src="images/consensus-flow.png" alt="Consensus Flow" />
   <figcaption>Figure 1: Consensus mechanism flow</figcaption>
@@ -256,13 +259,13 @@ import { AxionaxClient, Wallet } from '@axionax/sdk'
 async function sendTransaction() {
   const client = new AxionaxClient('http://localhost:8545')
   const wallet = Wallet.createRandom()
-  
+
   const tx = await client.sendTransaction({
     from: wallet.address,
     to: '0x...',
     value: '1000000000000000000'
   })
-  
+
   console.log('Transaction hash:', tx.hash)
 }
 EOF
@@ -349,9 +352,11 @@ npm run docs:deploy
 
 ```markdown
 # Link to specific file in axionax-sdk-ts
+
 See implementation: [AxionaxClient](https://github.com/axionaxprotocol/axionax-sdk-ts/blob/main/src/client/index.ts)
 
 # Link to specific line
+
 [Transaction signing](https://github.com/axionaxprotocol/axionax-sdk-ts/blob/main/src/wallet/index.ts#L45)
 ```
 
@@ -359,6 +364,7 @@ See implementation: [AxionaxClient](https://github.com/axionaxprotocol/axionax-s
 
 ```markdown
 # Instead of copying code, link to it
+
 \`\`\`typescript
 // See full implementation:
 // https://github.com/axionaxprotocol/axionax-sdk-ts/blob/main/src/client/index.ts
@@ -523,27 +529,27 @@ export default {
   title: 'axionax Protocol Documentation',
   description: 'Complete guide to axionax protocol',
   base: '/axionax-docs/',
-  
+
   themeConfig: {
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Guide', link: '/guides/getting-started' },
       { text: 'API', link: '/api/rpc' },
     ],
-    
+
     sidebar: {
       '/guides/': [
         {
           text: 'Getting Started',
           items: [
             { text: 'Introduction', link: '/guides/introduction' },
-            { text: 'Setup', link: '/guides/setup' }
-          ]
-        }
-      ]
-    }
-  }
-}
+            { text: 'Setup', link: '/guides/setup' },
+          ],
+        },
+      ],
+    },
+  },
+};
 ```
 
 ---

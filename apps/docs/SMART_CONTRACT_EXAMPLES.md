@@ -23,6 +23,7 @@
 ## 🚀 Getting Started
 
 ### Prerequisites
+
 ```bash
 # Install Node.js 18+
 node --version
@@ -41,49 +42,51 @@ foundryup
 ### Network Configuration
 
 **Hardhat config** (`hardhat.config.ts`):
+
 ```typescript
-import { HardhatUserConfig } from "hardhat/config";
-import "@nomicfoundation/hardhat-toolbox";
+import { HardhatUserConfig } from 'hardhat/config';
+import '@nomicfoundation/hardhat-toolbox';
 
 const config: HardhatUserConfig = {
   solidity: {
-    version: "0.8.20",
+    version: '0.8.20',
     settings: {
       optimizer: {
         enabled: true,
-        runs: 200
-      }
-    }
+        runs: 200,
+      },
+    },
   },
   networks: {
     axionaxTestnet: {
-      url: "https://testnet-rpc.axionax.org",
+      url: 'https://testnet-rpc.axionax.org',
       chainId: 86137,
       accounts: [process.env.PRIVATE_KEY!],
-      gasPrice: 20000000000 // 20 gwei
-    }
+      gasPrice: 20000000000, // 20 gwei
+    },
   },
   etherscan: {
     apiKey: {
-      axionaxTestnet: "your-api-key" // For verification
+      axionaxTestnet: 'your-api-key', // For verification
     },
     customChains: [
       {
-        network: "axionaxTestnet",
+        network: 'axionaxTestnet',
         chainId: 86137,
         urls: {
-          apiURL: "https://explorer-api.axionax.org/api",
-          browserURL: "https://explorer.axionax.org"
-        }
-      }
-    ]
-  }
+          apiURL: 'https://explorer-api.axionax.org/api',
+          browserURL: 'https://explorer.axionax.org',
+        },
+      },
+    ],
+  },
 };
 
 export default config;
 ```
 
 **Foundry config** (`foundry.toml`):
+
 ```toml
 [profile.default]
 src = "src"
@@ -107,6 +110,7 @@ axionax_testnet = { key = "${ETHERSCAN_API_KEY}", chain = 86137, url = "https://
 ### Basic ERC-20 Implementation
 
 **File**: `contracts/MyToken.sol`
+
 ```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
@@ -121,9 +125,9 @@ import "@openzeppelin/contracts/access/Ownable.sol";
  */
 contract MyToken is ERC20, ERC20Burnable, Ownable {
     uint256 public constant MAX_SUPPLY = 1_000_000_000 * 10**18; // 1 billion tokens
-    
+
     event Mint(address indexed to, uint256 amount);
-    
+
     constructor(
         string memory name,
         string memory symbol,
@@ -132,7 +136,7 @@ contract MyToken is ERC20, ERC20Burnable, Ownable {
         require(initialSupply <= MAX_SUPPLY, "Initial supply exceeds max");
         _mint(msg.sender, initialSupply);
     }
-    
+
     /**
      * @dev Mint new tokens (only owner)
      * @param to Address to receive tokens
@@ -149,6 +153,7 @@ contract MyToken is ERC20, ERC20Burnable, Ownable {
 ### Advanced ERC-20 with Snapshots
 
 **File**: `contracts/SnapshotToken.sol`
+
 ```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
@@ -169,7 +174,7 @@ contract SnapshotToken is ERC20, ERC20Snapshot, Ownable {
     ) ERC20(name, symbol) Ownable(msg.sender) {
         _mint(msg.sender, initialSupply);
     }
-    
+
     /**
      * @dev Create a snapshot (only owner)
      * @return Snapshot ID
@@ -177,7 +182,7 @@ contract SnapshotToken is ERC20, ERC20Snapshot, Ownable {
     function snapshot() external onlyOwner returns (uint256) {
         return _snapshot();
     }
-    
+
     // Override required by Solidity
     function _update(
         address from,
@@ -192,32 +197,35 @@ contract SnapshotToken is ERC20, ERC20Snapshot, Ownable {
 ### Deployment Script (Hardhat)
 
 **File**: `scripts/deploy-token.ts`
+
 ```typescript
-import { ethers } from "hardhat";
+import { ethers } from 'hardhat';
 
 async function main() {
   const [deployer] = await ethers.getSigners();
-  
-  console.log("Deploying MyToken with account:", deployer.address);
-  console.log("Account balance:", (await ethers.provider.getBalance(deployer.address)).toString());
-  
+
+  console.log('Deploying MyToken with account:', deployer.address);
+  console.log('Account balance:', (await ethers.provider.getBalance(deployer.address)).toString());
+
   // Deploy token
-  const MyToken = await ethers.getContractFactory("MyToken");
+  const MyToken = await ethers.getContractFactory('MyToken');
   const token = await MyToken.deploy(
-    "My Token",           // Name
-    "MTK",                // Symbol
-    ethers.parseEther("1000000") // Initial supply: 1M tokens
+    'My Token', // Name
+    'MTK', // Symbol
+    ethers.parseEther('1000000'), // Initial supply: 1M tokens
   );
-  
+
   await token.waitForDeployment();
   const tokenAddress = await token.getAddress();
-  
-  console.log("MyToken deployed to:", tokenAddress);
-  console.log("Total supply:", ethers.formatEther(await token.totalSupply()));
-  
+
+  console.log('MyToken deployed to:', tokenAddress);
+  console.log('Total supply:', ethers.formatEther(await token.totalSupply()));
+
   // Verify on explorer
-  console.log("\nVerify with:");
-  console.log(`npx hardhat verify --network axionaxTestnet ${tokenAddress} "My Token" "MTK" "1000000000000000000000000"`);
+  console.log('\nVerify with:');
+  console.log(
+    `npx hardhat verify --network axionaxTestnet ${tokenAddress} "My Token" "MTK" "1000000000000000000000000"`,
+  );
 }
 
 main()
@@ -229,6 +237,7 @@ main()
 ```
 
 **Deploy**:
+
 ```bash
 npx hardhat run scripts/deploy-token.ts --network axionaxTestnet
 ```
@@ -240,6 +249,7 @@ npx hardhat run scripts/deploy-token.ts --network axionaxTestnet
 ### Basic NFT Implementation
 
 **File**: `contracts/MyNFT.sol`
+
 ```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
@@ -257,14 +267,14 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 contract MyNFT is ERC721, ERC721URIStorage, ERC721Burnable, Ownable {
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
-    
+
     uint256 public constant MAX_SUPPLY = 10000;
     uint256 public mintPrice = 0.01 ether;
-    
+
     event NFTMinted(address indexed to, uint256 indexed tokenId, string tokenURI);
-    
+
     constructor() ERC721("My NFT Collection", "MNFT") Ownable(msg.sender) {}
-    
+
     /**
      * @dev Mint a new NFT
      * @param to Address to receive NFT
@@ -273,24 +283,24 @@ contract MyNFT is ERC721, ERC721URIStorage, ERC721Burnable, Ownable {
     function mint(address to, string memory uri) external payable returns (uint256) {
         require(_tokenIds.current() < MAX_SUPPLY, "Max supply reached");
         require(msg.value >= mintPrice, "Insufficient payment");
-        
+
         _tokenIds.increment();
         uint256 newTokenId = _tokenIds.current();
-        
+
         _safeMint(to, newTokenId);
         _setTokenURI(newTokenId, uri);
-        
+
         emit NFTMinted(to, newTokenId, uri);
         return newTokenId;
     }
-    
+
     /**
      * @dev Update mint price (only owner)
      */
     function setMintPrice(uint256 newPrice) external onlyOwner {
         mintPrice = newPrice;
     }
-    
+
     /**
      * @dev Withdraw contract balance (only owner)
      */
@@ -298,7 +308,7 @@ contract MyNFT is ERC721, ERC721URIStorage, ERC721Burnable, Ownable {
         uint256 balance = address(this).balance;
         payable(owner()).transfer(balance);
     }
-    
+
     // Overrides required by Solidity
     function tokenURI(uint256 tokenId)
         public
@@ -308,7 +318,7 @@ contract MyNFT is ERC721, ERC721URIStorage, ERC721Burnable, Ownable {
     {
         return super.tokenURI(tokenId);
     }
-    
+
     function supportsInterface(bytes4 interfaceId)
         public
         view
@@ -323,6 +333,7 @@ contract MyNFT is ERC721, ERC721URIStorage, ERC721Burnable, Ownable {
 ### NFT with Enumerable Extension
 
 **File**: `contracts/EnumerableNFT.sol`
+
 ```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
@@ -338,7 +349,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 contract EnumerableNFT is ERC721, ERC721Enumerable, Ownable {
     uint256 private _nextTokenId;
     string private _baseTokenURI;
-    
+
     constructor(
         string memory name,
         string memory symbol,
@@ -346,21 +357,21 @@ contract EnumerableNFT is ERC721, ERC721Enumerable, Ownable {
     ) ERC721(name, symbol) Ownable(msg.sender) {
         _baseTokenURI = baseURI;
     }
-    
+
     function mint(address to) external onlyOwner returns (uint256) {
         uint256 tokenId = _nextTokenId++;
         _safeMint(to, tokenId);
         return tokenId;
     }
-    
+
     function _baseURI() internal view override returns (string memory) {
         return _baseTokenURI;
     }
-    
+
     function setBaseURI(string memory baseURI) external onlyOwner {
         _baseTokenURI = baseURI;
     }
-    
+
     // Overrides required
     function _update(address to, uint256 tokenId, address auth)
         internal
@@ -369,14 +380,14 @@ contract EnumerableNFT is ERC721, ERC721Enumerable, Ownable {
     {
         return super._update(to, tokenId, auth);
     }
-    
+
     function _increaseBalance(address account, uint128 value)
         internal
         override(ERC721, ERC721Enumerable)
     {
         super._increaseBalance(account, value);
     }
-    
+
     function supportsInterface(bytes4 interfaceId)
         public
         view
@@ -391,6 +402,7 @@ contract EnumerableNFT is ERC721, ERC721Enumerable, Ownable {
 ### Metadata Example
 
 **File**: `metadata/1.json`
+
 ```json
 {
   "name": "My NFT #1",
@@ -420,6 +432,7 @@ contract EnumerableNFT is ERC721, ERC721Enumerable, Ownable {
 ### Basic ERC-1155 Implementation
 
 **File**: `contracts/MyMultiToken.sol`
+
 ```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
@@ -435,20 +448,20 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 contract MyMultiToken is ERC1155, Ownable {
     string public name = "My Multi Token";
     string public symbol = "MMT";
-    
+
     uint256 public constant GOLD = 0;
     uint256 public constant SILVER = 1;
     uint256 public constant BRONZE = 2;
     uint256 public constant SWORD = 100;
     uint256 public constant SHIELD = 101;
-    
+
     constructor() ERC1155("https://api.axionax.org/metadata/{id}.json") Ownable(msg.sender) {
         // Mint initial supply of fungible tokens
         _mint(msg.sender, GOLD, 1000, "");
         _mint(msg.sender, SILVER, 5000, "");
         _mint(msg.sender, BRONZE, 10000, "");
     }
-    
+
     /**
      * @dev Mint tokens (only owner)
      */
@@ -460,7 +473,7 @@ contract MyMultiToken is ERC1155, Ownable {
     ) external onlyOwner {
         _mint(to, id, amount, data);
     }
-    
+
     /**
      * @dev Batch mint (only owner)
      */
@@ -472,7 +485,7 @@ contract MyMultiToken is ERC1155, Ownable {
     ) external onlyOwner {
         _mintBatch(to, ids, amounts, data);
     }
-    
+
     /**
      * @dev Update URI (only owner)
      */
@@ -489,6 +502,7 @@ contract MyMultiToken is ERC1155, Ownable {
 ### Simple Staking Contract
 
 **File**: `contracts/SimpleStaking.sol`
+
 ```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
@@ -504,26 +518,26 @@ import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
  */
 contract SimpleStaking is Ownable, ReentrancyGuard {
     using SafeERC20 for IERC20;
-    
+
     IERC20 public immutable stakingToken;
     IERC20 public immutable rewardToken;
-    
+
     uint256 public rewardRate = 100; // 100 tokens per day per staked token
     uint256 public constant RATE_DENOMINATOR = 10000;
-    
+
     struct Stake {
         uint256 amount;
         uint256 timestamp;
         uint256 rewardDebt;
     }
-    
+
     mapping(address => Stake) public stakes;
     uint256 public totalStaked;
-    
+
     event Staked(address indexed user, uint256 amount);
     event Unstaked(address indexed user, uint256 amount);
     event RewardClaimed(address indexed user, uint256 reward);
-    
+
     constructor(
         address _stakingToken,
         address _rewardToken
@@ -531,64 +545,64 @@ contract SimpleStaking is Ownable, ReentrancyGuard {
         stakingToken = IERC20(_stakingToken);
         rewardToken = IERC20(_rewardToken);
     }
-    
+
     /**
      * @dev Stake tokens
      */
     function stake(uint256 amount) external nonReentrant {
         require(amount > 0, "Cannot stake 0");
-        
+
         // Claim pending rewards first
         if (stakes[msg.sender].amount > 0) {
             _claimReward(msg.sender);
         }
-        
+
         stakingToken.safeTransferFrom(msg.sender, address(this), amount);
-        
+
         stakes[msg.sender].amount += amount;
         stakes[msg.sender].timestamp = block.timestamp;
         totalStaked += amount;
-        
+
         emit Staked(msg.sender, amount);
     }
-    
+
     /**
      * @dev Unstake tokens
      */
     function unstake(uint256 amount) external nonReentrant {
         require(stakes[msg.sender].amount >= amount, "Insufficient stake");
-        
+
         _claimReward(msg.sender);
-        
+
         stakes[msg.sender].amount -= amount;
         totalStaked -= amount;
-        
+
         stakingToken.safeTransfer(msg.sender, amount);
-        
+
         emit Unstaked(msg.sender, amount);
     }
-    
+
     /**
      * @dev Claim rewards
      */
     function claimReward() external nonReentrant {
         _claimReward(msg.sender);
     }
-    
+
     /**
      * @dev Calculate pending rewards
      */
     function pendingReward(address user) public view returns (uint256) {
         Stake memory userStake = stakes[user];
         if (userStake.amount == 0) return 0;
-        
+
         uint256 timeElapsed = block.timestamp - userStake.timestamp;
-        uint256 reward = (userStake.amount * rewardRate * timeElapsed) / 
+        uint256 reward = (userStake.amount * rewardRate * timeElapsed) /
                         (RATE_DENOMINATOR * 1 days);
-        
+
         return reward - userStake.rewardDebt;
     }
-    
+
     /**
      * @dev Internal reward claim
      */
@@ -601,7 +615,7 @@ contract SimpleStaking is Ownable, ReentrancyGuard {
             emit RewardClaimed(user, reward);
         }
     }
-    
+
     /**
      * @dev Update reward rate (only owner)
      */
@@ -614,6 +628,7 @@ contract SimpleStaking is Ownable, ReentrancyGuard {
 ### Simple DEX (Automated Market Maker)
 
 **File**: `contracts/SimpleDEX.sol`
+
 ```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
@@ -628,19 +643,19 @@ import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
  */
 contract SimpleDEX is ReentrancyGuard {
     using SafeERC20 for IERC20;
-    
+
     IERC20 public immutable token0;
     IERC20 public immutable token1;
-    
+
     uint256 public reserve0;
     uint256 public reserve1;
-    
+
     uint256 public totalShares;
     mapping(address => uint256) public shares;
-    
+
     uint256 public constant FEE_PERCENT = 3; // 0.3%
     uint256 public constant FEE_DENOMINATOR = 1000;
-    
+
     event Swap(
         address indexed user,
         address indexed tokenIn,
@@ -649,12 +664,12 @@ contract SimpleDEX is ReentrancyGuard {
     );
     event AddLiquidity(address indexed provider, uint256 amount0, uint256 amount1, uint256 shares);
     event RemoveLiquidity(address indexed provider, uint256 amount0, uint256 amount1, uint256 shares);
-    
+
     constructor(address _token0, address _token1) {
         token0 = IERC20(_token0);
         token1 = IERC20(_token1);
     }
-    
+
     /**
      * @dev Add liquidity to the pool
      */
@@ -663,10 +678,10 @@ contract SimpleDEX is ReentrancyGuard {
         uint256 amount1
     ) external nonReentrant returns (uint256 liquidityShares) {
         require(amount0 > 0 && amount1 > 0, "Invalid amounts");
-        
+
         token0.safeTransferFrom(msg.sender, address(this), amount0);
         token1.safeTransferFrom(msg.sender, address(this), amount1);
-        
+
         if (totalShares == 0) {
             liquidityShares = sqrt(amount0 * amount1);
         } else {
@@ -675,17 +690,17 @@ contract SimpleDEX is ReentrancyGuard {
                 (amount1 * totalShares) / reserve1
             );
         }
-        
+
         require(liquidityShares > 0, "Insufficient liquidity minted");
-        
+
         shares[msg.sender] += liquidityShares;
         totalShares += liquidityShares;
-        
+
         _update(reserve0 + amount0, reserve1 + amount1);
-        
+
         emit AddLiquidity(msg.sender, amount0, amount1, liquidityShares);
     }
-    
+
     /**
      * @dev Remove liquidity from the pool
      */
@@ -693,61 +708,61 @@ contract SimpleDEX is ReentrancyGuard {
         uint256 liquidityShares
     ) external nonReentrant returns (uint256 amount0, uint256 amount1) {
         require(shares[msg.sender] >= liquidityShares, "Insufficient shares");
-        
+
         amount0 = (liquidityShares * reserve0) / totalShares;
         amount1 = (liquidityShares * reserve1) / totalShares;
-        
+
         require(amount0 > 0 && amount1 > 0, "Insufficient liquidity burned");
-        
+
         shares[msg.sender] -= liquidityShares;
         totalShares -= liquidityShares;
-        
+
         _update(reserve0 - amount0, reserve1 - amount1);
-        
+
         token0.safeTransfer(msg.sender, amount0);
         token1.safeTransfer(msg.sender, amount1);
-        
+
         emit RemoveLiquidity(msg.sender, amount0, amount1, liquidityShares);
     }
-    
+
     /**
      * @dev Swap token0 for token1
      */
     function swap0to1(uint256 amountIn) external nonReentrant returns (uint256 amountOut) {
         require(amountIn > 0, "Invalid amount");
-        
+
         uint256 amountInWithFee = (amountIn * (FEE_DENOMINATOR - FEE_PERCENT)) / FEE_DENOMINATOR;
         amountOut = (amountInWithFee * reserve1) / (reserve0 + amountInWithFee);
-        
+
         require(amountOut > 0, "Insufficient output");
-        
+
         token0.safeTransferFrom(msg.sender, address(this), amountIn);
         token1.safeTransfer(msg.sender, amountOut);
-        
+
         _update(reserve0 + amountIn, reserve1 - amountOut);
-        
+
         emit Swap(msg.sender, address(token0), amountIn, amountOut);
     }
-    
+
     /**
      * @dev Swap token1 for token0
      */
     function swap1to0(uint256 amountIn) external nonReentrant returns (uint256 amountOut) {
         require(amountIn > 0, "Invalid amount");
-        
+
         uint256 amountInWithFee = (amountIn * (FEE_DENOMINATOR - FEE_PERCENT)) / FEE_DENOMINATOR;
         amountOut = (amountInWithFee * reserve0) / (reserve1 + amountInWithFee);
-        
+
         require(amountOut > 0, "Insufficient output");
-        
+
         token1.safeTransferFrom(msg.sender, address(this), amountIn);
         token0.safeTransfer(msg.sender, amountOut);
-        
+
         _update(reserve0 - amountOut, reserve1 + amountIn);
-        
+
         emit Swap(msg.sender, address(token1), amountIn, amountOut);
     }
-    
+
     /**
      * @dev Update reserves
      */
@@ -755,7 +770,7 @@ contract SimpleDEX is ReentrancyGuard {
         reserve0 = _reserve0;
         reserve1 = _reserve1;
     }
-    
+
     // Helper functions
     function sqrt(uint256 y) private pure returns (uint256 z) {
         if (y > 3) {
@@ -769,7 +784,7 @@ contract SimpleDEX is ReentrancyGuard {
             z = 1;
         }
     }
-    
+
     function min(uint256 x, uint256 y) private pure returns (uint256) {
         return x < y ? x : y;
     }
@@ -783,6 +798,7 @@ contract SimpleDEX is ReentrancyGuard {
 ### Simple DAO
 
 **File**: `contracts/SimpleDAO.sol`
+
 ```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
@@ -796,14 +812,14 @@ import "@openzeppelin/contracts/access/Ownable.sol";
  */
 contract SimpleDAO is Ownable {
     IERC20 public immutable governanceToken;
-    
+
     uint256 public proposalCount;
     uint256 public constant VOTING_PERIOD = 3 days;
     uint256 public constant EXECUTION_DELAY = 1 days;
     uint256 public constant QUORUM_PERCENT = 10; // 10% of total supply
-    
+
     enum ProposalState { Pending, Active, Defeated, Succeeded, Executed }
-    
+
     struct Proposal {
         uint256 id;
         address proposer;
@@ -817,17 +833,17 @@ contract SimpleDAO is Ownable {
         bool executed;
         mapping(address => bool) hasVoted;
     }
-    
+
     mapping(uint256 => Proposal) public proposals;
-    
+
     event ProposalCreated(uint256 indexed proposalId, address indexed proposer, string description);
     event VoteCast(uint256 indexed proposalId, address indexed voter, bool support, uint256 weight);
     event ProposalExecuted(uint256 indexed proposalId);
-    
+
     constructor(address _governanceToken) Ownable(msg.sender) {
         governanceToken = IERC20(_governanceToken);
     }
-    
+
     /**
      * @dev Create a new proposal
      */
@@ -840,10 +856,10 @@ contract SimpleDAO is Ownable {
             governanceToken.balanceOf(msg.sender) >= getProposalThreshold(),
             "Below proposal threshold"
         );
-        
+
         uint256 proposalId = proposalCount++;
         Proposal storage newProposal = proposals[proposalId];
-        
+
         newProposal.id = proposalId;
         newProposal.proposer = msg.sender;
         newProposal.description = description;
@@ -851,76 +867,76 @@ contract SimpleDAO is Ownable {
         newProposal.callData = callData;
         newProposal.startTime = block.timestamp;
         newProposal.endTime = block.timestamp + VOTING_PERIOD;
-        
+
         emit ProposalCreated(proposalId, msg.sender, description);
         return proposalId;
     }
-    
+
     /**
      * @dev Cast a vote
      */
     function vote(uint256 proposalId, bool support) external {
         Proposal storage proposal = proposals[proposalId];
-        
+
         require(block.timestamp >= proposal.startTime, "Voting not started");
         require(block.timestamp <= proposal.endTime, "Voting ended");
         require(!proposal.hasVoted[msg.sender], "Already voted");
-        
+
         uint256 weight = governanceToken.balanceOf(msg.sender);
         require(weight > 0, "No voting power");
-        
+
         proposal.hasVoted[msg.sender] = true;
-        
+
         if (support) {
             proposal.forVotes += weight;
         } else {
             proposal.againstVotes += weight;
         }
-        
+
         emit VoteCast(proposalId, msg.sender, support, weight);
     }
-    
+
     /**
      * @dev Execute a passed proposal
      */
     function execute(uint256 proposalId) external {
         Proposal storage proposal = proposals[proposalId];
-        
+
         require(block.timestamp > proposal.endTime + EXECUTION_DELAY, "Still in delay");
         require(!proposal.executed, "Already executed");
         require(getProposalState(proposalId) == ProposalState.Succeeded, "Proposal not succeeded");
-        
+
         proposal.executed = true;
-        
+
         (bool success, ) = proposal.target.call(proposal.callData);
         require(success, "Execution failed");
-        
+
         emit ProposalExecuted(proposalId);
     }
-    
+
     /**
      * @dev Get proposal state
      */
     function getProposalState(uint256 proposalId) public view returns (ProposalState) {
         Proposal storage proposal = proposals[proposalId];
-        
+
         if (proposal.executed) return ProposalState.Executed;
         if (block.timestamp <= proposal.endTime) return ProposalState.Active;
-        
+
         uint256 totalSupply = governanceToken.totalSupply();
         uint256 quorum = (totalSupply * QUORUM_PERCENT) / 100;
-        
+
         if (proposal.forVotes + proposal.againstVotes < quorum) {
             return ProposalState.Defeated;
         }
-        
+
         if (proposal.forVotes > proposal.againstVotes) {
             return ProposalState.Succeeded;
         }
-        
+
         return ProposalState.Defeated;
     }
-    
+
     /**
      * @dev Get minimum tokens needed to propose
      */
@@ -937,13 +953,14 @@ contract SimpleDAO is Ownable {
 ### Test Example (Hardhat)
 
 **File**: `test/MyToken.test.ts`
-```typescript
-import { expect } from "chai";
-import { ethers } from "hardhat";
-import { MyToken } from "../typechain-types";
-import { SignerWithAddress } from "@nomicfoundation/hardhat-ethers/signers";
 
-describe("MyToken", function () {
+```typescript
+import { expect } from 'chai';
+import { ethers } from 'hardhat';
+import { MyToken } from '../typechain-types';
+import { SignerWithAddress } from '@nomicfoundation/hardhat-ethers/signers';
+
+describe('MyToken', function () {
   let token: MyToken;
   let owner: SignerWithAddress;
   let addr1: SignerWithAddress;
@@ -951,84 +968,81 @@ describe("MyToken", function () {
 
   beforeEach(async function () {
     [owner, addr1, addr2] = await ethers.getSigners();
-    
-    const MyToken = await ethers.getContractFactory("MyToken");
-    token = await MyToken.deploy(
-      "Test Token",
-      "TST",
-      ethers.parseEther("1000000")
-    );
+
+    const MyToken = await ethers.getContractFactory('MyToken');
+    token = await MyToken.deploy('Test Token', 'TST', ethers.parseEther('1000000'));
   });
 
-  describe("Deployment", function () {
-    it("Should set the right owner", async function () {
+  describe('Deployment', function () {
+    it('Should set the right owner', async function () {
       expect(await token.owner()).to.equal(owner.address);
     });
 
-    it("Should assign the total supply to the owner", async function () {
+    it('Should assign the total supply to the owner', async function () {
       const ownerBalance = await token.balanceOf(owner.address);
       expect(await token.totalSupply()).to.equal(ownerBalance);
     });
 
-    it("Should have correct name and symbol", async function () {
-      expect(await token.name()).to.equal("Test Token");
-      expect(await token.symbol()).to.equal("TST");
+    it('Should have correct name and symbol', async function () {
+      expect(await token.name()).to.equal('Test Token');
+      expect(await token.symbol()).to.equal('TST');
     });
   });
 
-  describe("Transfers", function () {
-    it("Should transfer tokens between accounts", async function () {
-      await token.transfer(addr1.address, ethers.parseEther("50"));
-      expect(await token.balanceOf(addr1.address)).to.equal(ethers.parseEther("50"));
+  describe('Transfers', function () {
+    it('Should transfer tokens between accounts', async function () {
+      await token.transfer(addr1.address, ethers.parseEther('50'));
+      expect(await token.balanceOf(addr1.address)).to.equal(ethers.parseEther('50'));
 
-      await token.connect(addr1).transfer(addr2.address, ethers.parseEther("25"));
-      expect(await token.balanceOf(addr2.address)).to.equal(ethers.parseEther("25"));
+      await token.connect(addr1).transfer(addr2.address, ethers.parseEther('25'));
+      expect(await token.balanceOf(addr2.address)).to.equal(ethers.parseEther('25'));
     });
 
     it("Should fail if sender doesn't have enough tokens", async function () {
       const initialOwnerBalance = await token.balanceOf(owner.address);
       await expect(
-        token.connect(addr1).transfer(owner.address, ethers.parseEther("1"))
-      ).to.be.revertedWithCustomError(token, "ERC20InsufficientBalance");
+        token.connect(addr1).transfer(owner.address, ethers.parseEther('1')),
+      ).to.be.revertedWithCustomError(token, 'ERC20InsufficientBalance');
 
       expect(await token.balanceOf(owner.address)).to.equal(initialOwnerBalance);
     });
   });
 
-  describe("Minting", function () {
-    it("Should allow owner to mint", async function () {
-      await token.mint(addr1.address, ethers.parseEther("100"));
-      expect(await token.balanceOf(addr1.address)).to.equal(ethers.parseEther("100"));
+  describe('Minting', function () {
+    it('Should allow owner to mint', async function () {
+      await token.mint(addr1.address, ethers.parseEther('100'));
+      expect(await token.balanceOf(addr1.address)).to.equal(ethers.parseEther('100'));
     });
 
-    it("Should not allow non-owner to mint", async function () {
+    it('Should not allow non-owner to mint', async function () {
       await expect(
-        token.connect(addr1).mint(addr2.address, ethers.parseEther("100"))
-      ).to.be.revertedWithCustomError(token, "OwnableUnauthorizedAccount");
+        token.connect(addr1).mint(addr2.address, ethers.parseEther('100')),
+      ).to.be.revertedWithCustomError(token, 'OwnableUnauthorizedAccount');
     });
 
-    it("Should not exceed max supply", async function () {
+    it('Should not exceed max supply', async function () {
       const maxSupply = await token.MAX_SUPPLY();
       const currentSupply = await token.totalSupply();
       const remaining = maxSupply - currentSupply;
 
-      await expect(
-        token.mint(addr1.address, remaining + 1n)
-      ).to.be.revertedWith("Exceeds max supply");
+      await expect(token.mint(addr1.address, remaining + 1n)).to.be.revertedWith(
+        'Exceeds max supply',
+      );
     });
   });
 
-  describe("Burning", function () {
-    it("Should allow token holders to burn their tokens", async function () {
-      await token.transfer(addr1.address, ethers.parseEther("100"));
-      await token.connect(addr1).burn(ethers.parseEther("50"));
-      expect(await token.balanceOf(addr1.address)).to.equal(ethers.parseEther("50"));
+  describe('Burning', function () {
+    it('Should allow token holders to burn their tokens', async function () {
+      await token.transfer(addr1.address, ethers.parseEther('100'));
+      await token.connect(addr1).burn(ethers.parseEther('50'));
+      expect(await token.balanceOf(addr1.address)).to.equal(ethers.parseEther('50'));
     });
   });
 });
 ```
 
 ### Run Tests
+
 ```bash
 # Run all tests
 npx hardhat test
@@ -1050,43 +1064,40 @@ npx hardhat coverage
 ### Deploy with Hardhat
 
 **Script**: `scripts/deploy.ts`
+
 ```typescript
-import { ethers } from "hardhat";
+import { ethers } from 'hardhat';
 
 async function main() {
-  console.log("Deploying to axionax Testnet...");
-  
+  console.log('Deploying to axionax Testnet...');
+
   const [deployer] = await ethers.getSigners();
-  console.log("Deployer:", deployer.address);
-  console.log("Balance:", ethers.formatEther(await ethers.provider.getBalance(deployer.address)));
-  
+  console.log('Deployer:', deployer.address);
+  console.log('Balance:', ethers.formatEther(await ethers.provider.getBalance(deployer.address)));
+
   // Deploy MyToken
-  const MyToken = await ethers.getContractFactory("MyToken");
-  const token = await MyToken.deploy(
-    "My Token",
-    "MTK",
-    ethers.parseEther("1000000")
-  );
+  const MyToken = await ethers.getContractFactory('MyToken');
+  const token = await MyToken.deploy('My Token', 'MTK', ethers.parseEther('1000000'));
   await token.waitForDeployment();
-  console.log("MyToken deployed to:", await token.getAddress());
-  
+  console.log('MyToken deployed to:', await token.getAddress());
+
   // Deploy MyNFT
-  const MyNFT = await ethers.getContractFactory("MyNFT");
+  const MyNFT = await ethers.getContractFactory('MyNFT');
   const nft = await MyNFT.deploy();
   await nft.waitForDeployment();
-  console.log("MyNFT deployed to:", await nft.getAddress());
-  
+  console.log('MyNFT deployed to:', await nft.getAddress());
+
   // Save addresses
   const addresses = {
     MyToken: await token.getAddress(),
     MyNFT: await nft.getAddress(),
-    network: "axionax-testnet",
+    network: 'axionax-testnet',
     chainId: 86137,
     deployer: deployer.address,
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
   };
-  
-  console.log("\nDeployment complete!");
+
+  console.log('\nDeployment complete!');
   console.log(JSON.stringify(addresses, null, 2));
 }
 
@@ -1099,6 +1110,7 @@ main()
 ```
 
 **Deploy**:
+
 ```bash
 npx hardhat run scripts/deploy.ts --network axionaxTestnet
 ```
@@ -1106,6 +1118,7 @@ npx hardhat run scripts/deploy.ts --network axionaxTestnet
 ### Deploy with Foundry
 
 **Script**: `script/Deploy.s.sol`
+
 ```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
@@ -1117,23 +1130,24 @@ import "../src/MyNFT.sol";
 contract DeployScript is Script {
     function run() external {
         uint256 deployerPrivateKey = vm.envUint("PRIVATE_KEY");
-        
+
         vm.startBroadcast(deployerPrivateKey);
-        
+
         // Deploy MyToken
         MyToken token = new MyToken("My Token", "MTK", 1_000_000 ether);
         console.log("MyToken deployed to:", address(token));
-        
+
         // Deploy MyNFT
         MyNFT nft = new MyNFT();
         console.log("MyNFT deployed to:", address(nft));
-        
+
         vm.stopBroadcast();
     }
 }
 ```
 
 **Deploy**:
+
 ```bash
 forge script script/Deploy.s.sol:DeployScript \
   --rpc-url $AXIONAX_RPC \
@@ -1155,6 +1169,7 @@ npx hardhat verify --network axionaxTestnet \
 ```
 
 **Example**:
+
 ```bash
 npx hardhat verify --network axionaxTestnet \
   0x5FbDB2315678afecb367f032d93F642f64180aa3 \

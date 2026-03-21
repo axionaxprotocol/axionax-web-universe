@@ -15,6 +15,7 @@ Decentralized marketplace for compute resources built on **axionax protocol**.
 Current development status:
 
 ✅ **Core Features Complete:**
+
 - Browse & search compute resources
 - Wallet integration (MetaMask, WalletConnect)
 - Token payments with AXX
@@ -22,6 +23,7 @@ Current development status:
 - Smart contract integration
 
 🔥 **Active Development:**
+
 - UI/UX refinement
 - Performance optimization
 - E2E testing
@@ -159,11 +161,12 @@ import { axionaxClient } from '@axionax/sdk';
 
 const client = new axionaxClient({
   rpcUrl: 'https://rpc.axionax.org',
-  chainId: 86137  // axionax Testnet
+  chainId: 86137, // axionax Testnet
 });
 ```
 
 **Network Information:**
+
 - **Testnet Chain ID**: `86137`
 - **RPC**: `https://rpc.axionax.org` (Coming Q1 2026)
 - **Explorer**: `https://explorer.axionax.org` (Coming Q1 2026)
@@ -179,6 +182,7 @@ The marketplace uses these smart contracts:
 - **ReputationOracle** - Provider rating system
 
 **Contract addresses for testnet:**
+
 ```
 ComputeMarketplace: 0x... (TBA - Testnet Launch)
 ResourceNFT: 0x... (TBA - Testnet Launch)
@@ -221,6 +225,7 @@ npm run test:e2e
 ```
 
 **Testing Goals:**
+
 - Unit test coverage: >80%
 - Integration tests: All workflows
 - E2E tests: Critical user journeys
@@ -264,16 +269,16 @@ Use [`../issue-manager`](../issue-manager) to track tasks.
 
 ### Core Components
 
-| Component              | Description                | Location                           | Status      |
-| ---------------------- | -------------------------- | ---------------------------------- | ----------- |
-| **Marketplace** (this) | Compute marketplace dApp   | `marketplace/`                     | 🚧 Beta     |
-| **Protocol Core**      | Blockchain implementation  | [`../core`](../core)               | ✅ Ready    |
-| **SDK**                | TypeScript SDK             | [`../sdk`](../sdk)                 | ✅ Ready    |
-| **Web Interface**      | Official website           | [`../web`](../web)                 | ✅ Ready    |
-| **Documentation**      | Protocol documentation     | [`../docs`](../docs)               | 📝 Active   |
-| **DevTools**           | Development utilities      | [`../devtools`](../devtools)       | ✅ Ready    |
-| **Deploy**             | Infrastructure deployment  | [`../deploy`](../deploy)           | 🔥 Testing  |
-| **Issue Manager**      | Task tracking              | [`../issue-manager`](../issue-manager) | 🎉 New! |
+| Component              | Description               | Location                               | Status     |
+| ---------------------- | ------------------------- | -------------------------------------- | ---------- |
+| **Marketplace** (this) | Compute marketplace dApp  | `marketplace/`                         | 🚧 Beta    |
+| **Protocol Core**      | Blockchain implementation | [`../core`](../core)                   | ✅ Ready   |
+| **SDK**                | TypeScript SDK            | [`../sdk`](../sdk)                     | ✅ Ready   |
+| **Web Interface**      | Official website          | [`../web`](../web)                     | ✅ Ready   |
+| **Documentation**      | Protocol documentation    | [`../docs`](../docs)                   | 📝 Active  |
+| **DevTools**           | Development utilities     | [`../devtools`](../devtools)           | ✅ Ready   |
+| **Deploy**             | Infrastructure deployment | [`../deploy`](../deploy)               | 🔥 Testing |
+| **Issue Manager**      | Task tracking             | [`../issue-manager`](../issue-manager) | 🎉 New!    |
 
 ### External Resources
 

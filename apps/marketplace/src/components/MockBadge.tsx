@@ -9,7 +9,11 @@ export interface MockBadgeProps {
 /**
  * ป้าย Demo / Mock แบบมี animation – แยกข้อมูลจริง vs mock
  */
-export function MockBadge({ show, label, className = '' }: MockBadgeProps): React.JSX.Element | null {
+export function MockBadge({
+  show,
+  label,
+  className = '',
+}: MockBadgeProps): React.JSX.Element | null {
   if (!show) return null;
 
   return (

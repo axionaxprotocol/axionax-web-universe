@@ -1,9 +1,11 @@
 # Axionax Web - Copilot Instructions
+
 # Target Model: Claude 4.5 Sonnet
 
 **Context:** Axionax Explorer & Dashboard (React 19, TypeScript, Tailwind).
 
 ## 🎨 MODERN FRONTEND RULES
+
 1.  **React 19 Paradigms:**
     - Use Server Components (RSC) by default where interactive state isn't needed.
     - Use `"use client"` explicitly for interactive components.

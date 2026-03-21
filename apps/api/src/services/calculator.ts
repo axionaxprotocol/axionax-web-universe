@@ -1,6 +1,6 @@
 /**
  * Activity Calculator Service
- * 
+ *
  * Calculates activity scores and airdrop eligibility
  * based on testnet participation.
  */
@@ -22,43 +22,43 @@ import { eq, sql, count, sum } from 'drizzle-orm';
 
 const SCORING_WEIGHTS = {
   // Transaction-based scoring
-  transactionBase: 1,          // Points per transaction
-  transactionCap: 1000,        // Max points from transactions
-  
+  transactionBase: 1, // Points per transaction
+  transactionCap: 1000, // Max points from transactions
+
   // Gas spending
-  gasMultiplier: 0.0001,       // Points per gas unit spent
-  gasCap: 500,                 // Max points from gas
-  
+  gasMultiplier: 0.0001, // Points per gas unit spent
+  gasCap: 500, // Max points from gas
+
   // Token interactions
-  tokenTransferBase: 2,        // Points per token transfer
-  tokenTransferCap: 500,       // Max points from token transfers
-  uniqueTokenBonus: 10,        // Bonus per unique token interacted
-  
+  tokenTransferBase: 2, // Points per token transfer
+  tokenTransferCap: 500, // Max points from token transfers
+  uniqueTokenBonus: 10, // Bonus per unique token interacted
+
   // Staking participation
-  stakingEventBase: 10,        // Points per staking event
+  stakingEventBase: 10, // Points per staking event
   stakingAmountMultiplier: 0.00001, // Points per AXX staked
-  stakingCap: 2000,            // Max points from staking
-  
+  stakingCap: 2000, // Max points from staking
+
   // Governance participation
-  governanceVoteBase: 50,      // Points per governance vote
-  proposalCreationBonus: 200,  // Bonus for creating proposals
-  governanceCap: 1000,         // Max points from governance
-  
+  governanceVoteBase: 50, // Points per governance vote
+  proposalCreationBonus: 200, // Bonus for creating proposals
+  governanceCap: 1000, // Max points from governance
+
   // Early adopter bonus
-  earlyBlockThreshold: 10000,  // Block number threshold for early adopter
-  earlyAdopterBonus: 100,      // Bonus points for early adopters
-  
+  earlyBlockThreshold: 10000, // Block number threshold for early adopter
+  earlyAdopterBonus: 100, // Bonus points for early adopters
+
   // Consistency bonus
-  dayActiveBonus: 5,           // Points per unique day active
-  weekStreakBonus: 50,         // Bonus per week streak
+  dayActiveBonus: 5, // Points per unique day active
+  weekStreakBonus: 50, // Bonus per week streak
 };
 
 // Airdrop tiers
 const AIRDROP_TIERS = {
-  bronze: { minScore: 100, percentage: 0.001 },     // 0.1% of allocation
-  silver: { minScore: 500, percentage: 0.005 },     // 0.5% of allocation
-  gold: { minScore: 1000, percentage: 0.01 },       // 1% of allocation
-  platinum: { minScore: 5000, percentage: 0.05 },   // 5% of allocation
+  bronze: { minScore: 100, percentage: 0.001 }, // 0.1% of allocation
+  silver: { minScore: 500, percentage: 0.005 }, // 0.5% of allocation
+  gold: { minScore: 1000, percentage: 0.01 }, // 1% of allocation
+  platinum: { minScore: 5000, percentage: 0.05 }, // 5% of allocation
 };
 
 // Total airdrop pool (in AXX wei)
@@ -88,14 +88,17 @@ export async function calculateActivityScore(address: string): Promise<{
     .where(eq(transactions.from, addressLower));
 
   const txCount = txStats[0]?.count ?? 0;
-  const txScore = Math.min(txCount * SCORING_WEIGHTS.transactionBase, SCORING_WEIGHTS.transactionCap);
+  const txScore = Math.min(
+    txCount * SCORING_WEIGHTS.transactionBase,
+    SCORING_WEIGHTS.transactionCap,
+  );
   breakdown.transactions = txScore;
   totalScore += txScore;
 
   const gasSpent = BigInt(txStats[0]?.totalGas ?? '0');
   const gasScore = Math.min(
     Number(gasSpent) * SCORING_WEIGHTS.gasMultiplier,
-    SCORING_WEIGHTS.gasCap
+    SCORING_WEIGHTS.gasCap,
   );
   breakdown.gasSpending = gasScore;
   totalScore += gasScore;
@@ -111,11 +114,11 @@ export async function calculateActivityScore(address: string): Promise<{
 
   const tokenTransferCount = tokenStats[0]?.count ?? 0;
   const uniqueTokenCount = tokenStats[0]?.uniqueTokens ?? 0;
-  
+
   const tokenScore = Math.min(
-    tokenTransferCount * SCORING_WEIGHTS.tokenTransferBase + 
-    uniqueTokenCount * SCORING_WEIGHTS.uniqueTokenBonus,
-    SCORING_WEIGHTS.tokenTransferCap
+    tokenTransferCount * SCORING_WEIGHTS.tokenTransferBase +
+      uniqueTokenCount * SCORING_WEIGHTS.uniqueTokenBonus,
+    SCORING_WEIGHTS.tokenTransferCap,
   );
   breakdown.tokenTransfers = tokenScore;
   totalScore += tokenScore;
@@ -131,11 +134,11 @@ export async function calculateActivityScore(address: string): Promise<{
 
   const stakingEventCount = stakingStats[0]?.count ?? 0;
   const totalStaked = BigInt(stakingStats[0]?.totalStaked ?? '0');
-  
+
   const stakingScore = Math.min(
     stakingEventCount * SCORING_WEIGHTS.stakingEventBase +
-    Number(totalStaked / BigInt(10 ** 18)) * SCORING_WEIGHTS.stakingAmountMultiplier,
-    SCORING_WEIGHTS.stakingCap
+      Number(totalStaked / BigInt(10 ** 18)) * SCORING_WEIGHTS.stakingAmountMultiplier,
+    SCORING_WEIGHTS.stakingCap,
   );
   breakdown.staking = stakingScore;
   totalScore += stakingScore;
@@ -151,11 +154,11 @@ export async function calculateActivityScore(address: string): Promise<{
 
   const voteCount = govStats[0]?.voteCount ?? 0;
   const proposalCount = govStats[0]?.proposalCount ?? 0;
-  
+
   const govScore = Math.min(
     voteCount * SCORING_WEIGHTS.governanceVoteBase +
-    proposalCount * SCORING_WEIGHTS.proposalCreationBonus,
-    SCORING_WEIGHTS.governanceCap
+      proposalCount * SCORING_WEIGHTS.proposalCreationBonus,
+    SCORING_WEIGHTS.governanceCap,
   );
   breakdown.governance = govScore;
   totalScore += govScore;
@@ -192,9 +195,10 @@ export async function calculateActivityScore(address: string): Promise<{
   // Calculate airdrop amount based on tier
   // This is a simplified calculation - actual implementation would consider
   // total eligible addresses and distribute proportionally
-  const airdropAmount = tier > 0 
-    ? BigInt(Math.floor(Number(TOTAL_AIRDROP_POOL) * tierPercentage / 10000))
-    : BigInt(0);
+  const airdropAmount =
+    tier > 0
+      ? BigInt(Math.floor((Number(TOTAL_AIRDROP_POOL) * tierPercentage) / 10000))
+      : BigInt(0);
 
   return {
     score: totalScore,
@@ -217,26 +221,34 @@ export async function calculateAllActivityScores(): Promise<{
 
   // Get all addresses
   const allAddresses = await db.select({ address: addresses.address }).from(addresses);
-  
+
   let processed = 0;
   let eligible = 0;
   let totalAirdrop = BigInt(0);
 
   for (const { address } of allAddresses) {
     const result = await calculateActivityScore(address);
-    
+
     // Upsert activity summary
     await db
       .insert(addressActivitySummary)
       .values({
         address,
-        totalTransactions: result.breakdown.transactions ? Math.floor(result.breakdown.transactions / SCORING_WEIGHTS.transactionBase) : 0,
+        totalTransactions: result.breakdown.transactions
+          ? Math.floor(result.breakdown.transactions / SCORING_WEIGHTS.transactionBase)
+          : 0,
         totalGasSpent: '0', // Would need to recalculate
-        totalTokenTransfers: result.breakdown.tokenTransfers ? Math.floor(result.breakdown.tokenTransfers / SCORING_WEIGHTS.tokenTransferBase) : 0,
+        totalTokenTransfers: result.breakdown.tokenTransfers
+          ? Math.floor(result.breakdown.tokenTransfers / SCORING_WEIGHTS.tokenTransferBase)
+          : 0,
         uniqueTokensInteracted: 0,
-        totalStakingEvents: result.breakdown.staking ? Math.floor(result.breakdown.staking / SCORING_WEIGHTS.stakingEventBase) : 0,
+        totalStakingEvents: result.breakdown.staking
+          ? Math.floor(result.breakdown.staking / SCORING_WEIGHTS.stakingEventBase)
+          : 0,
         totalStaked: '0',
-        totalGovernanceVotes: result.breakdown.governance ? Math.floor(result.breakdown.governance / SCORING_WEIGHTS.governanceVoteBase) : 0,
+        totalGovernanceVotes: result.breakdown.governance
+          ? Math.floor(result.breakdown.governance / SCORING_WEIGHTS.governanceVoteBase)
+          : 0,
         proposalsCreated: 0,
         activityScore: result.score.toFixed(4),
         airdropEligible: result.tier > 0,
@@ -280,12 +292,18 @@ export async function calculateAllActivityScores(): Promise<{
 // ============================================
 
 export async function getEligibleAddresses(tier?: number) {
-  let query = db.select().from(addressActivitySummary).where(eq(addressActivitySummary.airdropEligible, true));
-  
+  let query = db
+    .select()
+    .from(addressActivitySummary)
+    .where(eq(addressActivitySummary.airdropEligible, true));
+
   if (tier !== undefined) {
-    query = db.select().from(addressActivitySummary).where(
-      sql`${addressActivitySummary.airdropEligible} = true AND ${addressActivitySummary.airdropTier} = ${tier}`
-    );
+    query = db
+      .select()
+      .from(addressActivitySummary)
+      .where(
+        sql`${addressActivitySummary.airdropEligible} = true AND ${addressActivitySummary.airdropTier} = ${tier}`,
+      );
   }
 
   return query.orderBy(sql`${addressActivitySummary.activityScore} DESC`);

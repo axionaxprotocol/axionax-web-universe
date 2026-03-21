@@ -1,6 +1,6 @@
 /**
  * Axionax Testnet Indexer API
- * 
+ *
  * Main entry point for the backend API service.
  * Provides endpoints for:
  * - Blockchain indexing
@@ -22,7 +22,7 @@ async function main() {
   // Check database connection
   console.log('📦 Checking database connection...');
   const dbOk = await checkDatabaseConnection();
-  
+
   if (!dbOk) {
     console.error('❌ Failed to connect to database');
     console.error('   Please ensure PostgreSQL is running and DATABASE_URL is set correctly');
@@ -33,7 +33,7 @@ async function main() {
   // Start server
   console.log('');
   console.log(`🌐 Starting server on http://${HOST}:${PORT}`);
-  
+
   serve({
     fetch: app.fetch,
     port: PORT,

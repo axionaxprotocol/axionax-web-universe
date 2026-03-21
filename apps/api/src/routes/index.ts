@@ -13,13 +13,13 @@ import {
   startIndexer,
   stopIndexer,
   getIndexerStats,
-  getTopAddresses
+  getTopAddresses,
 } from '../services/indexer.js';
 import {
   calculateActivityScore,
   calculateAllActivityScores,
   getEligibleAddresses,
-  getAirdropStats
+  getAirdropStats,
 } from '../services/calculator.js';
 import {
   generateSnapshot,
@@ -56,10 +56,13 @@ const app = new Hono();
 // Middleware
 app.use('*', logger());
 app.use('*', prettyJSON());
-app.use('*', cors({
-  origin: ['http://localhost:3000', 'https://axionax.org'],
-  credentials: true,
-}));
+app.use(
+  '*',
+  cors({
+    origin: ['http://localhost:3000', 'https://axionax.org'],
+    credentials: true,
+  }),
+);
 
 // ============================================
 // Health & Status Routes
@@ -150,7 +153,7 @@ activityRouter.get('/eligible', async (c) => {
   const eligible = await getEligibleAddresses(tier);
   return c.json({
     count: eligible.length,
-    addresses: eligible
+    addresses: eligible,
   });
 });
 
@@ -197,10 +200,13 @@ snapshotRouter.post('/generate', async (c) => {
     const snapshot = await generateSnapshot(blockNumber);
     return c.json(snapshot);
   } catch (error) {
-    return c.json({
-      error: 'Failed to generate snapshot',
-      message: error instanceof Error ? error.message : 'Unknown error'
-    }, 500);
+    return c.json(
+      {
+        error: 'Failed to generate snapshot',
+        message: error instanceof Error ? error.message : 'Unknown error',
+      },
+      500,
+    );
   }
 });
 
@@ -211,10 +217,13 @@ snapshotRouter.get('/:id/genesis', async (c) => {
     const genesis = await generateGenesisConfig(id);
     return c.json(genesis);
   } catch (error) {
-    return c.json({
-      error: 'Failed to generate genesis config',
-      message: error instanceof Error ? error.message : 'Unknown error'
-    }, 500);
+    return c.json(
+      {
+        error: 'Failed to generate genesis config',
+        message: error instanceof Error ? error.message : 'Unknown error',
+      },
+      500,
+    );
   }
 });
 
@@ -225,10 +234,13 @@ snapshotRouter.post('/:id/finalize', async (c) => {
     await finalizeSnapshot(id);
     return c.json({ message: 'Snapshot finalized', id });
   } catch (error) {
-    return c.json({
-      error: 'Failed to finalize snapshot',
-      message: error instanceof Error ? error.message : 'Unknown error'
-    }, 500);
+    return c.json(
+      {
+        error: 'Failed to finalize snapshot',
+        message: error instanceof Error ? error.message : 'Unknown error',
+      },
+      500,
+    );
   }
 });
 
@@ -318,10 +330,13 @@ nodeRouter.get('/:id', async (c) => {
   const _id = c.req.param('id');
 
   // TODO: Implement actual query
-  return c.json({
-    node: null,
-    error: 'Node not found',
-  }, 404);
+  return c.json(
+    {
+      node: null,
+      error: 'Node not found',
+    },
+    404,
+  );
 });
 
 // Get node health
@@ -420,9 +435,8 @@ faucetRouter.post('/faucet', async (c) => {
   const { address } = body;
 
   // Get client IP
-  const ipAddress = c.req.header('x-forwarded-for')?.split(',')[0] ||
-    c.req.header('x-real-ip') ||
-    'unknown';
+  const ipAddress =
+    c.req.header('x-forwarded-for')?.split(',')[0] || c.req.header('x-real-ip') || 'unknown';
 
   const result = await claimTokens(address, ipAddress);
 
@@ -436,8 +450,7 @@ faucetRouter.post('/faucet', async (c) => {
 // Check if can claim
 faucetRouter.get('/can-claim/:address', async (c) => {
   const address = c.req.param('address');
-  const ipAddress = c.req.header('x-forwarded-for')?.split(',')[0] ||
-    c.req.header('x-real-ip');
+  const ipAddress = c.req.header('x-forwarded-for')?.split(',')[0] || c.req.header('x-real-ip');
 
   const result = await canClaim(address, ipAddress);
   return c.json(result);
@@ -539,9 +552,8 @@ app.get('/balance', async (c) => {
 app.post('/faucet', async (c) => {
   const body = await c.req.json().catch(() => ({}));
   const { address } = body;
-  const ipAddress = c.req.header('x-forwarded-for')?.split(',')[0] ||
-    c.req.header('x-real-ip') ||
-    'unknown';
+  const ipAddress =
+    c.req.header('x-forwarded-for')?.split(',')[0] || c.req.header('x-real-ip') || 'unknown';
 
   const result = await claimTokens(address, ipAddress);
 
@@ -558,10 +570,13 @@ app.post('/faucet', async (c) => {
 
 app.onError((err, c) => {
   console.error('API Error:', err);
-  return c.json({
-    error: 'Internal Server Error',
-    message: err.message,
-  }, 500);
+  return c.json(
+    {
+      error: 'Internal Server Error',
+      message: err.message,
+    },
+    500,
+  );
 });
 
 app.notFound((c) => {

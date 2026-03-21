@@ -50,7 +50,7 @@ async function fetchValidatorInfo(rpcUrl: string): Promise<{
       }),
       signal: AbortSignal.timeout(5000),
     });
-    
+
     if (response.ok) {
       const data = await response.json();
       if (data.result && data.result.status) {
@@ -135,7 +135,10 @@ export default function ValidatorStatus(): React.JSX.Element {
             ip: v.ip,
             blockHeight: info.blockHeight,
             peerCount: info.peerCount,
-            status: info.blockHeight !== null || info.statusDetails === 'healthy' ? 'online' : 'offline',
+            status:
+              info.blockHeight !== null || info.statusDetails === 'healthy'
+                ? 'online'
+                : 'offline',
             statusDetails: info.statusDetails,
             latency: info.latency,
           } as ValidatorInfo;

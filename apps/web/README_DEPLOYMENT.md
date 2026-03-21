@@ -3,6 +3,7 @@
 ## 🚀 Quick Start
 
 ### Deploy to VPS
+
 ```powershell
 # Full deployment (with tests and security checks)
 .\deploy-to-vps.ps1
@@ -25,11 +26,13 @@
 ## 🛠️ Management Commands
 
 ### Using Interactive Menu
+
 ```powershell
 .\vps-commands.ps1
 ```
 
 This provides:
+
 1. View live logs
 2. View recent logs
 3. Check service status
@@ -63,6 +66,7 @@ ssh root@217.216.109.5 "cd /opt/axionax-web && git pull && docker-compose up -d 
 ### Full Deployment Script (`deploy-to-vps.ps1`)
 
 **Steps:**
+
 1. **Pre-deployment checks** - Verify repository state
 2. **Run tests** - Lint and validate code (can skip with `-SkipTests`)
 3. **Security audit** - Check for vulnerabilities
@@ -74,6 +78,7 @@ ssh root@217.216.109.5 "cd /opt/axionax-web && git pull && docker-compose up -d 
 > Real-time Metrics: If homepage metrics don't update over HTTPS, configure same-origin reverse proxies and keep the frontend using relative paths. See `docs/REALTIME_METRICS.md`.
 
 **Usage:**
+
 ```powershell
 # Navigate to axionax-web directory
 cd C:\Users\engnc\axionaxius02\axionax-web
@@ -87,11 +92,13 @@ cd C:\Users\engnc\axionaxius02\axionax-web
 ### Quick Deploy Script (`deploy-quick.ps1`)
 
 **For rapid iterations:**
+
 ```powershell
 .\deploy-quick.ps1
 ```
 
 This skips all tests and immediately:
+
 1. Commits changes
 2. Pushes to GitHub
 3. Deploys to VPS
@@ -154,6 +161,7 @@ git push origin main --force
 ## 📊 Monitoring
 
 ### Check Website Status
+
 ```powershell
 # HTTP request test
 Invoke-WebRequest -Uri "http://217.216.109.5" -UseBasicParsing
@@ -163,6 +171,7 @@ curl http://217.216.109.5
 ```
 
 ### View Container Stats
+
 ```bash
 # SSH to VPS
 ssh root@217.216.109.5
@@ -176,6 +185,7 @@ docker-compose top
 ```
 
 ### Check Disk Space
+
 ```bash
 # On VPS
 ssh root@217.216.109.5 "df -h"
@@ -187,6 +197,7 @@ ssh root@217.216.109.5 "docker system df"
 ## 🔐 Security
 
 ### Update SSL Certificate (if needed)
+
 ```bash
 # Using Certbot
 ssh root@217.216.109.5
@@ -197,6 +208,7 @@ certbot renew
 ```
 
 ### Update Dependencies
+
 ```powershell
 # Check for vulnerabilities
 npm audit
@@ -211,6 +223,7 @@ npm audit fix --force
 ## 🔄 Rollback
 
 ### Rollback to Previous Version
+
 ```bash
 # SSH to VPS
 ssh root@217.216.109.5
@@ -227,22 +240,26 @@ docker-compose up -d --build
 ## 📝 Best Practices
 
 1. **Always test locally first**
+
    ```powershell
    npm run dev
    npm run build
    ```
 
 2. **Use full deployment for major changes**
+
    ```powershell
    .\deploy-to-vps.ps1
    ```
 
 3. **Use quick deploy for minor updates**
+
    ```powershell
    .\deploy-quick.ps1
    ```
 
 4. **Monitor logs after deployment**
+
    ```powershell
    ssh root@217.216.109.5 "cd /opt/axionax-web && docker-compose logs -f"
    ```
@@ -256,12 +273,14 @@ docker-compose up -d --build
 ## 🆘 Emergency Commands
 
 ### Quick Fix
+
 ```bash
 # SSH and force restart everything
 ssh root@217.216.109.5 "cd /opt/axionax-web && docker-compose down && docker-compose up -d --build"
 ```
 
 ### Nuclear Option (full rebuild)
+
 ```bash
 ssh root@217.216.109.5
 cd /opt/axionax-web

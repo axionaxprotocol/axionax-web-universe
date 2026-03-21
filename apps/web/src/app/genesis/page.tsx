@@ -231,26 +231,20 @@ export default function GenesisPage() {
                     <div className="text-2xl font-bold text-tech-success font-mono">
                       {formatAmount(selectedSnapshot.totalAllocation)} AXX
                     </div>
-                    <div className="text-sm text-muted">
-                      Total Allocation
-                    </div>
+                    <div className="text-sm text-muted">Total Allocation</div>
                   </div>
                   <div className="bg-white/[0.02] border border-white/5 rounded-lg p-4">
                     <div className="text-xs font-mono text-content break-all">
                       {selectedSnapshot.merkleRoot.slice(0, 20)}...
                     </div>
-                    <div className="text-sm text-muted mt-1">
-                      Merkle Root
-                    </div>
+                    <div className="text-sm text-muted mt-1">Merkle Root</div>
                   </div>
                 </div>
 
                 {/* Full Merkle Root */}
                 <div className="bg-white/[0.02] border border-white/5 rounded-lg p-4 mb-6">
                   <div className="flex justify-between items-center mb-2">
-                    <span className="text-sm text-muted">
-                      Full Merkle Root
-                    </span>
+                    <span className="text-sm text-muted">Full Merkle Root</span>
                     <button
                       onClick={() =>
                         navigator.clipboard.writeText(
@@ -280,10 +274,7 @@ export default function GenesisPage() {
                       placeholder="0x..."
                       className="flex-1 input-primary font-mono"
                     />
-                    <button
-                      onClick={handleSearch}
-                      className="btn-primary"
-                    >
+                    <button onClick={handleSearch} className="btn-primary">
                       Search
                     </button>
                   </div>
@@ -305,17 +296,13 @@ export default function GenesisPage() {
                           </div>
                         </div>
                         <div>
-                          <div className="text-sm text-muted">
-                            Allocation
-                          </div>
+                          <div className="text-sm text-muted">Allocation</div>
                           <div className="text-lg font-bold text-tech-success font-mono">
                             {formatAmount(searchResult.allocation)} AXX
                           </div>
                         </div>
                         <div>
-                          <div className="text-sm text-muted">
-                            Merkle Proof
-                          </div>
+                          <div className="text-sm text-muted">Merkle Proof</div>
                           <button
                             onClick={() =>
                               navigator.clipboard.writeText(

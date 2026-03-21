@@ -99,6 +99,7 @@ Contributors who have translated our documentation:
 </table>
 
 ### Languages
+
 - 🇹🇭 **Thai**: Complete
 - 🇬🇧 **English**: Complete
 - 🇨🇳 **Chinese**: Coming soon
@@ -180,26 +181,31 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for more details!
 We recognize different levels of contribution:
 
 ### 🌟 Platinum Contributors
+
 - 50+ merged PRs or equivalent impact
 - Core team members
 - Significant architectural contributions
 
 ### 🥈 Gold Contributors
+
 - 25+ merged PRs or equivalent impact
 - Major feature implementations
 - Extensive documentation work
 
 ### 🥉 Silver Contributors
+
 - 10+ merged PRs or equivalent impact
 - Multiple bug fixes
 - Regular community help
 
 ### 🎖️ Bronze Contributors
+
 - 5+ merged PRs or equivalent impact
 - First-time contributors
 - Bug reports with fixes
 
 ### ⭐ Community Stars
+
 - Active in community channels
 - Help newcomers
 - Promote the project
@@ -215,6 +221,7 @@ By contributing to Axionax, you agree that your contributions will be licensed u
 ## 🔄 Automated Updates
 
 This file is updated:
+
 - **Weekly**: Contributors list updated from GitHub API
 - **Monthly**: Statistics refreshed
 - **On Release**: Recognition levels updated
@@ -233,4 +240,4 @@ Want to contribute but not sure how?
 
 **Last Updated**: December 5, 2025 | v1.8.0-testnet
 
-*If we've missed anyone, please let us know! Open an issue or PR to update this file.*
+_If we've missed anyone, please let us know! Open an issue or PR to update this file._

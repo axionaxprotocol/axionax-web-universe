@@ -1,4 +1,4 @@
-const path = require('path')
+const path = require('path');
 
 /**
  * Next.js Configuration for axionax Web
@@ -32,6 +32,6 @@ const nextConfig = {
     // This ensures standalone output includes correct node_modules symlinks
     outputFileTracingRoot: path.join(__dirname, '../../'),
   },
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

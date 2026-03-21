@@ -3,9 +3,11 @@
 To ensure the homepage metrics update in real time without browser mixed-content errors, serve backend APIs through the SAME origin (domain/IP) as the web over HTTPS.
 
 ## Why this is needed
+
 When your site is loaded over HTTPS, the browser blocks `http://` API calls (mixed content). The fix is to expose a reverse proxy at paths like `/api` and `/rpc/...` on your HTTPS web server so the frontend calls stay same-origin.
 
 ## Recommended Nginx Locations (HTTPS)
+
 Add the following `location` blocks inside your active HTTPS server in Nginx (the one serving `/usr/share/nginx/html`):
 
 ```
@@ -54,7 +56,9 @@ docker exec axionax-nginx nginx -s reload
 > Note: The snippet must contain only `location` blocks inside the already active `server` for HTTPS. If you don't control that server block, update the main server conf instead of creating a new one.
 
 ## Frontend Configuration
+
 The component `src/components/home/Statistics.tsx` calls:
+
 - Explorer API via `NEXT_PUBLIC_EXPLORER_API` (defaults to same-origin `/api`). If unset, it will also try `NEXT_PUBLIC_API_URL` with `/stats` or `/api/stats`.
 - Validator RPC via `NEXT_PUBLIC_RPC_EU` and `NEXT_PUBLIC_RPC_AU` (default `/rpc/eu`, `/rpc/au`). If both are unset, it falls back to `NEXT_PUBLIC_RPC_URL`.
 - Polling interval via `NEXT_PUBLIC_REFETCH_MS` (default `5000`).
@@ -70,11 +74,13 @@ NEXT_PUBLIC_REFETCH_MS=5000
 ```
 
 ## Verify
+
 - Load the site over HTTPS
 - Open DevTools > Network and confirm `/api/stats` and `/rpc/*` calls succeed (status 200) every 5s
 - Home metrics should update without showing `...` placeholders
 
 ### Troubleshooting
+
 - Still seeing `...`? Ensure `/api/stats` returns JSON and `/rpc/*` responds to `eth_blockNumber`.
 - If you must use external domains, they must be HTTPS and allow CORS (browser-side fetch).
 - Mixed content in console means a `http://` endpoint was hit on an `https://` page—use same-origin proxies or switch to HTTPS endpoints.

@@ -2,16 +2,18 @@
 
 **Date:** December 5, 2025  
 **Update Type:** Critical Terminology Correction  
-**Protocol Version:** v1.8.0-testnet (Parameters Verified ✅)  
+**Protocol Version:** v1.8.0-testnet (Parameters Verified ✅)
 
 ---
 
 ## 🎯 Correction Overview
 
 ### Previous (Incorrect)
+
 ❌ **PoPC** = "Proof of Progressive Consensus"
 
 ### Current (Correct)
+
 ✅ **PoPC** = "Proof of Probabilistic Checking"
 
 ---
@@ -21,18 +23,21 @@
 **Proof of Probabilistic Checking (PoPC)** is Axionax Protocol's novel consensus mechanism that uses:
 
 ### Core Principles
+
 1. **Probabilistic Verification** - Statistical sampling instead of full validation
 2. **Multi-Phase Validation** - 3-phase process (Proposal → Checking → Commit)
 3. **VRF-based Leader Selection** - Cryptographic fairness
 4. **Statistical Guarantees** - 99.9%+ confidence level
 
 ### Key Advantages
+
 - **Performance**: ~97% computational savings vs full validation
 - **Security**: 99.9%+ statistical confidence with <0.001 false positive rate
 - **Scalability**: Enables 45,000+ TPS throughput
 - **Byzantine Tolerance**: Supports up to 33% malicious validators
 
 ### Technical Details
+
 ```
 Sample Size Calculation:
 - Block size: 1M transactions
@@ -47,12 +52,14 @@ Sample Size Calculation:
 ## 📂 Files Updated
 
 ### 1. Core Repository Documentation
+
 - ✅ `axionaxprotocol/README.md`
   - Line 12: Badge updated
   - Line 26: Validation Layer description
   - Line 223: Roadmap Phase 1
 
 ### 2. White Paper (WHITEPAPER.md)
+
 - ✅ **Executive Summary** (Line 12)
 - ✅ **Table of Contents** (Line 27)
 - ✅ **Introduction** (Line 55)
@@ -71,6 +78,7 @@ Sample Size Calculation:
 - ✅ **Appendix D: Glossary** (Line 1086)
 
 ### 3. SDK TypeScript (axionax-sdk-ts/README.md)
+
 - ✅ Features list (Lines 74, 100)
 - ✅ PoPC Helpers section (Line 156)
 - ✅ Code examples (Lines 159, 161, 162, 165)
@@ -80,6 +88,7 @@ Sample Size Calculation:
 - ✅ Coverage stats (Line 349)
 
 ### 4. Web Interface (axionax-web/)
+
 - ✅ `src/app/docs/page.tsx` (Line 20)
 - ✅ `src/components/home/Features.tsx` (Line 7)
 - ✅ `src/components/home/Hero.tsx` (Line 33)
@@ -90,6 +99,7 @@ Sample Size Calculation:
 - ✅ `fix_statistics.py` (Line 33)
 
 ### 5. SDK Tests
+
 - ✅ `axionax-sdk-ts/tests/integration/client.test.ts`
   - Line 173: Test suite title
   - Line 188: Test case title
@@ -102,11 +112,13 @@ Sample Size Calculation:
 ### White Paper - Section 3 Enhancements
 
 #### 3.1 Overview (New Content)
+
 ```markdown
-**Proof of Probabilistic Checking (PoPC)** is a novel consensus algorithm 
-that combines probabilistic verification with multi-phase validation. Unlike 
-traditional consensus mechanisms, PoPC uses statistical sampling and 
+**Proof of Probabilistic Checking (PoPC)** is a novel consensus algorithm
+that combines probabilistic verification with multi-phase validation. Unlike
+traditional consensus mechanisms, PoPC uses statistical sampling and
 cryptographic proofs to achieve:
+
 - Byzantine Fault Tolerance (67% honest validators required)
 - Probabilistic Validation (statistical confidence through sampling)
 - VRF-based Leader Selection (cryptographic fairness)
@@ -114,14 +126,18 @@ cryptographic proofs to achieve:
 ```
 
 #### 3.2 Three-Phase Process (Updated)
+
 **Phase 2** now correctly describes **Probabilistic Checking**:
+
 - Validators perform probabilistic verification using random sampling
 - Check subset of transactions (statistically significant sample)
 - Pre-commit votes collected based on probabilistic confidence
 - Requires 2/3+ validator agreement on sampling results
 
 #### 3.5 Probabilistic Checking Details (NEW SECTION)
+
 Added comprehensive explanation with:
+
 - Sampling strategy algorithm
 - Statistical guarantees (99.9% confidence)
 - Sample size calculations
@@ -130,6 +146,7 @@ Added comprehensive explanation with:
 ### Code Examples Added
 
 **Probabilistic Checking Function:**
+
 ```rust
 fn probabilistic_check(block: &Block, confidence_level: f64) -> Result<bool> {
     let sample_size = calculate_sample_size(
@@ -137,14 +154,14 @@ fn probabilistic_check(block: &Block, confidence_level: f64) -> Result<bool> {
         confidence_level,
         0.001 // Error margin
     );
-    
+
     let samples = vrf_sample_transactions(&block.transactions, sample_size)?;
-    
+
     let valid_count = samples
         .par_iter()
         .filter(|tx| validate_transaction(tx).is_ok())
         .count();
-    
+
     let validation_rate = valid_count as f64 / sample_size as f64;
     Ok(validation_rate >= 0.999) // 99.9% threshold
 }
@@ -180,6 +197,7 @@ fn probabilistic_check(block: &Block, confidence_level: f64) -> Result<bool> {
 ### Mathematical Foundation
 
 **Sample Size Formula:**
+
 ```
 n = (Z² × p × (1-p)) / E²
 
@@ -191,6 +209,7 @@ Where:
 ```
 
 **For 1M transaction block:**
+
 ```
 n = (3.29² × 0.5 × 0.5) / 0.001²
 n ≈ 27,060 transactions
@@ -203,6 +222,7 @@ Validation reduction: 97.3%
 ## ✅ Verification Checklist
 
 ### Documentation
+
 - [x] Main README updated with correct PoPC definition
 - [x] White Paper fully revised (12+ sections)
 - [x] SDK documentation corrected
@@ -211,6 +231,7 @@ Validation reduction: 97.3%
 - [x] Test descriptions corrected
 
 ### Technical Accuracy
+
 - [x] Consensus mechanism description accurate
 - [x] Statistical formulas added
 - [x] Code examples use correct terminology
@@ -218,6 +239,7 @@ Validation reduction: 97.3%
 - [x] Security guarantees properly explained
 
 ### Consistency
+
 - [x] All files use "Proof of Probabilistic Checking"
 - [x] PoPC acronym consistently defined
 - [x] Technical details align across documents
@@ -228,28 +250,35 @@ Validation reduction: 97.3%
 ## 🚀 Impact Assessment
 
 ### Positive Outcomes
+
 ✅ **Accurate Technical Communication**
+
 - Correct terminology reflects actual implementation
 - Clear distinction from other consensus mechanisms
 - Proper credit to probabilistic verification techniques
 
 ✅ **Better Understanding**
+
 - Developers understand the statistical nature
 - Validators know what they're validating
 - Community grasps the innovation
 
 ✅ **Academic Integrity**
+
 - Research papers cite correct concepts
 - Technical discussions use proper terminology
 - Educational materials are accurate
 
 ### No Breaking Changes
+
 ✅ **Implementation Unchanged**
+
 - No code changes required
 - Protocol behavior identical
 - Only documentation/naming updated
 
 ✅ **Backward Compatible**
+
 - API endpoints unchanged
 - SDK interface stable
 - Network protocol unaffected
@@ -259,6 +288,7 @@ Validation reduction: 97.3%
 ## 📚 Reference Materials
 
 ### Research Papers (Updated Titles)
+
 1. **"Proof of Probabilistic Checking: Statistical Validation in High-Throughput Blockchains"** (2024)
    - Mathematical foundations
    - Sampling strategies
@@ -273,6 +303,7 @@ Validation reduction: 97.3%
    - Concurrent validation
 
 ### Academic Sources
+
 - **Statistical Hypothesis Testing** - Neyman-Pearson lemma
 - **Random Sampling Theory** - Simple random sampling without replacement
 - **Byzantine Agreement** - Lamport, Shostak, Pease (1982)
@@ -283,18 +314,21 @@ Validation reduction: 97.3%
 ## 🎯 Next Steps
 
 ### Documentation
+
 - [ ] Update developer tutorials with PoPC examples
 - [ ] Create detailed PoPC specification document
 - [ ] Add probabilistic checking diagrams
 - [ ] Record educational video explaining PoPC
 
 ### Community Communication
+
 - [ ] Announce terminology correction
 - [ ] Explain the technical reasoning
 - [ ] Update FAQs
 - [ ] Social media posts clarifying PoPC
 
 ### Technical
+
 - [ ] Ensure code comments use correct terminology
 - [ ] Update internal documentation
 - [ ] Review any presentations/slides
@@ -305,6 +339,7 @@ Validation reduction: 97.3%
 ## 📞 Contact & Questions
 
 For questions about PoPC or this update:
+
 - **Discord**: #technical-discussion
 - **GitHub**: Open an issue in axionax-core
 - **Email**: tech@axionax.org

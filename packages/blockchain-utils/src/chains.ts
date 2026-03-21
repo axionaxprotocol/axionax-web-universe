@@ -119,8 +119,6 @@ export function getMetaMaskNetworkParams(chainId: number) {
     chainName: chain.name,
     nativeCurrency: chain.nativeCurrency,
     rpcUrls: chain.rpcUrls.default.http,
-    blockExplorerUrls: chain.blockExplorers 
-      ? [chain.blockExplorers.default.url]
-      : undefined,
+    blockExplorerUrls: chain.blockExplorers ? [chain.blockExplorers.default.url] : undefined,
   };
 }

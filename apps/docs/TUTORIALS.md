@@ -5,16 +5,19 @@
 ## 📚 Table of Contents
 
 ### Beginner Tutorials
+
 1. [Your First Transaction](#1-your-first-transaction)
 2. [Deploy a Simple Contract](#2-deploy-a-simple-contract)
 3. [Query Blockchain Data](#3-query-blockchain-data)
 
 ### Intermediate Tutorials
+
 4. [Build a Token Contract](#4-build-a-token-contract)
 5. [Create an NFT Collection](#5-create-an-nft-collection)
 6. [Build a DeFi App](#6-build-a-defi-app)
 
 ### Advanced Tutorials
+
 7. [Implement Cross-Chain Bridge](#7-implement-cross-chain-bridge)
 8. [Build a DeAI Application](#8-build-a-deai-application)
 9. [Optimize Gas Usage](#9-optimize-gas-usage)
@@ -64,7 +67,7 @@ import { AxionaxClient, Wallet } from '@axionax/sdk';
 
 const client = new AxionaxClient({
   rpcUrl: 'https://testnet-rpc.axionax.network',
-  chainId: 86137
+  chainId: 86137,
 });
 
 const wallet = Wallet.fromPrivateKey('your-private-key');
@@ -74,11 +77,11 @@ async function sendTransaction() {
     from: wallet.address,
     to: '0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb',
     value: '1000000000000000000', // 1 AXX
-    gasLimit: 21000
+    gasLimit: 21000,
   });
 
   console.log('Transaction hash:', tx.hash);
-  
+
   // Wait for confirmation
   const receipt = await tx.wait();
   console.log('Confirmed in block:', receipt.blockNumber);
@@ -88,6 +91,7 @@ sendTransaction();
 ```
 
 **Expected Output:**
+
 ```
 Transaction hash: 0x123...abc
 Confirmed in block: 12345
@@ -147,9 +151,9 @@ const wasm = fs.readFileSync('counter.wasm');
 async function deploy() {
   const factory = new ContractFactory(wasm, wallet);
   const contract = await factory.deploy();
-  
+
   console.log('Contract deployed at:', contract.address);
-  
+
   return contract;
 }
 ```
@@ -159,11 +163,11 @@ async function deploy() {
 ```typescript
 async function interact() {
   const contract = await deploy();
-  
+
   // Call increment
   const tx = await contract.increment();
   await tx.wait();
-  
+
   // Read value
   const value = await contract.get();
   console.log('Counter value:', value); // 1
@@ -191,9 +195,7 @@ const block = await client.getBlock(12345);
 
 ```typescript
 // Get transaction by hash
-const tx = await client.getTransaction(
-  '0x123...abc'
-);
+const tx = await client.getTransaction('0x123...abc');
 
 console.log('From:', tx.from);
 console.log('To:', tx.to);
@@ -205,9 +207,7 @@ console.log('Gas used:', tx.gasUsed);
 
 ```typescript
 // Get balance
-const balance = await client.getBalance(
-  '0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb'
-);
+const balance = await client.getBalance('0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb');
 
 console.log('Balance:', balance, 'AXX');
 ```
@@ -216,17 +216,13 @@ console.log('Balance:', balance, 'AXX');
 
 ```typescript
 // Query contract events
-const events = await contract.queryFilter(
-  contract.filters.Transfer(),
-  fromBlock,
-  toBlock
-);
+const events = await contract.queryFilter(contract.filters.Transfer(), fromBlock, toBlock);
 
 for (const event of events) {
   console.log('Transfer:', {
     from: event.args.from,
     to: event.args.to,
-    amount: event.args.amount
+    amount: event.args.amount,
   });
 }
 ```
@@ -253,7 +249,7 @@ impl Token {
     pub fn new(initial_supply: u64) -> Self {
         let mut balances = HashMap::new();
         balances.insert(msg::sender(), initial_supply);
-        
+
         Self {
             total_supply: initial_supply,
             balances,
@@ -268,15 +264,15 @@ impl Token {
         amount: u64
     ) -> Result<()> {
         let from = msg::sender();
-        
+
         require!(
             self.balances.get(&from).unwrap_or(&0) >= &amount,
             "Insufficient balance"
         );
-        
+
         *self.balances.entry(from).or_insert(0) -= amount;
         *self.balances.entry(to).or_insert(0) += amount;
-        
+
         emit!(Transfer { from, to, amount });
         Ok(())
     }
@@ -339,16 +335,16 @@ impl NFT {
     ) -> Result<u64> {
         let token_id = self.next_token_id;
         self.next_token_id += 1;
-        
+
         self.owners.insert(token_id, to);
         self.token_uris.insert(token_id, token_uri);
-        
+
         emit!(Transfer {
             from: Address::zero(),
             to,
             token_id
         });
-        
+
         Ok(token_id)
     }
 
@@ -364,6 +360,7 @@ impl NFT {
 ## 6. Build a DeFi App
 
 Coming soon! Topics will include:
+
 - Automated Market Maker (AMM)
 - Lending Protocol
 - Yield Farming
@@ -374,6 +371,7 @@ Coming soon! Topics will include:
 ## 7. Implement Cross-Chain Bridge
 
 Coming soon! Learn about:
+
 - Bridge Architecture
 - Security Considerations
 - Asset Locking/Unlocking
@@ -384,6 +382,7 @@ Coming soon! Learn about:
 ## 8. Build a DeAI Application
 
 Coming soon! Topics:
+
 - Decentralized AI Inference
 - Model Deployment
 - Data Privacy
@@ -394,6 +393,7 @@ Coming soon! Topics:
 ## 9. Optimize Gas Usage
 
 Coming soon! Learn:
+
 - Storage Optimization
 - Batch Operations
 - Gas Profiling

@@ -4,8 +4,6 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import ConnectButton from '@/components/wallet/ConnectButton';
-import ThemeToggle from '@/components/ui/ThemeToggle';
-import { useUIStore } from '@/stores/uiStore';
 import { AXIONAX_TESTNET } from '@/lib/web3';
 
 const mainNav = [
@@ -29,8 +27,7 @@ export default function ExplorerLayout({
 }): React.JSX.Element {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const theme = useUIStore((s) => s.theme);
-  const isLight = theme === 'light';
+  const isLight = false; // Dark theme only
 
   const addNetwork = async () => {
     if (typeof window === 'undefined') return;
@@ -67,9 +64,7 @@ export default function ExplorerLayout({
   return (
     <div
       className={`min-h-screen flex flex-col ${
-        isLight
-          ? 'bg-[#F8FAFC] text-slate-900'
-          : 'bg-[#0a0a0f] text-starlight'
+        isLight ? 'bg-[#F8FAFC] text-slate-900' : 'bg-[#0a0a0f] text-starlight'
       }`}
     >
       {/* Top bar – io.net style */}
@@ -93,7 +88,9 @@ export default function ExplorerLayout({
           <Link
             href="/docs"
             className={`text-sm transition-colors hover:text-amber-500 ${
-              isLight ? 'text-slate-600' : 'text-starlight/70 hover:text-amber-400'
+              isLight
+                ? 'text-slate-600'
+                : 'text-starlight/70 hover:text-amber-400'
             }`}
           >
             Docs
@@ -102,12 +99,13 @@ export default function ExplorerLayout({
             type="button"
             onClick={addNetwork}
             className={`text-sm transition-colors hover:text-amber-500 ${
-              isLight ? 'text-slate-600' : 'text-starlight/70 hover:text-amber-400'
+              isLight
+                ? 'text-slate-600'
+                : 'text-starlight/70 hover:text-amber-400'
             }`}
           >
             Add Network
           </button>
-          <ThemeToggle />
           <ConnectButton />
         </div>
 
@@ -115,7 +113,9 @@ export default function ExplorerLayout({
           type="button"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           className={`lg:hidden p-2 rounded-lg transition-colors hover:bg-amber-500/10 hover:text-amber-500 ${
-            isLight ? 'text-slate-600' : 'text-starlight/70 hover:text-amber-400'
+            isLight
+              ? 'text-slate-600'
+              : 'text-starlight/70 hover:text-amber-400'
           }`}
           aria-label="Menu"
         >
@@ -193,7 +193,9 @@ export default function ExplorerLayout({
                 <Link
                   href="/docs"
                   className={`px-4 py-2 text-sm hover:text-amber-500 ${
-                    isLight ? 'text-slate-700' : 'text-starlight/80 hover:text-amber-400'
+                    isLight
+                      ? 'text-slate-700'
+                      : 'text-starlight/80 hover:text-amber-400'
                   }`}
                   onClick={() => setMobileMenuOpen(false)}
                 >
@@ -203,12 +205,13 @@ export default function ExplorerLayout({
                   type="button"
                   onClick={addNetwork}
                   className={`px-4 py-2 text-sm hover:text-amber-500 ${
-                    isLight ? 'text-slate-700' : 'text-starlight/80 hover:text-amber-400'
+                    isLight
+                      ? 'text-slate-700'
+                      : 'text-starlight/80 hover:text-amber-400'
                   }`}
                 >
                   Add Network
                 </button>
-                <ThemeToggle />
                 <ConnectButton />
               </div>
             </div>

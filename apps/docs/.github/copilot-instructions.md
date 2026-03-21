@@ -1,9 +1,11 @@
 # Axionax Docs - Copilot Instructions
+
 # Target Model: Gemini 2.5 Pro
 
 **Context:** Documentation Site (Jekyll, Liquid, Markdown).
 
 ## 📝 DOCUMENTATION ARCHITECTURE
+
 1.  **Content Consistency:**
     - Cross-reference parameters with `axionax-core` code.
     - Terminology: "Validator" (not Miner), "Worker" (Compute Provider).

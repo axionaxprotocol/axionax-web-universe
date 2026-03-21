@@ -1,15 +1,10 @@
 /**
  * Explorer Service - Real Blockchain Data
- * 
+ *
  * Fetches real block and transaction data from RPC nodes
  */
 
-import { 
-  createPublicClient,
-  http, 
-  formatEther,
-  type Block,
-} from 'viem';
+import { createPublicClient, http, formatEther, type Block } from 'viem';
 
 // ============================================
 // Configuration
@@ -117,7 +112,10 @@ function determineValidator(blockNumber: number): string {
   return blockNumber % 2 === 0 ? 'EU' : 'AU';
 }
 
-async function checkValidatorStatus(client: typeof publicClient, _name: string): Promise<{
+async function checkValidatorStatus(
+  client: typeof publicClient,
+  _name: string,
+): Promise<{
   blockHeight: number;
   status: string;
   latency: number;
@@ -150,18 +148,19 @@ export async function getBlocks(page: number = 1, pageSize: number = 10): Promis
   try {
     const latestBlockNumber = await publicClient.getBlockNumber();
     const latestBlock = Number(latestBlockNumber);
-    
+
     // Calculate block range for pagination
-    const startBlock = latestBlock - ((page - 1) * pageSize);
+    const startBlock = latestBlock - (page - 1) * pageSize;
     const endBlock = Math.max(startBlock - pageSize + 1, 0);
-    
+
     const blocks: BlockInfo[] = [];
-    
+
     // Fetch blocks in parallel (limit to prevent overload)
     const blockPromises = [];
     for (let i = startBlock; i >= endBlock && i >= 0; i--) {
       blockPromises.push(
-        publicClient.getBlock({ blockNumber: BigInt(i) })
+        publicClient
+          .getBlock({ blockNumber: BigInt(i) })
           .then((block): BlockInfo | null => ({
             number: Number(block.number),
             hash: block.hash || '0x0',
@@ -172,13 +171,13 @@ export async function getBlocks(page: number = 1, pageSize: number = 10): Promis
             validator: determineValidator(Number(block.number)),
             size: Number(block.size || 0),
           }))
-          .catch(() => null)
+          .catch(() => null),
       );
     }
-    
+
     const results = await Promise.all(blockPromises);
     blocks.push(...results.filter((b): b is BlockInfo => b !== null));
-    
+
     return {
       blocks,
       total: latestBlock,
@@ -205,17 +204,17 @@ export async function getBlocks(page: number = 1, pageSize: number = 10): Promis
 export async function getBlock(blockId: string | number): Promise<BlockInfo | null> {
   try {
     let block: Block;
-    
+
     if (typeof blockId === 'number' || /^\d+$/.test(blockId.toString())) {
-      block = await publicClient.getBlock({ 
-        blockNumber: BigInt(blockId) 
+      block = await publicClient.getBlock({
+        blockNumber: BigInt(blockId),
       });
     } else {
-      block = await publicClient.getBlock({ 
-        blockHash: blockId as `0x${string}` 
+      block = await publicClient.getBlock({
+        blockHash: blockId as `0x${string}`,
       });
     }
-    
+
     return {
       number: Number(block.number),
       hash: block.hash || '0x0',
@@ -235,21 +234,24 @@ export async function getBlock(blockId: string | number): Promise<BlockInfo | nu
 /**
  * Get transactions from recent blocks
  */
-export async function getTransactions(page: number = 1, pageSize: number = 20): Promise<TransactionsResponse> {
+export async function getTransactions(
+  page: number = 1,
+  pageSize: number = 20,
+): Promise<TransactionsResponse> {
   try {
     const latestBlockNumber = await publicClient.getBlockNumber();
     const transactions: TransactionInfo[] = [];
     let blocksChecked = 0;
     let currentBlock = Number(latestBlockNumber);
-    
+
     // Fetch transactions from recent blocks until we have enough
     while (transactions.length < pageSize * page && blocksChecked < 50 && currentBlock >= 0) {
       try {
-        const block = await publicClient.getBlock({ 
+        const block = await publicClient.getBlock({
           blockNumber: BigInt(currentBlock),
           includeTransactions: true,
         });
-        
+
         for (const tx of block.transactions) {
           if (typeof tx === 'object') {
             transactions.push({
@@ -266,15 +268,15 @@ export async function getTransactions(page: number = 1, pageSize: number = 20): 
       } catch (e) {
         // Skip blocks that fail to fetch
       }
-      
+
       currentBlock--;
       blocksChecked++;
     }
-    
+
     // Paginate results
     const startIndex = (page - 1) * pageSize;
     const paginatedTxs = transactions.slice(startIndex, startIndex + pageSize);
-    
+
     return {
       transactions: paginatedTxs,
       total: transactions.length,
@@ -297,14 +299,14 @@ export async function getTransactions(page: number = 1, pageSize: number = 20): 
  */
 export async function getTransaction(txHash: string): Promise<TransactionInfo | null> {
   try {
-    const tx = await publicClient.getTransaction({ 
-      hash: txHash as `0x${string}` 
+    const tx = await publicClient.getTransaction({
+      hash: txHash as `0x${string}`,
     });
-    
-    const block = await publicClient.getBlock({ 
-      blockNumber: tx.blockNumber! 
+
+    const block = await publicClient.getBlock({
+      blockNumber: tx.blockNumber!,
     });
-    
+
     return {
       hash: tx.hash,
       blockNumber: Number(tx.blockNumber),
@@ -331,7 +333,7 @@ export async function getNetworkStats(): Promise<NetworkStats> {
       checkValidatorStatus(euClient, 'EU'),
       checkValidatorStatus(auClient, 'AU'),
     ]);
-    
+
     return {
       latestBlock: Number(latestBlock),
       totalTransactions: 0, // Would need indexer for accurate count
@@ -371,34 +373,34 @@ export async function search(query: string): Promise<{
       return { type: 'block', result: block };
     }
   }
-  
+
   // Check if it's a transaction hash
   if (/^0x[a-fA-F0-9]{64}$/.test(query)) {
     const tx = await getTransaction(query);
     if (tx) {
       return { type: 'transaction', result: tx };
     }
-    
+
     // Could also be a block hash
     const block = await getBlock(query);
     if (block) {
       return { type: 'block', result: block };
     }
   }
-  
+
   // Check if it's an address
   if (/^0x[a-fA-F0-9]{40}$/.test(query)) {
     try {
-      const balance = await publicClient.getBalance({ 
-        address: query as `0x${string}` 
+      const balance = await publicClient.getBalance({
+        address: query as `0x${string}`,
       });
       return {
         type: 'address',
         result: {
           address: query,
           balance: formatEther(balance),
-          transactionCount: await publicClient.getTransactionCount({ 
-            address: query as `0x${string}` 
+          transactionCount: await publicClient.getTransactionCount({
+            address: query as `0x${string}`,
           }),
         },
       };
@@ -406,6 +408,6 @@ export async function search(query: string): Promise<{
       // Address doesn't exist or error
     }
   }
-  
+
   return { type: 'not_found', result: null };
 }

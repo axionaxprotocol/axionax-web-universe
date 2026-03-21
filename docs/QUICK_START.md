@@ -16,6 +16,7 @@ Make sure you have these installed:
 - **Git**: v2.x or later ([Download](https://git-scm.com/))
 
 Optional:
+
 - **Docker**: v24.x+ (for running full stack locally)
 - **VS Code**: Recommended IDE
 
@@ -49,6 +50,7 @@ nano .env
 ```
 
 **Minimum required variables:**
+
 ```bash
 CHAIN_ID=86137
 NETWORK_NAME=axionax-testnet-1
@@ -63,6 +65,7 @@ pnpm dev
 ```
 
 This will start:
+
 - 🌐 Web: http://localhost:3000
 - 🛒 Marketplace: http://localhost:3001
 - 📚 Docs: http://localhost:3002
@@ -104,6 +107,7 @@ docker-compose down
 ```
 
 This includes:
+
 - Web Frontend
 - Marketplace
 - Explorer API
@@ -119,6 +123,7 @@ This includes:
 ## 🔧 Available Commands
 
 ### Development
+
 ```bash
 pnpm dev              # Start all apps in dev mode
 pnpm build            # Build all apps
@@ -129,6 +134,7 @@ pnpm format           # Format all code with Prettier
 ```
 
 ### Workspace Management
+
 ```bash
 pnpm clean            # Clean build artifacts
 pnpm deps:check       # Check for outdated dependencies
@@ -137,6 +143,7 @@ pnpm security:audit   # Run security audit
 ```
 
 ### Docker Commands
+
 ```bash
 pnpm docker:build     # Build Docker images
 pnpm docker:up        # Start Docker services
@@ -179,14 +186,14 @@ axionax-web-universe/
 
 After starting the development servers:
 
-| Service | URL | Description |
-|---------|-----|-------------|
-| 🌐 Website | http://localhost:3000 | Main website |
-| 🛒 Marketplace | http://localhost:3001 | Compute marketplace |
-| 📚 Docs | http://localhost:3002 | Documentation |
-| 🔌 RPC | http://localhost:8545 | JSON-RPC endpoint |
-| 🔍 Explorer API | http://localhost:3001 | Block explorer API |
-| 💧 Faucet API | http://localhost:3002 | Testnet faucet |
+| Service         | URL                   | Description         |
+| --------------- | --------------------- | ------------------- |
+| 🌐 Website      | http://localhost:3000 | Main website        |
+| 🛒 Marketplace  | http://localhost:3001 | Compute marketplace |
+| 📚 Docs         | http://localhost:3002 | Documentation       |
+| 🔌 RPC          | http://localhost:8545 | JSON-RPC endpoint   |
+| 🔍 Explorer API | http://localhost:3001 | Block explorer API  |
+| 💧 Faucet API   | http://localhost:3002 | Testnet faucet      |
 
 ---
 
@@ -205,8 +212,9 @@ curl -X POST http://localhost:8545 \
 ```
 
 Expected response:
+
 ```json
-{"jsonrpc":"2.0","id":1,"result":"0x..."}
+{ "jsonrpc": "2.0", "id": 1, "result": "0x..." }
 ```
 
 ### 3. Run Tests
@@ -249,6 +257,7 @@ Enter your wallet address and claim 10 AXX (once per 24 hours).
 ### Issue: `pnpm: command not found`
 
 **Solution**: Install pnpm globally
+
 ```bash
 npm install -g pnpm
 ```
@@ -256,6 +265,7 @@ npm install -g pnpm
 ### Issue: Port already in use
 
 **Solution**: Kill process or change port
+
 ```bash
 # Find process using port 3000
 lsof -ti:3000
@@ -269,6 +279,7 @@ kill -9 $(lsof -ti:3000)
 ### Issue: Out of memory during build
 
 **Solution**: Increase Node.js memory
+
 ```bash
 export NODE_OPTIONS="--max-old-space-size=4096"
 pnpm build
@@ -277,6 +288,7 @@ pnpm build
 ### Issue: Docker containers won't start
 
 **Solution**: Check Docker daemon
+
 ```bash
 # Check Docker status
 docker info
@@ -291,6 +303,7 @@ docker system prune -a
 ### Issue: Dependencies installation fails
 
 **Solution**: Clear cache and reinstall
+
 ```bash
 pnpm clean:all
 pnpm install --frozen-lockfile
@@ -324,16 +337,19 @@ Need help? We're here:
 ## 🎓 Learning Resources
 
 ### For Developers
+
 - [API Reference](./apps/docs/API_REFERENCE.md)
 - [Architecture](./apps/docs/ARCHITECTURE.md)
 - [Smart Contract Examples](./apps/docs/SMART_CONTRACT_EXAMPLES.md)
 
 ### For Operators
+
 - [Deployment Checklist](./apps/docs/DEPLOYMENT_CHECKLIST.md)
 - [Operations Runbook](./apps/docs/RUNBOOK.md)
 - [Validator Setup](./apps/docs/VALIDATOR_SETUP_GUIDE.md)
 
 ### For Contributors
+
 - [Contributing Guide](./CONTRIBUTING.md)
 - [Code of Conduct](./CODE_OF_CONDUCT.md)
 - [Security Policy](./SECURITY.md)

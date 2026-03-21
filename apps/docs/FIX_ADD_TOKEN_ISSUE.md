@@ -1,6 +1,7 @@
 # 🔧 Fix: Add Token to MetaMask Issue
 
 ## Issue Summary
+
 ผู้ใช้ไม่สามารถเพิ่ม AXX Token บน MetaMask ได้
 
 ## Root Cause Analysis
@@ -18,7 +19,6 @@
        }
      }
      ```
-   
    - แต่ไฟล์ UI (`index.html`) คาดหวังว่า `cfg.erc20` จะเป็น **string address** โดยตรง:
      ```javascript
      options: { address: CFG.erc20, symbol: 'AXX', decimals: 18 }
@@ -39,21 +39,23 @@
 ### 1. ✅ Fixed UI Config Parsing (v1.5 & v1.6)
 
 **Files:**
+
 - `/core-universe/ops/deploy/environments/testnet/Axionax_v1.6_Testnet_in_a_Box/ui/index.html`
 - `/core-universe/ops/deploy/environments/testnet/Axionax_v1.5_Testnet_in_a_Box/ui/index.html`
 
 **Changes:**
+
 ```javascript
 // เพิ่มการ parse config ที่รองรับทั้ง object และ string
-const erc20Addr = (typeof cfg.erc20 === 'object' && cfg.erc20?.address) 
-  ? cfg.erc20.address 
-  : (typeof cfg.erc20 === 'string' ? cfg.erc20 : null);
-const erc20Symbol = (typeof cfg.erc20 === 'object' && cfg.erc20?.symbol) 
-  ? cfg.erc20.symbol 
-  : 'AXX';
-const erc20Decimals = (typeof cfg.erc20 === 'object' && cfg.erc20?.decimals) 
-  ? cfg.erc20.decimals 
-  : 18;
+const erc20Addr =
+  typeof cfg.erc20 === 'object' && cfg.erc20?.address
+    ? cfg.erc20.address
+    : typeof cfg.erc20 === 'string'
+      ? cfg.erc20
+      : null;
+const erc20Symbol = typeof cfg.erc20 === 'object' && cfg.erc20?.symbol ? cfg.erc20.symbol : 'AXX';
+const erc20Decimals =
+  typeof cfg.erc20 === 'object' && cfg.erc20?.decimals ? cfg.erc20.decimals : 18;
 
 CFG = {
   // ... other fields
@@ -67,18 +69,19 @@ CFG = {
 ### 2. ✅ Improved addToken Function
 
 **Enhanced error handling:**
+
 ```javascript
-async function addToken(){
-  try{
-    if(!CFG?.erc20) throw new Error('ERC20 ยังไม่ได้กำหนดใน config.json');
-    if(!ethereum) throw new Error('MetaMask ยังไม่ได้เชื่อมต่อ');
-    
+async function addToken() {
+  try {
+    if (!CFG?.erc20) throw new Error('ERC20 ยังไม่ได้กำหนดใน config.json');
+    if (!ethereum) throw new Error('MetaMask ยังไม่ได้เชื่อมต่อ');
+
     const tokenAddress = CFG.erc20;
     const tokenSymbol = CFG.erc20Symbol || 'AXX';
     const tokenDecimals = CFG.erc20Decimals || 18;
-    
+
     log(`กำลังเพิ่มโทเค็น ${tokenSymbol} (${tokenAddress})...`);
-    
+
     const wasAdded = await ethereum.request({
       method: 'wallet_watchAsset',
       params: {
@@ -87,18 +90,18 @@ async function addToken(){
           address: tokenAddress,
           symbol: tokenSymbol,
           decimals: tokenDecimals,
-        }
-      }
+        },
+      },
     });
-    
+
     if (wasAdded) {
       log(`[ok] เพิ่มโทเค็น ${tokenSymbol} (ERC-20) ใน MetaMask แล้ว ✅`);
     } else {
       log('[warn] ผู้ใช้ปฏิเสธการเพิ่มโทเค็น');
     }
-  }catch(e){ 
+  } catch (e) {
     console.error('Add token error:', e);
-    log(`[err] Add token failed: ${e.message}`); 
+    log(`[err] Add token failed: ${e.message}`);
   }
 }
 ```
@@ -108,6 +111,7 @@ async function addToken(){
 **File:** `/apps/web/src/lib/web3.ts`
 
 **New exports:**
+
 ```typescript
 export interface AddTokenParams {
   address: string;
@@ -116,19 +120,14 @@ export interface AddTokenParams {
   image?: string;
 }
 
-export const addTokenToMetaMask = async (
-  params: AddTokenParams
-): Promise<boolean> => {
+export const addTokenToMetaMask = async (params: AddTokenParams): Promise<boolean> => {
   if (!isMetaMaskInstalled()) {
     throw new Error('MetaMask is not installed');
   }
 
   const { ethereum } = window as unknown as {
     ethereum?: {
-      request: (args: {
-        method: string;
-        params?: unknown;
-      }) => Promise<unknown>;
+      request: (args: { method: string; params?: unknown }) => Promise<unknown>;
     };
   };
 
@@ -153,9 +152,7 @@ export const addTokenToMetaMask = async (
   }
 };
 
-export const addAXXToken = async (
-  tokenAddress: string
-): Promise<boolean> => {
+export const addAXXToken = async (tokenAddress: string): Promise<boolean> => {
   return addTokenToMetaMask({
     address: tokenAddress,
     symbol: 'AXX',
@@ -169,9 +166,10 @@ export const addAXXToken = async (
 **File:** `/apps/web/src/components/wallet/ConnectButton.tsx`
 
 **Changes:**
+
 - เพิ่ม import `addAXXToken` จาก `@/lib/web3`
 - เพิ่ม state `isAddingToken` สำหรับ loading state
-- เพิ่มฟังก์ชัน `handleAddToken` 
+- เพิ่มฟังก์ชัน `handleAddToken`
 - เพิ่มปุ่ม "Add AXX Token" ใน dropdown menu
 
 ```tsx
@@ -180,7 +178,7 @@ const handleAddToken = async (tokenAddress: string): Promise<void> => {
     alert('โปรดติดตั้ง MetaMask ก่อนใช้งาน');
     return;
   }
-  
+
   setIsAddingToken(true);
   try {
     const wasAdded = await addAXXToken(tokenAddress);
@@ -199,6 +197,7 @@ const handleAddToken = async (tokenAddress: string): Promise<void> => {
 ```
 
 **UI Addition:**
+
 ```tsx
 <button
   onClick={() => void handleAddToken('0x0000000000000000000000000000000000001000')}
@@ -217,6 +216,7 @@ const handleAddToken = async (tokenAddress: string): Promise<void> => {
 **File:** `/apps/docs/ADD_TOKEN_TO_METAMASK.md`
 
 **Includes:**
+
 - ปัญหาที่พบบ่อยและวิธีแก้
 - วิธีเพิ่ม Token ด้วยตนเอง (Manual)
 - วิธีเพิ่ม Token แบบอัตโนมัติ (Recommended)
@@ -228,6 +228,7 @@ const handleAddToken = async (tokenAddress: string): Promise<void> => {
 ## Testing Checklist
 
 ### Local Testnet UI
+
 - [ ] เปิด `index.html` ใน browser
 - [ ] คลิก "Connect Wallet" และเชื่อมต่อกับ MetaMask
 - [ ] คลิก "Add AXX Token"
@@ -236,14 +237,16 @@ const handleAddToken = async (tokenAddress: string): Promise<void> => {
 - [ ] ตรวจสอบว่า token ปรากฏใน Assets list
 
 ### Web App
+
 - [ ] เข้า https://axionax.org
-- [ ] คลิก "Connect Wallet" 
+- [ ] คลิก "Connect Wallet"
 - [ ] เชื่อมต่อกับ MetaMask
 - [ ] คลิก wallet dropdown (แสดง address และ balance)
 - [ ] คลิก "Add AXX Token"
 - [ ] ตรวจสอบว่า token ถูกเพิ่มสำเร็จ
 
 ### Error Scenarios
+
 - [ ] ทดสอบเมื่อไม่มี MetaMask (ต้องแสดง error)
 - [ ] ทดสอบเมื่ออยู่ใน wrong network (ต้องแสดงคำเตือน)
 - [ ] ทดสอบเมื่อ user decline การเพิ่ม token (ต้องแสดง message)
@@ -277,6 +280,7 @@ const handleAddToken = async (tokenAddress: string): Promise<void> => {
 ## Future Improvements
 
 ### Potential Enhancements:
+
 1. **Dynamic Token Address** - อ่าน token address จาก API/config แทนการ hardcode
 2. **Token Icon** - เพิ่ม token logo URL ใน metadata
 3. **Multi-token Support** - รองรับการเพิ่ม token หลายตัว

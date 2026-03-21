@@ -1,17 +1,12 @@
 /**
  * Snapshot Generator Service
- * 
+ *
  * Generates snapshots of testnet state for mainnet genesis block.
  * Includes Merkle tree generation for airdrop proofs.
  */
 
 import { db } from '../db/index.js';
-import {
-  addressActivitySummary,
-  genesisSnapshots,
-  blocks,
-  indexerState,
-} from '../db/schema.js';
+import { addressActivitySummary, genesisSnapshots, blocks, indexerState } from '../db/schema.js';
 import { eq, sql, desc } from 'drizzle-orm';
 import { createHash } from 'crypto';
 
@@ -76,22 +71,22 @@ function buildMerkleTree(leaves: { address: string; amount: string }[]): MerkleT
   }
 
   // Create leaf hashes
-  const leafHashes = leaves.map(l => ({
+  const leafHashes = leaves.map((l) => ({
     address: l.address.toLowerCase(),
     hash: hashLeaf(l.address, l.amount),
   }));
 
   // Store proofs for each leaf
   const proofs = new Map<string, string[]>();
-  leafHashes.forEach(l => proofs.set(l.address, []));
+  leafHashes.forEach((l) => proofs.set(l.address, []));
 
   // Build tree layer by layer
-  let currentLayer = leafHashes.map(l => l.hash);
+  let currentLayer = leafHashes.map((l) => l.hash);
   const _previousLayer = leafHashes;
 
   while (currentLayer.length > 1) {
     const nextLayer: string[] = [];
-    
+
     for (let i = 0; i < currentLayer.length; i += 2) {
       const left = currentLayer[i];
       const right = currentLayer[i + 1] || currentLayer[i]; // Duplicate last if odd
@@ -103,7 +98,7 @@ function buildMerkleTree(leaves: { address: string; amount: string }[]): MerkleT
       for (const leaf of leafHashes) {
         const proofArray = proofs.get(leaf.address)!;
         const leafIndex = currentLayer.indexOf(leaf.hash);
-        
+
         if (leafIndex !== -1) {
           const siblingIndex = leafIndex % 2 === 0 ? leafIndex + 1 : leafIndex - 1;
           if (siblingIndex < currentLayer.length) {
@@ -157,7 +152,7 @@ export async function generateSnapshot(snapshotBlockNumber?: number): Promise<Ge
       throw new Error('No blocks indexed yet');
     }
     snapshotBlock = state.lastIndexedBlock;
-    
+
     const [latestBlock] = await db.select().from(blocks).where(eq(blocks.number, snapshotBlock));
     snapshotTimestamp = latestBlock?.timestamp ?? new Date();
   }
@@ -175,7 +170,7 @@ export async function generateSnapshot(snapshotBlockNumber?: number): Promise<Ge
   console.log(`  Eligible addresses: ${eligibleAddresses.length}`);
 
   // Prepare leaves for Merkle tree
-  const leaves = eligibleAddresses.map(addr => ({
+  const leaves = eligibleAddresses.map((addr) => ({
     address: addr.address,
     amount: addr.airdropAmount,
   }));
@@ -188,7 +183,7 @@ export async function generateSnapshot(snapshotBlockNumber?: number): Promise<Ge
   // Calculate total airdrop
   const totalAirdrop = eligibleAddresses.reduce(
     (sum, addr) => sum + BigInt(addr.airdropAmount),
-    BigInt(0)
+    BigInt(0),
   );
 
   // Get total address count
@@ -197,7 +192,7 @@ export async function generateSnapshot(snapshotBlockNumber?: number): Promise<Ge
     .from(addressActivitySummary);
 
   // Build allocations with proofs
-  const allocations: GenesisAllocation[] = eligibleAddresses.map(addr => ({
+  const allocations: GenesisAllocation[] = eligibleAddresses.map((addr) => ({
     address: addr.address,
     amount: addr.airdropAmount,
     tier: addr.airdropTier,
@@ -316,7 +311,7 @@ export async function generateGenesisConfig(snapshotId: string): Promise<Genesis
   }
 
   // Mainnet chain config (different from testnet)
-  const mainnetChainId = 86138; // Example mainnet chain ID
+  const mainnetChainId = 86150; // Match axionax-core-universe mainnet chain ID
 
   const genesis: GenesisBlock = {
     config: {

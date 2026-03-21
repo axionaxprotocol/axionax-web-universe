@@ -171,6 +171,7 @@ sudo ./setup_rpc_node.sh \
 ### Firewall Rules
 
 Already configured by setup script:
+
 - Port 22 (SSH) - Open
 - Port 80 (HTTP) - Open (redirects to HTTPS)
 - Port 443 (HTTPS) - Open
@@ -181,6 +182,7 @@ Already configured by setup script:
 ### Rate Limiting
 
 Nginx is configured with rate limiting:
+
 - **Default**: 1000 requests/minute per IP
 - **Burst**: 100 requests allowed before dropping
 - Returns 429 (Too Many Requests) when exceeded

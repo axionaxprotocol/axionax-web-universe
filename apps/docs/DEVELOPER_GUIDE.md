@@ -26,11 +26,13 @@ docker --version    # >= 20.10
 ### Quick Setup
 
 **Linux/macOS:**
+
 ```bash
 curl -sSL https://raw.githubusercontent.com/axionaxprotocol/axionax-core/main/scripts/install_dependencies_linux.sh | bash
 ```
 
 **Windows (PowerShell as Admin):**
+
 ```powershell
 irm https://raw.githubusercontent.com/axionaxprotocol/axionax-core/main/scripts/install_dependencies_windows.ps1 | iex
 ```
@@ -38,12 +40,14 @@ irm https://raw.githubusercontent.com/axionaxprotocol/axionax-core/main/scripts/
 ### IDE Configuration
 
 **VS Code Extensions:**
+
 - rust-analyzer
 - Even Better TOML
 - CodeLLDB
 - axionax Protocol Extension (coming soon)
 
 **VS Code Settings:**
+
 ```json
 {
   "rust-analyzer.cargo.features": "all",
@@ -195,7 +199,7 @@ import { AxionaxClient } from '@axionax/sdk';
 
 const client = new AxionaxClient({
   rpcUrl: 'https://testnet-rpc.axionax.network',
-  chainId: 86137
+  chainId: 86137,
 });
 
 // Query balance
@@ -205,7 +209,7 @@ const balance = await client.getBalance('0x...');
 const tx = await client.sendTransaction({
   to: '0x...',
   value: '1000000000000000000', // 1 AXX
-  gasLimit: 21000
+  gasLimit: 21000,
 });
 ```
 
@@ -334,6 +338,7 @@ pub fn batch_transfer(
 ## 🐛 Reporting Issues
 
 Found a bug? [Open an issue](https://github.com/axionaxprotocol/axionax-core/issues/new) with:
+
 - Clear description
 - Steps to reproduce
 - Expected vs actual behavior
@@ -342,6 +347,7 @@ Found a bug? [Open an issue](https://github.com/axionaxprotocol/axionax-core/iss
 ---
 
 **Next Steps:**
+
 - [Build Your First App →](./tutorials/first-app.md)
 - [Deploy to Testnet →](./TESTNET_INTEGRATION.md)
 - [Explore Examples →](https://github.com/axionaxprotocol/examples)

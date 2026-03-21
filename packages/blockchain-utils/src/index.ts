@@ -1,6 +1,6 @@
 /**
  * @axionax/blockchain-utils
- * 
+ *
  * Shared blockchain utilities for Axionax applications.
  */
 

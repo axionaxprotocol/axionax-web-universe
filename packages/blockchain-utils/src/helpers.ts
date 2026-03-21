@@ -18,7 +18,10 @@ export function isValidAddress(address: string): boolean {
 /**
  * Format address for display (0x1234...5678)
  */
-export function formatAddress(address: string, chars: number = FORMATTING.SHORT_ADDRESS_CHARS): string {
+export function formatAddress(
+  address: string,
+  chars: number = FORMATTING.SHORT_ADDRESS_CHARS,
+): string {
   if (!address) return '';
   return `${address.substring(0, chars + 2)}...${address.substring(address.length - chars)}`;
 }
@@ -49,18 +52,18 @@ export function formatUnits(value: bigint, decimals: number = 18): string {
   const divisor = BigInt(10 ** decimals);
   const whole = value / divisor;
   const fraction = value % divisor;
-  
+
   if (fraction === BigInt(0)) {
     return whole.toLocaleString();
   }
-  
+
   const fractionStr = fraction.toString().padStart(decimals, '0');
   const trimmedFraction = fractionStr.slice(0, FORMATTING.MAX_DECIMALS).replace(/0+$/, '');
-  
+
   if (trimmedFraction === '') {
     return whole.toLocaleString();
   }
-  
+
   return `${whole.toLocaleString()}.${trimmedFraction}`;
 }
 
@@ -135,7 +138,7 @@ export function timeAgo(timestamp: Date | number): string {
   if (diff < TIME.HOUR) return `${Math.floor(diff / TIME.MINUTE)} minutes ago`;
   if (diff < TIME.DAY) return `${Math.floor(diff / TIME.HOUR)} hours ago`;
   if (diff < TIME.WEEK) return `${Math.floor(diff / TIME.DAY)} days ago`;
-  
+
   return date.toLocaleDateString();
 }
 
@@ -187,18 +190,18 @@ export function getErrorMessage(error: unknown): string {
   if (error instanceof Error) {
     // Check for common Web3 error patterns
     const message = error.message;
-    
+
     // MetaMask rejection
     if (message.includes('user rejected')) return 'Transaction rejected by user';
     if (message.includes('insufficient funds')) return 'Insufficient funds for transaction';
     if (message.includes('nonce too low')) return 'Transaction nonce conflict';
     if (message.includes('gas too low')) return 'Gas limit too low';
-    
+
     return message;
   }
-  
+
   if (typeof error === 'string') return error;
-  
+
   return 'An unknown error occurred';
 }
 
@@ -230,7 +233,7 @@ export function isInteger(value: string | number): boolean {
  * Sleep for a specified duration
  */
 export function sleep(ms: number): Promise<void> {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 /**
@@ -239,10 +242,10 @@ export function sleep(ms: number): Promise<void> {
 export async function retry<T>(
   fn: () => Promise<T>,
   maxRetries: number = 3,
-  baseDelay: number = 1000
+  baseDelay: number = 1000,
 ): Promise<T> {
   let lastError: Error | undefined;
-  
+
   for (let attempt = 0; attempt < maxRetries; attempt++) {
     try {
       return await fn();
@@ -253,6 +256,6 @@ export async function retry<T>(
       }
     }
   }
-  
+
   throw lastError;
 }

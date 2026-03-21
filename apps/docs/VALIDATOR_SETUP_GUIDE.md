@@ -22,6 +22,7 @@
 ## 💻 Requirements
 
 ### Hardware Requirements (Minimum)
+
 - **CPU**: 4 cores / 8 threads
 - **RAM**: 16GB
 - **Storage**: 500GB SSD
@@ -29,6 +30,7 @@
 - **Public IP**: Required
 
 ### Hardware Requirements (Recommended)
+
 - **CPU**: 8+ cores / 16+ threads
 - **RAM**: 32GB+
 - **Storage**: 1TB+ NVMe SSD
@@ -36,6 +38,7 @@
 - **Public IP**: Static IP preferred
 
 ### Software Requirements
+
 - **OS**: Ubuntu 22.04 LTS (recommended) or Ubuntu 20.04 LTS
 - **Docker**: 24.0+ and Docker Compose 2.0+
 - **Node.js**: 18.x or 20.x
@@ -47,11 +50,13 @@
 ## 🚀 Quick Start
 
 ### One-Line Setup (Ubuntu)
+
 ```bash
 curl -sSL https://raw.githubusercontent.com/axionaxprotocol/axionax-core/main/scripts/setup-validator.sh | bash
 ```
 
 This script will:
+
 1. Install all dependencies
 2. Clone the repository
 3. Build the validator
@@ -65,12 +70,14 @@ This script will:
 ### Step 1: Prepare the Server
 
 #### Update System
+
 ```bash
 sudo apt update && sudo apt upgrade -y
 sudo apt install -y curl git build-essential jq
 ```
 
 #### Install Docker
+
 ```bash
 # Install Docker
 curl -fsSL https://get.docker.com -o get-docker.sh
@@ -87,6 +94,7 @@ sudo chmod +x /usr/local/bin/docker-compose
 ```
 
 #### Install Rust
+
 ```bash
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 source $HOME/.cargo/env
@@ -94,12 +102,14 @@ rustup update
 ```
 
 #### Install Node.js
+
 ```bash
 curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 sudo apt install -y nodejs
 ```
 
 ### Step 2: Clone Repository
+
 ```bash
 # Clone the validator repository
 git clone https://github.com/axionaxprotocol/axionax-validator.git
@@ -110,6 +120,7 @@ git checkout testnet-v1.8.0
 ```
 
 ### Step 3: Build Validator
+
 ```bash
 # Build in release mode
 cargo build --release --bin axionax-validator
@@ -122,6 +133,7 @@ cargo build --release --bin axionax-validator
 ### Step 4: Generate Validator Keys
 
 #### Create Validator Keys
+
 ```bash
 # Generate new validator keypair
 ./target/release/axionax-validator keys generate \
@@ -132,12 +144,14 @@ cargo build --release --bin axionax-validator
   --output ./keys/node-key.json
 ```
 
-**Important**: 
+**Important**:
+
 - Backup these keys securely
 - Never share `validator-key.json`
 - Store in encrypted backup
 
 #### Export Keys (for backup)
+
 ```bash
 # Create secure backup
 tar -czf validator-keys-$(date +%Y%m%d).tar.gz ./keys/
@@ -154,6 +168,7 @@ mv validator-keys-*.tar.gz.gpg ~/backups/
 ### Step 1: Create Configuration File
 
 Create `config.toml`:
+
 ```toml
 # axionax Validator Configuration v1.8.0
 
@@ -205,6 +220,7 @@ format = "json"
 ### Step 2: Configure Environment Variables
 
 Create `.env`:
+
 ```bash
 # Network Configuration
 CHAIN_ID=86137
@@ -237,12 +253,14 @@ METRICS_PORT=9090
 ### Step 3: Bootstrap Node Data
 
 #### Download Genesis File
+
 ```bash
 curl -o genesis.json \
   https://raw.githubusercontent.com/axionaxprotocol/axionax-validator/main/genesis/testnet.json
 ```
 
 #### Initialize Database
+
 ```bash
 ./target/release/axionax-validator init \
   --config config.toml \
@@ -254,6 +272,7 @@ curl -o genesis.json \
 ## 🏃 Running the Validator
 
 ### Method 1: Direct Run (Development)
+
 ```bash
 ./target/release/axionax-validator run \
   --config config.toml
@@ -262,11 +281,13 @@ curl -o genesis.json \
 ### Method 2: Using systemd (Production)
 
 #### Create systemd Service
+
 ```bash
 sudo nano /etc/systemd/system/axionax-validator.service
 ```
 
 Add:
+
 ```ini
 [Unit]
 Description=axionax Validator Node
@@ -286,6 +307,7 @@ WantedBy=multi-user.target
 ```
 
 #### Start Service
+
 ```bash
 # Reload systemd
 sudo systemctl daemon-reload
@@ -306,6 +328,7 @@ sudo journalctl -u axionax-validator -f
 ### Method 3: Using Docker
 
 #### Create Dockerfile
+
 ```dockerfile
 FROM rust:1.75 as builder
 
@@ -326,6 +349,7 @@ CMD ["axionax-validator", "run", "--config", "/etc/axionax/config.toml"]
 ```
 
 #### Build and Run
+
 ```bash
 # Build image
 docker build -t axionax-validator:v1.8.0 .
@@ -347,6 +371,7 @@ docker run -d \
 ## 📊 Monitoring
 
 ### Check Node Status
+
 ```bash
 # Using RPC
 curl -X POST http://localhost:8545 \
@@ -361,6 +386,7 @@ curl -X POST http://localhost:8545 \
 ```
 
 ### View Logs
+
 ```bash
 # If using systemd
 sudo journalctl -u axionax-validator -f
@@ -377,6 +403,7 @@ tail -f validator.log
 Access metrics at: `http://localhost:9090/metrics`
 
 **Key Metrics**:
+
 ```promql
 # Is syncing
 axionax_sync_status
@@ -400,6 +427,7 @@ axionax_validation_errors_total
 ### Setup Grafana Dashboard
 
 1. Install Grafana:
+
 ```bash
 docker run -d \
   --name grafana \
@@ -420,6 +448,7 @@ docker run -d \
 ## 🔒 Security Best Practices
 
 ### Firewall Configuration
+
 ```bash
 # Allow SSH
 sudo ufw allow 22/tcp
@@ -440,6 +469,7 @@ sudo ufw enable
 ```
 
 ### Key Security
+
 ```bash
 # Set proper permissions
 chmod 600 keys/validator-key.json
@@ -450,6 +480,7 @@ chmod 600 keys/node-key.json
 ```
 
 ### SSH Hardening
+
 ```bash
 # Disable password authentication
 sudo nano /etc/ssh/sshd_config
@@ -461,6 +492,7 @@ sudo systemctl restart sshd
 ```
 
 ### Regular Updates
+
 ```bash
 # Keep system updated
 sudo apt update && sudo apt upgrade -y
@@ -479,11 +511,13 @@ sudo systemctl restart axionax-validator
 ### Node Won't Start
 
 **Check logs**:
+
 ```bash
 sudo journalctl -u axionax-validator -n 100 --no-pager
 ```
 
 **Common issues**:
+
 - Port already in use → Change ports in config
 - Invalid genesis file → Re-download genesis
 - Corrupted database → Delete `./data` and re-init
@@ -492,6 +526,7 @@ sudo journalctl -u axionax-validator -n 100 --no-pager
 ### Node Not Syncing
 
 **Check peers**:
+
 ```bash
 curl -X POST http://localhost:8545 \
   -H "Content-Type: application/json" \
@@ -499,6 +534,7 @@ curl -X POST http://localhost:8545 \
 ```
 
 **Solutions**:
+
 - Check firewall (port 30303)
 - Verify bootnodes in config
 - Check internet connectivity
@@ -507,11 +543,13 @@ curl -X POST http://localhost:8545 \
 ### Low Peer Count
 
 **Possible causes**:
+
 - Firewall blocking P2P port
 - NAT/router configuration
 - Node behind proxy
 
 **Solutions**:
+
 ```bash
 # Test P2P port
 nc -zv YOUR_IP 30303
@@ -526,6 +564,7 @@ external_address = "YOUR_PUBLIC_IP:30303"
 ### High Memory Usage
 
 **Check resource usage**:
+
 ```bash
 docker stats axionax-validator
 # or
@@ -533,6 +572,7 @@ top -p $(pgrep axionax-validator)
 ```
 
 **Solutions**:
+
 - Increase system RAM
 - Adjust cache settings in config
 - Restart node periodically
@@ -543,18 +583,22 @@ top -p $(pgrep axionax-validator)
 ## 📞 Support & Resources
 
 ### Get Help
+
 - **Discord**: https://discord.gg/axionax (#validator-support)
 - **Documentation**: https://docs.axionax.org
 - **GitHub Issues**: https://github.com/axionaxprotocol/axionax-validator/issues
 
 ### Useful Links
+
 - [Architecture](./ARCHITECTURE.md)
 - [API Reference](./API_REFERENCE.md)
 - [Network Status](./TESTNET_STATUS.md)
 - [Operations Runbook](./RUNBOOK.md)
 
 ### Validator Requirements for Mainnet
+
 When mainnet launches, validators must:
+
 - ✅ Run testnet validator successfully for 3+ months
 - ✅ Maintain >99% uptime
 - ✅ Stake minimum required AXX tokens
@@ -565,4 +609,4 @@ When mainnet launches, validators must:
 
 **Happy Validating! 🚀**
 
-*Last Updated: December 5, 2025 | v1.8.0-testnet*
+_Last Updated: December 5, 2025 | v1.8.0-testnet_

@@ -13,11 +13,11 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className = '', label, error, hint, leftIcon, rightIcon, id, ...props }, ref) => {
     const inputId = id || `input-${Math.random().toString(36).substr(2, 9)}`;
-    
+
     return (
       <div className="w-full">
         {label && (
-          <label 
+          <label
             htmlFor={inputId}
             className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
           >
@@ -40,9 +40,10 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
               py-2.5
               text-gray-900 dark:text-white
               placeholder:text-gray-500 dark:placeholder:text-gray-400
-              ${error 
-                ? 'border-red-500 focus:border-red-500 focus:ring-red-500' 
-                : 'border-gray-300 dark:border-slate-700 focus:border-blue-500 focus:ring-blue-500'
+              ${
+                error
+                  ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
+                  : 'border-gray-300 dark:border-slate-700 focus:border-blue-500 focus:ring-blue-500'
               }
               focus:outline-none focus:ring-2 focus:ring-opacity-50
               transition-colors
@@ -57,15 +58,11 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
             </div>
           )}
         </div>
-        {error && (
-          <p className="mt-1 text-sm text-red-500">{error}</p>
-        )}
-        {hint && !error && (
-          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">{hint}</p>
-        )}
+        {error && <p className="mt-1 text-sm text-red-500">{error}</p>}
+        {hint && !error && <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">{hint}</p>}
       </div>
     );
-  }
+  },
 );
 
 Input.displayName = 'Input';
@@ -81,11 +78,11 @@ export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextArea
 export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
   ({ className = '', label, error, hint, id, ...props }, ref) => {
     const textareaId = id || `textarea-${Math.random().toString(36).substr(2, 9)}`;
-    
+
     return (
       <div className="w-full">
         {label && (
-          <label 
+          <label
             htmlFor={textareaId}
             className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
           >
@@ -100,9 +97,10 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
             px-4 py-2.5
             text-gray-900 dark:text-white
             placeholder:text-gray-500 dark:placeholder:text-gray-400
-            ${error 
-              ? 'border-red-500 focus:border-red-500 focus:ring-red-500' 
-              : 'border-gray-300 dark:border-slate-700 focus:border-blue-500 focus:ring-blue-500'
+            ${
+              error
+                ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
+                : 'border-gray-300 dark:border-slate-700 focus:border-blue-500 focus:ring-blue-500'
             }
             focus:outline-none focus:ring-2 focus:ring-opacity-50
             transition-colors resize-y min-h-[100px]
@@ -111,15 +109,11 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
           `}
           {...props}
         />
-        {error && (
-          <p className="mt-1 text-sm text-red-500">{error}</p>
-        )}
-        {hint && !error && (
-          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">{hint}</p>
-        )}
+        {error && <p className="mt-1 text-sm text-red-500">{error}</p>}
+        {hint && !error && <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">{hint}</p>}
       </div>
     );
-  }
+  },
 );
 
 Textarea.displayName = 'Textarea';
@@ -132,7 +126,10 @@ export interface SelectOption {
   disabled?: boolean;
 }
 
-export interface SelectProps extends Omit<React.SelectHTMLAttributes<HTMLSelectElement>, 'children'> {
+export interface SelectProps extends Omit<
+  React.SelectHTMLAttributes<HTMLSelectElement>,
+  'children'
+> {
   label?: string;
   error?: string;
   hint?: string;
@@ -143,11 +140,11 @@ export interface SelectProps extends Omit<React.SelectHTMLAttributes<HTMLSelectE
 export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
   ({ className = '', label, error, hint, options, placeholder, id, ...props }, ref) => {
     const selectId = id || `select-${Math.random().toString(36).substr(2, 9)}`;
-    
+
     return (
       <div className="w-full">
         {label && (
-          <label 
+          <label
             htmlFor={selectId}
             className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
           >
@@ -161,9 +158,10 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
             block w-full rounded-lg border bg-white dark:bg-slate-900
             px-4 py-2.5
             text-gray-900 dark:text-white
-            ${error 
-              ? 'border-red-500 focus:border-red-500 focus:ring-red-500' 
-              : 'border-gray-300 dark:border-slate-700 focus:border-blue-500 focus:ring-blue-500'
+            ${
+              error
+                ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
+                : 'border-gray-300 dark:border-slate-700 focus:border-blue-500 focus:ring-blue-500'
             }
             focus:outline-none focus:ring-2 focus:ring-opacity-50
             transition-colors
@@ -177,21 +175,17 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
               {placeholder}
             </option>
           )}
-          {options.map(option => (
+          {options.map((option) => (
             <option key={option.value} value={option.value} disabled={option.disabled}>
               {option.label}
             </option>
           ))}
         </select>
-        {error && (
-          <p className="mt-1 text-sm text-red-500">{error}</p>
-        )}
-        {hint && !error && (
-          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">{hint}</p>
-        )}
+        {error && <p className="mt-1 text-sm text-red-500">{error}</p>}
+        {hint && !error && <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">{hint}</p>}
       </div>
     );
-  }
+  },
 );
 
 Select.displayName = 'Select';
@@ -206,7 +200,7 @@ export interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputE
 export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
   ({ className = '', label, description, id, ...props }, ref) => {
     const checkboxId = id || `checkbox-${Math.random().toString(36).substr(2, 9)}`;
-    
+
     return (
       <div className="flex items-start">
         <div className="flex items-center h-5">
@@ -225,21 +219,17 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
           />
         </div>
         <div className="ml-3">
-          <label 
+          <label
             htmlFor={checkboxId}
             className="text-sm font-medium text-gray-700 dark:text-gray-300"
           >
             {label}
           </label>
-          {description && (
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              {description}
-            </p>
-          )}
+          {description && <p className="text-sm text-gray-500 dark:text-gray-400">{description}</p>}
         </div>
       </div>
     );
-  }
+  },
 );
 
 Checkbox.displayName = 'Checkbox';
@@ -268,7 +258,7 @@ export function RadioGroup({
   options,
   value,
   onChange,
-  className = ''
+  className = '',
 }: RadioGroupProps) {
   return (
     <fieldset className={className}>
@@ -278,7 +268,7 @@ export function RadioGroup({
         </legend>
       )}
       <div className="space-y-2">
-        {options.map(option => (
+        {options.map((option) => (
           <div key={option.value} className="flex items-start">
             <div className="flex items-center h-5">
               <input
@@ -293,16 +283,14 @@ export function RadioGroup({
               />
             </div>
             <div className="ml-3">
-              <label 
+              <label
                 htmlFor={`${name}-${option.value}`}
                 className="text-sm font-medium text-gray-700 dark:text-gray-300"
               >
                 {option.label}
               </label>
               {option.description && (
-                <p className="text-sm text-gray-500 dark:text-gray-400">
-                  {option.description}
-                </p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">{option.description}</p>
               )}
             </div>
           </div>

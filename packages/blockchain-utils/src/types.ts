@@ -57,7 +57,7 @@ export interface TransactionInfo {
   type: TransactionType;
 }
 
-export type TransactionType = 
+export type TransactionType =
   | 'transfer'
   | 'token_transfer'
   | 'contract_deploy'
@@ -136,7 +136,7 @@ export interface Proposal {
   executionTime?: Date;
 }
 
-export type ProposalStatus = 
+export type ProposalStatus =
   | 'pending'
   | 'active'
   | 'succeeded'

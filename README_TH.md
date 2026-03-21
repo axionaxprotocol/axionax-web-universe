@@ -59,7 +59,9 @@ axionax-web-universe/
 ## ✨ ฟีเจอร์หลัก (Key Features)
 
 ### 📱 เว็บไซต์หลัก (`apps/web`)
+
 เว็บไซต์อย่างเป็นทางการของ axionax Protocol
+
 - **Next.js 14**: ใช้ App Router ล่าสุดและ Server Components
 - **Tailwind CSS**: ตกแต่งสวยงามและปรับแต่งง่าย
 - **TypeScript**: รองรับ Type-safety เต็มรูปแบบ
@@ -67,19 +69,25 @@ axionax-web-universe/
 - **SEO Optimized**: ปรับแต่งเพื่อการติดอันดับการค้นหา
 
 ### 🛒 Marketplace (`apps/marketplace`)
+
 ตลาดซื้อขายทรัพยากรประมวลผลแบบ Decentralized
+
 - **Vite + React**: พัฒนาและทำงานได้อย่างรวดเร็ว
 - **Web3 Integration**: เชื่อมต่อกับ MetaMask/WalletConnect
 - **Real-time Updates**: อัปเดตรายการสินค้าแบบเรียลไทม์
 
 ### 📚 เอกสารคู่มือ (`apps/docs`)
+
 คู่มือสำหรับนักพัฒนาที่ครอบคลุม
+
 - **เนื้อหาครบถ้วน**: มีมากกว่า 50 หน้า
 - **ค้นหาง่าย**: ระบบค้นหาแบบ Full-text search
 - **เข้าใจง่าย**: มีตัวอย่างโค้ดและบทเรียนสอนการใช้งาน
 
 ### 📦 TypeScript SDK (`packages/sdk`)
+
 ชุดเครื่องมือสำหรับนักพัฒนา
+
 - **Type-safe API**: รองรับ IntelliSense ช่วยให้เขียนโค้ดง่ายขึ้น
 - **Modern**: ใช้ async/await และ Promise-based
 - **Tree-shakeable**: Import เฉพาะส่วนที่ใช้งานได้ ช่วยลดขนาดไฟล์
@@ -89,6 +97,7 @@ axionax-web-universe/
 ## 🚀 การเริ่มต้นใช้งาน (Quick Start)
 
 ### สิ่งที่ต้องเตรียม (Prerequisites)
+
 - **Node.js**: เวอร์ชัน 18 ขึ้นไป
 - **pnpm**: เวอร์ชัน 8 ขึ้นไป
 
@@ -122,6 +131,7 @@ pnpm build
 ## 🎯 แผนงาน (Roadmap)
 
 ### ✅ ดำเนินการแล้ว (Completed)
+
 - [x] เว็บไซต์เวอร์ชัน 2.0 (Next.js 14)
 - [x] TypeScript SDK v1.0
 - [x] เว็บไซต์เอกสารคู่มือ
@@ -129,6 +139,7 @@ pnpm build
 - [x] โครงสร้างแบบ Monorepo
 
 ### 🔄 กำลังดำเนินการ (In Progress)
+
 - [ ] Marketplace v1.0 (ระบบ Escrow)
 - [ ] พัฒนา Mobile App
 - [ ] เพิ่มฟีเจอร์ Advanced SDK

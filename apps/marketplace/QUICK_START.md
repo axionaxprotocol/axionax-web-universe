@@ -201,27 +201,27 @@ axionax-marketplace/
 
 ```typescript
 // lib/hooks/useWallet.ts
-import { useState, useEffect } from 'react'
-import { AxionaxClient, Wallet } from '@axionax/sdk'
+import { useState, useEffect } from 'react';
+import { AxionaxClient, Wallet } from '@axionax/sdk';
 
 export function useWallet() {
-  const [address, setAddress] = useState<string | null>(null)
-  const [balance, setBalance] = useState('0')
-  
+  const [address, setAddress] = useState<string | null>(null);
+  const [balance, setBalance] = useState('0');
+
   const connect = async () => {
     if (window.ethereum) {
       const accounts = await window.ethereum.request({
-        method: 'eth_requestAccounts'
-      })
-      setAddress(accounts[0])
+        method: 'eth_requestAccounts',
+      });
+      setAddress(accounts[0]);
     }
-  }
-  
+  };
+
   const disconnect = () => {
-    setAddress(null)
-  }
-  
-  return { address, balance, connect, disconnect }
+    setAddress(null);
+  };
+
+  return { address, balance, connect, disconnect };
 }
 ```
 
@@ -229,37 +229,37 @@ export function useWallet() {
 
 ```typescript
 // lib/hooks/useMarketplace.ts
-import { Contract } from '@axionax/sdk'
-import MarketplaceABI from '@/contracts/Marketplace.json'
+import { Contract } from '@axionax/sdk';
+import MarketplaceABI from '@/contracts/Marketplace.json';
 
 export function useMarketplace() {
   const contract = new Contract(
     process.env.NEXT_PUBLIC_MARKETPLACE_CONTRACT!,
     MarketplaceABI,
     client
-  )
-  
+  );
+
   const createListing = async (listing: Listing) => {
     const tx = await contract.createListing(
       listing.title,
       listing.price,
       listing.duration,
       listing.metadataURI
-    )
-    await tx.wait()
-    return tx.hash
-  }
-  
+    );
+    await tx.wait();
+    return tx.hash;
+  };
+
   const purchaseListing = async (listingId: number) => {
-    const listing = await contract.getListing(listingId)
+    const listing = await contract.getListing(listingId);
     const tx = await contract.purchaseListing(listingId, {
-      value: listing.price
-    })
-    await tx.wait()
-    return tx.hash
-  }
-  
-  return { createListing, purchaseListing }
+      value: listing.price,
+    });
+    await tx.wait();
+    return tx.hash;
+  };
+
+  return { createListing, purchaseListing };
 }
 ```
 
@@ -272,25 +272,25 @@ export function useIPFS() {
     const response = await fetch('/api/ipfs/upload', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    })
-    const { cid } = await response.json()
-    return `ipfs://${cid}`
-  }
-  
+      body: JSON.stringify(data),
+    });
+    const { cid } = await response.json();
+    return `ipfs://${cid}`;
+  };
+
   const uploadFile = async (file: File) => {
-    const formData = new FormData()
-    formData.append('file', file)
-    
+    const formData = new FormData();
+    formData.append('file', file);
+
     const response = await fetch('/api/ipfs/upload', {
       method: 'POST',
-      body: formData
-    })
-    const { cid } = await response.json()
-    return `ipfs://${cid}`
-  }
-  
-  return { uploadJSON, uploadFile }
+      body: formData,
+    });
+    const { cid } = await response.json();
+    return `ipfs://${cid}`;
+  };
+
+  return { uploadJSON, uploadFile };
 }
 ```
 
@@ -302,22 +302,22 @@ export function useIPFS() {
 
 ```typescript
 // Use SDK for blockchain interactions
-import { AxionaxClient, Contract } from '@axionax/sdk'
+import { AxionaxClient, Contract } from '@axionax/sdk';
 
-const client = new AxionaxClient(process.env.NEXT_PUBLIC_RPC_URL!)
+const client = new AxionaxClient(process.env.NEXT_PUBLIC_RPC_URL!);
 
 const marketplace = new Contract(
   process.env.NEXT_PUBLIC_MARKETPLACE_CONTRACT!,
   MarketplaceABI,
   client
-)
+);
 ```
 
 ### With axionax-core
 
 ```typescript
 // Connect to local axionax-core node
-const client = new AxionaxClient('http://localhost:8545')
+const client = new AxionaxClient('http://localhost:8545');
 
 // Make sure axionax-core is running:
 // cd ../axionax-core && cargo run
@@ -365,11 +365,11 @@ interface IMarketplace {
     uint256 duration,
     string memory metadataURI
   ) external returns (uint256);
-  
+
   function purchaseListing(uint256 listingId) external payable;
-  
+
   function getListing(uint256 listingId) external view returns (Listing);
-  
+
   function getMyListings() external view returns (uint256[]);
 }
 ```
@@ -409,17 +409,17 @@ export function ListingCard({ listing }: { listing: Listing }) {
 export function CreateForm() {
   const { createListing } = useMarketplace()
   const { uploadJSON } = useIPFS()
-  
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
-    
+
     // Upload metadata to IPFS
     const metadataURI = await uploadJSON({
       title,
       description,
       specs: { gpu, ram, storage }
     })
-    
+
     // Create listing on-chain
     const txHash = await createListing({
       title,
@@ -427,10 +427,10 @@ export function CreateForm() {
       duration,
       metadataURI
     })
-    
+
     console.log('Listing created:', txHash)
   }
-  
+
   return <form onSubmit={handleSubmit}>...</form>
 }
 ```
@@ -480,15 +480,15 @@ NEXT_PUBLIC_IPFS_GATEWAY=https://gateway.pinata.cloud/ipfs/
 
 ```typescript
 // Enable detailed logs
-const contract = new Contract(address, abi, client)
+const contract = new Contract(address, abi, client);
 contract.on('error', (error) => {
-  console.error('Contract error:', error)
-})
+  console.error('Contract error:', error);
+});
 
 // Log all transactions
 client.on('transaction', (tx) => {
-  console.log('Transaction sent:', tx.hash)
-})
+  console.log('Transaction sent:', tx.hash);
+});
 ```
 
 ### Wallet Connection Issues
@@ -496,16 +496,16 @@ client.on('transaction', (tx) => {
 ```typescript
 // Check if wallet is installed
 if (!window.ethereum) {
-  alert('Please install MetaMask')
-  return
+  alert('Please install MetaMask');
+  return;
 }
 
 // Check network
-const chainId = await window.ethereum.request({ 
-  method: 'eth_chainId' 
-})
+const chainId = await window.ethereum.request({
+  method: 'eth_chainId',
+});
 if (chainId !== process.env.NEXT_PUBLIC_CHAIN_ID) {
-  alert('Please switch to axionax network')
+  alert('Please switch to axionax network');
 }
 ```
 
@@ -558,10 +558,10 @@ module.exports = {
       fs: false,
       net: false,
       tls: false,
-    }
-    return config
+    };
+    return config;
   },
-}
+};
 ```
 
 ---

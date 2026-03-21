@@ -1,17 +1,17 @@
 /**
  * Faucet Service - Real Transaction Implementation
- * 
+ *
  * Sends real AXX tokens on testnet
  */
 
-import { 
-  createWalletClient, 
+import {
+  createWalletClient,
   createPublicClient,
-  http, 
+  http,
   parseEther,
   formatEther,
   type Address,
-  type Hash
+  type Hash,
 } from 'viem';
 import { privateKeyToAccount } from 'viem/accounts';
 import { db } from '../db/index.js';
@@ -69,7 +69,9 @@ if (config.faucetPrivateKey && config.faucetPrivateKey.startsWith('0x')) {
     });
     console.log('✅ Faucet wallet initialized:', faucetAccount.address);
     if (config.simulationMode) {
-      console.log('⚠️  Faucet running in SIMULATION MODE - claims are recorded but no real transactions sent');
+      console.log(
+        '⚠️  Faucet running in SIMULATION MODE - claims are recorded but no real transactions sent',
+      );
     }
   } catch (error) {
     console.error('❌ Failed to initialize faucet wallet:', error);
@@ -176,13 +178,16 @@ export async function getFaucetInfo(): Promise<FaucetInfo> {
 /**
  * Check if address can claim (cooldown check)
  */
-export async function canClaim(address: string, ipAddress?: string): Promise<{
+export async function canClaim(
+  address: string,
+  ipAddress?: string,
+): Promise<{
   canClaim: boolean;
   reason?: string;
   nextClaimAt?: Date;
 }> {
   const cooldownTime = new Date(Date.now() - config.cooldownHours * 60 * 60 * 1000);
-  
+
   // Check by address
   const recentClaim = await db
     .select()
@@ -190,13 +195,15 @@ export async function canClaim(address: string, ipAddress?: string): Promise<{
     .where(
       and(
         eq(faucetClaims.address, address.toLowerCase()),
-        gte(faucetClaims.claimedAt, cooldownTime)
-      )
+        gte(faucetClaims.claimedAt, cooldownTime),
+      ),
     )
     .limit(1);
 
   if (recentClaim.length > 0) {
-    const nextClaimAt = new Date(recentClaim[0].claimedAt.getTime() + config.cooldownHours * 60 * 60 * 1000);
+    const nextClaimAt = new Date(
+      recentClaim[0].claimedAt.getTime() + config.cooldownHours * 60 * 60 * 1000,
+    );
     return {
       canClaim: false,
       reason: `You can claim again in ${Math.ceil((nextClaimAt.getTime() - Date.now()) / (60 * 60 * 1000))} hours`,
@@ -209,16 +216,13 @@ export async function canClaim(address: string, ipAddress?: string): Promise<{
     const recentIpClaim = await db
       .select()
       .from(faucetClaims)
-      .where(
-        and(
-          eq(faucetClaims.ipAddress, ipAddress),
-          gte(faucetClaims.claimedAt, cooldownTime)
-        )
-      )
+      .where(and(eq(faucetClaims.ipAddress, ipAddress), gte(faucetClaims.claimedAt, cooldownTime)))
       .limit(1);
 
     if (recentIpClaim.length > 0) {
-      const nextClaimAt = new Date(recentIpClaim[0].claimedAt.getTime() + config.cooldownHours * 60 * 60 * 1000);
+      const nextClaimAt = new Date(
+        recentIpClaim[0].claimedAt.getTime() + config.cooldownHours * 60 * 60 * 1000,
+      );
       return {
         canClaim: false,
         reason: `Your IP has already claimed. Try again in ${Math.ceil((nextClaimAt.getTime() - Date.now()) / (60 * 60 * 1000))} hours`,
@@ -235,7 +239,7 @@ export async function canClaim(address: string, ipAddress?: string): Promise<{
  */
 export async function claimTokens(
   recipientAddress: string,
-  ipAddress?: string
+  ipAddress?: string,
 ): Promise<FaucetClaimResult> {
   // Validate address format
   if (!/^0x[a-fA-F0-9]{40}$/.test(recipientAddress)) {
@@ -268,7 +272,7 @@ export async function claimTokens(
   // Check faucet balance
   const faucetInfo = await getFaucetInfo();
   const requiredAmount = parseEther(config.faucetAmount);
-  
+
   if (BigInt(faucetInfo.balance) < requiredAmount) {
     return {
       success: false,
@@ -280,15 +284,16 @@ export async function claimTokens(
   try {
     let txHash: Hash;
     let blockNumber: number = 0;
-    
+
     if (config.simulationMode) {
       // Simulation mode: generate a mock transaction hash
       // Real tokens will be allocated when mainnet launches based on these claims
       const timestamp = Date.now();
       const randomPart = Math.random().toString(16).slice(2, 10);
-      txHash = `0x${timestamp.toString(16)}${randomPart}${'0'.repeat(64 - timestamp.toString(16).length - randomPart.length)}` as Hash;
+      txHash =
+        `0x${timestamp.toString(16)}${randomPart}${'0'.repeat(64 - timestamp.toString(16).length - randomPart.length)}` as Hash;
       blockNumber = Math.floor(timestamp / 1000);
-      
+
       console.log(`📤 [SIMULATION] Faucet claim recorded: ${txHash} -> ${recipientAddress}`);
     } else {
       // Real transaction mode
@@ -320,23 +325,24 @@ export async function claimTokens(
       claimedAt: new Date(),
     });
 
-    console.log(`✅ Faucet claim successful: ${config.faucetAmount} AXX -> ${recipientAddress}${config.simulationMode ? ' [SIMULATION]' : ''}`);
+    console.log(
+      `✅ Faucet claim successful: ${config.faucetAmount} AXX -> ${recipientAddress}${config.simulationMode ? ' [SIMULATION]' : ''}`,
+    );
 
     return {
       success: true,
-      message: config.simulationMode 
+      message: config.simulationMode
         ? `Successfully recorded ${config.faucetAmount} AXX claim for ${recipientAddress}. Tokens will be allocated at mainnet launch.`
         : `Successfully sent ${config.faucetAmount} AXX to ${recipientAddress}`,
       txHash,
       amount: config.faucetAmount,
       blockNumber,
     };
-
   } catch (error) {
     console.error('❌ Faucet claim failed:', error);
-    
+
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-    
+
     return {
       success: false,
       message: 'Transaction failed. Please try again.',
@@ -356,16 +362,13 @@ export async function getClaimHistory(address: string): Promise<ClaimHistory> {
     .orderBy(sql`${faucetClaims.claimedAt} DESC`)
     .limit(50);
 
-  const totalClaimed = claims.reduce(
-    (sum, claim) => sum + BigInt(claim.amount),
-    BigInt(0)
-  );
+  const totalClaimed = claims.reduce((sum, claim) => sum + BigInt(claim.amount), BigInt(0));
 
   const cooldownCheck = await canClaim(address);
 
   return {
     address,
-    claims: claims.map(c => ({
+    claims: claims.map((c) => ({
       id: c.id,
       amount: formatEther(BigInt(c.amount)),
       txHash: c.transactionHash,

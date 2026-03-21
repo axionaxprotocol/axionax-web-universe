@@ -123,7 +123,9 @@ export default function JoinNetworkPage() {
   const renderChooseStep = () => (
     <div className="space-y-8">
       <div className="text-center">
-        <h2 className="text-3xl font-bold text-content mb-4">Choose Node Type</h2>
+        <h2 className="text-3xl font-bold text-content mb-4">
+          Choose Node Type
+        </h2>
         <p className="text-muted">Select the type of node you want to run</p>
       </div>
 
@@ -183,9 +185,7 @@ export default function JoinNetworkPage() {
             <h2 className="text-3xl font-bold text-content flex items-center gap-3">
               {info.title}
             </h2>
-            <p className="text-muted">
-              Check requirements before installing
-            </p>
+            <p className="text-muted">Check requirements before installing</p>
           </div>
         </div>
 
@@ -225,7 +225,9 @@ export default function JoinNetworkPage() {
               <div className="flex-1 text-center">
                 <span
                   className={
-                    requirements.publicIp ? 'text-tech-warning' : 'text-tech-success'
+                    requirements.publicIp
+                      ? 'text-tech-warning'
+                      : 'text-tech-success'
                   }
                 >
                   {requirements.publicIp ? 'Required' : 'Not required'}
@@ -387,9 +389,7 @@ sudo nginx -t && sudo systemctl reload nginx`,
           </h3>
           <div className="space-y-4">
             <div>
-              <label className="block text-sm text-muted mb-2">
-                Chain ID
-              </label>
+              <label className="block text-sm text-muted mb-2">Chain ID</label>
               <div className="flex items-center gap-2">
                 <code className="flex-1 bg-black/50 border border-white/5 rounded-lg px-4 py-3 font-mono text-content">
                   86137
@@ -540,9 +540,7 @@ sudo nginx -t && sudo systemctl reload nginx`,
                 />
               </div>
               <div>
-                <label className="block text-sm text-muted mb-2">
-                  Email *
-                </label>
+                <label className="block text-sm text-muted mb-2">Email *</label>
                 <input
                   type="email"
                   value={formData.email}

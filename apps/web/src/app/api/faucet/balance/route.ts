@@ -2,6 +2,9 @@ import { NextResponse } from 'next/server';
 
 const FAUCET_API_URL = process.env.FAUCET_API_URL || 'http://localhost:3002';
 
+const isRealFaucet = (): boolean =>
+  !!FAUCET_API_URL && !FAUCET_API_URL.includes('localhost');
+
 export async function GET() {
   try {
     const res = await fetch(`${FAUCET_API_URL}/balance`, {
@@ -17,8 +20,21 @@ export async function GET() {
       });
     }
   } catch {
-    // Fallback: mock balance when faucet-api is not running
+    // Real faucet: do not return mock data
+    if (isRealFaucet()) {
+      return NextResponse.json(
+        {
+          address: '0x0',
+          balance: '0',
+          symbol: 'AXX',
+          isMock: false,
+          error: 'Faucet service temporarily unavailable',
+        },
+        { status: 503 }
+      );
+    }
   }
+  // Local/dev only: mock balance when faucet-api is not running
   return NextResponse.json({
     address: '0x0000000000000000000000000000000000000000',
     balance: '1000000',

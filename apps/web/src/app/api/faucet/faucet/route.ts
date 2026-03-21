@@ -3,6 +3,9 @@ import { NextRequest, NextResponse } from 'next/server';
 const FAUCET_API_URL = process.env.FAUCET_API_URL || 'http://localhost:3002';
 const VALID_ADDRESS = /^0x[a-fA-F0-9]{40}$/;
 
+const isRealFaucet = (): boolean =>
+  !!FAUCET_API_URL && !FAUCET_API_URL.includes('localhost');
+
 export async function POST(request: NextRequest) {
   let body: { address?: string };
   try {
@@ -63,6 +66,16 @@ export async function POST(request: NextRequest) {
       { status: res.status >= 400 ? res.status : 500 }
     );
   } catch {
+    if (isRealFaucet()) {
+      return NextResponse.json(
+        {
+          success: false,
+          message:
+            'Faucet service temporarily unavailable. Please try again later.',
+        },
+        { status: 503 }
+      );
+    }
     return NextResponse.json({
       success: true,
       message:

@@ -14,16 +14,19 @@ with additional terms to protect the axionax Network and community.
 ### 1. Trademark Protection
 
 **Protected marks:**
+
 - "axionax" and "axionax protocol"
 - "AXX" and "AXX Token"
 - axionax logo and branding materials
 
 **Unauthorized uses:**
+
 - ❌ Operating networks claiming to be "official axionax"
 - ❌ Creating tokens branded as "AXX" without authorization
 - ❌ Using axionax branding to misrepresent derivative works
 
 **Authorized uses:**
+
 - ✅ Factual references in documentation
 - ✅ Academic research and education
 - ✅ Contributing to the official axionax project
@@ -35,16 +38,19 @@ with additional terms to protect the axionax Network and community.
 ### 2. Mainnet Launch Restriction
 
 This codebase may be used for:
+
 - ✅ **Development and testing** (local networks, testnets)
 - ✅ **Private networks** (internal use, research)
 - ✅ **Open source contributions** to the official project
 
 **PROHIBITED without explicit written authorization:**
+
 - ❌ Launching **public mainnets** with economic tokens
 - ❌ Operating networks that could **confuse users** with official axionax
 - ❌ Creating **token systems** claiming to be "AXX"
 
 **Why this restriction?**
+
 - Protects users from fake/scam networks
 - Ensures quality and security standards
 - Maintains ecosystem integrity
@@ -56,18 +62,21 @@ This codebase may be used for:
 ### 3. Chain Identity Requirements
 
 All forks and derivatives MUST:
+
 - 🆔 Use a **different chain ID** than official networks
 - 🔗 Generate a **different genesis hash**
 - 🏷️ Use a **clearly different name** in all interfaces
 - ⚠️ Display **prominent warnings** that it's NOT official axionax
 
 **Official chain IDs (RESERVED):**
+
 ```yaml
-Testnet:  86137  # AXI testnet (active)
-Mainnet:  86150  # AXI mainnet (not launched yet)
+Testnet: 86137 # AXI testnet (active)
+Mainnet: 86150 # AXI mainnet (not launched yet)
 ```
 
 **Example of compliant fork naming:**
+
 ```
 ✅ "MyChain Network (based on axionax technology)"
 ✅ "axionax Fork for Research Purposes"
@@ -80,21 +89,27 @@ Mainnet:  86150  # AXI mainnet (not launched yet)
 ## 🛡️ Why These Restrictions?
 
 ### User Protection
+
 Prevents confusion between official networks and unauthorized clones that may:
+
 - Lack security audits
 - Have malicious modifications
 - Misrepresent token economics
 - Scam users with fake "AXX" tokens
 
 ### Ecosystem Integrity
+
 Ensures:
+
 - Quality control for production deployments
 - Consistent user experience
 - Trustworthy network operations
 - Clear accountability
 
 ### Legal Compliance
+
 Protects against:
+
 - Trademark infringement
 - Consumer fraud
 - Securities law violations (if unauthorized tokens are marketed)
@@ -104,6 +119,7 @@ Protects against:
 ## ✅ What You CAN Do
 
 ### Development & Testing
+
 ```bash
 # Run local development network
 cargo run -- --chain-id 1337 --dev
@@ -113,18 +129,21 @@ cargo run -- --chain-id 86137 --testnet
 ```
 
 ### Research & Education
+
 - Fork for academic research
 - Modify for learning purposes
 - Experiment with consensus mechanisms
 - Test security assumptions
 
 ### Contributing
+
 - Submit pull requests
 - Report security issues
 - Improve documentation
 - Build developer tools
 
 ### Private Networks
+
 - Internal corporate networks
 - Consortium blockchains (with different branding)
 - Research networks (clearly marked as derivatives)
@@ -136,6 +155,7 @@ cargo run -- --chain-id 86137 --testnet
 ### Without Authorization
 
 ❌ **Clone and launch as "axionax Mainnet 2.0"**
+
 ```bash
 # This violates trademark and mainnet restrictions
 git clone axionax-core
@@ -144,6 +164,7 @@ sed -i 's/86137/99999/' config.yaml
 ```
 
 ❌ **Create "AXX Token" on your fork**
+
 ```solidity
 // This violates trademark protection
 contract AXXToken {
@@ -153,9 +174,12 @@ contract AXXToken {
 ```
 
 ❌ **Market unauthorized network as "official"**
+
 ```markdown
 # This is fraudulent
+
 ## Welcome to axionax Official Mainnet
+
 Buy AXX tokens now! Only $0.01 each!
 ```
 
@@ -164,15 +188,18 @@ Buy AXX tokens now! Only $0.01 each!
 ## 📞 Contact & Reporting
 
 ### Authorization Requests
+
 - **Mainnet launch:** mainnet-auth@axionax.org
 - **Trademark usage:** legal@axionax.org
 
 ### Security Issues
+
 - **Vulnerabilities:** security@axionax.org
 - **Impersonation/clones:** security@axionax.org
 - **PGP key:** https://axionax.org/pgp-key.asc
 
 ### Community
+
 - **Discord:** https://discord.gg/axionax
 - **Forum:** https://forum.axionax.org
 - **Governance:** https://gov.axionax.org
@@ -187,6 +214,7 @@ Buy AXX tokens now! Only $0.01 each!
    https://axionax.org/networks
 
 2. **Verify genesis hash:**
+
    ```bash
    axionax-cli verify-genesis --chain-id 86137
    ```
@@ -227,6 +255,7 @@ We take these restrictions seriously to protect our community.
 ## 🤝 We Support Open Source
 
 These restrictions do NOT prevent:
+
 - Learning from the code
 - Contributing improvements
 - Forking for research

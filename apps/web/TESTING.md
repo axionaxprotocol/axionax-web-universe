@@ -2,11 +2,11 @@
 
 ## Scripts
 
-| Script | Description |
-|--------|-------------|
-| `pnpm test:e2e` | Run Playwright E2E tests (starts dev server automatically) |
-| `pnpm test:e2e:ui` | Run E2E with Playwright UI |
-| `pnpm test:e2e:headed` | Run E2E with visible browser |
+| Script                 | Description                                                |
+| ---------------------- | ---------------------------------------------------------- |
+| `pnpm test:e2e`        | Run Playwright E2E tests (starts dev server automatically) |
+| `pnpm test:e2e:ui`     | Run E2E with Playwright UI                                 |
+| `pnpm test:e2e:headed` | Run E2E with visible browser                               |
 
 From repo root:
 
@@ -23,14 +23,14 @@ From repo root:
 
 These routes were added so the site works without external services:
 
-| Route | Purpose |
-|-------|--------|
-| `GET /api/stats` | Network stats (block number, validators) – uses EU/AU RPC or mock |
-| `GET /api/blocks?page=1&pageSize=10` | Block list for Explorer – uses RPC or empty list |
-| `GET /api/faucet/balance` | Faucet wallet balance – uses faucet-api or mock |
-| `POST /api/faucet/faucet` | Request testnet tokens – proxies to faucet-api or mock success |
-| `GET /api/faucet` | Faucet status (for E2E) |
-| `POST /api/faucet` | Same as POST /api/faucet/faucet (E2E) |
+| Route                                | Purpose                                                           |
+| ------------------------------------ | ----------------------------------------------------------------- |
+| `GET /api/stats`                     | Network stats (block number, validators) – uses EU/AU RPC or mock |
+| `GET /api/blocks?page=1&pageSize=10` | Block list for Explorer – uses RPC or empty list                  |
+| `GET /api/faucet/balance`            | Faucet wallet balance – uses faucet-api or mock                   |
+| `POST /api/faucet/faucet`            | Request testnet tokens – proxies to faucet-api or mock success    |
+| `GET /api/faucet`                    | Faucet status (for E2E)                                           |
+| `POST /api/faucet`                   | Same as POST /api/faucet/faucet (E2E)                             |
 
 When validators (RPC) or faucet-api are unreachable, responses fall back to mock/empty data so the UI still loads.
 

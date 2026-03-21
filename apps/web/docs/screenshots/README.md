@@ -33,12 +33,14 @@ Please add the following screenshot files to this directory:
 ## How to Capture
 
 ### Desktop (Windows)
+
 ```powershell
 # Use Snipping Tool or Win+Shift+S
 # Save as PNG in this directory
 ```
 
 ### Using Browser DevTools
+
 ```
 1. Open DevTools (F12)
 2. Toggle device toolbar (Ctrl+Shift+M)
@@ -49,6 +51,7 @@ Please add the following screenshot files to this directory:
 ### Placeholder Images
 
 Until actual screenshots are available, you can use placeholders:
+
 - https://via.placeholder.com/1920x1080.png?text=AxionAX+Home
 - https://via.placeholder.com/1920x1080.png?text=Block+Explorer
 - https://via.placeholder.com/1920x1080.png?text=Faucet

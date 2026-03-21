@@ -178,9 +178,7 @@ export default function InfrastructurePage(): React.JSX.Element {
 
             <div className="card-panel p-6">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold text-content">
-                  CPU Load
-                </h3>
+                <h3 className="text-lg font-semibold text-content">CPU Load</h3>
                 <span className="text-2xl" aria-hidden />
               </div>
               <div className="text-3xl font-bold gradient-text mb-2">Low</div>
@@ -259,9 +257,7 @@ export default function InfrastructurePage(): React.JSX.Element {
                         </span>
                       </span>
                     </td>
-                    <td className="px-6 py-4 text-muted">
-                      {service.uptime}
-                    </td>
+                    <td className="px-6 py-4 text-muted">{service.uptime}</td>
                     <td className="px-6 py-4 text-muted text-sm">
                       {service.details}
                     </td>
@@ -277,7 +273,9 @@ export default function InfrastructurePage(): React.JSX.Element {
               <h3 className="text-lg font-semibold text-tech-success mb-4">
                 ✅ Infrastructure Layer
               </h3>
-              <div className="text-3xl font-bold text-tech-success mb-2">5/5</div>
+              <div className="text-3xl font-bold text-tech-success mb-2">
+                5/5
+              </div>
               <p className="text-muted text-sm mb-4">100% Operational</p>
               <ul className="space-y-2 text-sm text-muted">
                 <li>• PostgreSQL Database</li>
@@ -292,7 +290,9 @@ export default function InfrastructurePage(): React.JSX.Element {
               <h3 className="text-lg font-semibold text-tech-success mb-4">
                 ✅ Monitoring Stack
               </h3>
-              <div className="text-3xl font-bold text-tech-success mb-2">2/2</div>
+              <div className="text-3xl font-bold text-tech-success mb-2">
+                2/2
+              </div>
               <p className="text-muted text-sm mb-4">100% Operational</p>
               <ul className="space-y-2 text-sm text-muted">
                 <li>• Grafana v12.2.1</li>
@@ -304,7 +304,9 @@ export default function InfrastructurePage(): React.JSX.Element {
               <h3 className="text-lg font-semibold text-tech-success mb-4">
                 ✅ Application Layer
               </h3>
-              <div className="text-3xl font-bold text-tech-success mb-2">2/2</div>
+              <div className="text-3xl font-bold text-tech-success mb-2">
+                2/2
+              </div>
               <p className="text-muted text-sm mb-4">100% Operational</p>
               <ul className="space-y-2 text-sm text-muted">
                 <li>• Explorer API (port 3001)</li>

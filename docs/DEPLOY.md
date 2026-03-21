@@ -40,9 +40,11 @@ Use when you have a VPS (Linux/Windows) and want to deploy there.
 No file upload from your machine — on VPS just clone repo and build there:
 
 1. SSH into VPS and run (or send script to run):
+
    ```bash
    bash -c "$(curl -fsSL https://raw.githubusercontent.com/axionaxprotocol/axionax-web-universe/main/scripts/vps-setup-from-git.sh)"
    ```
+
    Or copy content from [scripts/vps-setup-from-git.sh](../scripts/vps-setup-from-git.sh) and run on server
 
 2. For updates: SSH into VPS and run [scripts/vps-update-and-restart.sh](../scripts/vps-update-and-restart.sh) (or `git pull && pnpm install && pnpm --filter @axionax/web build` then restart process)
@@ -69,24 +71,24 @@ From repo root:
 
 **If site still shows old content after deploy:**
 
-1. **Node process must be running** — after deploy restart to load new code  
-   - Without PM2: `ssh root@217.216.109.5 "cd /var/www/axionax && pkill -f 'node server.js' 2>/dev/null; sleep 1; PORT=3000 nohup node server.js > server.log 2>&1 &"`  
+1. **Node process must be running** — after deploy restart to load new code
+   - Without PM2: `ssh root@217.216.109.5 "cd /var/www/axionax && pkill -f 'node server.js' 2>/dev/null; sleep 1; PORT=3000 nohup node server.js > server.log 2>&1 &"`
    - Or deploy with restart: `$env:RESTART_CMD="pkill -f 'node server.js' 2>/dev/null; sleep 1; PORT=3000 nohup node server.js > server.log 2>&1 &"; .\deploy-vps.ps1 -SkipBuild`
 
-2. **Nginx must proxy to 127.0.0.1:3000** — if Nginx uses `root /var/www/axionax` and `index index.html` you get old static only  
-   - Use `proxy_pass http://127.0.0.1:3000` for location `/` and `/api/`  
+2. **Nginx must proxy to 127.0.0.1:3000** — if Nginx uses `root /var/www/axionax` and `index index.html` you get old static only
+   - Use `proxy_pass http://127.0.0.1:3000` for location `/` and `/api/`
    - Example: [apps/web/nginx/conf.d/axionax-standalone.conf.example](../apps/web/nginx/conf.d/axionax-standalone.conf.example)
 
 3. **Check server:** Run `ssh root@217.216.109.5 'bash -s' < scripts/vps-standalone-check.sh` to verify process and port 3000
 
 ### Other scripts (if using git + docker flow on server)
 
-| Script | Run from | Notes |
-|--------|----------|-------|
-| `deploy-vps.ps1` (at root) | Root folder | **Recommended** — build + upload static to VPS |
+| Script                               | Run from          | Notes                                                                   |
+| ------------------------------------ | ----------------- | ----------------------------------------------------------------------- |
+| `deploy-vps.ps1` (at root)           | Root folder       | **Recommended** — build + upload static to VPS                          |
 | `apps/web/scripts/deploy-to-vps.ps1` | `apps/web` folder | Windows, build + push GitHub then server does git pull + docker-compose |
-| `apps/web/scripts/deploy-to-vps.sh` | `apps/web` folder | Linux/macOS, rsync `out/` to VPS (requires VPS_PASS) |
-| `scripts/deploy.sh` | Root folder | Upload full monorepo to VPS then run `docker-compose` |
+| `apps/web/scripts/deploy-to-vps.sh`  | `apps/web` folder | Linux/macOS, rsync `out/` to VPS (requires VPS_PASS)                    |
+| `scripts/deploy.sh`                  | Root folder       | Upload full monorepo to VPS then run `docker-compose`                   |
 
 ### VPS requirements
 
@@ -96,13 +98,13 @@ From repo root:
 
 ### Change IP / path in scripts
 
-- **PowerShell (VPS):** Edit `apps/web/scripts/deploy-to-vps.ps1`  
-  - `$VPS_IP`  
-  - `$SSH_USER`  
+- **PowerShell (VPS):** Edit `apps/web/scripts/deploy-to-vps.ps1`
+  - `$VPS_IP`
+  - `$SSH_USER`
   - `$DEPLOY_PATH`
-- **Bash (root):** Edit `scripts/deploy.sh`  
-  - `VPS_IP`  
-  - `USER`  
+- **Bash (root):** Edit `scripts/deploy.sh`
+  - `VPS_IP`
+  - `USER`
   - `REMOTE_DIR`
 
 ---

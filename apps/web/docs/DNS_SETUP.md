@@ -44,6 +44,7 @@ axionax.org                    # Main website
 ### 1. Get Your VPS IP Address
 
 **On Linux VPS:**
+
 ```bash
 # Get public IP
 curl -4 ifconfig.me
@@ -52,6 +53,7 @@ curl ipinfo.io/ip
 ```
 
 **On Windows VPS:**
+
 ```powershell
 # Get public IP
 Invoke-RestMethod -Uri https://ipinfo.io/ip
@@ -60,6 +62,7 @@ Invoke-RestMethod -Uri https://ipinfo.io/ip
 ```
 
 **Example output:**
+
 ```
 203.0.113.45  # This is your VPS IP address
 ```
@@ -75,6 +78,7 @@ Make sure you can access your VPS where the services will run.
 ### Option 1: Cloudflare (Recommended)
 
 **Why Cloudflare?**
+
 - ✅ Free SSL/TLS certificates
 - ✅ DDoS protection
 - ✅ CDN for faster loading
@@ -89,6 +93,7 @@ Make sure you can access your VPS where the services will run.
    - Click "Add a Site"
 
 2. **Add Your Domain**
+
    ```
    Domain: axionax.org
    Plan: Free (sufficient for most needs)
@@ -128,20 +133,21 @@ If you prefer to use your registrar's DNS:
 
 Replace `YOUR_VPS_IP` with your actual VPS IP address (e.g., `203.0.113.45`)
 
-| Type  | Host/Name      | Value/Target   | TTL  | Priority |
-|-------|----------------|----------------|------|----------|
-| A     | @              | YOUR_VPS_IP    | 3600 | -        |
-| A     | www            | YOUR_VPS_IP    | 3600 | -        |
-| A     | rpc            | YOUR_VPS_IP    | 3600 | -        |
-| A     | explorer       | YOUR_VPS_IP    | 3600 | -        |
-| A     | faucet         | YOUR_VPS_IP    | 3600 | -        |
-| A     | api            | YOUR_VPS_IP    | 3600 | -        |
-| A     | faucet-api     | YOUR_VPS_IP    | 3600 | -        |
-| CNAME | docs           | axionaxprotocol.github.io | 3600 | - |
+| Type  | Host/Name  | Value/Target              | TTL  | Priority |
+| ----- | ---------- | ------------------------- | ---- | -------- |
+| A     | @          | YOUR_VPS_IP               | 3600 | -        |
+| A     | www        | YOUR_VPS_IP               | 3600 | -        |
+| A     | rpc        | YOUR_VPS_IP               | 3600 | -        |
+| A     | explorer   | YOUR_VPS_IP               | 3600 | -        |
+| A     | faucet     | YOUR_VPS_IP               | 3600 | -        |
+| A     | api        | YOUR_VPS_IP               | 3600 | -        |
+| A     | faucet-api | YOUR_VPS_IP               | 3600 | -        |
+| CNAME | docs       | axionaxprotocol.github.io | 3600 | -        |
 
 ### Additional Records (Recommended)
 
 **Email Setup (if using email):**
+
 ```
 Type: MX
 Host: @
@@ -151,6 +157,7 @@ TTL: 3600
 ```
 
 **SPF Record (email security):**
+
 ```
 Type: TXT
 Host: @
@@ -159,6 +166,7 @@ TTL: 3600
 ```
 
 **DMARC Record (email authentication):**
+
 ```
 Type: TXT
 Host: _dmarc
@@ -175,6 +183,7 @@ TTL: 3600
 #### 1. Main Website (axionax.org)
 
 **DNS Record:**
+
 ```
 Type: A
 Host: @ (or leave empty)
@@ -183,6 +192,7 @@ TTL: 3600
 ```
 
 **Nginx Configuration:**
+
 ```nginx
 # /etc/nginx/sites-available/axionax.org
 
@@ -205,6 +215,7 @@ server {
 #### 2. RPC Node (rpc.axionax.org)
 
 **DNS Record:**
+
 ```
 Type: A
 Host: rpc
@@ -213,6 +224,7 @@ TTL: 3600
 ```
 
 **Nginx Configuration:**
+
 ```nginx
 # /etc/nginx/sites-available/rpc.axionax.org
 
@@ -228,7 +240,7 @@ server {
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
-        
+
         # CORS headers
         add_header Access-Control-Allow-Origin *;
         add_header Access-Control-Allow-Methods "POST, GET, OPTIONS";
@@ -240,6 +252,7 @@ server {
 #### 3. Block Explorer (explorer.axionax.org)
 
 **DNS Record:**
+
 ```
 Type: A
 Host: explorer
@@ -248,6 +261,7 @@ TTL: 3600
 ```
 
 **Nginx Configuration:**
+
 ```nginx
 # /etc/nginx/sites-available/explorer.axionax.org
 
@@ -270,6 +284,7 @@ server {
 #### 4. Faucet (faucet.axionax.org)
 
 **DNS Record:**
+
 ```
 Type: A
 Host: faucet
@@ -278,6 +293,7 @@ TTL: 3600
 ```
 
 **Nginx Configuration:**
+
 ```nginx
 # /etc/nginx/sites-available/faucet.axionax.org
 
@@ -298,6 +314,7 @@ server {
 #### 5. APIs (api.axionax.org, faucet-api.axionax.org)
 
 **DNS Records:**
+
 ```
 Type: A
 Host: api
@@ -309,13 +326,14 @@ Value: YOUR_VPS_IP
 ```
 
 **Nginx Configuration:**
+
 ```nginx
 # /etc/nginx/sites-available/api.axionax.org
 
 server {
     listen 80;
     server_name api.axionax.org;
-    
+
     location / {
         proxy_pass http://localhost:3001;
         proxy_http_version 1.1;
@@ -328,7 +346,7 @@ server {
 server {
     listen 80;
     server_name faucet-api.axionax.org;
-    
+
     location / {
         proxy_pass http://localhost:3002;
         proxy_http_version 1.1;
@@ -340,6 +358,7 @@ server {
 #### 6. Documentation (docs.axionax.org)
 
 **DNS Record (CNAME):**
+
 ```
 Type: CNAME
 Host: docs
@@ -350,6 +369,7 @@ TTL: 3600
 **GitHub Pages Setup:**
 
 1. In your `axionax-docs` repository, create file `CNAME`:
+
    ```
    docs.axionax.org
    ```
@@ -433,6 +453,7 @@ If using Cloudflare:
 ### 1. Check DNS Propagation
 
 **Online Tools:**
+
 - https://dnschecker.org
 - https://www.whatsmydns.net
 - https://mxtoolbox.com/SuperTool.aspx
@@ -453,6 +474,7 @@ dig docs.axionax.org +short
 ```
 
 **Expected Results:**
+
 ```bash
 $ dig axionax.org +short
 203.0.113.45  # Your VPS IP
@@ -507,6 +529,7 @@ curl -X POST https://rpc.axionax.org \
 ```
 
 **Expected Response:**
+
 ```json
 {
   "jsonrpc": "2.0",
@@ -526,6 +549,7 @@ curl -X POST https://rpc.axionax.org \
 **Problem:** Domain doesn't resolve to IP
 
 **Solutions:**
+
 ```bash
 # Check if DNS has propagated
 dig axionax.org +trace
@@ -542,6 +566,7 @@ sudo dscacheutil -flushcache
 ```
 
 **Wait Time:**
+
 - Local ISP: 5-30 minutes
 - Global: Up to 48 hours (rare)
 
@@ -550,6 +575,7 @@ sudo dscacheutil -flushcache
 **Problem:** Certbot fails with "Connection refused"
 
 **Solutions:**
+
 ```bash
 # Check Nginx is running
 sudo systemctl status nginx
@@ -574,6 +600,7 @@ sudo certbot --nginx
 **Problem:** Site unreachable after DNS setup
 
 **Check:**
+
 ```bash
 # 1. VPS firewall
 sudo ufw status
@@ -596,6 +623,7 @@ sudo netstat -tlnp
 **Problem:** Nginx shows 502 error
 
 **Solutions:**
+
 ```bash
 # Check backend service is running
 docker ps
@@ -617,6 +645,7 @@ sudo tail -f /var/log/nginx/error.log
 **Problem:** HTTPS site loads HTTP resources
 
 **Solution:**
+
 ```nginx
 # Add to Nginx config
 add_header Content-Security-Policy "upgrade-insecure-requests";
@@ -634,6 +663,7 @@ server {
 **Problem:** Cloudflare can't connect to origin
 
 **Solutions:**
+
 ```bash
 # 1. Check Nginx is running
 sudo systemctl status nginx
@@ -654,18 +684,18 @@ sudo systemctl status nginx
 
 ### Complete DNS Configuration for axionax.org
 
-| Type  | Host/Name  | Value/Target                  | TTL  | Purpose              |
-|-------|------------|-------------------------------|------|----------------------|
-| A     | @          | YOUR_VPS_IP                   | 3600 | Main website         |
-| A     | www        | YOUR_VPS_IP                   | 3600 | WWW subdomain        |
-| A     | rpc        | YOUR_VPS_IP                   | 3600 | RPC endpoint         |
-| A     | explorer   | YOUR_VPS_IP                   | 3600 | Block explorer       |
-| A     | faucet     | YOUR_VPS_IP                   | 3600 | Testnet faucet       |
-| A     | api        | YOUR_VPS_IP                   | 3600 | Explorer API         |
-| A     | faucet-api | YOUR_VPS_IP                   | 3600 | Faucet API           |
-| CNAME | docs       | axionaxprotocol.github.io.    | 3600 | Documentation        |
-| TXT   | @          | v=spf1 mx ~all                | 3600 | Email SPF            |
-| TXT   | _dmarc     | v=DMARC1; p=none; rua=...     | 3600 | Email DMARC          |
+| Type  | Host/Name  | Value/Target               | TTL  | Purpose        |
+| ----- | ---------- | -------------------------- | ---- | -------------- |
+| A     | @          | YOUR_VPS_IP                | 3600 | Main website   |
+| A     | www        | YOUR_VPS_IP                | 3600 | WWW subdomain  |
+| A     | rpc        | YOUR_VPS_IP                | 3600 | RPC endpoint   |
+| A     | explorer   | YOUR_VPS_IP                | 3600 | Block explorer |
+| A     | faucet     | YOUR_VPS_IP                | 3600 | Testnet faucet |
+| A     | api        | YOUR_VPS_IP                | 3600 | Explorer API   |
+| A     | faucet-api | YOUR_VPS_IP                | 3600 | Faucet API     |
+| CNAME | docs       | axionaxprotocol.github.io. | 3600 | Documentation  |
+| TXT   | @          | v=spf1 mx ~all             | 3600 | Email SPF      |
+| TXT   | \_dmarc    | v=DMARC1; p=none; rua=...  | 3600 | Email DMARC    |
 
 **Replace `YOUR_VPS_IP` with your actual VPS IP address!**
 
@@ -708,7 +738,7 @@ for sub in "" "${SUBDOMAINS[@]}"; do
     else
         url="http://$sub.$DOMAIN"
     fi
-    
+
     echo -n "Testing $url: "
     status=$(curl -s -o /dev/null -w "%{http_code}" $url)
     echo "HTTP $status"
@@ -716,6 +746,7 @@ done
 ```
 
 **Usage:**
+
 ```bash
 chmod +x check-dns.sh
 ./check-dns.sh

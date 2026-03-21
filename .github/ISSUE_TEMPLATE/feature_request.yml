@@ -1,7 +1,7 @@
 name: ✨ Feature Request
 description: Suggest a new feature or enhancement
-title: "[Feature]: "
-labels: ["enhancement", "triage"]
+title: '[Feature]: '
+labels: ['enhancement', 'triage']
 assignees: []
 
 body:
@@ -24,7 +24,7 @@ body:
     attributes:
       label: Proposed Solution
       description: Describe the solution you'd like
-      placeholder: "I would like to see..."
+      placeholder: 'I would like to see...'
     validations:
       required: true
 
@@ -33,7 +33,7 @@ body:
     attributes:
       label: Alternatives Considered
       description: Describe any alternative solutions or features you've considered
-      placeholder: "I also considered..."
+      placeholder: 'I also considered...'
 
   - type: dropdown
     id: component
@@ -104,9 +104,9 @@ body:
       label: Breaking Change
       description: Would this be a breaking change?
       options:
-        - "No"
-        - "Yes"
-        - "Not Sure"
+        - 'No'
+        - 'Yes'
+        - 'Not Sure'
     validations:
       required: true
 
@@ -115,7 +115,7 @@ body:
     attributes:
       label: Implementation Ideas
       description: Do you have ideas on how this could be implemented?
-      placeholder: "This could be implemented by..."
+      placeholder: 'This could be implemented by...'
 
   - type: dropdown
     id: contribute
@@ -123,10 +123,10 @@ body:
       label: Willing to Contribute
       description: Would you be willing to contribute this feature?
       options:
-        - "Yes, I can submit a PR"
-        - "Yes, but need guidance"
-        - "No, but willing to test"
-        - "No"
+        - 'Yes, I can submit a PR'
+        - 'Yes, but need guidance'
+        - 'No, but willing to test'
+        - 'No'
 
   - type: textarea
     id: additional

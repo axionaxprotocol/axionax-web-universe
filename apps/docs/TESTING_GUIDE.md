@@ -13,17 +13,20 @@
 ### เตรียมความพร้อม
 
 **1. เปิด Docker Desktop**
+
 - กด Windows Key → พิมพ์ "Docker Desktop"
 - เปิดโปรแกรม
 - รอให้ไอคอนใน system tray เปลี่ยนเป็นสีเขียว (พร้อมใช้งาน)
 
 **2. ตรวจสอบ Docker**
+
 ```powershell
 docker --version
 docker ps
 ```
 
 ผลลัพธ์ที่ถูกต้อง:
+
 ```
 Docker version 24.x.x
 CONTAINER ID   IMAGE   COMMAND   CREATED   STATUS   PORTS   NAMES
@@ -43,6 +46,7 @@ docker compose ps
 ```
 
 **Services ที่ควรเห็น:**
+
 - ✅ `hardhat` - Anvil RPC (Port 8545)
 - ✅ `blockscout` - Explorer (Port 4000-4001)
 - ✅ `faucet` - Token Faucet (Port 8080-8081)
@@ -51,6 +55,7 @@ docker compose ps
 ### ทดสอบ Endpoints
 
 **1. ทดสอบ RPC:**
+
 ```powershell
 # ตรวจสอบ Chain ID
 curl -X POST http://localhost:8545 `
@@ -59,17 +64,21 @@ curl -X POST http://localhost:8545 `
 ```
 
 ผลลัพธ์ที่คาดหวัง:
+
 ```json
-{"jsonrpc":"2.0","result":"0x7a69","id":1}
+{ "jsonrpc": "2.0", "result": "0x7a69", "id": 1 }
 ```
+
 (0x7a69 = 31337 ในเลขฐาน 10)
 
 **2. เปิด Blockscout Explorer:**
+
 ```
 http://localhost:4001
 ```
 
 **3. เปิด Faucet Web UI:**
+
 ```
 http://localhost:8080
 ```
@@ -85,6 +94,7 @@ cd ..
 ```
 
 คุณจะเห็น:
+
 ```
 🚀 Starting axionax Core v1.5.0-testnet
 📂 Data directory: .axionax
@@ -115,6 +125,7 @@ Press Ctrl+C to stop...
 ```
 
 **ผลลัพธ์:**
+
 ```
 📋 Current Configuration:
   Chain ID: 31337
@@ -148,6 +159,7 @@ Press Ctrl+C to stop...
 ```
 
 **ผลลัพธ์:**
+
 ```
 🏛️  Starting validator node...
 ✅ Validator started successfully!
@@ -182,6 +194,7 @@ $specs | Out-File -FilePath worker-specs.json -Encoding UTF8
 ```
 
 **ผลลัพธ์:**
+
 ```
 📊 Worker Status:
   Status: Active
@@ -215,6 +228,7 @@ $specs | Out-File -FilePath worker-specs.json -Encoding UTF8
 ```
 
 ดู:
+
 - Sample Size: จำนวนตัวอย่างที่ใช้ validate (1000)
 - Fraud Window: เวลาที่เปิดให้รายงานการโกง
 
@@ -226,6 +240,7 @@ $specs | Out-File -FilePath worker-specs.json -Encoding UTF8
 ```
 
 ASR จะ:
+
 - คำนวณ suitability score
 - ประเมิน performance metrics
 - ใช้ VRF สำหรับการเลือก
@@ -238,6 +253,7 @@ ASR จะ:
 ```
 
 ดู PPC parameters:
+
 - Target Utilization: 0.7 (70%)
 - Target Queue Time: 60s
 - Price Range: 0.001 - 10.0 AXX
@@ -249,11 +265,13 @@ ASR จะ:
 ### 1. ขอ Test Tokens จาก Faucet
 
 **Option A: ใช้ Web UI**
+
 1. เปิด http://localhost:8080
 2. กรอก address ที่ต้องการ
 3. กด "Request Tokens"
 
 **Option B: ใช้ curl**
+
 ```powershell
 # แทนที่ YOUR_ADDRESS ด้วย address จริง
 curl -H "Authorization: Basic YWRtaW46cGFzc3dvcmQ=" `
@@ -320,6 +338,7 @@ curl -X POST http://localhost:8545 `
 ### 5. ดู Transactions บน Explorer
 
 เปิด Blockscout:
+
 ```
 http://localhost:4001
 ```
@@ -333,6 +352,7 @@ http://localhost:4001
 **Problem:** `The system cannot find the file specified`
 
 **Solution:**
+
 1. เปิด Docker Desktop
 2. รอให้ Docker Engine start (ดูที่ system tray)
 3. ทดสอบ: `docker ps`
@@ -342,6 +362,7 @@ http://localhost:4001
 **Problem:** `port is already allocated`
 
 **Solution:**
+
 ```powershell
 # หา process ที่ใช้ port 8545
 netstat -ano | findstr :8545
@@ -358,6 +379,7 @@ docker compose restart
 **Problem:** Connection refused
 
 **Solution:**
+
 ```powershell
 # ตรวจสอบว่า hardhat ทำงาน
 docker compose ps hardhat
@@ -374,6 +396,7 @@ docker compose restart hardhat
 **Problem:** No blocks shown
 
 **Solution:**
+
 ```powershell
 # Restart blockscout
 docker compose restart blockscout

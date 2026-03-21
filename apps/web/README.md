@@ -23,6 +23,7 @@
 ✅ **Testnet Live! Website Deployed with Modern Architecture**
 
 Recent updates:
+
 - ✅ **Production deployment** at https://axionax.org (SSL enabled)
 - ✅ **2 validators online** (EU + AU regions, 2d+ uptime)
 - ✅ **Modern React 19 architecture** with TanStack Query v5
@@ -32,6 +33,7 @@ Recent updates:
 - 🚀 **VPS deployment script** for one-command deploys
 
 **Tech Highlights**:
+
 - React 19 with Server Components
 - TanStack Query v5 for server state
 - Zustand for global state
@@ -46,18 +48,19 @@ Recent updates:
 
 ### Live Services
 
-| Service | Endpoint | Status | Uptime |
-|---------|----------|--------|--------|
-| 🌐 **Website** | https://axionax.org | ✅ Online | 2d+ |
-| 🇪🇺 **EU Validator** | http://217.76.61.116:8545 | ✅ Online | 2d+ |
-| 🇦🇺 **AU Validator** | http://46.250.244.4:8545 | ✅ Online | 2d+ |
-| 🔒 **HTTPS Proxy** | https://axionax.org/rpc/ | ✅ Active | - |
-| 📊 **Block Explorer** | https://axionax.org/explorer | ✅ Active | - |
-| 💧 **Faucet** | https://axionax.org/faucet | 🔧 Coming | - |
+| Service               | Endpoint                     | Status    | Uptime |
+| --------------------- | ---------------------------- | --------- | ------ |
+| 🌐 **Website**        | https://axionax.org          | ✅ Online | 2d+    |
+| 🇪🇺 **EU Validator**   | http://217.76.61.116:8545    | ✅ Online | 2d+    |
+| 🇦🇺 **AU Validator**   | http://46.250.244.4:8545     | ✅ Online | 2d+    |
+| 🔒 **HTTPS Proxy**    | https://axionax.org/rpc/     | ✅ Active | -      |
+| 📊 **Block Explorer** | https://axionax.org/explorer | ✅ Active | -      |
+| 💧 **Faucet**         | https://axionax.org/faucet   | 🔧 Coming | -      |
 
 ### VPS Configuration
 
 **Primary Server** (vmi2895217):
+
 - **Location**: Europe (Contabo)
 - **IP**: 217.216.109.5
 - **OS**: Ubuntu 24.04 LTS
@@ -65,6 +68,7 @@ Recent updates:
 - **Uptime**: 99.9%+
 
 **Validators**:
+
 - EU: 217.76.61.116 (Germany)
 - AU: 46.250.244.4 (Australia)
 - Block time: 5 seconds
@@ -75,20 +79,24 @@ Recent updates:
 ## 🖼️ Screenshots
 
 ### Home Page
+
 ![axionax Home Page](docs/screenshots/home.png)
-*Landing page showcasing axionax Protocol features and roadmap*
+_Landing page showcasing axionax Protocol features and roadmap_
 
 ### Block Explorer
+
 ![Block Explorer](docs/screenshots/explorer.png)
-*Real-time blockchain data visualization with block and transaction search*
+_Real-time blockchain data visualization with block and transaction search_
 
 ### Testnet Faucet
+
 ![Testnet Faucet](docs/screenshots/faucet.png)
-*Easy AXX token distribution for testnet users*
+_Easy AXX token distribution for testnet users_
 
 ### Compute Marketplace
+
 ![Compute Marketplace](docs/screenshots/marketplace.png)
-*Browse and purchase decentralized compute resources*
+_Browse and purchase decentralized compute resources_
 
 ---
 
@@ -131,7 +139,7 @@ Official web interface for **Axionax Protocol** - a next-generation Layer-1 bloc
 - **UI Library**: [React 19](https://react.dev/) with Server Components
 - **Language**: [TypeScript 5](https://www.typescriptlang.org/) - Type safety
 - **Styling**: [Tailwind CSS 3.4](https://tailwindcss.com/) - Mobile-first utility CSS
-- **State Management**: 
+- **State Management**:
   - [Zustand](https://zustand-demo.pmnd.rs/) - Global client state
   - [TanStack Query v5](https://tanstack.com/query/latest) - Server state & caching
 - **UI Components**: Custom React components with accessibility
@@ -287,6 +295,7 @@ Deploy to production VPS with one command:
 ```
 
 This will:
+
 - Build the Next.js static export
 - Upload to VPS via rsync
 - Configure Nginx with SSL/HTTPS
@@ -304,6 +313,7 @@ npm run build
 ```
 
 Deploy `./out` to any static hosting:
+
 - **Vercel** (Recommended for Next.js)
 - **Netlify**
 - **GitHub Pages**
@@ -373,14 +383,14 @@ docker-compose logs -f web
 
 ### Layer Architecture
 
-| Layer              | Technology              | Purpose                    |
-| ------------------ | ----------------------- | -------------------------- |
-| **Presentation**   | React 19 + Tailwind     | UI components & styling    |
-| **State**          | Zustand + TanStack Q.   | Client & server state      |
-| **Data Fetching**  | TanStack Query hooks    | RPC calls, caching         |
-| **Web3**           | MetaMask integration    | Wallet connection          |
-| **Build**          | Next.js static export   | SSG optimization           |
-| **Deployment**     | Nginx + VPS             | Production hosting         |
+| Layer             | Technology            | Purpose                 |
+| ----------------- | --------------------- | ----------------------- |
+| **Presentation**  | React 19 + Tailwind   | UI components & styling |
+| **State**         | Zustand + TanStack Q. | Client & server state   |
+| **Data Fetching** | TanStack Query hooks  | RPC calls, caching      |
+| **Web3**          | MetaMask integration  | Wallet connection       |
+| **Build**         | Next.js static export | SSG optimization        |
+| **Deployment**    | Nginx + VPS           | Production hosting      |
 
 ---
 
@@ -423,17 +433,19 @@ const { data: blockHeight } = useQuery({
 const addNetwork = async () => {
   await window.ethereum.request({
     method: 'wallet_addEthereumChain',
-    params: [{
-      chainId: '0x15079', // 86137 in hex
-      chainName: 'Axionax Testnet',
-      rpcUrls: ['https://axionax.org/rpc/'],
-      nativeCurrency: {
-        name: 'Axionax',
-        symbol: 'AXX',
-        decimals: 18
+    params: [
+      {
+        chainId: '0x15079', // 86137 in hex
+        chainName: 'Axionax Testnet',
+        rpcUrls: ['https://axionax.org/rpc/'],
+        nativeCurrency: {
+          name: 'Axionax',
+          symbol: 'AXX',
+          decimals: 18,
+        },
+        blockExplorerUrls: ['https://axionax.org/explorer'],
       },
-      blockExplorerUrls: ['https://axionax.org/explorer']
-    }]
+    ],
   });
 };
 ```
@@ -441,15 +453,18 @@ const addNetwork = async () => {
 ### Testnet Configuration
 
 **Active Validators:**
+
 - 🇪🇺 **EU Node**: `http://217.76.61.116:8545` (Europe)
 - 🇦🇺 **AU Node**: `http://46.250.244.4:8545` (Australia)
 
 **Web Interface:**
+
 - 🌐 **Website**: `https://axionax.org`
 - 📊 **Explorer**: `https://axionax.org/explorer`
 - 💧 **Faucet**: `https://axionax.org/faucet`
 
 **RPC Proxy** (HTTPS-safe):
+
 - `https://axionax.org/rpc/` → EU validator
 
 ### Environment Variables
@@ -507,16 +522,16 @@ Do not open public issues for security vulnerabilities.
 
 ### AxionAX Protocol
 
-| Component            | Description               | Location                                         | Status     |
-| -------------------- | ------------------------- | ------------------------------------------------ | ---------- |
-| **Web** (this repo)  | Official website          | `axionax-web/`                                   | ✅ Ready   |
-| **Core**             | Blockchain implementation | [`../axionax-core`](../axionax-core)             | ✅ Ready   |
-| **SDK**              | TypeScript developer SDK  | [`../axionax-sdk-ts`](../axionax-sdk-ts)         | ✅ Ready   |
-| **Docs**             | Protocol documentation    | [`../axionax-docs`](../axionax-docs)             | 📝 Active  |
-| **Marketplace**      | Compute marketplace dApp  | [`../axionax-marketplace`](../axionax-marketplace) | 🚧 Beta  |
-| **DevTools**         | Development utilities     | [`../axionax-devtools`](../axionax-devtools)     | ✅ Ready   |
-| **Deploy**           | Infrastructure            | [`../axionax-deploy`](../axionax-deploy)         | 🔥 Testing |
-| **Issue Manager**    | Task automation           | [`../issue-manager`](../issue-manager)           | 🎉 New!    |
+| Component           | Description               | Location                                           | Status     |
+| ------------------- | ------------------------- | -------------------------------------------------- | ---------- |
+| **Web** (this repo) | Official website          | `axionax-web/`                                     | ✅ Ready   |
+| **Core**            | Blockchain implementation | [`../axionax-core`](../axionax-core)               | ✅ Ready   |
+| **SDK**             | TypeScript developer SDK  | [`../axionax-sdk-ts`](../axionax-sdk-ts)           | ✅ Ready   |
+| **Docs**            | Protocol documentation    | [`../axionax-docs`](../axionax-docs)               | 📝 Active  |
+| **Marketplace**     | Compute marketplace dApp  | [`../axionax-marketplace`](../axionax-marketplace) | 🚧 Beta    |
+| **DevTools**        | Development utilities     | [`../axionax-devtools`](../axionax-devtools)       | ✅ Ready   |
+| **Deploy**          | Infrastructure            | [`../axionax-deploy`](../axionax-deploy)           | 🔥 Testing |
+| **Issue Manager**   | Task automation           | [`../issue-manager`](../issue-manager)             | 🎉 New!    |
 
 **GitHub Organization**: https://github.com/axionaxprotocol
 

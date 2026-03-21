@@ -2,7 +2,7 @@
 
 /**
  * Genesis Generator CLI
- * 
+ *
  * Command-line tool for generating mainnet genesis blocks
  * from testnet snapshot data.
  */
@@ -14,7 +14,12 @@ import inquirer from 'inquirer';
 import { readFileSync, writeFileSync, existsSync } from 'fs';
 import { resolve } from 'path';
 
-import { generateGenesis, validateGenesis, exportGenesisJSON, type GenerateGenesisOptions } from './generator.js';
+import {
+  generateGenesis,
+  validateGenesis,
+  exportGenesisJSON,
+  type GenerateGenesisOptions,
+} from './generator.js';
 import { verifyMerkleProof } from './merkle.js';
 import { exportAllocationsCSV, formatAllocation, type AddressScore } from './allocations.js';
 
@@ -38,7 +43,7 @@ program
   .description('Generate a genesis block from testnet snapshot')
   .option('-i, --input <file>', 'Input snapshot JSON file')
   .option('-o, --output <file>', 'Output genesis JSON file', 'genesis.json')
-  .option('-c, --chain-id <id>', 'Mainnet chain ID', '86138')
+  .option('-c, --chain-id <id>', 'Mainnet chain ID (match core-universe)', '86150')
   .option('-n, --name <name>', 'Network name', 'axionax-mainnet')
   .option('--consensus <type>', 'Consensus type (clique|ethash)', 'clique')
   .option('--signers <addresses>', 'Comma-separated signer addresses for Clique')
@@ -61,7 +66,7 @@ program
           type: 'input',
           name: 'chainId',
           message: 'Mainnet Chain ID:',
-          default: '86138',
+          default: '86150',
         },
         {
           type: 'input',
@@ -146,7 +151,7 @@ program
       spinner.start('Generating genesis block...');
 
       const fullOptions: GenerateGenesisOptions = {
-        ...config as GenerateGenesisOptions,
+        ...(config as GenerateGenesisOptions),
         testnetSnapshot: {
           block: snapshotData.block,
           timestamp: new Date(snapshotData.timestamp),
@@ -196,8 +201,11 @@ program
       console.log(chalk.gray(`  Chain ID: ${config.chainId}`));
       console.log(chalk.gray(`  Merkle Root: ${result.merkleRoot}`));
       console.log(chalk.gray(`  Total Allocations: ${result.metadata.allocations.total}`));
-      console.log(chalk.gray(`  Total Amount: ${formatAllocation(result.metadata.allocations.totalAmount)} AXX`));
-
+      console.log(
+        chalk.gray(
+          `  Total Amount: ${formatAllocation(result.metadata.allocations.totalAmount)} AXX`,
+        ),
+      );
     } catch (error) {
       spinner.fail('Generation failed');
       console.error(chalk.red('Error:'), error);
@@ -326,7 +334,9 @@ program
       const csv = exportAllocationsCSV(allocations);
       writeFileSync(resolve(options.output), csv);
 
-      console.log(chalk.green(`✅ Exported ${allocations.length} allocations to ${options.output}`));
+      console.log(
+        chalk.green(`✅ Exported ${allocations.length} allocations to ${options.output}`),
+      );
     } catch (error) {
       console.error(chalk.red('Export error:'), error);
       process.exit(1);

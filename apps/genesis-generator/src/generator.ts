@@ -1,6 +1,6 @@
 /**
  * Genesis Block Generator
- * 
+ *
  * Generates Ethereum-compatible genesis.json files for mainnet launch.
  */
 
@@ -73,33 +73,33 @@ export interface GenerateGenesisOptions {
   // Chain configuration
   chainId: number;
   chainName?: string;
-  
+
   // Consensus
   consensusType: 'clique' | 'ethash';
   cliqueSigners?: string[];
   cliquePeriod?: number;
   cliqueEpoch?: number;
-  
+
   // Gas settings
   gasLimit?: string;
-  
+
   // Testnet snapshot data
   testnetSnapshot: {
     block: number;
     timestamp: Date;
     scores: AddressScore[];
   };
-  
+
   // Allocation config
   allocationConfig?: AllocationConfig;
-  
+
   // Pre-fund addresses (team, foundation, etc.)
   preFundAddresses?: Array<{
     address: string;
     balance: string;
     label?: string;
   }>;
-  
+
   // System contracts to deploy
   systemContracts?: Array<{
     address: string;
@@ -134,14 +134,14 @@ export function generateGenesis(options: GenerateGenesisOptions): {
   // Calculate allocations from testnet scores
   const allocationResult = calculateAllocations(
     options.testnetSnapshot.scores,
-    options.allocationConfig
+    options.allocationConfig,
   );
 
   console.log(`   Eligible addresses: ${allocationResult.allocations.length}`);
   console.log(`   Total allocated: ${allocationResult.totalAllocated.toString()}`);
 
   // Build Merkle tree for airdrop proofs
-  const merkleLeaves: MerkleLeaf[] = allocationResult.allocations.map(a => ({
+  const merkleLeaves: MerkleLeaf[] = allocationResult.allocations.map((a) => ({
     address: a.address,
     amount: a.amount,
   }));
@@ -167,7 +167,7 @@ export function generateGenesis(options: GenerateGenesisOptions): {
       const existing = alloc[address];
       const existingBalance = existing ? BigInt(existing.balance) : BigInt(0);
       const newBalance = existingBalance + BigInt(preFund.balance);
-      
+
       alloc[address] = {
         ...existing,
         balance: '0x' + newBalance.toString(16),
@@ -213,7 +213,7 @@ export function generateGenesis(options: GenerateGenesisOptions): {
 
   // Build extradata for Clique
   let extradata = '0x' + '00'.repeat(32); // 32 bytes vanity
-  
+
   if (options.consensusType === 'clique' && options.cliqueSigners) {
     // Add signer addresses (20 bytes each)
     for (const signer of options.cliqueSigners) {

@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import ConnectButton from '@/components/wallet/ConnectButton';
-import ThemeToggle from '@/components/ui/ThemeToggle';
 import { AXIONAX_TESTNET } from '@/lib/web3';
 
 // Navbar component - Main navigation bar with cosmic black hole theme
@@ -92,7 +91,7 @@ export default function Navbar(): React.JSX.Element {
             ))}
           </div>
 
-          {/* Connect Wallet Button & Theme Toggle */}
+          {/* Connect Wallet Button */}
           <div className="hidden md:flex items-center gap-3">
             <button
               onClick={addNetwork}
@@ -103,7 +102,6 @@ export default function Navbar(): React.JSX.Element {
               </svg>
               Add to MetaMask
             </button>
-            <ThemeToggle />
             <ConnectButton />
           </div>
 
@@ -165,10 +163,7 @@ export default function Navbar(): React.JSX.Element {
                   </svg>
                   Add to MetaMask
                 </button>
-                <div className="flex items-center justify-between w-full">
-                  <ThemeToggle />
-                  <ConnectButton />
-                </div>
+                <ConnectButton />
               </div>
             </div>
           </div>

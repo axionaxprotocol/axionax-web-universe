@@ -7,12 +7,7 @@ export interface CardProps {
   style?: React.CSSProperties;
 }
 
-export function Card({
-  children,
-  className = '',
-  hover = false,
-  style,
-}: CardProps) {
+export function Card({ children, className = '', hover = false, style }: CardProps) {
   return (
     <div
       className={`bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 rounded-xl shadow-sm ${
@@ -40,7 +35,9 @@ export interface CardTitleProps {
 }
 
 export function CardTitle({ children, className = '' }: CardTitleProps) {
-  return <h3 className={`text-xl font-bold text-gray-900 dark:text-white ${className}`}>{children}</h3>;
+  return (
+    <h3 className={`text-xl font-bold text-gray-900 dark:text-white ${className}`}>{children}</h3>
+  );
 }
 
 export interface CardContentProps {

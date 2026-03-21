@@ -9,6 +9,7 @@ Complete guide to monitoring axionax protocol infrastructure with Prometheus and
 ## Overview
 
 The axionax protocol monitoring stack provides real-time visibility into:
+
 - Service health status (9 services)
 - Resource utilization (CPU, RAM, Disk)
 - Network performance
@@ -17,11 +18,11 @@ The axionax protocol monitoring stack provides real-time visibility into:
 
 ### Monitoring Stack
 
-| Component | Port | Purpose |
-|-----------|------|---------|
-| **Prometheus** | 9090 | Metrics collection & storage |
-| **Grafana** | 3030 | Visualization & dashboards |
-| **Node Exporter** | 9100 | System metrics (optional) |
+| Component         | Port | Purpose                      |
+| ----------------- | ---- | ---------------------------- |
+| **Prometheus**    | 9090 | Metrics collection & storage |
+| **Grafana**       | 3030 | Visualization & dashboards   |
+| **Node Exporter** | 9100 | System metrics (optional)    |
 
 ---
 
@@ -38,6 +39,7 @@ http://YOUR_VPS_IP:9090
 ```
 
 **Default Credentials:**
+
 - Username: `admin`
 - Password: Set in `.env` as `GRAFANA_PASSWORD`
 
@@ -63,33 +65,33 @@ scrape_configs:
   - job_name: 'prometheus'
     static_configs:
       - targets: ['localhost:9090']
-  
+
   - job_name: 'axionax-rpc'
     static_configs:
       - targets: ['axionax-rpc:8545']
     metrics_path: '/metrics'
     scrape_interval: 15s
-  
+
   - job_name: 'explorer-backend'
     static_configs:
       - targets: ['axionax-explorer-api:3001']
-  
+
   - job_name: 'faucet'
     static_configs:
       - targets: ['axionax-faucet-api:3002']
-  
+
   - job_name: 'postgres'
     static_configs:
       - targets: ['axionax-postgres:5432']
-  
+
   - job_name: 'redis'
     static_configs:
       - targets: ['axionax-redis:6379']
-  
+
   - job_name: 'nginx'
     static_configs:
       - targets: ['axionax-nginx:80']
-  
+
   - job_name: 'web'
     static_configs:
       - targets: ['axionax-web:3000']
@@ -97,15 +99,15 @@ scrape_configs:
 
 ### Key Metrics
 
-| Metric | Description |
-|--------|-------------|
-| `up` | Service availability (1=up, 0=down) |
-| `process_cpu_seconds_total` | CPU usage |
-| `process_resident_memory_bytes` | Memory usage |
-| `http_requests_total` | HTTP request count |
-| `http_request_duration_seconds` | Request latency |
-| `axionax_block_height` | Current block height |
-| `axionax_peer_count` | Connected peers |
+| Metric                          | Description                         |
+| ------------------------------- | ----------------------------------- |
+| `up`                            | Service availability (1=up, 0=down) |
+| `process_cpu_seconds_total`     | CPU usage                           |
+| `process_resident_memory_bytes` | Memory usage                        |
+| `http_requests_total`           | HTTP request count                  |
+| `http_request_duration_seconds` | Request latency                     |
+| `axionax_block_height`          | Current block height                |
+| `axionax_peer_count`            | Connected peers                     |
 
 ---
 
@@ -284,12 +286,12 @@ Edit `monitoring/prometheus.yml`:
 global:
   scrape_interval: 15s
   evaluation_interval: 15s
-  
+
 # Add storage retention
 storage:
   tsdb:
-    retention.time: 15d  # Keep metrics for 15 days
-    retention.size: 5GB  # Maximum storage size
+    retention.time: 15d # Keep metrics for 15 days
+    retention.size: 5GB # Maximum storage size
 ```
 
 ### Grafana Performance
@@ -380,11 +382,11 @@ services:
 server {
     listen 443 ssl;
     server_name monitoring.axionax.org;
-    
+
     # IP whitelist
     allow 203.0.113.0/24;  # Your office IP
     deny all;
-    
+
     location / {
         proxy_pass http://localhost:3030;
     }
@@ -394,6 +396,7 @@ server {
 ### Authentication
 
 Both Prometheus and Grafana are accessible only from:
+
 - Localhost (Docker network)
 - VPS IP directly
 - Behind nginx reverse proxy with SSL
@@ -419,6 +422,7 @@ Both Prometheus and Grafana are accessible only from:
 ---
 
 **Current Monitoring Status (Nov 12, 2025):**
+
 - ✅ Prometheus: Operational (Port 9090)
 - ✅ Grafana: Operational (Port 3030)
 - ✅ All 9 Services: Healthy

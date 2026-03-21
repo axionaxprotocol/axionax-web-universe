@@ -12,33 +12,33 @@ Real-time status of all axionax Protocol testnet services.
 
 ### Infrastructure Layer (5/5 ✅)
 
-| Service | Port | Status | Uptime | Version | Health Check |
-|---------|------|--------|--------|---------|--------------|
-| **PostgreSQL** | 5432 | 🟢 Healthy | 44h+ | 16-alpine | `pg_isready` ✅ |
-| **Redis** | 6379 | 🟢 Healthy | 44h+ | 7-alpine | `redis-cli PING` ✅ |
-| **Nginx** | 80 | 🟢 Healthy | 44h+ | alpine | HTTP 200 OK ✅ |
-| **Nginx SSL** | 443 | 🟢 Healthy | 44h+ | alpine | HTTPS 200 OK ✅ |
-| **RPC Node** | 8545/8546 | 🟢 Healthy | 18h+ | Mock v1.0 | `/health` endpoint ✅ |
+| Service        | Port      | Status     | Uptime | Version   | Health Check          |
+| -------------- | --------- | ---------- | ------ | --------- | --------------------- |
+| **PostgreSQL** | 5432      | 🟢 Healthy | 44h+   | 16-alpine | `pg_isready` ✅       |
+| **Redis**      | 6379      | 🟢 Healthy | 44h+   | 7-alpine  | `redis-cli PING` ✅   |
+| **Nginx**      | 80        | 🟢 Healthy | 44h+   | alpine    | HTTP 200 OK ✅        |
+| **Nginx SSL**  | 443       | 🟢 Healthy | 44h+   | alpine    | HTTPS 200 OK ✅       |
+| **RPC Node**   | 8545/8546 | 🟢 Healthy | 18h+   | Mock v1.0 | `/health` endpoint ✅ |
 
 ### Monitoring Stack (2/2 ✅)
 
-| Service | Port | Status | Uptime | Version | Dashboard Access |
-|---------|------|--------|--------|---------|------------------|
-| **Grafana** | 3030 | 🟢 Healthy | 15h+ | 12.2.1 | http://217.216.109.5:3030 ✅ |
-| **Prometheus** | 9090 | 🟢 Healthy | 15h+ | latest | http://217.216.109.5:9090 ✅ |
+| Service        | Port | Status     | Uptime | Version | Dashboard Access             |
+| -------------- | ---- | ---------- | ------ | ------- | ---------------------------- |
+| **Grafana**    | 3030 | 🟢 Healthy | 15h+   | 12.2.1  | http://217.216.109.5:3030 ✅ |
+| **Prometheus** | 9090 | 🟢 Healthy | 15h+   | latest  | http://217.216.109.5:9090 ✅ |
 
 ### Application Layer (2/2 ✅)
 
-| Service | Port | Status | Uptime | Version | Health Check |
-|---------|------|--------|--------|---------|-------------|
-| **Explorer API** | 3001 | 🟢 Healthy | 504h+ | v1.8.0 | `/health` endpoint ✅ |
-| **Faucet API** | 3002 | 🟢 Healthy | 504h+ | v1.8.0 | `/health` endpoint ✅ |
+| Service          | Port | Status     | Uptime | Version | Health Check          |
+| ---------------- | ---- | ---------- | ------ | ------- | --------------------- |
+| **Explorer API** | 3001 | 🟢 Healthy | 504h+  | v1.8.0  | `/health` endpoint ✅ |
+| **Faucet API**   | 3002 | 🟢 Healthy | 504h+  | v1.8.0  | `/health` endpoint ✅ |
 
 ### Frontend (1/1 ✅)
 
-| Service | Port | Status | Uptime | Framework | Public Access |
-|---------|------|--------|--------|-----------|---------------|
-| **Web Interface** | 3000 | 🟢 Healthy | 23h+ | Next.js 15 | http://217.216.109.5:3000 ✅ |
+| Service           | Port | Status     | Uptime | Framework  | Public Access                |
+| ----------------- | ---- | ---------- | ------ | ---------- | ---------------------------- |
+| **Web Interface** | 3000 | 🟢 Healthy | 23h+   | Next.js 15 | http://217.216.109.5:3000 ✅ |
 
 ---
 
@@ -96,12 +96,12 @@ Real-time status of all axionax Protocol testnet services.
 
 ### Uptime Records
 
-| Component | Started | Uptime | Restarts |
-|-----------|---------|--------|----------|
-| Infrastructure | Nov 11, 2025 | 24d+ | 0 |
-| Monitoring | Nov 12, 2025 | 23d+ | 0 |
-| RPC Node | Nov 12, 2025 | 23d+ | 0 |
-| Web Interface | Nov 12, 2025 | 23d+ | 0 |
+| Component      | Started      | Uptime | Restarts |
+| -------------- | ------------ | ------ | -------- |
+| Infrastructure | Nov 11, 2025 | 24d+   | 0        |
+| Monitoring     | Nov 12, 2025 | 23d+   | 0        |
+| RPC Node       | Nov 12, 2025 | 23d+   | 0        |
+| Web Interface  | Nov 12, 2025 | 23d+   | 0        |
 
 ---
 
@@ -114,6 +114,7 @@ Real-time status of all axionax Protocol testnet services.
 **Location**: `/root/axionax-web/mock-rpc/`
 
 **Capabilities**:
+
 - ✅ 15+ Ethereum-compatible RPC methods
 - ✅ HTTP endpoint (8545)
 - ✅ WebSocket endpoint (8546)
@@ -124,12 +125,14 @@ Real-time status of all axionax Protocol testnet services.
 - ✅ Chain ID: 86137 (axionax-testnet-1)
 
 **Sample Request**:
+
 ```bash
 curl http://217.216.109.5:8545/health
 # Response: {"status":"healthy","network":"axionax-testnet-1","chainId":"86137"}
 ```
 
 **Supported Methods**:
+
 - `eth_blockNumber`, `eth_getBalance`, `eth_getTransactionCount`
 - `eth_sendRawTransaction`, `eth_getTransactionByHash`, `eth_getTransactionReceipt`
 - `eth_call`, `eth_estimateGas`, `eth_gasPrice`, `eth_chainId`
@@ -138,6 +141,7 @@ curl http://217.216.109.5:8545/health
 ### Monitoring Stack
 
 **Grafana** (Port 3030):
+
 - Version: 12.2.1
 - Default credentials: admin/admin
 - Dashboards: System metrics, Docker stats, service health
@@ -145,6 +149,7 @@ curl http://217.216.109.5:8545/health
 - Access: http://217.216.109.5:3030
 
 **Prometheus** (Port 9090):
+
 - Scraping interval: 15s
 - Targets: All 9 services
 - Retention: 15 days
@@ -158,17 +163,20 @@ curl http://217.216.109.5:8545/health
 ### Issue #1: Explorer API Not Responding (Port 3001)
 
 **Symptoms**:
+
 - Container status: Running
 - Health endpoint: No response (HTTP 000)
 - Docker logs: Need investigation
 
 **Potential Causes**:
+
 - Missing environment variables
 - Database connection failure
 - Port binding conflict
 - Application startup error
 
 **Troubleshooting Steps**:
+
 ```bash
 # Check container logs
 docker logs axionax-explorer-api
@@ -186,17 +194,20 @@ docker exec axionax-explorer-api env | grep -i db
 ### Issue #2: Faucet API Not Responding (Port 3002)
 
 **Symptoms**:
+
 - Container status: Running
 - Health endpoint: No response (HTTP 000)
 - Docker logs: Need investigation
 
 **Potential Causes**:
+
 - RPC connection issues
 - Private key configuration missing
 - Database connection failure
 - Rate limiting misconfiguration
 
 **Troubleshooting Steps**:
+
 ```bash
 # Check container logs
 docker logs axionax-faucet-api
@@ -216,6 +227,7 @@ docker exec axionax-faucet-api env | grep -i rpc
 ## 🛠️ Maintenance Schedule
 
 ### Completed ✅
+
 - [x] Infrastructure layer deployment (Nov 11)
 - [x] Monitoring stack setup (Nov 12)
 - [x] Mock RPC server deployment (Nov 12)
@@ -224,11 +236,13 @@ docker exec axionax-faucet-api env | grep -i rpc
 - [x] Documentation updates (Nov 13)
 
 ### In Progress 🔄
+
 - [ ] Explorer API debugging
 - [ ] Faucet API debugging
 - [ ] Full axionax-core build (15-30 min estimated)
 
 ### Planned 📅
+
 - [ ] DNS configuration for subdomains
 - [ ] Cloudflare CDN setup
 - [ ] Automated health check alerts
@@ -242,10 +256,12 @@ docker exec axionax-faucet-api env | grep -i rpc
 ## 📞 Emergency Contacts
 
 **Infrastructure Issues**:
+
 - Primary: `ssh root@217.216.109.5`
 - Scripts: `/root/axionax-web/docker-compose.yml`
 
 **Quick Commands**:
+
 ```bash
 # Check all services
 docker ps -a
@@ -274,12 +290,14 @@ docker-compose restart
 ## 🎯 Next Milestones
 
 ### Short Term (24-48 hours)
+
 1. Fix Explorer API (port 3001) ⚠️ HIGH PRIORITY
 2. Fix Faucet API (port 3002) ⚠️ HIGH PRIORITY
 3. Complete full axionax-core build 🔧 MEDIUM
 4. Verify all service integrations ✅ MEDIUM
 
 ### Medium Term (1 week)
+
 1. Configure DNS (rpc.axionax.org, explorer.axionax.org, faucet.axionax.org)
 2. Set up Cloudflare CDN and DDoS protection
 3. Implement automated alerting (email/Slack)
@@ -287,6 +305,7 @@ docker-compose restart
 5. Document API endpoints
 
 ### Long Term (Pre-launch)
+
 1. Security audit (smart contracts + infrastructure)
 2. Load balancer for multi-region RPC
 3. Automated backup system

@@ -6,13 +6,13 @@
 
 ## 1. สรุปสถานะปัจจุบัน
 
-| ด้าน | ปัจจุบัน | ปัญหา |
-|------|----------|--------|
-| **ฟอนต์** | DM Sans (body), Playfair (หัวข้อ) | โทน editorial มากกว่า tech |
-| **สี** | โทนทอง/ส้ม (gold, amber) บนพื้นดำ | ดูคล้าย luxury brand มากกว่า tech |
-| **พื้นหลัง** | Gradient ดำ + จุดดาว | ดู cosmic แต่อาจไม่ sharp |
-| **การ์ด/ตาราง** | มุมโค้ง สีทองโปร่ง | ยังไม่รู้สึก “dashboard / dev tool” |
-| **ข้อมูลตัวเลข** | แสดงธรรมดา | ยังไม่มี hierarchy ชัดแบบ tech dashboard |
+| ด้าน             | ปัจจุบัน                          | ปัญหา                                    |
+| ---------------- | --------------------------------- | ---------------------------------------- |
+| **ฟอนต์**        | DM Sans (body), Playfair (หัวข้อ) | โทน editorial มากกว่า tech               |
+| **สี**           | โทนทอง/ส้ม (gold, amber) บนพื้นดำ | ดูคล้าย luxury brand มากกว่า tech        |
+| **พื้นหลัง**     | Gradient ดำ + จุดดาว              | ดู cosmic แต่อาจไม่ sharp                |
+| **การ์ด/ตาราง**  | มุมโค้ง สีทองโปร่ง                | ยังไม่รู้สึก “dashboard / dev tool”      |
+| **ข้อมูลตัวเลข** | แสดงธรรมดา                        | ยังไม่มี hierarchy ชัดแบบ tech dashboard |
 
 ---
 
@@ -105,24 +105,24 @@
 
 ## 3. ลำดับการทำที่แนะนำ
 
-1. **Phase 1 (ฟอนต์)** – เปลี่ยน/เพิ่ม font, ตั้ง scale และใช้ mono ที่ข้อมูลเทคนิค  
-2. **Phase 2 (สี)** – เลือกแนว A หรือ B แล้วอัปเดต CSS variables + Tailwind  
-3. **Phase 3 (Layout/Component)** – ปรับการ์ด ตาราง และ spacing หน้าหลัก (Marketplace, Validators, Dashboard)  
-4. **Phase 4 (Detail)** – icon, motion, background ทำทีหลังเมื่อโทนและ layout พอใจแล้ว  
+1. **Phase 1 (ฟอนต์)** – เปลี่ยน/เพิ่ม font, ตั้ง scale และใช้ mono ที่ข้อมูลเทคนิค
+2. **Phase 2 (สี)** – เลือกแนว A หรือ B แล้วอัปเดต CSS variables + Tailwind
+3. **Phase 3 (Layout/Component)** – ปรับการ์ด ตาราง และ spacing หน้าหลัก (Marketplace, Validators, Dashboard)
+4. **Phase 4 (Detail)** – icon, motion, background ทำทีหลังเมื่อโทนและ layout พอใจแล้ว
 
 ---
 
 ## 4. ไฟล์ที่เกี่ยวข้อง
 
-| ไฟล์ | ใช้ปรับ |
-|------|--------|
-| `src/app/layout.tsx` | ฟอนต์ (next/font) |
-| `tailwind.config.ts` | fontFamily, colors, spacing |
-| `src/app/globals.css` | CSS variables, base typography |
-| `src/app/marketplace/page.tsx` | ตาราง workers, การ์ด |
-| `src/app/validators/page.tsx` | การ์ด validator, ตัวเลข |
-| `src/components/layout/Navbar.tsx` | เมนู, ปุ่ม |
-| `src/components/home/*` | หน้าแรก hero, การ์ด |
+| ไฟล์                               | ใช้ปรับ                        |
+| ---------------------------------- | ------------------------------ |
+| `src/app/layout.tsx`               | ฟอนต์ (next/font)              |
+| `tailwind.config.ts`               | fontFamily, colors, spacing    |
+| `src/app/globals.css`              | CSS variables, base typography |
+| `src/app/marketplace/page.tsx`     | ตาราง workers, การ์ด           |
+| `src/app/validators/page.tsx`      | การ์ด validator, ตัวเลข        |
+| `src/components/layout/Navbar.tsx` | เมนู, ปุ่ม                     |
+| `src/components/home/*`            | หน้าแรก hero, การ์ด            |
 
 ---
 

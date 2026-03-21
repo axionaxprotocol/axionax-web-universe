@@ -221,7 +221,9 @@ export default function WalletPage() {
                     >
                       <div className="flex items-center justify-between">
                         <div>
-                          <div className={`font-medium text-sm ${selectedWallet === w.address ? 'text-tech-cyan' : 'text-content'}`}>
+                          <div
+                            className={`font-medium text-sm ${selectedWallet === w.address ? 'text-tech-cyan' : 'text-content'}`}
+                          >
                             {w.name}
                           </div>
                           <div className="font-mono text-xs text-muted mt-0.5">
@@ -247,9 +249,12 @@ export default function WalletPage() {
               {/* Selected Wallet Info */}
               {selectedWallet && (
                 <div className="mt-6 pt-6 border-t border-white/10">
-                  <div className="text-xs text-muted font-medium uppercase tracking-wider mb-1">Balance</div>
+                  <div className="text-xs text-muted font-medium uppercase tracking-wider mb-1">
+                    Balance
+                  </div>
                   <div className="text-2xl font-bold text-content font-mono">
-                    {balance} <span className="text-tech-cyan text-lg">AXX</span>
+                    {balance}{' '}
+                    <span className="text-tech-cyan text-lg">AXX</span>
                   </div>
                   <div className="mt-4 space-y-3">
                     <Link
@@ -259,14 +264,10 @@ export default function WalletPage() {
                       Get Testnet Tokens
                     </Link>
                     <button
-                      onClick={() =>
-                        copyToClipboard(selectedWallet, 'address')
-                      }
+                      onClick={() => copyToClipboard(selectedWallet, 'address')}
                       className="w-full py-2.5 px-4 bg-white/[0.02] hover:bg-white/[0.05] border border-white/10 text-content rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2"
                     >
-                      {copied === 'address'
-                        ? '✅ Copied!'
-                        : '📋 Copy Address'}
+                      {copied === 'address' ? '✅ Copied!' : '📋 Copy Address'}
                     </button>
                   </div>
                 </div>
@@ -321,316 +322,312 @@ export default function WalletPage() {
               </div>
 
               <div className="p-6 sm:p-8">
-                  {/* Error Message */}
-                  {error && (
-                    <div className="mb-4 p-4 bg-red-500/10 border border-red-500/30 rounded-xl text-red-400 text-sm">
-                      ⚠️ {error}
-                    </div>
-                  )}
+                {/* Error Message */}
+                {error && (
+                  <div className="mb-4 p-4 bg-red-500/10 border border-red-500/30 rounded-xl text-red-400 text-sm">
+                    ⚠️ {error}
+                  </div>
+                )}
 
-                  {/* CREATE TAB */}
-                  {activeTab === 'create' && (
-                    <>
-                      {step === 'form' && (
-                        <div className="space-y-6">
-                          <div className="text-center py-8">
-                            <div className="text-6xl mb-4">🆕</div>
-                            <h3 className="text-xl font-semibold text-white mb-2">
-                              Create New Wallet
-                            </h3>
-                            <p className="text-dark-400 max-w-md mx-auto">
-                              A new wallet will be created with a 12-word
-                              recovery phrase. Please store this phrase
-                              securely.
-                            </p>
-                          </div>
-
-                          <div>
-                            <label className="block text-sm text-muted mb-2">
-                              Wallet name (optional)
-                            </label>
-                            <input
-                              type="text"
-                              value={walletName}
-                              onChange={(e) => setWalletName(e.target.value)}
-                              placeholder="My Testnet Wallet"
-                              className="w-full bg-black-hole/50 border border-white/10 rounded-lg px-4 py-3 text-content placeholder-muted focus:border-tech-cyan focus:ring-1 focus:ring-tech-cyan/20 focus:outline-none transition-all"
-                            />
-                          </div>
-
-                          <button
-                            onClick={handleCreateWallet}
-                            disabled={loading}
-                            className="w-full py-3.5 bg-tech-cyan/20 hover:bg-tech-cyan/30 text-tech-cyan font-semibold rounded-lg border border-tech-cyan/30 transition-all disabled:opacity-50 flex items-center justify-center gap-2"
-                          >
-                            {loading ? (
-                              <>
-                                <div className="animate-spin w-5 h-5 border-2 border-white border-t-transparent rounded-full" />
-                                Creating...
-                              </>
-                            ) : (
-                              <>Create Wallet</>
-                            )}
-                          </button>
+                {/* CREATE TAB */}
+                {activeTab === 'create' && (
+                  <>
+                    {step === 'form' && (
+                      <div className="space-y-6">
+                        <div className="text-center py-8">
+                          <div className="text-6xl mb-4">🆕</div>
+                          <h3 className="text-xl font-semibold text-white mb-2">
+                            Create New Wallet
+                          </h3>
+                          <p className="text-dark-400 max-w-md mx-auto">
+                            A new wallet will be created with a 12-word recovery
+                            phrase. Please store this phrase securely.
+                          </p>
                         </div>
-                      )}
 
-                      {step === 'backup' && wallet && 'mnemonic' in wallet && (
-                        <div className="space-y-6">
-                          <div className="text-center">
-                            <div className="text-4xl mb-2">📝</div>
-                            <h3 className="text-xl font-semibold text-white">
-                              Back Up Recovery Phrase
-                            </h3>
-                            <p className="text-dark-400 text-sm mt-1">
-                              Write down or copy these words and store them
-                              safely
-                            </p>
-                          </div>
-
-                          {/* Mnemonic Display */}
-                          <div className="bg-dark-800/50 border border-amber-500/30 rounded-xl p-4">
-                            <div className="flex justify-between items-center mb-3">
-                              <span className="text-amber-400 text-sm font-medium">
-                                Keep these words safe!
-                              </span>
-                              <button
-                                onClick={() =>
-                                  copyToClipboard(
-                                    wallet.mnemonic || '',
-                                    'mnemonic'
-                                  )
-                                }
-                                className="text-xs bg-dark-700 hover:bg-dark-600 px-3 py-1 rounded text-white"
-                              >
-                                {copied === 'mnemonic'
-                                  ? '✅ Copied!'
-                                  : '📋 Copy'}
-                              </button>
-                            </div>
-                            <div className="grid grid-cols-3 md:grid-cols-4 gap-2">
-                              {wallet.mnemonic?.split(' ').map((word, i) => (
-                                <div
-                                  key={i}
-                                  className="bg-dark-900 rounded-lg px-3 py-2 text-center"
-                                >
-                                  <span className="text-dark-500 text-xs mr-1">
-                                    {i + 1}.
-                                  </span>
-                                  <span className="text-white font-mono">
-                                    {word}
-                                  </span>
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-
-                          {/* Address Preview */}
-                          <div className="bg-dark-800/50 rounded-xl p-4">
-                            <div className="text-sm text-dark-400 mb-1">
-                              Wallet Address
-                            </div>
-                            <div className="font-mono text-white break-all">
-                              {wallet.address}
-                            </div>
-                          </div>
-
-                          {/* Confirmation */}
-                          <label className="flex items-start gap-3 p-4 bg-dark-800/50 rounded-xl cursor-pointer">
-                            <input
-                              type="checkbox"
-                              checked={backupConfirmed}
-                              onChange={(e) =>
-                                setBackupConfirmed(e.target.checked)
-                              }
-                              className="mt-1 w-5 h-5 rounded border-dark-600 bg-dark-700 text-primary-500 focus:ring-primary-500"
-                            />
-                            <span className="text-sm text-dark-300">
-                              I have saved my recovery phrase and understand
-                              that if lost, I cannot recover this wallet
-                            </span>
+                        <div>
+                          <label className="block text-sm text-muted mb-2">
+                            Wallet name (optional)
                           </label>
-
-                          <div className="flex gap-3">
-                            <button
-                              onClick={resetForm}
-                              className="flex-1 py-3 bg-dark-800 hover:bg-dark-700 text-white rounded-xl transition-colors"
-                            >
-                              Back
-                            </button>
-                            <button
-                              onClick={handleConfirmBackup}
-                              disabled={!backupConfirmed}
-                              className="flex-1 py-3 bg-primary-500 hover:bg-amber-600 disabled:bg-dark-700 disabled:text-dark-500 text-white font-semibold rounded-xl transition-colors"
-                            >
-                              Confirm
-                            </button>
-                          </div>
+                          <input
+                            type="text"
+                            value={walletName}
+                            onChange={(e) => setWalletName(e.target.value)}
+                            placeholder="My Testnet Wallet"
+                            className="w-full bg-black-hole/50 border border-white/10 rounded-lg px-4 py-3 text-content placeholder-muted focus:border-tech-cyan focus:ring-1 focus:ring-tech-cyan/20 focus:outline-none transition-all"
+                          />
                         </div>
-                      )}
 
-                      {step === 'done' && wallet && (
-                        <WalletSuccess
-                          wallet={wallet}
-                          onReset={resetForm}
-                          showPrivateKey={showPrivateKey}
-                          setShowPrivateKey={setShowPrivateKey}
-                          copyToClipboard={copyToClipboard}
-                          copied={copied}
-                        />
-                      )}
-                    </>
-                  )}
+                        <button
+                          onClick={handleCreateWallet}
+                          disabled={loading}
+                          className="w-full py-3.5 bg-tech-cyan/20 hover:bg-tech-cyan/30 text-tech-cyan font-semibold rounded-lg border border-tech-cyan/30 transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+                        >
+                          {loading ? (
+                            <>
+                              <div className="animate-spin w-5 h-5 border-2 border-white border-t-transparent rounded-full" />
+                              Creating...
+                            </>
+                          ) : (
+                            <>Create Wallet</>
+                          )}
+                        </button>
+                      </div>
+                    )}
 
-                  {/* IMPORT MNEMONIC TAB */}
-                  {activeTab === 'import-mnemonic' && (
-                    <>
-                      {step === 'form' && (
-                        <div className="space-y-6">
-                          <div className="text-center py-4">
-                            <div className="text-4xl mb-2">📝</div>
-                            <h3 className="text-lg font-semibold text-white">
-                              Import from Recovery Phrase
-                            </h3>
-                            <p className="text-dark-400 text-sm">
-                              Enter your 12 or 24 word recovery phrase
-                            </p>
-                          </div>
+                    {step === 'backup' && wallet && 'mnemonic' in wallet && (
+                      <div className="space-y-6">
+                        <div className="text-center">
+                          <div className="text-4xl mb-2">📝</div>
+                          <h3 className="text-xl font-semibold text-white">
+                            Back Up Recovery Phrase
+                          </h3>
+                          <p className="text-dark-400 text-sm mt-1">
+                            Write down or copy these words and store them safely
+                          </p>
+                        </div>
 
-                          <div>
-                            <label className="block text-sm text-muted mb-2">
-                              Recovery Phrase (Mnemonic)
-                            </label>
-                            <textarea
-                              value={mnemonic}
-                              onChange={(e) =>
-                                setMnemonic(e.target.value.toLowerCase())
+                        {/* Mnemonic Display */}
+                        <div className="bg-dark-800/50 border border-amber-500/30 rounded-xl p-4">
+                          <div className="flex justify-between items-center mb-3">
+                            <span className="text-amber-400 text-sm font-medium">
+                              Keep these words safe!
+                            </span>
+                            <button
+                              onClick={() =>
+                                copyToClipboard(
+                                  wallet.mnemonic || '',
+                                  'mnemonic'
+                                )
                               }
-                              placeholder="word1 word2 word3 word4 word5 word6 word7 word8 word9 word10 word11 word12"
-                              rows={4}
-                              className="w-full bg-black-hole/50 border border-white/10 rounded-lg px-4 py-3 text-content placeholder-muted focus:border-tech-cyan focus:ring-1 focus:ring-tech-cyan/20 focus:outline-none font-mono"
-                            />
-                            <p className="text-xs text-muted mt-1 opacity-70">
-                              Separate each word with a space
-                            </p>
+                              className="text-xs bg-dark-700 hover:bg-dark-600 px-3 py-1 rounded text-white"
+                            >
+                              {copied === 'mnemonic' ? '✅ Copied!' : '📋 Copy'}
+                            </button>
                           </div>
-
-                          <div>
-                            <label className="block text-sm text-muted mb-2">
-                              Wallet name (optional)
-                            </label>
-                            <input
-                              type="text"
-                              value={walletName}
-                              onChange={(e) => setWalletName(e.target.value)}
-                              placeholder="My Imported Wallet"
-                              className="w-full bg-black-hole/50 border border-white/10 rounded-lg px-4 py-3 text-content placeholder-muted focus:border-tech-cyan focus:ring-1 focus:ring-tech-cyan/20 focus:outline-none"
-                            />
+                          <div className="grid grid-cols-3 md:grid-cols-4 gap-2">
+                            {wallet.mnemonic?.split(' ').map((word, i) => (
+                              <div
+                                key={i}
+                                className="bg-dark-900 rounded-lg px-3 py-2 text-center"
+                              >
+                                <span className="text-dark-500 text-xs mr-1">
+                                  {i + 1}.
+                                </span>
+                                <span className="text-white font-mono">
+                                  {word}
+                                </span>
+                              </div>
+                            ))}
                           </div>
+                        </div>
 
+                        {/* Address Preview */}
+                        <div className="bg-dark-800/50 rounded-xl p-4">
+                          <div className="text-sm text-dark-400 mb-1">
+                            Wallet Address
+                          </div>
+                          <div className="font-mono text-white break-all">
+                            {wallet.address}
+                          </div>
+                        </div>
+
+                        {/* Confirmation */}
+                        <label className="flex items-start gap-3 p-4 bg-dark-800/50 rounded-xl cursor-pointer">
+                          <input
+                            type="checkbox"
+                            checked={backupConfirmed}
+                            onChange={(e) =>
+                              setBackupConfirmed(e.target.checked)
+                            }
+                            className="mt-1 w-5 h-5 rounded border-dark-600 bg-dark-700 text-primary-500 focus:ring-primary-500"
+                          />
+                          <span className="text-sm text-dark-300">
+                            I have saved my recovery phrase and understand that
+                            if lost, I cannot recover this wallet
+                          </span>
+                        </label>
+
+                        <div className="flex gap-3">
                           <button
-                            onClick={handleImportMnemonic}
-                            disabled={loading || !mnemonic.trim()}
-                            className="w-full py-3.5 bg-tech-cyan/20 hover:bg-tech-cyan/30 text-tech-cyan font-semibold rounded-lg border border-tech-cyan/30 transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+                            onClick={resetForm}
+                            className="flex-1 py-3 bg-dark-800 hover:bg-dark-700 text-white rounded-xl transition-colors"
                           >
-                            {loading ? (
-                              <>
-                                <div className="animate-spin w-5 h-5 border-2 border-white border-t-transparent rounded-full" />
-                                Importing...
-                              </>
-                            ) : (
-                              <>Import Wallet</>
-                            )}
+                            Back
+                          </button>
+                          <button
+                            onClick={handleConfirmBackup}
+                            disabled={!backupConfirmed}
+                            className="flex-1 py-3 bg-primary-500 hover:bg-amber-600 disabled:bg-dark-700 disabled:text-dark-500 text-white font-semibold rounded-xl transition-colors"
+                          >
+                            Confirm
                           </button>
                         </div>
-                      )}
+                      </div>
+                    )}
 
-                      {step === 'done' && wallet && (
-                        <WalletSuccess
-                          wallet={wallet}
-                          onReset={resetForm}
-                          showPrivateKey={showPrivateKey}
-                          setShowPrivateKey={setShowPrivateKey}
-                          copyToClipboard={copyToClipboard}
-                          copied={copied}
-                        />
-                      )}
-                    </>
-                  )}
+                    {step === 'done' && wallet && (
+                      <WalletSuccess
+                        wallet={wallet}
+                        onReset={resetForm}
+                        showPrivateKey={showPrivateKey}
+                        setShowPrivateKey={setShowPrivateKey}
+                        copyToClipboard={copyToClipboard}
+                        copied={copied}
+                      />
+                    )}
+                  </>
+                )}
 
-                  {/* IMPORT PRIVATE KEY TAB */}
-                  {activeTab === 'import-key' && (
-                    <>
-                      {step === 'form' && (
-                        <div className="space-y-6">
-                          <div className="text-center py-4">
-                            <div className="text-4xl mb-2">🔑</div>
-                            <h3 className="text-lg font-semibold text-white">
-                              Import from Private Key
-                            </h3>
-                            <p className="text-dark-400 text-sm">
-                              Enter your private key (64 hex characters)
-                            </p>
-                          </div>
-
-                          <div>
-                            <label className="block text-sm text-muted mb-2">
-                              Private Key
-                            </label>
-                            <input
-                              type="password"
-                              value={privateKey}
-                              onChange={(e) => setPrivateKey(e.target.value)}
-                              placeholder="0x... or 64 hex characters"
-                              className="w-full bg-black-hole/50 border border-white/10 rounded-lg px-4 py-3 text-content placeholder-muted focus:border-tech-cyan focus:ring-1 focus:ring-tech-cyan/20 focus:outline-none font-mono"
-                            />
-                            <p className="text-xs text-muted mt-1 opacity-70">
-                              ⚠️ อย่าแชร์ private key กับใคร
-                            </p>
-                          </div>
-
-                          <div>
-                            <label className="block text-sm text-muted mb-2">
-                              Wallet name (optional)
-                            </label>
-                            <input
-                              type="text"
-                              value={walletName}
-                              onChange={(e) => setWalletName(e.target.value)}
-                              placeholder="My Imported Wallet"
-                              className="w-full bg-black-hole/50 border border-white/10 rounded-lg px-4 py-3 text-content placeholder-muted focus:border-tech-cyan focus:ring-1 focus:ring-tech-cyan/20 focus:outline-none"
-                            />
-                          </div>
-
-                          <button
-                            onClick={handleImportPrivateKey}
-                            disabled={loading || !privateKey.trim()}
-                            className="w-full py-3.5 bg-tech-cyan/20 hover:bg-tech-cyan/30 text-tech-cyan font-semibold rounded-lg border border-tech-cyan/30 transition-all disabled:opacity-50 flex items-center justify-center gap-2"
-                          >
-                            {loading ? (
-                              <>
-                                <div className="animate-spin w-5 h-5 border-2 border-white border-t-transparent rounded-full" />
-                                Importing...
-                              </>
-                            ) : (
-                              <>Import Wallet</>
-                            )}
-                          </button>
+                {/* IMPORT MNEMONIC TAB */}
+                {activeTab === 'import-mnemonic' && (
+                  <>
+                    {step === 'form' && (
+                      <div className="space-y-6">
+                        <div className="text-center py-4">
+                          <div className="text-4xl mb-2">📝</div>
+                          <h3 className="text-lg font-semibold text-white">
+                            Import from Recovery Phrase
+                          </h3>
+                          <p className="text-dark-400 text-sm">
+                            Enter your 12 or 24 word recovery phrase
+                          </p>
                         </div>
-                      )}
 
-                      {step === 'done' && wallet && (
-                        <WalletSuccess
-                          wallet={wallet}
-                          onReset={resetForm}
-                          showPrivateKey={showPrivateKey}
-                          setShowPrivateKey={setShowPrivateKey}
-                          copyToClipboard={copyToClipboard}
-                          copied={copied}
-                        />
-                      )}
-                    </>
-                  )}
+                        <div>
+                          <label className="block text-sm text-muted mb-2">
+                            Recovery Phrase (Mnemonic)
+                          </label>
+                          <textarea
+                            value={mnemonic}
+                            onChange={(e) =>
+                              setMnemonic(e.target.value.toLowerCase())
+                            }
+                            placeholder="word1 word2 word3 word4 word5 word6 word7 word8 word9 word10 word11 word12"
+                            rows={4}
+                            className="w-full bg-black-hole/50 border border-white/10 rounded-lg px-4 py-3 text-content placeholder-muted focus:border-tech-cyan focus:ring-1 focus:ring-tech-cyan/20 focus:outline-none font-mono"
+                          />
+                          <p className="text-xs text-muted mt-1 opacity-70">
+                            Separate each word with a space
+                          </p>
+                        </div>
+
+                        <div>
+                          <label className="block text-sm text-muted mb-2">
+                            Wallet name (optional)
+                          </label>
+                          <input
+                            type="text"
+                            value={walletName}
+                            onChange={(e) => setWalletName(e.target.value)}
+                            placeholder="My Imported Wallet"
+                            className="w-full bg-black-hole/50 border border-white/10 rounded-lg px-4 py-3 text-content placeholder-muted focus:border-tech-cyan focus:ring-1 focus:ring-tech-cyan/20 focus:outline-none"
+                          />
+                        </div>
+
+                        <button
+                          onClick={handleImportMnemonic}
+                          disabled={loading || !mnemonic.trim()}
+                          className="w-full py-3.5 bg-tech-cyan/20 hover:bg-tech-cyan/30 text-tech-cyan font-semibold rounded-lg border border-tech-cyan/30 transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+                        >
+                          {loading ? (
+                            <>
+                              <div className="animate-spin w-5 h-5 border-2 border-white border-t-transparent rounded-full" />
+                              Importing...
+                            </>
+                          ) : (
+                            <>Import Wallet</>
+                          )}
+                        </button>
+                      </div>
+                    )}
+
+                    {step === 'done' && wallet && (
+                      <WalletSuccess
+                        wallet={wallet}
+                        onReset={resetForm}
+                        showPrivateKey={showPrivateKey}
+                        setShowPrivateKey={setShowPrivateKey}
+                        copyToClipboard={copyToClipboard}
+                        copied={copied}
+                      />
+                    )}
+                  </>
+                )}
+
+                {/* IMPORT PRIVATE KEY TAB */}
+                {activeTab === 'import-key' && (
+                  <>
+                    {step === 'form' && (
+                      <div className="space-y-6">
+                        <div className="text-center py-4">
+                          <div className="text-4xl mb-2">🔑</div>
+                          <h3 className="text-lg font-semibold text-white">
+                            Import from Private Key
+                          </h3>
+                          <p className="text-dark-400 text-sm">
+                            Enter your private key (64 hex characters)
+                          </p>
+                        </div>
+
+                        <div>
+                          <label className="block text-sm text-muted mb-2">
+                            Private Key
+                          </label>
+                          <input
+                            type="password"
+                            value={privateKey}
+                            onChange={(e) => setPrivateKey(e.target.value)}
+                            placeholder="0x... or 64 hex characters"
+                            className="w-full bg-black-hole/50 border border-white/10 rounded-lg px-4 py-3 text-content placeholder-muted focus:border-tech-cyan focus:ring-1 focus:ring-tech-cyan/20 focus:outline-none font-mono"
+                          />
+                          <p className="text-xs text-muted mt-1 opacity-70">
+                            ⚠️ อย่าแชร์ private key กับใคร
+                          </p>
+                        </div>
+
+                        <div>
+                          <label className="block text-sm text-muted mb-2">
+                            Wallet name (optional)
+                          </label>
+                          <input
+                            type="text"
+                            value={walletName}
+                            onChange={(e) => setWalletName(e.target.value)}
+                            placeholder="My Imported Wallet"
+                            className="w-full bg-black-hole/50 border border-white/10 rounded-lg px-4 py-3 text-content placeholder-muted focus:border-tech-cyan focus:ring-1 focus:ring-tech-cyan/20 focus:outline-none"
+                          />
+                        </div>
+
+                        <button
+                          onClick={handleImportPrivateKey}
+                          disabled={loading || !privateKey.trim()}
+                          className="w-full py-3.5 bg-tech-cyan/20 hover:bg-tech-cyan/30 text-tech-cyan font-semibold rounded-lg border border-tech-cyan/30 transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+                        >
+                          {loading ? (
+                            <>
+                              <div className="animate-spin w-5 h-5 border-2 border-white border-t-transparent rounded-full" />
+                              Importing...
+                            </>
+                          ) : (
+                            <>Import Wallet</>
+                          )}
+                        </button>
+                      </div>
+                    )}
+
+                    {step === 'done' && wallet && (
+                      <WalletSuccess
+                        wallet={wallet}
+                        onReset={resetForm}
+                        showPrivateKey={showPrivateKey}
+                        setShowPrivateKey={setShowPrivateKey}
+                        copyToClipboard={copyToClipboard}
+                        copied={copied}
+                      />
+                    )}
+                  </>
+                )}
               </div>
             </div>
           </div>
@@ -705,7 +702,10 @@ export default function WalletPage() {
               </div>
               <div>
                 <div className="text-muted">RPC URL</div>
-                <div className="text-tech-cyan font-medium text-xs truncate cursor-pointer hover:underline" title={AXIONAX_TESTNET.rpcUrls[0]}>
+                <div
+                  className="text-tech-cyan font-medium text-xs truncate cursor-pointer hover:underline"
+                  title={AXIONAX_TESTNET.rpcUrls[0]}
+                >
                   {AXIONAX_TESTNET.rpcUrls[0].replace('https://', '')}
                 </div>
               </div>
@@ -760,7 +760,9 @@ function WalletSuccess({
       {/* Private Key */}
       <div className="bg-tech-warning/5 border border-tech-warning/20 rounded-lg p-4">
         <div className="flex justify-between items-center mb-2">
-          <span className="text-sm text-tech-warning font-medium">🔐 Private Key</span>
+          <span className="text-sm text-tech-warning font-medium">
+            🔐 Private Key
+          </span>
           <div className="flex gap-2">
             <button
               onClick={() => setShowPrivateKey(!showPrivateKey)}

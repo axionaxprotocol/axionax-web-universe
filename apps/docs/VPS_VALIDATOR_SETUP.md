@@ -1,9 +1,11 @@
 # VPS Validator Setup Guide
+
 ## axionax v1.6 Testnet Public Launch
 
 > **เอกสารนี้**: คู่มือการติดตั้งและตั้งค่า Validator Node บน VPS สำหรับ Testnet Public Launch
 
 ## 📋 สารบัญ
+
 - [ความต้องการขั้นต่ำ](#ความต้องการขั้นต่ำ)
 - [การเตรียม VPS](#การเตรียม-vps)
 - [ติดตั้ง Dependencies](#ติดตั้ง-dependencies)
@@ -18,12 +20,14 @@
 ## ความต้องการขั้นต่ำ
 
 ### Hardware Requirements
+
 - **CPU**: 4 cores (8 threads แนะนำ)
 - **RAM**: 16GB (32GB แนะนำสำหรับ production)
 - **Storage**: 500GB SSD NVMe
 - **Network**: 1Gbps, Public IP, Ports 30303 (P2P), 8545 (RPC), 9090 (Metrics)
 
 ### Software Requirements
+
 - **OS**: Ubuntu 22.04 LTS (แนะนำ) / Ubuntu 20.04 LTS
 - **Rust**: 1.75+ (nightly recommended)
 - **Python**: 3.10+ (สำหรับ DeAI modules)
@@ -32,6 +36,7 @@
 - **Git**: 2.30+
 
 ### Network Requirements
+
 - **Inbound Ports**:
   - `30303/tcp` - P2P networking
   - `30303/udp` - P2P discovery
@@ -44,6 +49,7 @@
 ## การเตรียม VPS
 
 ### 1. เชื่อมต่อ VPS
+
 ```bash
 # SSH เข้า VPS ด้วย SSH key (แนะนำ)
 ssh -i ~/.ssh/id_rsa root@YOUR_VPS_IP
@@ -53,6 +59,7 @@ ssh root@YOUR_VPS_IP
 ```
 
 ### 2. Update System
+
 ```bash
 # Update package lists
 sudo apt update && sudo apt upgrade -y
@@ -64,6 +71,7 @@ sudo apt install -y curl wget git build-essential \
 ```
 
 ### 3. Create Dedicated User
+
 ```bash
 # สร้าง user สำหรับรัน validator (security best practice)
 sudo useradd -m -s /bin/bash axionax
@@ -77,6 +85,7 @@ su - axionax
 ```
 
 ### 4. Configure Firewall
+
 ```bash
 # Enable UFW
 sudo ufw enable
@@ -103,6 +112,7 @@ sudo ufw status
 ## ติดตั้ง Dependencies
 
 ### 1. Install Rust
+
 ```bash
 # Install Rust via rustup
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
@@ -120,6 +130,7 @@ cargo --version
 ```
 
 ### 2. Install Python 3.10+
+
 ```bash
 # Ubuntu 22.04 มาพร้อม Python 3.10 อยู่แล้ว
 python3 --version
@@ -132,6 +143,7 @@ pip3 --version
 ```
 
 ### 3. Install Node.js & npm
+
 ```bash
 # Install Node.js 18 LTS
 curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
@@ -143,6 +155,7 @@ npm --version
 ```
 
 ### 4. Install Additional Dependencies
+
 ```bash
 # Install Python ML libraries (for DeAI)
 pip3 install --user numpy scipy scikit-learn torch
@@ -159,6 +172,7 @@ sudo apt install -y protobuf-compiler
 ## Build axionax Node
 
 ### 1. Clone Repository
+
 ```bash
 # Clone to home directory
 cd ~
@@ -170,6 +184,7 @@ git checkout main  # หรือ git checkout v1.6.0
 ```
 
 ### 2. Build Rust Core
+
 ```bash
 # Build release binary (optimized)
 cargo build --release
@@ -183,6 +198,7 @@ sudo chmod +x /usr/local/bin/axionax-core
 ```
 
 ### 3. Build Python DeAI Modules
+
 ```bash
 # Setup Python virtual environment
 cd ~/axionax-core/deai
@@ -200,6 +216,7 @@ deactivate
 ```
 
 ### 4. Build TypeScript SDK (Optional)
+
 ```bash
 cd ~/axionax-core/sdk
 npm install
@@ -214,6 +231,7 @@ npm run test
 ## ตั้งค่า Validator
 
 ### 1. Create Node Directory Structure
+
 ```bash
 # Create data directory
 mkdir -p ~/.axionax/{keystore,config,data,logs}
@@ -224,6 +242,7 @@ chmod 700 ~/.axionax/keystore
 ```
 
 ### 2. Generate Validator Keys
+
 ```bash
 # สร้าง validator keypair
 axionax-core keys generate --output ~/.axionax/keystore/validator.json
@@ -236,12 +255,14 @@ axionax-core keys generate --output ~/.axionax/keystore/validator.json
 # IMPORTANT: Backup mnemonic phrase ลงกระดาษหรือเก็บไว้ offline
 ```
 
-**⚠️ CRITICAL**: 
+**⚠️ CRITICAL**:
+
 - **เก็บ mnemonic phrase ไว้ปลอดภัย** - นี่คือกุญแจสำคัญในการกู้คืน validator
 - **อย่า share private key** ให้ใครเด็ดขาด
 - **Backup keypair** ไปเก็บไว้ที่อื่น (encrypted USB, offline storage)
 
 ### 3. Configure Node
+
 ```bash
 # Copy example config
 cp ~/axionax-core/environments/config.example.yaml ~/.axionax/config/config.yaml
@@ -251,44 +272,46 @@ nano ~/.axionax/config/config.yaml
 ```
 
 แก้ไข `config.yaml`:
+
 ```yaml
 node:
-  name: "validator-01"  # เปลี่ยนเป็นชื่อ validator ของคุณ
-  data_dir: "/home/axionax/.axionax/data"
-  log_level: "info"
-  mode: "validator"  # ⚠️ สำคัญ! ตั้งเป็น validator
-  chain_id: 86137    # axionax Testnet
+  name: 'validator-01' # เปลี่ยนเป็นชื่อ validator ของคุณ
+  data_dir: '/home/axionax/.axionax/data'
+  log_level: 'info'
+  mode: 'validator' # ⚠️ สำคัญ! ตั้งเป็น validator
+  chain_id: 86137 # axionax Testnet
 
 network:
-  listen_addr: "0.0.0.0"
+  listen_addr: '0.0.0.0'
   p2p_port: 30303
   max_peers: 50
   bootstrap_nodes:
-    - "enode://GENESIS_NODE_1@IP:30303"  # จะได้หลัง genesis
-    - "enode://GENESIS_NODE_2@IP:30303"
+    - 'enode://GENESIS_NODE_1@IP:30303' # จะได้หลัง genesis
+    - 'enode://GENESIS_NODE_2@IP:30303'
 
 validator:
-  keystore_path: "/home/axionax/.axionax/keystore/validator.json"
-  stake_amount: "10000"  # Minimum 10,000 AXX
-  commission_rate: 0.10  # 10% commission
+  keystore_path: '/home/axionax/.axionax/keystore/validator.json'
+  stake_amount: '10000' # Minimum 10,000 AXX
+  commission_rate: 0.10 # 10% commission
 
 consensus:
   block_time: 5s
-  min_validator_stake: "10000"
+  min_validator_stake: '10000'
 
 api:
   enabled: true
-  listen_addr: "127.0.0.1"  # Bind เฉพาะ localhost (ปลอดภัย)
+  listen_addr: '127.0.0.1' # Bind เฉพาะ localhost (ปลอดภัย)
   rpc_port: 8545
   ws_port: 8546
 
 telemetry:
   enabled: true
   prometheus_port: 9090
-  metrics_addr: "0.0.0.0:9090"
+  metrics_addr: '0.0.0.0:9090'
 ```
 
 ### 4. Set Environment Variables
+
 ```bash
 # Add to ~/.bashrc
 cat >> ~/.bashrc << 'EOF'
@@ -312,6 +335,7 @@ source ~/.bashrc
 ## Genesis Setup
 
 ### 1. รอ Genesis File จาก Coordinator
+
 Genesis file จะถูกสร้างโดย **Genesis Coordinator** และแจกจ่ายให้กับ validators ทั้งหมด
 
 ```bash
@@ -324,6 +348,7 @@ sha256sum ~/.axionax/config/genesis.json
 ```
 
 ### 2. ตรวจสอบ Genesis File
+
 ```bash
 # Check genesis content
 cat ~/.axionax/config/genesis.json | jq '.'
@@ -333,6 +358,7 @@ cat ~/.axionax/config/genesis.json | jq '.validators[] | select(.address=="YOUR_
 ```
 
 ### 3. Initialize Node with Genesis
+
 ```bash
 # Initialize blockchain state from genesis
 axionax-core init --config ~/.axionax/config/config.yaml \
@@ -347,12 +373,14 @@ ls -lh ~/.axionax/data/
 ## เริ่มต้น Validator Node
 
 ### 1. Create Systemd Service
+
 ```bash
 # Create service file
 sudo nano /etc/systemd/system/axionax-validator.service
 ```
 
 เพิ่มเนื้อหา:
+
 ```ini
 [Unit]
 Description=axionax Validator Node
@@ -389,6 +417,7 @@ WantedBy=multi-user.target
 ```
 
 ### 2. Enable and Start Service
+
 ```bash
 # Reload systemd
 sudo systemctl daemon-reload
@@ -407,6 +436,7 @@ journalctl -u axionax-validator -f
 ```
 
 ### 3. Verify Node Operation
+
 ```bash
 # Check if node is running
 ps aux | grep axionax-core
@@ -435,6 +465,7 @@ curl -X POST http://127.0.0.1:8545 \
 ## Monitoring & Maintenance
 
 ### 1. Log Monitoring
+
 ```bash
 # Real-time logs
 journalctl -u axionax-validator -f
@@ -454,6 +485,7 @@ tail -f ~/.axionax/logs/validator.error.log
 ```
 
 ### 2. Metrics & Prometheus
+
 ```bash
 # Check Prometheus metrics endpoint
 curl http://localhost:9090/metrics
@@ -467,7 +499,9 @@ curl http://localhost:9090/metrics
 ```
 
 ### 3. Health Checks
+
 Create monitoring script:
+
 ```bash
 nano ~/monitor_validator.sh
 ```
@@ -536,6 +570,7 @@ crontab -e
 ```
 
 ### 4. Backup Strategy
+
 ```bash
 # Backup keystore (CRITICAL!)
 tar -czf ~/axionax-keystore-backup-$(date +%Y%m%d).tar.gz ~/.axionax/keystore/
@@ -549,6 +584,7 @@ cp ~/.axionax/config/config.yaml ~/axionax-config-backup-$(date +%Y%m%d).yaml
 ```
 
 ### 5. Update Node
+
 ```bash
 # Stop validator
 sudo systemctl stop axionax-validator
@@ -571,6 +607,7 @@ sudo systemctl status axionax-validator
 ```
 
 ### 6. Common Maintenance Commands
+
 ```bash
 # Restart validator
 sudo systemctl restart axionax-validator
@@ -599,6 +636,7 @@ sudo netstat -anp | grep axionax
 ## 🚨 Emergency Procedures
 
 ### Node Won't Start
+
 ```bash
 # 1. Check logs for errors
 journalctl -u axionax-validator -n 100 --no-pager
@@ -618,6 +656,7 @@ RUST_LOG=debug axionax-core start --config ~/.axionax/config/config.yaml --valid
 ```
 
 ### Lost Connection to Network
+
 ```bash
 # 1. Check firewall
 sudo ufw status
@@ -633,6 +672,7 @@ sudo systemctl restart networking
 ```
 
 ### Validator Being Slashed
+
 ```bash
 # Check missed blocks
 curl -X POST http://127.0.0.1:8545 \

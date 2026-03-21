@@ -13,18 +13,18 @@ The axionax protocol deployment includes a robust health checking system that mo
 
 ### Monitored Services (Current Status: 9/9 Operational ✅)
 
-| # | Service | Port | Health Check Method | Status |
-|---|---------|------|---------------------|--------|
-| 1 | Web Server (Nginx) | 80 | HTTP GET / | ✅ Healthy |
-| 2 | HTTPS | 443 | TCP Connect | ✅ Healthy |
-| 3 | Grafana | 3030 | HTTP /api/health | ✅ Healthy |
-| 4 | RPC HTTP | 8545 | HTTP /health | ✅ Healthy |
-| 5 | RPC WebSocket | 8546 | TCP Connect | ✅ Healthy |
-| 6 | Explorer API | 3001 | HTTP /health | ✅ Healthy |
-| 7 | Faucet API | 3002 | HTTP /health | ✅ Healthy |
-| 8 | Prometheus | 9090 | HTTP /-/healthy | ✅ Healthy |
-| 9 | PostgreSQL | 5432 | pg_isready | ✅ Healthy |
-| 10 | Redis | 6379 | redis-cli ping | ✅ Healthy |
+| #   | Service            | Port | Health Check Method | Status     |
+| --- | ------------------ | ---- | ------------------- | ---------- |
+| 1   | Web Server (Nginx) | 80   | HTTP GET /          | ✅ Healthy |
+| 2   | HTTPS              | 443  | TCP Connect         | ✅ Healthy |
+| 3   | Grafana            | 3030 | HTTP /api/health    | ✅ Healthy |
+| 4   | RPC HTTP           | 8545 | HTTP /health        | ✅ Healthy |
+| 5   | RPC WebSocket      | 8546 | TCP Connect         | ✅ Healthy |
+| 6   | Explorer API       | 3001 | HTTP /health        | ✅ Healthy |
+| 7   | Faucet API         | 3002 | HTTP /health        | ✅ Healthy |
+| 8   | Prometheus         | 9090 | HTTP /-/healthy     | ✅ Healthy |
+| 9   | PostgreSQL         | 5432 | pg_isready          | ✅ Healthy |
+| 10  | Redis              | 6379 | redis-cli ping      | ✅ Healthy |
 
 **Infrastructure Services**: 5/5 Healthy ✅  
 **Monitoring Stack**: 2/2 Healthy ✅  
@@ -104,6 +104,7 @@ curl http://localhost:8545/health
 ```
 
 **Response:**
+
 ```json
 {
   "status": "healthy",
@@ -121,6 +122,7 @@ curl http://localhost:9090/-/healthy
 ```
 
 **Response:**
+
 ```
 Prometheus is Healthy.
 ```
@@ -132,6 +134,7 @@ curl http://localhost:3030/api/health
 ```
 
 **Response:**
+
 ```json
 {
   "database": "ok",
@@ -174,6 +177,7 @@ docker exec axionax-postgres pg_isready -U explorer
 ```
 
 **Response:**
+
 ```
 /var/run/postgresql:5432 - accepting connections
 ```
@@ -185,6 +189,7 @@ docker exec axionax-redis redis-cli ping
 ```
 
 **Response:**
+
 ```
 PONG
 ```
@@ -199,7 +204,7 @@ Each service has built-in Docker health checks defined in `docker-compose.vps.ym
 
 ```yaml
 healthcheck:
-  test: ["CMD", "curl", "-f", "http://localhost:8545/health"]
+  test: ['CMD', 'curl', '-f', 'http://localhost:8545/health']
   interval: 30s
   timeout: 10s
   retries: 3
@@ -209,7 +214,7 @@ healthcheck:
 
 ```yaml
 healthcheck:
-  test: ["CMD-SHELL", "pg_isready -U explorer"]
+  test: ['CMD-SHELL', 'pg_isready -U explorer']
   interval: 10s
   timeout: 5s
   retries: 5
@@ -219,7 +224,7 @@ healthcheck:
 
 ```yaml
 healthcheck:
-  test: ["CMD", "redis-cli", "ping"]
+  test: ['CMD', 'redis-cli', 'ping']
   interval: 10s
   timeout: 5s
   retries: 5
@@ -229,7 +234,7 @@ healthcheck:
 
 ```yaml
 healthcheck:
-  test: ["CMD", "nginx", "-t"]
+  test: ['CMD', 'nginx', '-t']
   interval: 30s
   timeout: 10s
   retries: 3
@@ -311,16 +316,19 @@ systemctl start axionax-health-monitor.timer
 ### Service Shows as Unhealthy
 
 1. **Check container status:**
+
    ```bash
    docker ps -a | grep axionax
    ```
 
 2. **View container logs:**
+
    ```bash
    docker logs axionax-[service-name] --tail 50
    ```
 
 3. **Test health endpoint manually:**
+
    ```bash
    curl -v http://localhost:[port]/health
    ```
@@ -340,10 +348,11 @@ systemctl start axionax-health-monitor.timer
    - Wait for "Sync complete" message
 
 2. **Port Not Accessible:**
+
    ```bash
    # Check if port is listening
    netstat -tuln | grep 8545
-   
+
    # Test connection
    curl http://localhost:8545/health
    ```
@@ -478,7 +487,7 @@ Health check data can trigger Prometheus alerts:
   labels:
     severity: critical
   annotations:
-    summary: "Service {{ $labels.job }} is down"
+    summary: 'Service {{ $labels.job }} is down'
 ```
 
 ### Grafana Dashboard
@@ -488,7 +497,7 @@ Create dashboard panel showing service status:
 ```
 Query: up{job=~"axionax.*"}
 Panel Type: Stat
-Thresholds: 
+Thresholds:
   - Red: 0
   - Green: 1
 ```
@@ -517,9 +526,9 @@ Thresholds:
 # - Avoiding false positives (longer timeout)
 
 healthcheck:
-  interval: 30s   # How often to check
-  timeout: 10s    # Max time to wait for response
-  retries: 3      # Failures before marking unhealthy
+  interval: 30s # How often to check
+  timeout: 10s # Max time to wait for response
+  retries: 3 # Failures before marking unhealthy
 ```
 
 ### 4. Log Health Check Results
@@ -559,6 +568,7 @@ healthcheck:
 ---
 
 **Current Health Status (Nov 12, 2025):**
+
 - ✅ All 9 Services: Healthy
 - ✅ Health Check Script: Operational
 - ✅ Automated Monitoring: Active

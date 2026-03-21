@@ -29,6 +29,7 @@ Prometheus-compatible metrics endpoint.
 Returns the current chain ID.
 
 **Request:**
+
 ```json
 {
   "jsonrpc": "2.0",
@@ -39,6 +40,7 @@ Returns the current chain ID.
 ```
 
 **Response:**
+
 ```json
 {
   "jsonrpc": "2.0",
@@ -52,10 +54,12 @@ Returns the current chain ID.
 Get AXX balance of an address.
 
 **Parameters:**
+
 1. `address` - Address to check
 2. `block` - Block number or "latest"
 
 **Request:**
+
 ```json
 {
   "jsonrpc": "2.0",
@@ -66,6 +70,7 @@ Get AXX balance of an address.
 ```
 
 **Response:**
+
 ```json
 {
   "jsonrpc": "2.0",
@@ -83,33 +88,38 @@ Get AXX balance of an address.
 Submit a compute job to the network.
 
 **Parameters:**
+
 1. `job` - Job specification object
 
 **Request:**
+
 ```json
 {
   "jsonrpc": "2.0",
   "method": "axn_submitJob",
-  "params": [{
-    "specs": {
-      "gpu": "NVIDIA RTX 4090",
-      "vram": 24,
-      "framework": "PyTorch",
-      "region": "us-west"
-    },
-    "sla": {
-      "max_latency": "30s",
-      "max_retries": 3,
-      "timeout": "300s",
-      "required_uptime": 0.99
-    },
-    "data": "0x..."
-  }],
+  "params": [
+    {
+      "specs": {
+        "gpu": "NVIDIA RTX 4090",
+        "vram": 24,
+        "framework": "PyTorch",
+        "region": "us-west"
+      },
+      "sla": {
+        "max_latency": "30s",
+        "max_retries": 3,
+        "timeout": "300s",
+        "required_uptime": 0.99
+      },
+      "data": "0x..."
+    }
+  ],
   "id": 1
 }
 ```
 
 **Response:**
+
 ```json
 {
   "jsonrpc": "2.0",
@@ -128,9 +138,11 @@ Submit a compute job to the network.
 Get status of a submitted job.
 
 **Parameters:**
+
 1. `job_id` - Job identifier
 
 **Request:**
+
 ```json
 {
   "jsonrpc": "2.0",
@@ -141,6 +153,7 @@ Get status of a submitted job.
 ```
 
 **Response:**
+
 ```json
 {
   "jsonrpc": "2.0",
@@ -161,32 +174,39 @@ Get status of a submitted job.
 Register as a compute worker.
 
 **Parameters:**
+
 1. `specs` - Worker hardware specifications
 
 **Request:**
+
 ```json
 {
   "jsonrpc": "2.0",
   "method": "axn_registerWorker",
-  "params": [{
-    "gpus": [{
-      "model": "NVIDIA RTX 4090",
-      "vram": 24,
-      "count": 1
-    }],
-    "cpu_cores": 16,
-    "ram": 64,
-    "storage": 1000,
-    "bandwidth": 1000,
-    "region": "us-west",
-    "asn": "AS15169",
-    "organization": "example-org"
-  }],
+  "params": [
+    {
+      "gpus": [
+        {
+          "model": "NVIDIA RTX 4090",
+          "vram": 24,
+          "count": 1
+        }
+      ],
+      "cpu_cores": 16,
+      "ram": 64,
+      "storage": 1000,
+      "bandwidth": 1000,
+      "region": "us-west",
+      "asn": "AS15169",
+      "organization": "example-org"
+    }
+  ],
   "id": 1
 }
 ```
 
 **Response:**
+
 ```json
 {
   "jsonrpc": "2.0",
@@ -204,9 +224,11 @@ Register as a compute worker.
 Get worker status and statistics.
 
 **Parameters:**
+
 1. `address` - Worker address
 
 **Request:**
+
 ```json
 {
   "jsonrpc": "2.0",
@@ -217,6 +239,7 @@ Get worker status and statistics.
 ```
 
 **Response:**
+
 ```json
 {
   "jsonrpc": "2.0",
@@ -244,6 +267,7 @@ Get worker status and statistics.
 Get current pricing information from PPC.
 
 **Request:**
+
 ```json
 {
   "jsonrpc": "2.0",
@@ -254,6 +278,7 @@ Get current pricing information from PPC.
 ```
 
 **Response:**
+
 ```json
 {
   "jsonrpc": "2.0",
@@ -275,9 +300,11 @@ Get current pricing information from PPC.
 Get validator information.
 
 **Parameters:**
+
 1. `address` - Validator address
 
 **Request:**
+
 ```json
 {
   "jsonrpc": "2.0",
@@ -288,6 +315,7 @@ Get validator information.
 ```
 
 **Response:**
+
 ```json
 {
   "jsonrpc": "2.0",
@@ -309,9 +337,11 @@ Get validator information.
 Get PoPC challenge for a job (validators only).
 
 **Parameters:**
+
 1. `job_id` - Job identifier
 
 **Request:**
+
 ```json
 {
   "jsonrpc": "2.0",
@@ -322,6 +352,7 @@ Get PoPC challenge for a job (validators only).
 ```
 
 **Response:**
+
 ```json
 {
   "jsonrpc": "2.0",
@@ -340,9 +371,11 @@ Get PoPC challenge for a job (validators only).
 Submit PoPC proof (workers only).
 
 **Parameters:**
+
 1. `proof` - PoPC proof object
 
 **Request:**
+
 ```json
 {
   "jsonrpc": "2.0",
@@ -366,6 +399,7 @@ Submit PoPC proof (workers only).
 ```
 
 **Response:**
+
 ```json
 {
   "jsonrpc": "2.0",
@@ -401,7 +435,7 @@ Submit PoPC proof (workers only).
 {
   "jsonrpc": "2.0",
   "method": "axn_subscribe",
-  "params": ["jobUpdates", {"job_id": "job_abc123"}],
+  "params": ["jobUpdates", { "job_id": "job_abc123" }],
   "id": 1
 }
 ```
@@ -421,19 +455,19 @@ Submit PoPC proof (workers only).
 
 ## Error Codes
 
-| Code | Message | Description |
-|------|---------|-------------|
-| -32700 | Parse error | Invalid JSON |
-| -32600 | Invalid request | Request is not valid JSON-RPC |
-| -32601 | Method not found | Method does not exist |
-| -32602 | Invalid params | Invalid method parameters |
-| -32603 | Internal error | Internal JSON-RPC error |
-| -32000 | Job not found | Job ID does not exist |
-| -32001 | Worker not found | Worker address not registered |
-| -32002 | Insufficient stake | Not enough staked AXX |
-| -32003 | Invalid specs | Hardware specs don't meet requirements |
-| -32004 | Quota exceeded | Worker has exceeded epoch quota |
-| -32005 | Validation failed | PoPC validation failed |
+| Code   | Message            | Description                            |
+| ------ | ------------------ | -------------------------------------- |
+| -32700 | Parse error        | Invalid JSON                           |
+| -32600 | Invalid request    | Request is not valid JSON-RPC          |
+| -32601 | Method not found   | Method does not exist                  |
+| -32602 | Invalid params     | Invalid method parameters              |
+| -32603 | Internal error     | Internal JSON-RPC error                |
+| -32000 | Job not found      | Job ID does not exist                  |
+| -32001 | Worker not found   | Worker address not registered          |
+| -32002 | Insufficient stake | Not enough staked AXX                  |
+| -32003 | Invalid specs      | Hardware specs don't meet requirements |
+| -32004 | Quota exceeded     | Worker has exceeded epoch quota        |
+| -32005 | Validation failed  | PoPC validation failed                 |
 
 ---
 

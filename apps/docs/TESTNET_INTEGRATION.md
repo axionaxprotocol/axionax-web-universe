@@ -30,7 +30,7 @@ node:
 
 network:
   bootstrap_nodes:
-    - "http://localhost:8545"
+    - 'http://localhost:8545'
 ```
 
 Or with environment variables:
@@ -178,6 +178,7 @@ EOF
 ### View Metrics
 
 Prometheus metrics are available at:
+
 ```
 http://localhost:9090/metrics
 ```
@@ -185,6 +186,7 @@ http://localhost:9090/metrics
 ### View Transactions
 
 Use Blockscout explorer:
+
 ```
 http://localhost:4001
 ```
@@ -194,6 +196,7 @@ http://localhost:4001
 ### Connection Refused
 
 Make sure the testnet is running:
+
 ```bash
 cd axionax_v1.5_Testnet_in_a_Box
 docker compose ps
@@ -202,6 +205,7 @@ docker compose ps
 ### Chain ID Mismatch
 
 Ensure your config has:
+
 ```yaml
 node:
   chain_id: 31337
@@ -210,6 +214,7 @@ node:
 ### RPC Errors
 
 Check Anvil logs:
+
 ```bash
 docker compose logs hardhat
 ```

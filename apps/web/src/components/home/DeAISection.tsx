@@ -19,46 +19,71 @@ export default function DeAISection(): React.JSX.Element {
               <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6] shadow-[0_0_8px_rgba(59,130,246,0.8)]" />
               Decentralized AI
             </div>
-            
-            {/* Heading */}
+
+            {/* Heading: Next-Gen + DeAI (vibrant purple) + Layer */}
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
               <span className="text-white">Next-Gen </span>
-              <span className="bg-gradient-to-r from-[#60A5FA] to-[#A855F7] bg-clip-text text-transparent">
-                DeAI Layer
-              </span>
+              <span className="text-[#BD8DFF]">DeAI</span>
+              <span className="text-white"> Layer</span>
             </h2>
-            
-            {/* Description */}
+
+            {/* Description: body grey, "Python DeAI Layer" medium blue */}
             <p className="text-lg text-[#94A3B8] leading-relaxed max-w-xl">
-              Axionax isn't just a blockchain—it's a decentralized intelligence network. 
-              Our unique <span className="text-[#60A5FA]">Python DeAI Layer</span> allows validators to perform complex AI tasks like ASR (Automated Speech Recognition) and Fraud Detection directly on-chain.
+              Axionax isn&apos;t just a blockchain—it&apos;s a decentralized
+              intelligence network. Our unique{' '}
+              <span className="text-[#6B9EFD]">Python DeAI Layer</span> allows
+              validators to perform complex AI tasks like ASR (Automated Speech
+              Recognition) and Fraud Detection directly on-chain.
             </p>
 
-            {/* Feature List */}
+            {/* Feature List: checkmark in light blue/purple box (#4A4A63), titles white, desc dimmer grey */}
             <ul className="space-y-6 pt-2">
               {[
-                { title: 'Python Integration', desc: 'Native PyO3 bindings for seamless AI model execution.' },
-                { title: 'Proof of Probabilistic Checking', desc: 'Consensus mechanism optimized for non-deterministic AI outputs.' },
-                { title: 'Verifiable Inference', desc: 'Cryptographically proven AI task execution.' }
+                {
+                  title: 'Python Integration',
+                  desc: 'Native PyO3 bindings for seamless AI model execution.',
+                },
+                {
+                  title: 'Proof of Probabilistic Checking',
+                  desc: 'Consensus mechanism optimized for non-deterministic AI outputs.',
+                },
+                {
+                  title: 'Verifiable Inference',
+                  desc: 'Cryptographically proven AI task execution.',
+                },
               ].map((item, i) => (
                 <li key={i} className="flex gap-4 items-start">
-                  <div className="flex-shrink-0 w-11 h-11 rounded-xl bg-[#0B162C] border border-[#1E3A8A]/50 flex items-center justify-center text-[#60A5FA] shadow-inner shadow-blue-500/10">
-                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                  <div className="flex-shrink-0 w-11 h-11 rounded-lg bg-[#4A4A63] flex items-center justify-center text-white">
+                    <svg
+                      className="w-5 h-5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2.5}
+                        d="M5 13l4 4L19 7"
+                      />
                     </svg>
                   </div>
                   <div>
-                    <h3 className="text-white font-semibold text-lg">{item.title}</h3>
-                    <p className="text-sm text-[#94A3B8] mt-1">{item.desc}</p>
+                    <h3 className="text-white font-semibold text-lg">
+                      {item.title}
+                    </h3>
+                    <p className="text-sm text-[#94A3B8]/90 mt-1">
+                      {item.desc}
+                    </p>
                   </div>
                 </li>
               ))}
             </ul>
 
-            {/* Button */}
+            {/* Button: purple border, white text, hover fill purple */}
             <div className="pt-4">
               <Link href="/docs/deai">
-                <button className="px-6 py-3 rounded-xl border border-[#1E3A8A] text-[#60A5FA] bg-[#0A1020]/50 hover:bg-[#1E3A8A]/30 transition-all duration-300 font-medium shadow-lg shadow-blue-900/20">
+                <button className="px-6 py-3 rounded-xl border-2 border-[#BD8DFF] text-white bg-transparent hover:bg-[#BD8DFF]/20 transition-all duration-300 font-semibold">
                   Explore DeAI Architecture
                 </button>
               </Link>
@@ -79,24 +104,59 @@ export default function DeAISection(): React.JSX.Element {
                   deai_worker.py
                 </div>
               </div>
-              
-              {/* Code Content */}
+
+              {/* Code: keywords red-orange, class/fn light blue, variables white, strings green, comments grey */}
               <div className="p-6 md:p-8 font-mono text-[13px] md:text-sm leading-relaxed overflow-x-auto">
                 <div className="space-y-1.5 min-w-[400px]">
-                  <div><span className="text-[#FF7B72]">import</span> <span className="text-[#F8F8F2]">torch</span></div>
-                  <div><span className="text-[#FF7B72]">from</span> <span className="text-[#F8F8F2]">axionax.deai</span> <span className="text-[#FF7B72]">import</span> <span className="text-[#E5C07B]">Validator</span></div>
-                  <div className="h-4" />
-                  <div><span className="text-[#79C0FF]">class</span> <span className="text-[#E5C07B]">DeAIWorker</span><span className="text-[#F8F8F2]">(Validator):</span></div>
-                  <div className="pl-6">
-                    <span className="text-[#79C0FF]">def</span> <span className="text-[#D2A8FF]">process_task</span><span className="text-[#F8F8F2]">(self, data):</span>
+                  <div>
+                    <span className="text-[#F06543]">import</span>{' '}
+                    <span className="text-white">torch</span>
                   </div>
-                  <div className="pl-12 text-[#7EE787]"># Load AI Model</div>
-                  <div className="pl-12 text-[#F8F8F2]">model = self.load_model(<span className="text-[#A5D6FF]">"whisper-v3"</span>)</div>
-                  <div className="pl-12 text-[#F8F8F2]">result = model.transcribe(data)</div>
+                  <div>
+                    <span className="text-[#F06543]">from</span>{' '}
+                    <span className="text-white">axionax.deai</span>{' '}
+                    <span className="text-[#F06543]">import</span>{' '}
+                    <span className="text-[#89DDFF]">Validator</span>
+                  </div>
                   <div className="h-4" />
-                  <div className="pl-12 text-[#7EE787]"># Submit Verification Proof</div>
-                  <div className="pl-12 text-[#F8F8F2]">proof = self.generate_proof(result)</div>
-                  <div className="pl-12"><span className="text-[#FF7B72]">return</span> <span className="text-[#F8F8F2]">self.submit_to_chain(proof)</span></div>
+                  <div>
+                    <span className="text-[#F06543]">class</span>{' '}
+                    <span className="text-[#89DDFF]">DeAIWorker</span>
+                    <span className="text-white">(Validator):</span>
+                  </div>
+                  <div className="pl-6">
+                    <span className="text-[#F06543]">def</span>{' '}
+                    <span className="text-[#89DDFF]">process_task</span>
+                    <span className="text-white">(self, data):</span>
+                  </div>
+                  <div className="pl-12 text-[#9CA3AF]"># Load AI Model</div>
+                  <div className="pl-12 text-white">
+                    model = self.
+                    <span className="text-[#89DDFF]">load_model</span>(
+                    <span className="text-[#B0FC6D]">
+                      &quot;whisper-v3&quot;
+                    </span>
+                    )
+                  </div>
+                  <div className="pl-12 text-white">
+                    result = model.
+                    <span className="text-[#89DDFF]">transcribe</span>(data)
+                  </div>
+                  <div className="h-4" />
+                  <div className="pl-12 text-[#9CA3AF]">
+                    # Submit Verification Proof
+                  </div>
+                  <div className="pl-12 text-white">
+                    proof = self.
+                    <span className="text-[#89DDFF]">generate_proof</span>
+                    (result)
+                  </div>
+                  <div className="pl-12">
+                    <span className="text-[#F06543]">return</span>{' '}
+                    <span className="text-white">self.</span>
+                    <span className="text-[#89DDFF]">submit_to_chain</span>
+                    <span className="text-white">(proof)</span>
+                  </div>
                 </div>
               </div>
 

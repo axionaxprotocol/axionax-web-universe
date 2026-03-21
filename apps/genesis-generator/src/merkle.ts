@@ -47,27 +47,27 @@ export function buildMerkleTree(leaves: MerkleLeaf[]): MerkleTreeResult {
   }
 
   // Create leaf hashes
-  const leafData = leaves.map(l => ({
+  const leafData = leaves.map((l) => ({
     address: l.address.toLowerCase(),
     hash: hashLeaf(l.address, l.amount),
   }));
 
-  const leafHashes = leafData.map(l => l.hash);
+  const leafHashes = leafData.map((l) => l.hash);
 
   // Initialize proofs for each address
   const proofs = new Map<string, string[]>();
-  leafData.forEach(l => proofs.set(l.address, []));
+  leafData.forEach((l) => proofs.set(l.address, []));
 
   // Build tree layer by layer
   let currentLayer = [...leafHashes];
 
   while (currentLayer.length > 1) {
     const nextLayer: string[] = [];
-    
+
     for (let i = 0; i < currentLayer.length; i += 2) {
       const left = currentLayer[i];
       const right = i + 1 < currentLayer.length ? currentLayer[i + 1] : left;
-      
+
       // Add sibling to proofs
       for (const leaf of leafData) {
         const idx = currentLayer.indexOf(leaf.hash);
@@ -82,7 +82,7 @@ export function buildMerkleTree(leaves: MerkleLeaf[]): MerkleTreeResult {
     }
 
     // Update leaf hashes for next iteration (they become internal nodes)
-    leafData.forEach(leaf => {
+    leafData.forEach((leaf) => {
       const idx = currentLayer.indexOf(leaf.hash);
       if (idx !== -1) {
         leaf.hash = nextLayer[Math.floor(idx / 2)];
@@ -106,7 +106,7 @@ export function verifyMerkleProof(
   address: string,
   amount: string,
   proof: string[],
-  root: string
+  root: string,
 ): boolean {
   let hash = hashLeaf(address, amount);
 
@@ -130,10 +130,10 @@ export function encodeProof(proof: string[]): string {
 export function decodeProof(encodedProof: string): string[] {
   const hex = encodedProof.startsWith('0x') ? encodedProof.slice(2) : encodedProof;
   const proofs: string[] = [];
-  
+
   for (let i = 0; i < hex.length; i += 64) {
     proofs.push(hex.slice(i, i + 64));
   }
-  
+
   return proofs;
 }

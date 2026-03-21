@@ -81,21 +81,21 @@ match state.get_block_by_hash(&hash) {
 ### Features
 
 - **JSON-RPC 2.0**: Full spec compliance
-- **Ethereum Compatible**: Supports eth_* and net_* methods
+- **Ethereum Compatible**: Supports eth*\* and net*\* methods
 - **Hex Encoding**: All numeric values use 0x-prefixed hex
 - **Error Handling**: Standard JSON-RPC error codes
 - **Async Runtime**: Built on tokio and jsonrpsee
 
 ### Supported Methods
 
-| Method | Description | Parameters |
-|--------|-------------|------------|
-| `eth_blockNumber` | Get current block number | None |
-| `eth_getBlockByNumber` | Get block by number | `block_number` (hex or "latest"), `full_transactions` (bool) |
-| `eth_getBlockByHash` | Get block by hash | `block_hash` (hex), `full_transactions` (bool) |
-| `eth_getTransactionByHash` | Get transaction by hash | `tx_hash` (hex) |
-| `eth_chainId` | Get chain ID | None |
-| `net_version` | Get network version | None |
+| Method                     | Description              | Parameters                                                   |
+| -------------------------- | ------------------------ | ------------------------------------------------------------ |
+| `eth_blockNumber`          | Get current block number | None                                                         |
+| `eth_getBlockByNumber`     | Get block by number      | `block_number` (hex or "latest"), `full_transactions` (bool) |
+| `eth_getBlockByHash`       | Get block by hash        | `block_hash` (hex), `full_transactions` (bool)               |
+| `eth_getTransactionByHash` | Get transaction by hash  | `tx_hash` (hex)                                              |
+| `eth_chainId`              | Get chain ID             | None                                                         |
+| `net_version`              | Get network version      | None                                                         |
 
 ### Starting the Server
 
@@ -109,13 +109,13 @@ use state::StateDB;
 async fn main() -> anyhow::Result<()> {
     // Initialize state
     let state = Arc::new(StateDB::open("/path/to/db")?);
-    
+
     // Start RPC server
     let addr: SocketAddr = "127.0.0.1:8545".parse()?;
     let handle = start_rpc_server(addr, state, 86137).await?;
-    
+
     println!("RPC server listening on http://{}", addr);
-    
+
     // Keep server running
     handle.stopped().await;
     Ok(())
@@ -127,6 +127,7 @@ async fn main() -> anyhow::Result<()> {
 #### Get Block Number
 
 **Request:**
+
 ```bash
 curl -X POST http://127.0.0.1:8545 \
   -H 'Content-Type: application/json' \
@@ -139,6 +140,7 @@ curl -X POST http://127.0.0.1:8545 \
 ```
 
 **Response:**
+
 ```json
 {
   "jsonrpc": "2.0",
@@ -150,6 +152,7 @@ curl -X POST http://127.0.0.1:8545 \
 #### Get Block by Number
 
 **Request:**
+
 ```bash
 curl -X POST http://127.0.0.1:8545 \
   -H 'Content-Type: application/json' \
@@ -162,6 +165,7 @@ curl -X POST http://127.0.0.1:8545 \
 ```
 
 **Response:**
+
 ```json
 {
   "jsonrpc": "2.0",
@@ -183,6 +187,7 @@ curl -X POST http://127.0.0.1:8545 \
 #### Get Transaction by Hash
 
 **Request:**
+
 ```bash
 curl -X POST http://127.0.0.1:8545 \
   -H 'Content-Type: application/json' \
@@ -195,6 +200,7 @@ curl -X POST http://127.0.0.1:8545 \
 ```
 
 **Response:**
+
 ```json
 {
   "jsonrpc": "2.0",
@@ -215,6 +221,7 @@ curl -X POST http://127.0.0.1:8545 \
 #### Get Chain ID
 
 **Request:**
+
 ```bash
 curl -X POST http://127.0.0.1:8545 \
   -H 'Content-Type: application/json' \
@@ -227,6 +234,7 @@ curl -X POST http://127.0.0.1:8545 \
 ```
 
 **Response:**
+
 ```json
 {
   "jsonrpc": "2.0",
@@ -239,14 +247,15 @@ curl -X POST http://127.0.0.1:8545 \
 
 RPC errors follow JSON-RPC 2.0 specification:
 
-| Code | Message | Description |
-|------|---------|-------------|
-| -32001 | Block not found | Requested block does not exist |
+| Code   | Message               | Description                          |
+| ------ | --------------------- | ------------------------------------ |
+| -32001 | Block not found       | Requested block does not exist       |
 | -32002 | Transaction not found | Requested transaction does not exist |
-| -32602 | Invalid params | Malformed or invalid parameters |
-| -32603 | Internal error | Server-side error |
+| -32602 | Invalid params        | Malformed or invalid parameters      |
+| -32603 | Internal error        | Server-side error                    |
 
 **Error Response:**
+
 ```json
 {
   "jsonrpc": "2.0",
@@ -269,6 +278,7 @@ See [`core/rpc/examples/state_rpc_integration.rs`](../core/rpc/examples/state_rp
 5. Provides curl examples for testing
 
 Run the example:
+
 ```bash
 cargo run --example state_rpc_integration -p rpc
 ```
@@ -303,6 +313,7 @@ cargo test -p state
 ```
 
 Tests cover:
+
 - Database open/close
 - Block storage and retrieval (by hash, by number, latest)
 - Transaction storage and retrieval
@@ -316,6 +327,7 @@ cargo test -p rpc
 ```
 
 Tests cover:
+
 - Block number query
 - Chain ID and net version
 - Hex parsing (u64, hash)
@@ -341,6 +353,7 @@ let addr: SocketAddr = "127.0.0.1:8545".parse()?;
 ```
 
 Change the port as needed:
+
 ```rust
 let addr: SocketAddr = "0.0.0.0:9545".parse()?;  // Listen on all interfaces
 ```
@@ -370,7 +383,7 @@ let state = StateDB::open("/var/lib/axionax/state")?;
 
 ### RPC Module
 
-- [ ] Additional eth_* methods (eth_sendTransaction, eth_call, etc.)
+- [ ] Additional eth\_\* methods (eth_sendTransaction, eth_call, etc.)
 - [ ] WebSocket support for subscriptions
 - [ ] Rate limiting and authentication
 - [ ] Metrics and monitoring endpoints
@@ -391,7 +404,7 @@ let state = StateDB::open("/var/lib/axionax/state")?;
 - **Latency**: <1ms per request (p50), <5ms (p99)
 - **Concurrent Clients**: 10,000+ (tokio runtime)
 
-*Benchmarks on AWS c5.2xlarge (8 vCPU, 16 GB RAM)*
+_Benchmarks on AWS c5.2xlarge (8 vCPU, 16 GB RAM)_
 
 ## Security Considerations
 
@@ -414,6 +427,7 @@ let state = StateDB::open("/var/lib/axionax/state")?;
 **Problem**: `Connection refused (os error 111)`
 
 **Solution**: Check that:
+
 - RPC server is running
 - Correct port is specified (default 8545)
 - Firewall allows connections to the port
@@ -423,6 +437,7 @@ let state = StateDB::open("/var/lib/axionax/state")?;
 **Problem**: RocksDB using excessive memory
 
 **Solution**: Configure RocksDB options (future enhancement):
+
 ```rust
 // TODO: Add RocksDB options configuration
 let mut opts = rocksdb::Options::default();
@@ -434,6 +449,7 @@ opts.set_write_buffer_size(64 * 1024 * 1024);  // 64 MB
 **Problem**: RPC queries taking >100ms
 
 **Solution**:
+
 - Check disk I/O with `iotop`
 - Verify RocksDB compaction isn't running
 - Consider SSD storage for better performance

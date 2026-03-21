@@ -1,7 +1,7 @@
 name: 🐛 Bug Report
 description: Report a bug or unexpected behavior
-title: "[Bug]: "
-labels: ["bug", "triage"]
+title: '[Bug]: '
+labels: ['bug', 'triage']
 assignees: []
 
 body:
@@ -86,7 +86,7 @@ body:
     attributes:
       label: Version
       description: What version are you using?
-      placeholder: "e.g., 1.8.0-testnet"
+      placeholder: 'e.g., 1.8.0-testnet'
     validations:
       required: true
 
@@ -109,7 +109,7 @@ body:
     attributes:
       label: Operating System
       description: What operating system are you using?
-      placeholder: "e.g., macOS 14, Windows 11, Ubuntu 22.04"
+      placeholder: 'e.g., macOS 14, Windows 11, Ubuntu 22.04'
 
   - type: textarea
     id: logs

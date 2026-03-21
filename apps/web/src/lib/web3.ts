@@ -32,7 +32,11 @@ import {
   formatUnits,
 } from '@axionax/blockchain-utils';
 
-export type { EIP1193Provider, WalletError, AddTokenParams } from '@axionax/blockchain-utils';
+export type {
+  EIP1193Provider,
+  WalletError,
+  AddTokenParams,
+} from '@axionax/blockchain-utils';
 export { WALLET_ERROR_CODES } from '@axionax/blockchain-utils';
 
 export {

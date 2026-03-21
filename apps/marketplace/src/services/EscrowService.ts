@@ -8,7 +8,11 @@ export interface Escrow {
 }
 
 export interface IEscrowService {
-  createEscrow(resourceId: string, amount: number, duration: number): Promise<Escrow>;
+  createEscrow(
+    resourceId: string,
+    amount: number,
+    duration: number
+  ): Promise<Escrow>;
   getEscrows(): Promise<Escrow[]>;
   releaseFunds(escrowId: string): Promise<void>;
   refundFunds(escrowId: string): Promise<void>;
@@ -17,7 +21,11 @@ export interface IEscrowService {
 class MockEscrowService implements IEscrowService {
   private escrows: Escrow[] = [];
 
-  async createEscrow(resourceId: string, amount: number, duration: number): Promise<Escrow> {
+  async createEscrow(
+    resourceId: string,
+    amount: number,
+    duration: number
+  ): Promise<Escrow> {
     await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate network delay
     const newEscrow: Escrow = {
       id: `escrow-${Date.now()}`,

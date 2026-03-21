@@ -90,14 +90,22 @@ const fetchTransaction = async (hash: string) => {
 };
 
 const formatTimestamp = (timestamp: number): string => {
-  // API returns timestamp in seconds, Date.now() returns milliseconds
+  if (!timestamp || timestamp === 0) return '—';
+  // API returns timestamp in seconds (Unix)
   const timestampMs = timestamp * 1000;
   const seconds = Math.floor((Date.now() - timestampMs) / 1000);
   if (seconds < 0) return 'just now';
   if (seconds < 60) return `${seconds}s ago`;
   if (seconds < 3600) return `${Math.floor(seconds / 60)}m ago`;
   if (seconds < 86400) return `${Math.floor(seconds / 3600)}h ago`;
-  return `${Math.floor(seconds / 86400)}d ago`;
+  if (seconds < 86400 * 90) return `${Math.floor(seconds / 86400)}d ago`;
+  // Old blocks: show date so it's clear (not "467d ago")
+  const d = new Date(timestampMs);
+  return d.toLocaleDateString('en-US', {
+    month: 'short',
+    year: 'numeric',
+    day: 'numeric',
+  });
 };
 
 export default function Explorer(): React.JSX.Element {
@@ -188,20 +196,22 @@ export default function Explorer(): React.JSX.Element {
           </div>
 
           <div className="rounded-lg border border-white/10 bg-black-hole/90 backdrop-blur-sm shadow-panel p-6">
-            <div className="text-xs font-semibold text-muted uppercase tracking-wider mb-1">Total Blocks</div>
+            <div className="text-xs font-semibold text-muted uppercase tracking-wider mb-1">
+              Total Blocks
+            </div>
             <div className="text-2xl font-bold text-content font-mono mb-1">
               {isLoading ? '...' : blocksData?.total.toLocaleString() || '0'}
             </div>
-            <div className="text-xs text-muted">
-              Since testnet launch
-            </div>
+            <div className="text-xs text-muted">Since testnet launch</div>
           </div>
 
           <div className="rounded-lg border border-white/10 bg-black-hole/90 backdrop-blur-sm shadow-panel p-6">
             <div className="text-xs font-semibold text-muted uppercase tracking-wider mb-1">
               Active Validators
             </div>
-            <div className="text-2xl font-bold text-tech-success font-mono mb-1">2/2</div>
+            <div className="text-2xl font-bold text-tech-success font-mono mb-1">
+              2/2
+            </div>
             <div className="text-xs text-muted">EU + AU regions</div>
           </div>
         </div>
@@ -316,7 +326,9 @@ export default function Explorer(): React.JSX.Element {
 
         <div className="card-panel">
           <div className="p-6 border-b border-white/10">
-            <h2 className="text-lg font-semibold text-content">⬡ Recent Blocks</h2>
+            <h2 className="text-lg font-semibold text-content">
+              ⬡ Recent Blocks
+            </h2>
           </div>
           <div className="p-6">
             {isLoading ? (
@@ -342,9 +354,7 @@ export default function Explorer(): React.JSX.Element {
                     <div className="flex items-center gap-4 text-sm">
                       <div>
                         <span className="text-muted">Txs:</span>{' '}
-                        <span className="text-content">
-                          {block.txCount}
-                        </span>
+                        <span className="text-content">{block.txCount}</span>
                       </div>
                       <div>
                         <span className="text-muted">Gas:</span>{' '}

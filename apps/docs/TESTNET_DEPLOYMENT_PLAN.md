@@ -1,4 +1,5 @@
 # axionax Testnet Deployment Plan
+
 **Date**: December 5, 2025  
 **Status**: Phase 1 Complete (100%) + Phase 2 Active ✅  
 **VPS**: vmi2895217 (217.216.109.5)  
@@ -17,24 +18,27 @@ Current infrastructure is 78% deployed (7/9 services operational) with MetaMask 
 ## 📊 Current Status (December 5, 2025)
 
 ### ✅ All Services Operational (9/9) ✅
-| Service | Port | Status | Uptime |
-|---------|------|--------|--------|
-| PostgreSQL | 5432 | ✅ Healthy | 504h+ |
-| Redis | 6379 | ✅ Healthy | 504h+ |
-| Nginx/SSL | 80/443 | ✅ Healthy | 504h+ |
-| Mock RPC | 8545/8546 | ✅ Healthy | 504h+ |
-| Grafana | 3030 | ✅ Healthy | 504h+ |
-| Prometheus | 9090 | ✅ Running | 504h+ |
-| Website | 3000 | ✅ Running | 504h+ |
-| Explorer API | 3001 | ✅ Healthy | 504h+ |
-| Faucet API | 3002 | ✅ Healthy | 504h+ |
+
+| Service      | Port      | Status     | Uptime |
+| ------------ | --------- | ---------- | ------ |
+| PostgreSQL   | 5432      | ✅ Healthy | 504h+  |
+| Redis        | 6379      | ✅ Healthy | 504h+  |
+| Nginx/SSL    | 80/443    | ✅ Healthy | 504h+  |
+| Mock RPC     | 8545/8546 | ✅ Healthy | 504h+  |
+| Grafana      | 3030      | ✅ Healthy | 504h+  |
+| Prometheus   | 9090      | ✅ Running | 504h+  |
+| Website      | 3000      | ✅ Running | 504h+  |
+| Explorer API | 3001      | ✅ Healthy | 504h+  |
+| Faucet API   | 3002      | ✅ Healthy | 504h+  |
 
 ### 🎉 Infrastructure Achievement
+
 - **All 9 services**: Successfully deployed and operational
 - **Protocol**: v1.8.0 fully compliant with ARCHITECTURE.md spec
 - **Uptime**: 30+ days continuous operation
 
 ### ✅ Recent Achievements
+
 - MetaMask wallet integration with AXX token support
 - Auto-network configuration (Chain ID 86137)
 - Web3 Context Provider and ConnectButton component
@@ -48,6 +52,7 @@ Current infrastructure is 78% deployed (7/9 services operational) with MetaMask 
 ### Phase 1: Complete Infrastructure (Immediate - 1-2 Days) ⚡
 
 **Priority 1: Fix Remaining Services**
+
 - [ ] Debug and fix Explorer API (Port 3001)
   - Check RPC connection configuration
   - Verify database connectivity
@@ -61,6 +66,7 @@ Current infrastructure is 78% deployed (7/9 services operational) with MetaMask 
   - Validate rate limiting
 
 **Priority 2: End-to-End Testing**
+
 - [ ] MetaMask wallet connection flow
 - [ ] Network auto-configuration (Chain ID 86137)
 - [ ] Balance display and updates
@@ -69,6 +75,7 @@ Current infrastructure is 78% deployed (7/9 services operational) with MetaMask 
 - [ ] Cross-service integration testing
 
 **Priority 3: Documentation**
+
 - [ ] Quick Start Guide for developers
 - [ ] MetaMask setup instructions
 - [ ] API endpoint documentation
@@ -82,6 +89,7 @@ Current infrastructure is 78% deployed (7/9 services operational) with MetaMask 
 ### Phase 2: Enhanced Testnet Services (1 Week) 🔧
 
 **Mock RPC Enhancements**
+
 - [ ] Add smart contract deployment support
 - [ ] Implement `eth_call` for contract interactions
 - [ ] Add `eth_estimateGas` functionality
@@ -90,6 +98,7 @@ Current infrastructure is 78% deployed (7/9 services operational) with MetaMask 
 - [ ] Add debug/trace endpoints
 
 **Developer Tools**
+
 - [ ] Create dApp starter template
 - [ ] Build example contracts (Token, NFT, DeFi)
 - [ ] SDK usage examples
@@ -97,6 +106,7 @@ Current infrastructure is 78% deployed (7/9 services operational) with MetaMask 
 - [ ] CI/CD pipeline documentation
 
 **Monitoring & Alerts**
+
 - [ ] Grafana dashboards for all services
 - [ ] Prometheus alerting rules
 - [ ] Service health checks automation
@@ -110,6 +120,7 @@ Current infrastructure is 78% deployed (7/9 services operational) with MetaMask 
 **Infrastructure Planning**
 
 **Option A: Cloud Provider (Recommended)**
+
 - **Provider**: Hetzner Cloud
 - **Instance**: CPX41 (8 vCPU, 16GB RAM, 240GB NVMe)
 - **Cost**: ~€40/month (~$45 USD)
@@ -117,16 +128,19 @@ Current infrastructure is 78% deployed (7/9 services operational) with MetaMask 
 - **Purpose**: Dedicated validator node
 
 **Option B: AWS Alternative**
+
 - **Instance**: t3.xlarge (4 vCPU, 16GB RAM)
 - **Cost**: ~$150/month
 - **Advantage**: Better global reach, managed services
 
 **Option C: DigitalOcean Alternative**
+
 - **Droplet**: CPU-Optimized (8 vCPU, 16GB RAM)
 - **Cost**: ~$160/month
 - **Advantage**: Simple management, good documentation
 
 **Validator Node Setup**
+
 - [ ] Provision new VPS (Hetzner CPX41 recommended)
 - [ ] Install system dependencies (Rust, Docker, etc.)
 - [ ] Build axionax-core from source
@@ -136,6 +150,7 @@ Current infrastructure is 78% deployed (7/9 services operational) with MetaMask 
 - [ ] Setup monitoring and logging
 
 **Genesis Ceremony**
+
 - [ ] Define genesis parameters
   - Chain ID: 86137 (testnet) / 86150 (mainnet future)
   - Initial validators: 1-3 nodes
@@ -148,6 +163,7 @@ Current infrastructure is 78% deployed (7/9 services operational) with MetaMask 
 - [ ] Verify consensus achievement
 
 **Network Integration**
+
 - [ ] Connect validator to infrastructure VPS
 - [ ] Configure RPC endpoints
 - [ ] Setup peer discovery
@@ -160,6 +176,7 @@ Current infrastructure is 78% deployed (7/9 services operational) with MetaMask 
 ### Phase 4: Public Testnet Launch (1-3 Months) 🌐
 
 **Pre-Launch Checklist**
+
 - [ ] All services 100% operational
 - [ ] Validator node stable (3+ days uptime)
 - [ ] Documentation complete
@@ -169,6 +186,7 @@ Current infrastructure is 78% deployed (7/9 services operational) with MetaMask 
 - [ ] Security audit completed
 
 **Community Onboarding**
+
 - [ ] Public announcement (Twitter, Discord, Telegram)
 - [ ] Developer outreach program
 - [ ] Bug bounty program launch
@@ -177,6 +195,7 @@ Current infrastructure is 78% deployed (7/9 services operational) with MetaMask 
 - [ ] Office hours / support channels
 
 **Scale Strategy**
+
 - [ ] Monitor network load
 - [ ] Add validators as needed (target 5-10)
 - [ ] Geographic distribution planning
@@ -189,20 +208,24 @@ Current infrastructure is 78% deployed (7/9 services operational) with MetaMask 
 ## 💰 Cost Estimation
 
 ### Current VPS (vmi2895217)
+
 - **Cost**: ~€20-30/month (~$25-35 USD)
 - **Purpose**: Infrastructure services
 - **Keep**: ✅ Yes (adequate for current services)
 
 ### New Validator VPS (Recommended: Hetzner CPX41)
+
 - **Cost**: ~€40/month (~$45 USD)
 - **Purpose**: Validator node operations
 - **Timeline**: Provision in Week 3-4
 
 ### Total Monthly Cost
+
 - **Phase 1-2**: $25-35/month (current VPS only)
 - **Phase 3+**: $70-80/month (both VPS)
 
 ### Alternative: Free Tier Options
+
 - **AWS Free Tier**: 12 months free (limited resources)
 - **Google Cloud**: $300 credit (3 months)
 - **Azure**: $200 credit (1 month)
@@ -213,49 +236,60 @@ Current infrastructure is 78% deployed (7/9 services operational) with MetaMask 
 ## 📋 Detailed Task Breakdown
 
 ### Week 1: Infrastructure Completion
+
 **Days 1-2**: Service Debugging
+
 - Morning: Explorer API investigation
 - Afternoon: Faucet API investigation
 - Evening: Integration testing
 
 **Days 3-4**: Testing & Documentation
+
 - Morning: End-to-end testing
 - Afternoon: Documentation writing
 - Evening: Community preparation
 
 **Days 5-7**: Polish & Preparation
+
 - [ ] Code cleanup and optimization
 - [x] Security hardening (Deployment scripts hardened)
 - [ ] Performance tuning
 - [ ] Backup procedures
 
 ### Week 2-3: Enhanced Testnet
+
 **Week 2**: Mock RPC Enhancement
+
 - Smart contract support
 - Additional RPC methods
 - Testing framework
 - Developer tools
 
 **Week 3**: Developer Experience
+
 - dApp examples
 - Tutorial creation
 - SDK documentation
 - Video guides
 
 ### Week 4-6: Validator Deployment
+
 **Week 4**: Infrastructure Setup
+
 - VPS provisioning
 - System configuration
 - axionax-core build
 - Testing environment
 
 **Week 5**: Genesis Ceremony
+
 - Parameter definition
 - Validator coordination
 - Genesis file creation
 - Launch preparation
 
 **Week 6**: Network Launch
+
 - Synchronized start
 - Monitoring and support
 - Issue resolution
@@ -266,6 +300,7 @@ Current infrastructure is 78% deployed (7/9 services operational) with MetaMask 
 ## 🎯 Success Metrics
 
 ### Phase 1 Success Criteria
+
 - ✅ 100% service uptime (9/9 operational)
 - ✅ Explorer API response time < 500ms
 - ✅ Faucet successfully distributes AXX tokens
@@ -273,6 +308,7 @@ Current infrastructure is 78% deployed (7/9 services operational) with MetaMask 
 - ✅ All documentation complete
 
 ### Phase 2 Success Criteria
+
 - ✅ Mock RPC supports smart contract deployment
 - ✅ 3+ dApp examples published
 - ✅ Developer feedback collected
@@ -280,6 +316,7 @@ Current infrastructure is 78% deployed (7/9 services operational) with MetaMask 
 - ✅ Zero critical bugs
 
 ### Phase 3 Success Criteria
+
 - ✅ Validator node produces blocks consistently
 - ✅ Genesis ceremony completed successfully
 - ✅ Network achieves consensus (>2/3 validators)
@@ -287,6 +324,7 @@ Current infrastructure is 78% deployed (7/9 services operational) with MetaMask 
 - ✅ 99%+ uptime over 7 days
 
 ### Phase 4 Success Criteria
+
 - ✅ 10+ active developers building on testnet
 - ✅ 5-10 validator nodes operational
 - ✅ 100+ daily active users
@@ -298,45 +336,51 @@ Current infrastructure is 78% deployed (7/9 services operational) with MetaMask 
 ## 🚨 Risk Mitigation
 
 ### Technical Risks
-| Risk | Impact | Probability | Mitigation |
-|------|--------|-------------|------------|
-| VPS downtime | High | Low | Monitoring, auto-restart, backups |
-| Validator crash | High | Medium | Redundant validators, quick recovery |
-| Network partition | Medium | Low | Peer diversity, monitoring |
-| Smart contract bugs | Medium | Medium | Audits, testing, bug bounty |
-| DDoS attack | High | Medium | Rate limiting, CDN, firewall |
+
+| Risk                | Impact | Probability | Mitigation                           |
+| ------------------- | ------ | ----------- | ------------------------------------ |
+| VPS downtime        | High   | Low         | Monitoring, auto-restart, backups    |
+| Validator crash     | High   | Medium      | Redundant validators, quick recovery |
+| Network partition   | Medium | Low         | Peer diversity, monitoring           |
+| Smart contract bugs | Medium | Medium      | Audits, testing, bug bounty          |
+| DDoS attack         | High   | Medium      | Rate limiting, CDN, firewall         |
 
 ### Resource Risks
-| Risk | Impact | Probability | Mitigation |
-|------|--------|-------------|------------|
-| VPS resource exhaustion | High | Medium | Monitoring, auto-scaling plan |
-| Cost overrun | Low | Low | Budget tracking, cost alerts |
-| Insufficient validators | Medium | Medium | Community incentives |
+
+| Risk                    | Impact | Probability | Mitigation                    |
+| ----------------------- | ------ | ----------- | ----------------------------- |
+| VPS resource exhaustion | High   | Medium      | Monitoring, auto-scaling plan |
+| Cost overrun            | Low    | Low         | Budget tracking, cost alerts  |
+| Insufficient validators | Medium | Medium      | Community incentives          |
 
 ### Timeline Risks
-| Risk | Impact | Probability | Mitigation |
-|------|--------|-------------|------------|
-| Service debugging delays | Low | High | Already 78% complete, focused effort |
-| Validator setup complexity | Medium | Medium | Detailed documentation, testing |
-| Community adoption slow | Low | Medium | Marketing, incentives, partnerships |
+
+| Risk                       | Impact | Probability | Mitigation                           |
+| -------------------------- | ------ | ----------- | ------------------------------------ |
+| Service debugging delays   | Low    | High        | Already 78% complete, focused effort |
+| Validator setup complexity | Medium | Medium      | Detailed documentation, testing      |
+| Community adoption slow    | Low    | Medium      | Marketing, incentives, partnerships  |
 
 ---
 
 ## 📞 Support & Communication
 
 ### Development Team Channels
+
 - **GitHub**: https://github.com/axionaxprotocol/axionax-core
 - **Issues**: Track progress and bugs
 - **Discussions**: Technical Q&A
 - **Pull Requests**: Code review process
 
 ### Community Channels (To Setup)
+
 - **Discord**: Developer support, announcements
 - **Telegram**: Community chat, quick updates
 - **Twitter**: Public announcements, marketing
 - **Medium/Blog**: Technical articles, tutorials
 
 ### Documentation Sites
+
 - **Main Docs**: https://docs.axionax.org
 - **API Reference**: In progress
 - **Tutorials**: To be created
@@ -347,12 +391,14 @@ Current infrastructure is 78% deployed (7/9 services operational) with MetaMask 
 ## 🔄 Review & Adjustment
 
 ### Weekly Reviews
+
 - **Every Monday**: Progress assessment
 - **Metrics Review**: Service uptime, performance
 - **Issue Triage**: Prioritize blockers
 - **Timeline Adjustment**: Update estimates
 
 ### Monthly Reviews
+
 - **Budget Review**: Cost tracking
 - **Community Feedback**: Developer surveys
 - **Feature Requests**: Prioritization
@@ -363,6 +409,7 @@ Current infrastructure is 78% deployed (7/9 services operational) with MetaMask 
 ## ✅ Next Immediate Actions (24-48 Hours)
 
 1. **Debug Explorer API** (Priority 1)
+
    ```bash
    ssh root@217.216.109.5
    docker logs axionax-explorer-api
@@ -371,6 +418,7 @@ Current infrastructure is 78% deployed (7/9 services operational) with MetaMask 
    ```
 
 2. **Debug Faucet API** (Priority 1)
+
    ```bash
    docker logs axionax-faucet-api
    # Check wallet configuration

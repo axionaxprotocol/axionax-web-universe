@@ -128,6 +128,7 @@ Full specification for production launch:
 - **Vesting**: Full schedules for team, investors, foundation
 
 📖 **Learn More:**
+
 - [Testnet Configuration](apps/docs/TOKENOMICS_TESTNET.md) - Current setup
 - [Mainnet Tokenomics](apps/docs/TOKENOMICS.md) - Full specification
 - [Add Token to MetaMask](apps/docs/ADD_TOKEN_TO_METAMASK.md) - Setup guide
@@ -183,7 +184,7 @@ import { AxionaxClient } from '@axionax/sdk';
 // Initialize client
 const client = new AxionaxClient({
   rpcUrl: 'http://localhost:8545',
-  chainId: 86137
+  chainId: 86137,
 });
 
 // Get account balance
@@ -193,7 +194,7 @@ const balance = await client.getBalance('0x...');
 const tx = await client.sendTransaction({
   to: '0x...',
   value: '1000000000000000000', // 1 AXX
-  gas: 21000
+  gas: 21000,
 });
 
 // Wait for confirmation
@@ -237,6 +238,7 @@ pnpm --filter @axionax/web exec tsc --noEmit
 ```
 
 **Features:**
+
 - ✅ Server-side rendering (SSR)
 - ✅ Static site generation (SSG)
 - ✅ Image optimization
@@ -275,6 +277,7 @@ pnpm lint
 ```
 
 **Features:**
+
 - ✅ Buy/sell compute resources
 - ✅ Real-time price updates
 - ✅ Wallet integration
@@ -310,6 +313,7 @@ apps/docs/
 ```
 
 **Topics Covered:**
+
 - Getting Started Guide
 - Quick Start Tutorial
 - SDK Documentation
@@ -348,19 +352,19 @@ yarn add @axionax/sdk
 // Client
 class AxionaxClient {
   constructor(config: ClientConfig);
-  
+
   // Accounts
   getBalance(address: string): Promise<BigNumber>;
   getAccount(address: string): Promise<Account>;
-  
+
   // Transactions
   sendTransaction(tx: Transaction): Promise<TransactionResponse>;
   estimateGas(tx: Transaction): Promise<BigNumber>;
-  
+
   // Blocks
   getBlock(blockNumber: number): Promise<Block>;
   getBlockNumber(): Promise<number>;
-  
+
   // Smart Contracts
   deployContract(bytecode: string, abi: ABI): Promise<Contract>;
   getContract(address: string, abi: ABI): Contract;
@@ -369,7 +373,7 @@ class AxionaxClient {
 // Wallet
 class Wallet {
   constructor(privateKey: string);
-  
+
   sign(message: string): Promise<Signature>;
   signTransaction(tx: Transaction): Promise<SignedTransaction>;
 }
@@ -507,12 +511,12 @@ docker-compose up -d
 
 **Deploy targets:**
 
-| Target        | Method | Notes |
-|---------------|--------|-------|
-| **CI → VPS**  | Set secrets, push `main`/`develop` | Standalone + rsync per [DEPLOYMENT.md](apps/web/docs/DEPLOYMENT.md) |
-| **Vercel**    | Connect repo → build `pnpm --filter @axionax/web build`, root = repo root | API routes supported |
-| **Node (VPS)**| Build then `pnpm --filter @axionax/web start` or Docker per [DEPLOYMENT.md](apps/web/docs/DEPLOYMENT.md) | Full stack |
-| **GitHub Pages** | deploy-pages workflow — requires static export; app has `/api/*` so must separate API or static-only | See [docs/DEPLOY.md](docs/DEPLOY.md) |
+| Target           | Method                                                                                                   | Notes                                                               |
+| ---------------- | -------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| **CI → VPS**     | Set secrets, push `main`/`develop`                                                                       | Standalone + rsync per [DEPLOYMENT.md](apps/web/docs/DEPLOYMENT.md) |
+| **Vercel**       | Connect repo → build `pnpm --filter @axionax/web build`, root = repo root                                | API routes supported                                                |
+| **Node (VPS)**   | Build then `pnpm --filter @axionax/web start` or Docker per [DEPLOYMENT.md](apps/web/docs/DEPLOYMENT.md) | Full stack                                                          |
+| **GitHub Pages** | deploy-pages workflow — requires static export; app has `/api/*` so must separate API or static-only     | See [docs/DEPLOY.md](docs/DEPLOY.md)                                |
 
 **Before first deploy:**
 
@@ -618,6 +622,7 @@ chore(scope): maintenance tasks
 ```
 
 Examples:
+
 - `feat(sdk): add getTransactionReceipt method`
 - `fix(website): resolve mobile navigation issue`
 - `docs(marketplace): add usage examples`
@@ -652,6 +657,7 @@ All packages and apps in this monorepo are licensed under MIT, allowing free use
 ## 🎯 Roadmap
 
 ### ✅ Completed
+
 - [x] Website v2.0 with Next.js 14
 - [x] TypeScript SDK v1.0
 - [x] Documentation site (50+ pages)
@@ -660,12 +666,14 @@ All packages and apps in this monorepo are licensed under MIT, allowing free use
 - [x] Production deployment
 
 ### 🔄 In Progress
+
 - [ ] Marketplace v1.0 (escrow system)
 - [ ] Mobile app development
 - [ ] Advanced SDK features
 - [ ] Interactive tutorials
 
 ### 🚀 Upcoming (Q1 2026)
+
 - [ ] SDK v2.0 (enhanced features)
 - [ ] Mobile wallet integration
 - [ ] GraphQL API
@@ -677,14 +685,14 @@ All packages and apps in this monorepo are licensed under MIT, allowing free use
 
 <div align="center">
 
-| Metric | Value | Status |
-|--------|-------|--------|
-| **Total Packages** | 4 | ✅ Active |
-| **TypeScript Coverage** | 100% | ✅ Full |
-| **Build Time** | 44.4s | ⚡ Fast |
-| **Bundle Size** | 98.5 KB | 📦 Optimized |
-| **Lines of Code** | 15,000+ | 📊 Growing |
-| **Dependencies** | Shared | 🎯 Efficient |
+| Metric                  | Value   | Status       |
+| ----------------------- | ------- | ------------ |
+| **Total Packages**      | 4       | ✅ Active    |
+| **TypeScript Coverage** | 100%    | ✅ Full      |
+| **Build Time**          | 44.4s   | ⚡ Fast      |
+| **Bundle Size**         | 98.5 KB | 📦 Optimized |
+| **Lines of Code**       | 15,000+ | 📊 Growing   |
+| **Dependencies**        | Shared  | 🎯 Efficient |
 
 </div>
 
@@ -694,7 +702,7 @@ All packages and apps in this monorepo are licensed under MIT, allowing free use
 
 **Built with ❤️ by the axionax Protocol Team**
 
-*Part of the [axionax Universe](https://github.com/axionaxprotocol) • Last Updated: November 22, 2025*
+_Part of the [axionax Universe](https://github.com/axionaxprotocol) • Last Updated: November 22, 2025_
 
 [![GitHub Stars](https://img.shields.io/github/stars/axionaxprotocol/axionax-web-universe?style=social)](https://github.com/axionaxprotocol/axionax-web-universe)
 [![GitHub Forks](https://img.shields.io/github/forks/axionaxprotocol/axionax-web-universe?style=social)](https://github.com/axionaxprotocol/axionax-web-universe/fork)

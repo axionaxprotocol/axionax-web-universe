@@ -1,9 +1,11 @@
 ﻿# Genesis Ceremony & Network Launch
+
 ## axionax v1.6 Testnet Public Launch
 
 > **เอกสารนี้**: ขั้นตอนการจัด Genesis Ceremony และ Launch เครือข่าย Testnet อย่างเป็นทางการ
 
 ## 📋 สารบัญ
+
 - [Overview](#overview)
 - [Roles & Responsibilities](#roles--responsibilities)
 - [Timeline](#timeline)
@@ -18,12 +20,14 @@
 ## Overview
 
 **Genesis Ceremony** คือกระบวนการสร้าง **Genesis Block** (บล็อกแรก) ของเครือข่าย axionax Testnet ซึ่งประกอบด้วย:
+
 - รายชื่อ Validators เริ่มต้น (Genesis Validators)
 - การจัดสรรโทเค็น (Token Allocations)
 - พารามิเตอร์เครือข่าย (Network Parameters)
 - สัญญา Smart Contracts เริ่มต้น
 
 **เป้าหมาย**:
+
 - ✅ สร้าง genesis.json ที่ถูกต้องและตรวจสอบได้
 - ✅ รับรอง Validators ทั้งหมดมี genesis file เดียวกัน
 - ✅ Launch เครือข่ายอย่างปลอดภัยและเสถียร
@@ -34,6 +38,7 @@
 ## Roles & Responsibilities
 
 ### 1. Genesis Coordinator (คุณ/ทีม Core)
+
 - **ความรับผิดชอบ**:
   - จัด Genesis Ceremony
   - รวบรวม validator public keys
@@ -43,6 +48,7 @@
   - Bootstrap node แรก
 
 ### 2. Genesis Validators (5-10 nodes แนะนำ)
+
 - **ความรับผิดชอบ**:
   - สร้าง validator keypair
   - ส่ง public key + node info ให้ Coordinator
@@ -51,6 +57,7 @@
   - Maintain node stability หลัง launch
 
 ### 3. Community (Optional Observers)
+
 - **ความรับผิดชอบ**:
   - ตรวจสอบความโปร่งใสของกระบวนการ
   - Verify genesis hash
@@ -61,31 +68,39 @@
 ## Timeline
 
 ### Phase 1: Preparation (2-3 weeks before launch)
+
 **Week 1-2**:
+
 - [ ] ประกาศ Genesis Launch date
 - [ ] เปิดรับสมัคร Genesis Validators
 - [ ] แจกจ่ายเอกสาร VPS setup
 - [ ] Setup communication channels (Discord/Telegram)
 
 **Week 3**:
+
 - [ ] Validators ส่ง public keys
 - [ ] Coordinator รวบรวมข้อมูล validators
 - [ ] ตรวจสอบความพร้อมของ validators
 
 ### Phase 2: Genesis Creation (1 week before launch)
+
 **Day -7 to -3**:
+
 - [ ] สร้าง genesis.json draft
 - [ ] Validators review และ verify
 - [ ] Finalize genesis parameters
 
 **Day -2 to -1**:
+
 - [ ] ประกาศ genesis.json อย่างเป็นทางการ
 - [ ] แจกจ่าย genesis file + bootstrap nodes
 - [ ] Validators initialize nodes
 - [ ] Dry run tests
 
 ### Phase 3: Launch Day (D-Day)
+
 **Launch Time: 00:00 UTC (กำหนดเวลาที่แน่นอน)**
+
 - [ ] T-15 min: Final validator readiness check
 - [ ] T-5 min: All validators start syncing
 - [ ] T-0: Genesis Coordinator starts first node
@@ -94,6 +109,7 @@
 - [ ] T+30 min: Open public RPC endpoints
 
 ### Phase 4: Post-Launch (First 24 hours)
+
 - [ ] Monitor block production
 - [ ] Verify all validators participating
 - [ ] Check network health metrics
@@ -105,83 +121,86 @@
 ## Genesis Configuration
 
 ### Network Parameters
+
 ```yaml
 # Chain Configuration
-chain_id: 86137                    # axionax Testnet
-network_name: "axionax Testnet"
-chain_name: "axi-testnet"
+chain_id: 86137 # axionax Testnet
+network_name: 'axionax Testnet'
+chain_name: 'axi-testnet'
 
 # Genesis Time
-genesis_time: "2025-01-15T00:00:00Z"  # แก้ไขตามวันที่จริง
+genesis_time: '2025-01-15T00:00:00Z' # แก้ไขตามวันที่จริง
 
 # Block Parameters
-block_time: 5s                     # 5 seconds per block
-max_block_size: 5242880           # 5 MB
-max_gas_limit: 30000000           # 30M gas
+block_time: 5s # 5 seconds per block
+max_block_size: 5242880 # 5 MB
+max_gas_limit: 30000000 # 30M gas
 
 # Consensus
-consensus_algorithm: "PoPC"        # Proof-of-Probabilistic-Checking
-epoch_length: 100                  # blocks per epoch
-min_validator_stake: 10000         # 10,000 AXX minimum
-max_validators: 100                # Maximum validator set size
+consensus_algorithm: 'PoPC' # Proof-of-Probabilistic-Checking
+epoch_length: 100 # blocks per epoch
+min_validator_stake: 10000 # 10,000 AXX minimum
+max_validators: 100 # Maximum validator set size
 ```
 
 ### Token Allocations
+
 ```yaml
 # Total Supply: 1,000,000,000 AXX (1 billion)
 allocations:
   # Foundation (30%)
-  - address: "0x..."
-    balance: "300000000000000000000000000"  # 300M AXX
+  - address: '0x...'
+    balance: '300000000000000000000000000' # 300M AXX
     vesting: true
-    vesting_schedule: "4 years linear"
-  
+    vesting_schedule: '4 years linear'
+
   # Validators Rewards Pool (25%)
-  - address: "0x..."
-    balance: "250000000000000000000000000"  # 250M AXX
-    type: "rewards_pool"
-  
+  - address: '0x...'
+    balance: '250000000000000000000000000' # 250M AXX
+    type: 'rewards_pool'
+
   # Community & Ecosystem (20%)
-  - address: "0x..."
-    balance: "200000000000000000000000000"  # 200M AXX
+  - address: '0x...'
+    balance: '200000000000000000000000000' # 200M AXX
     vesting: true
-  
+
   # Team & Advisors (15%)
-  - address: "0x..."
-    balance: "150000000000000000000000000"  # 150M AXX
+  - address: '0x...'
+    balance: '150000000000000000000000000' # 150M AXX
     vesting: true
-    vesting_schedule: "2 years cliff, 4 years linear"
-  
+    vesting_schedule: '2 years cliff, 4 years linear'
+
   # Public Sale (10%)
-  - address: "0x..."
-    balance: "100000000000000000000000000"  # 100M AXX
-  
+  - address: '0x...'
+    balance: '100000000000000000000000000' # 100M AXX
+
   # Genesis Validators (split among validators)
   # Each validator gets initial stake of 50,000 AXX
-  - address: "0xValidator1..."
-    balance: "50000000000000000000000"     # 50K AXX
-  - address: "0xValidator2..."
-    balance: "50000000000000000000000"
+  - address: '0xValidator1...'
+    balance: '50000000000000000000000' # 50K AXX
+  - address: '0xValidator2...'
+    balance: '50000000000000000000000'
   # ... (continue for all genesis validators)
 ```
 
 ### Smart Contracts (Pre-deployed)
+
 ```yaml
 contracts:
   # AXX Token (Native Wrapped Token)
-  - name: "AXX_Token"
-    address: "0x0000000000000000000000000000000000001000"
-    bytecode: "..."
-  
+  - name: 'AXX_Token'
+    address: '0x0000000000000000000000000000000000001000'
+    bytecode: '...'
+
   # Staking Contract
-  - name: "ValidatorStaking"
-    address: "0x0000000000000000000000000000000000001001"
-    bytecode: "..."
-  
+  - name: 'ValidatorStaking'
+    address: '0x0000000000000000000000000000000000001001'
+    bytecode: '...'
+
   # PoPC Coordinator
-  - name: "POPCCoordinator"
-    address: "0x0000000000000000000000000000000000001002"
-    bytecode: "..."
+  - name: 'POPCCoordinator'
+    address: '0x0000000000000000000000000000000000001002'
+    bytecode: '...'
 ```
 
 ---
@@ -189,7 +208,9 @@ contracts:
 ## Validator Registration
 
 ### 1. Generate Validator Keys
+
 แต่ละ validator ต้องสร้าง keypair:
+
 ```bash
 # Run on validator VPS
 axionax-core keys generate --output ~/validator-keys.json
@@ -203,6 +224,7 @@ axionax-core keys generate --output ~/validator-keys.json
 ```
 
 ### 2. Submit Information to Coordinator
+
 ส่งข้อมูลต่อไปนี้ให้ Genesis Coordinator (ผ่าน encrypted channel):
 
 ```json
@@ -234,7 +256,9 @@ axionax-core keys generate --output ~/validator-keys.json
 **Deadline**: 7 days before genesis launch
 
 ### 3. Coordinator Verification
+
 Coordinator จะ:
+
 - ✅ ตรวจสอบ public key format
 - ✅ Verify enode connectivity
 - ✅ Check stake commitment meets minimum
@@ -245,6 +269,7 @@ Coordinator จะ:
 ## Genesis Ceremony Steps
 
 ### Step 1: Create Genesis Template
+
 Coordinator สร้าง genesis template:
 
 ```bash
@@ -259,6 +284,7 @@ cd ~/axionax-core/tools
 ```
 
 ### Step 2: Add Validators
+
 เพิ่มข้อมูล validators ลงใน genesis:
 
 ```json
@@ -311,6 +337,7 @@ cd ~/axionax-core/tools
 ```
 
 ### Step 3: Finalize Genesis
+
 ```bash
 # Validate genesis file
 axionax-core genesis validate --file genesis-draft.json
@@ -325,6 +352,7 @@ axionax-core genesis sign --file genesis-draft.json --key coordinator.key
 ```
 
 ### Step 4: Distribute Genesis
+
 ```bash
 # Upload to public location
 # 1. GitHub Release
@@ -339,6 +367,7 @@ scp genesis.json user@testnet.axionax.org:/var/www/html/genesis.json
 ```
 
 **Announce Publicly**:
+
 ```
 🎉 axionax Testnet Genesis Released!
 
@@ -359,6 +388,7 @@ Launch Countdown: https://testnet.axionax.org/countdown
 ```
 
 ### Step 5: Validators Verify
+
 แต่ละ validator ต้อง verify:
 
 ```bash
@@ -384,6 +414,7 @@ axionax-core init --config ~/.axionax/config/config.yaml \
 ## Network Launch
 
 ### Pre-Launch Checklist (T-15 minutes)
+
 Coordinator ประสานกับทุก validator:
 
 ```
@@ -398,6 +429,7 @@ Coordinator ประสานกับทุก validator:
 ### Launch Sequence
 
 **T-10 minutes**: Final standby
+
 ```bash
 # All validators prepare
 sudo systemctl enable axionax-validator
@@ -405,6 +437,7 @@ sudo systemctl enable axionax-validator
 ```
 
 **T-5 minutes**: Coordinator starts first
+
 ```bash
 # Coordinator node (Bootstrap node)
 sudo systemctl start axionax-validator
@@ -415,6 +448,7 @@ journalctl -u axionax-validator -f
 ```
 
 **T-2 minutes**: Get bootstrap enode
+
 ```bash
 # Coordinator gets enode URL
 curl -X POST http://127.0.0.1:8545 \
@@ -426,6 +460,7 @@ curl -X POST http://127.0.0.1:8545 \
 ```
 
 **T-1 minute**: Update bootstrap nodes
+
 ```bash
 # All validators update config.yaml
 nano ~/.axionax/config/config.yaml
@@ -437,6 +472,7 @@ network:
 ```
 
 **T-0 (Genesis Time)**: Validators launch!
+
 ```bash
 # All validators execute simultaneously
 sudo systemctl start axionax-validator
@@ -446,6 +482,7 @@ journalctl -u axionax-validator -f
 ```
 
 **T+1 minute**: Verify peering
+
 ```bash
 # Check peer count
 curl -X POST http://127.0.0.1:8545 \
@@ -457,6 +494,7 @@ curl -X POST http://127.0.0.1:8545 \
 ```
 
 **T+5 minutes**: Verify consensus
+
 ```bash
 # Check latest block
 curl -X POST http://127.0.0.1:8545 \
@@ -468,6 +506,7 @@ curl -X POST http://127.0.0.1:8545 \
 ```
 
 **T+10 minutes**: Validator participation
+
 ```bash
 # Check who is producing blocks
 for i in {1..20}; do
@@ -488,6 +527,7 @@ done
 ### Health Checks (First Hour)
 
 **1. Network Consensus**
+
 ```bash
 # All nodes should be on same block
 for validator in validator1 validator2 validator3; do
@@ -499,6 +539,7 @@ done
 ```
 
 **2. Validator Participation**
+
 ```bash
 # Check missed blocks
 curl -X POST http://127.0.0.1:8545 \
@@ -512,6 +553,7 @@ curl -X POST http://127.0.0.1:8545 \
 ```
 
 **3. Network Health**
+
 ```bash
 # Check network metrics
 curl http://localhost:9090/metrics | grep axionax_
@@ -525,6 +567,7 @@ curl http://localhost:9090/metrics | grep axionax_
 ### Enable Public Access (T+30 minutes)
 
 **1. Open RPC Endpoints**
+
 ```bash
 # Update nginx config for public RPC
 sudo nano /etc/nginx/sites-available/axionax-rpc
@@ -532,7 +575,7 @@ sudo nano /etc/nginx/sites-available/axionax-rpc
 server {
     listen 443 ssl http2;
     server_name testnet-rpc.axionax.org;
-    
+
     location / {
         proxy_pass http://127.0.0.1:8545;
         # Add rate limiting
@@ -544,6 +587,7 @@ sudo systemctl reload nginx
 ```
 
 **2. Start Faucet**
+
 ```bash
 cd ~/axionax-core/environments/testnet/axionax_v1.6_Testnet_in_a_Box/faucet
 docker-compose up -d
@@ -553,6 +597,7 @@ curl 'http://testnet-faucet.axionax.org/request?address=0xTEST_ADDRESS'
 ```
 
 **3. Launch Block Explorer**
+
 ```bash
 cd ~/axionax-core/environments/testnet/axionax_v1.6_Testnet_in_a_Box
 docker-compose up -d blockscout
@@ -567,6 +612,7 @@ docker-compose up -d blockscout
 🎊 axionax Testnet is LIVE! 🎊
 
 Network Information:
+
 - Chain ID: 86137
 - Network Name: axionax Testnet
 - RPC URL: https://testnet-rpc.axionax.org
@@ -574,18 +620,21 @@ Network Information:
 - Faucet: https://testnet-faucet.axionax.org
 
 Genesis:
+
 - Block 0 Time: 2025-01-15T00:00:00Z
 - Genesis Hash: 0xabcd...
 - Initial Validators: 10
 - Current Block: 720+ (1 hour of operation)
 
 Network Stats:
+
 - Block Time: ~5s
 - Validators Online: 10/10 (100%)
 - Avg Participation: 99.8%
 - TPS: 150+
 
 Get Started:
+
 - Add Network to MetaMask: https://testnet.axionax.org/add-network
 - Request Test Tokens: https://testnet-faucet.axionax.org
 - Read Docs: https://docs.axionax.org
@@ -599,6 +648,7 @@ Let's build together! 🚀
 ## 🚨 Emergency Procedures
 
 ### Network Stall (No blocks being produced)
+
 ```bash
 # 1. Check all validators
 for v in validator1 validator2 ...; do
@@ -614,6 +664,7 @@ sudo systemctl restart axionax-validator
 ```
 
 ### Chain Fork Detected
+
 ```bash
 # 1. Identify which validators on wrong chain
 for v in validator1 validator2 ...; do
@@ -634,6 +685,7 @@ ssh minority_validator "sudo systemctl start axionax-validator"
 ```
 
 ### Coordinator Node Down
+
 ```bash
 # Any validator can become bootstrap node
 # 1. Get current node's enode
@@ -652,6 +704,7 @@ curl -X POST http://127.0.0.1:8545 \
 ## 📊 Success Criteria
 
 Genesis Launch ถือว่าสำเร็จเมื่อ:
+
 - ✅ All genesis validators online (10/10)
 - ✅ Blocks produced consistently (>720 blocks in 1 hour)
 - ✅ No chain forks or consensus issues
@@ -668,11 +721,13 @@ Genesis Launch ถือว่าสำเร็จเมื่อ:
 ## 📞 Support Channels
 
 **During Genesis Ceremony** (Live support):
+
 - Discord: #genesis-launch channel
 - Telegram: Validators Group (private)
 - Emergency Hotline: +XX-XXX-XXX-XXXX
 
 **After Launch**:
+
 - Validator Support: validators@axionax.org
 - Technical Issues: support@axionax.org
 - Documentation: https://docs.axionax.org

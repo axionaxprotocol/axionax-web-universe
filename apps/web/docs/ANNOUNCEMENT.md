@@ -50,6 +50,7 @@ Explorer: https://axionax.org/explorer
 ### 2. Explore the Network
 
 Visit **https://axionax.org** to:
+
 - View live block height (updates every 5 seconds)
 - Check validator status (2/2 online)
 - Browse recent blocks and transactions
@@ -100,7 +101,7 @@ import { AxionaxClient } from '@axionax/sdk';
 
 const client = new AxionaxClient({
   rpcUrl: 'https://axionax.org/rpc/',
-  chainId: 86137
+  chainId: 86137,
 });
 
 const blockHeight = await client.getBlockNumber();
@@ -134,6 +135,7 @@ console.log(`Current block: ${blockHeight}`);
 ### 🚀 Built for Compute Markets
 
 Unlike general-purpose blockchains, Axionax is specifically designed for:
+
 - **Decentralized compute resource trading**
 - **High-throughput task scheduling**
 - **Efficient resource allocation**
@@ -241,6 +243,7 @@ We'd love to hear from you! Share your thoughts:
 ## 🙏 Thank You
 
 Special thanks to:
+
 - Our early testers and supporters
 - The open-source community
 - Everyone who believed in the vision
@@ -253,7 +256,7 @@ Special thanks to:
 
 **Axionax Protocol**
 
-*Powering the Future of Compute*
+_Powering the Future of Compute_
 
 [Website](https://axionax.org) • [GitHub](https://github.com/axionaxprotocol) • [Docs](https://axionax.org/docs)
 

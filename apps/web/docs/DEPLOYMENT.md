@@ -17,17 +17,18 @@ Build ใช้ **Next.js standalone output** (โฟลเดอร์เดี
 
 ตั้งใน **Settings → Secrets and variables → Actions** แล้วเลือก environment **staging** หรือ **production** (แต่ละ environment ใช้ค่าแยกได้):
 
-| Secret | บังคับ | ตัวอย่าง | หมายเหตุ |
-|--------|--------|----------|----------|
-| `SSH_HOST` | ✅ | `217.216.109.5` | IP หรือ hostname ของ VPS |
-| `SSH_USER` | ✅ | `root` หรือ `deploy` | User สำหรับ SSH |
-| `SSH_PRIVATE_KEY` | ✅ | เนื้อหา private key (PEM) | ใช้คู่กับ public key ที่ใส่ใน server |
-| `REMOTE_PATH` | ✅ | `/var/www/axionax-web` | path บน server ที่จะ rsync เนื้อหา standalone ไปไว้ |
+| Secret               | บังคับ    | ตัวอย่าง                  | หมายเหตุ                                                           |
+| -------------------- | --------- | ------------------------- | ------------------------------------------------------------------ |
+| `SSH_HOST`           | ✅        | `217.216.109.5`           | IP หรือ hostname ของ VPS                                           |
+| `SSH_USER`           | ✅        | `root` หรือ `deploy`      | User สำหรับ SSH                                                    |
+| `SSH_PRIVATE_KEY`    | ✅        | เนื้อหา private key (PEM) | ใช้คู่กับ public key ที่ใส่ใน server                               |
+| `REMOTE_PATH`        | ✅        | `/var/www/axionax-web`    | path บน server ที่จะ rsync เนื้อหา standalone ไปไว้                |
 | `DEPLOY_RESTART_CMD` | ไม่บังคับ | `pm2 restart axionax-web` | คำสั่งรันหลัง rsync เพื่อ restart app (ถ้าไม่ตั้ง จะแค่ sync ไฟล์) |
 
 ### Server setup (รองรับ CI deploy)
 
 1. **สร้างโฟลเดอร์และสิทธิ์**
+
    ```bash
    sudo mkdir -p /var/www/axionax-web
    sudo chown $USER:$USER /var/www/axionax-web
@@ -36,15 +37,19 @@ Build ใช้ **Next.js standalone output** (โฟลเดอร์เดี
 2. **ใส่ SSH public key** ของ GitHub Actions (จากคู่ของ `SSH_PRIVATE_KEY`) เข้า `~/.ssh/authorized_keys` ของ `SSH_USER` บน server
 
 3. **รัน app ครั้งแรก (หรือใช้ PM2)**
+
    ```bash
    cd /var/www/axionax-web
    PORT=3000 node server.js
    ```
+
    หรือใช้ PM2:
+
    ```bash
    pm2 start server.js --name axionax-web
    pm2 save && pm2 startup
    ```
+
    จากนั้นตั้ง `DEPLOY_RESTART_CMD` = `pm2 restart axionax-web`
 
 4. **Nginx (reverse proxy)** ชี้ domain ไปที่ `http://127.0.0.1:3000` ตามที่ใช้อยู่แล้วใน repo
@@ -54,6 +59,7 @@ Build ใช้ **Next.js standalone output** (โฟลเดอร์เดี
 ## 🚀 Complete Setup for VPS Deployment
 
 This guide will help you deploy the entire AxionAX infrastructure on a VPS (Linux or Windows), including:
+
 - Web Frontend
 - Block Explorer API
 - Faucet API
@@ -62,6 +68,7 @@ This guide will help you deploy the entire AxionAX infrastructure on a VPS (Linu
 - Redis Cache
 
 **Supported Platforms:**
+
 - 🐧 Linux (Ubuntu 20.04+, Debian, CentOS)
 - 🪟 Windows Server 2019+, Windows 10/11
 
@@ -70,9 +77,10 @@ This guide will help you deploy the entire AxionAX infrastructure on a VPS (Linu
 ## 📋 Prerequisites
 
 ### System Requirements:
+
 - **RAM**: At least 4GB (8GB recommended)
 - **Storage**: 50GB+ SSD
-- **OS**: 
+- **OS**:
   - Linux: Ubuntu 20.04+, Debian 11+, CentOS 8+
   - Windows: Server 2019+, Windows 10/11 Pro
 - **Domain**: Domain name pointing to your VPS IP (see [DNS Setup Guide](docs/DNS_SETUP.md))
@@ -85,6 +93,7 @@ This guide will help you deploy the entire AxionAX infrastructure on a VPS (Linu
 See detailed guide: [docs/DNS_SETUP.md](docs/DNS_SETUP.md)
 
 **Quick DNS Setup:**
+
 1. Get your VPS IP: `curl ifconfig.me` (Linux) or `Invoke-RestMethod https://ipinfo.io/ip` (Windows)
 2. Add DNS A records for:
    - `axionax.org` → YOUR_VPS_IP
@@ -97,6 +106,7 @@ See detailed guide: [docs/DNS_SETUP.md](docs/DNS_SETUP.md)
 4. Wait 5-30 minutes for DNS propagation
 
 **Verify DNS:**
+
 ```bash
 # Check if DNS is working
 dig axionax.org +short
@@ -104,11 +114,13 @@ nslookup rpc.axionax.org
 ```
 
 ### Software Requirements:
+
 - Docker Desktop (Windows) or Docker Engine (Linux)
 - Docker Compose
 - Git
 
 ### Install Docker on Linux (Ubuntu/Debian):
+
 ```bash
 # Update packages
 sudo apt update
@@ -132,6 +144,7 @@ docker-compose --version
 ```
 
 ### Install Docker on Windows:
+
 ```powershell
 # Download and install Docker Desktop from:
 # https://www.docker.com/products/docker-desktop
@@ -153,11 +166,13 @@ docker-compose --version
 ### Install Git:
 
 **Linux:**
+
 ```bash
 sudo apt install git -y
 ```
 
 **Windows:**
+
 ```powershell
 # Using Chocolatey:
 choco install git -y
@@ -175,6 +190,7 @@ winget install Git.Git
 ### 1. Clone Repository
 
 **Linux:**
+
 ```bash
 cd /opt
 sudo git clone https://github.com/axionaxprotocol/axionax-web.git
@@ -183,6 +199,7 @@ sudo chown -R $USER:$USER .
 ```
 
 **Windows (PowerShell as Administrator):**
+
 ```powershell
 cd C:\
 git clone https://github.com/axionaxprotocol/axionax-web.git
@@ -192,6 +209,7 @@ cd axionax-web
 ### 2. Configure Environment Variables
 
 **Linux:**
+
 ```bash
 # Copy environment template
 cp .env.example .env
@@ -202,6 +220,7 @@ nano .env
 ```
 
 **Windows:**
+
 ```powershell
 # Copy environment template
 Copy-Item .env.example .env
@@ -212,7 +231,9 @@ notepad .env
 ```
 
 ### 3. Update DNS Records
+
 Point these subdomains to your VPS IP:
+
 - `axionax.org` → Your VPS IP
 - `api.axionax.org` → Your VPS IP
 - `faucet-api.axionax.org` → Your VPS IP
@@ -221,6 +242,7 @@ Point these subdomains to your VPS IP:
 ### 4. Deploy Services
 
 **Linux:**
+
 ```bash
 # Make deployment script executable
 chmod +x deploy.sh
@@ -230,6 +252,7 @@ chmod +x deploy.sh
 ```
 
 **Windows:**
+
 ```powershell
 # Run deployment script
 .\deploy.ps1
@@ -243,6 +266,7 @@ docker-compose up -d --build
 ## 🔒 Setup SSL Certificates (Recommended)
 
 ### Linux - Using Let's Encrypt (Free):
+
 ```bash
 # Install Certbot
 sudo apt install certbot python3-certbot-nginx -y
@@ -268,6 +292,7 @@ sudo certbot renew --dry-run
 ```
 
 ### Windows - Using Let's Encrypt:
+
 ```powershell
 # Install win-acme (ACME client for Windows)
 # Download from: https://github.com/win-acme/win-acme/releases
@@ -287,6 +312,7 @@ docker-compose restart nginx
 ```
 
 ### Alternative: Using Cloudflare (Both Linux & Windows)
+
 If you use Cloudflare, enable SSL/TLS encryption mode to "Full" or "Full (strict)" in Cloudflare dashboard.
 Cloudflare will handle SSL automatically.
 
@@ -296,32 +322,37 @@ Cloudflare will handle SSL automatically.
 
 After deployment, services will be available at:
 
-| Service | URL | Port |
-|---------|-----|------|
-| Website | http://axionax.org | 80/443 |
-| Explorer API | http://api.axionax.org | - |
-| Faucet API | http://faucet-api.axionax.org | - |
-| RPC Node | http://rpc.axionax.org | - |
-| PostgreSQL | Internal | 5432 |
-| Redis | Internal | 6379 |
+| Service      | URL                           | Port   |
+| ------------ | ----------------------------- | ------ |
+| Website      | http://axionax.org            | 80/443 |
+| Explorer API | http://api.axionax.org        | -      |
+| Faucet API   | http://faucet-api.axionax.org | -      |
+| RPC Node     | http://rpc.axionax.org        | -      |
+| PostgreSQL   | Internal                      | 5432   |
+| Redis        | Internal                      | 6379   |
 
 ---
 
 ## 🐳 Docker Commands
 
 ### View all services:
+
 **Linux:**
+
 ```bash
 docker-compose ps
 ```
 
 **Windows:**
+
 ```powershell
 docker-compose ps
 ```
 
 ### View logs:
+
 **Linux:**
+
 ```bash
 # All services
 docker-compose logs -f
@@ -335,6 +366,7 @@ docker-compose logs --tail=100 web
 ```
 
 **Windows:**
+
 ```powershell
 # All services
 docker-compose logs -f
@@ -348,7 +380,9 @@ docker-compose logs --tail=100 web
 ```
 
 ### Restart services:
+
 **Both platforms:**
+
 ```bash
 # All services
 docker-compose restart
@@ -359,13 +393,17 @@ docker-compose restart nginx
 ```
 
 ### Stop all services:
+
 **Both platforms:**
+
 ```bash
 docker-compose down
 ```
 
 ### Rebuild and restart:
+
 **Both platforms:**
+
 ```bash
 docker-compose up -d --build
 
@@ -375,7 +413,9 @@ docker-compose up -d
 ```
 
 ### Remove all containers and volumes (CAUTION):
+
 **Both platforms:**
+
 ```bash
 docker-compose down -v
 ```
@@ -385,6 +425,7 @@ docker-compose down -v
 ## 🔄 Update Deployment
 
 **Linux:**
+
 ```bash
 # Pull latest code
 git pull origin main
@@ -397,6 +438,7 @@ docker-compose up -d --build
 ```
 
 **Windows:**
+
 ```powershell
 # Pull latest code
 git pull origin main
@@ -413,18 +455,23 @@ docker-compose up -d --build
 ## 🗃️ Database Management
 
 ### Access PostgreSQL:
+
 **Linux:**
+
 ```bash
 docker-compose exec postgres psql -U axionax -d axionax
 ```
 
 **Windows:**
+
 ```powershell
 docker-compose exec postgres psql -U axionax -d axionax
 ```
 
 ### Backup Database:
+
 **Linux:**
+
 ```bash
 # Create backup
 docker-compose exec postgres pg_dump -U axionax axionax > backup_$(date +%Y%m%d).sql
@@ -434,6 +481,7 @@ docker-compose exec postgres pg_dump -U axionax axionax | gzip > backup_$(date +
 ```
 
 **Windows:**
+
 ```powershell
 # Create backup
 docker-compose exec postgres pg_dump -U axionax axionax > "backup_$(Get-Date -Format 'yyyyMMdd').sql"
@@ -443,7 +491,9 @@ docker-compose exec postgres pg_dump -U axionax axionax | 7z a -si "backup_$(Get
 ```
 
 ### Restore Database:
+
 **Linux:**
+
 ```bash
 # From SQL file
 cat backup.sql | docker-compose exec -T postgres psql -U axionax axionax
@@ -453,6 +503,7 @@ gunzip -c backup.sql.gz | docker-compose exec -T postgres psql -U axionax axiona
 ```
 
 **Windows:**
+
 ```powershell
 # From SQL file
 Get-Content backup.sql | docker-compose exec -T postgres psql -U axionax axionax
@@ -492,6 +543,7 @@ NEXT_PUBLIC_FAUCET_URL=https://faucet-api.axionax.org
 ## 🔥 Firewall Configuration
 
 ### Linux (UFW):
+
 ```bash
 # Allow HTTP and HTTPS
 sudo ufw allow 80/tcp
@@ -508,6 +560,7 @@ sudo ufw status
 ```
 
 ### Windows (PowerShell as Administrator):
+
 ```powershell
 # Allow HTTP
 New-NetFirewallRule -DisplayName "Allow HTTP" -Direction Inbound -Protocol TCP -LocalPort 80 -Action Allow
@@ -527,7 +580,9 @@ Get-NetFirewallRule | Where-Object {$_.DisplayName -like "*HTTP*"}
 ## 🚨 Troubleshooting
 
 ### Service won't start:
+
 **Linux:**
+
 ```bash
 # Check logs
 docker-compose logs service-name
@@ -541,6 +596,7 @@ sudo systemctl status docker
 ```
 
 **Windows:**
+
 ```powershell
 # Check logs
 docker-compose logs service-name
@@ -556,7 +612,9 @@ Restart-Service com.docker.service
 ```
 
 ### Out of disk space:
+
 **Both platforms:**
+
 ```bash
 # Clean up Docker
 docker system prune -a
@@ -569,11 +627,14 @@ docker volume prune
 ```
 
 **Check disk space:**
+
 - Linux: `df -h`
 - Windows: `Get-PSDrive C`
 
 ### Permission issues:
+
 **Linux:**
+
 ```bash
 # Fix ownership
 sudo chown -R $USER:$USER .
@@ -583,6 +644,7 @@ sudo systemctl restart docker
 ```
 
 **Windows:**
+
 ```powershell
 # Run PowerShell as Administrator
 # Restart Docker Desktop
@@ -592,7 +654,9 @@ Restart-Service com.docker.service
 ```
 
 ### Docker Compose not found:
+
 **Linux:**
+
 ```bash
 # Check installation
 docker-compose --version
@@ -603,6 +667,7 @@ sudo chmod +x /usr/local/bin/docker-compose
 ```
 
 **Windows:**
+
 ```powershell
 # Check installation
 docker-compose --version
@@ -612,7 +677,9 @@ docker-compose --version
 ```
 
 ### Container keeps restarting:
+
 **Both platforms:**
+
 ```bash
 # Check container logs
 docker logs container-name
@@ -629,7 +696,9 @@ docker-compose up -d
 ```
 
 ### Network issues:
+
 **Linux:**
+
 ```bash
 # Check Docker networks
 docker network ls
@@ -644,6 +713,7 @@ docker-compose up -d
 ```
 
 **Windows:**
+
 ```powershell
 # Check Docker networks
 docker network ls
@@ -662,7 +732,9 @@ docker-compose up -d
 ## 📈 Monitoring
 
 ### Check resource usage:
+
 **Linux:**
+
 ```bash
 # Docker stats
 docker stats
@@ -677,6 +749,7 @@ du -sh /opt/axionax-web/*
 ```
 
 **Windows:**
+
 ```powershell
 # Docker stats
 docker stats
@@ -693,7 +766,9 @@ Get-ChildItem C:\axionax-web -Recurse | Measure-Object -Property Length -Sum
 ```
 
 ### Install monitoring tools:
+
 **Linux:**
+
 ```bash
 # Install htop
 sudo apt install htop -y
@@ -703,6 +778,7 @@ sudo apt install htop -y
 ```
 
 **Windows:**
+
 ```powershell
 # Use Docker Desktop's built-in monitoring
 # Or install Portainer for web-based management:
@@ -715,6 +791,7 @@ docker run -d -p 9000:9000 --name portainer --restart=always -v /var/run/docker.
 ## 🎯 Platform-Specific Tips
 
 ### Linux Best Practices:
+
 - Use `systemd` to auto-start Docker on boot: `sudo systemctl enable docker`
 - Set up log rotation for Docker logs
 - Use `fail2ban` for SSH protection
@@ -722,6 +799,7 @@ docker run -d -p 9000:9000 --name portainer --restart=always -v /var/run/docker.
 - Monitor with: `htop`, `netdata`, or `glances`
 
 ### Windows Best Practices:
+
 - Enable WSL2 for better Docker performance
 - Configure Docker Desktop to start on Windows startup
 - Use Windows Task Scheduler for automated backups
@@ -730,6 +808,7 @@ docker run -d -p 9000:9000 --name portainer --restart=always -v /var/run/docker.
 - Monitor with: Task Manager, Performance Monitor, or Docker Desktop dashboard
 
 ### Common Paths:
+
 - **Linux**: `/opt/axionax-web`, `/var/lib/docker`, `/etc/docker`
 - **Windows**: `C:\axionax-web`, `C:\ProgramData\Docker`, Docker Desktop settings
 
@@ -738,6 +817,7 @@ docker run -d -p 9000:9000 --name portainer --restart=always -v /var/run/docker.
 ## 📊 Performance Tuning
 
 ### Linux:
+
 ```bash
 # Increase file descriptors
 echo "fs.file-max = 65535" | sudo tee -a /etc/sysctl.conf
@@ -755,6 +835,7 @@ sudo sysctl -p
 ```
 
 ### Windows:
+
 ```powershell
 # Allocate more resources to Docker Desktop:
 # Settings → Resources → Advanced
@@ -789,6 +870,7 @@ sudo sysctl -p
 ## 🎯 Next Steps
 
 For issues or questions:
+
 - GitHub: https://github.com/axionaxprotocol
 - Discord: https://discord.gg/axionax
 - Docs: https://axionax.org/docs

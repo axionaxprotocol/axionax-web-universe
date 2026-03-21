@@ -20,6 +20,7 @@
 ## 🌐 ข้อมูลเครือข่าย
 
 ### Network Details
+
 - **ชื่อเครือข่าย**: axionax Testnet
 - **Chain ID**: 86137 (0x15079)
 - **สัญลักษณ์**: AXX
@@ -27,6 +28,7 @@
 - **Consensus**: Proof of Probabilistic Checking (PoPC)
 
 ### Endpoints
+
 - **RPC URL**: `https://rpc.axionax.org`
 - **WebSocket**: `wss://rpc.axionax.org`
 - **Explorer**: https://explorer.axionax.org
@@ -34,6 +36,7 @@
 - **Website**: https://axionax.org
 
 ### Validator Nodes (สำรอง)
+
 - **EU Node**: http://217.76.61.116:8545
 - **AU Node**: http://46.250.244.4:8545
 
@@ -52,6 +55,7 @@
 ### วิธีที่ 2: เพิ่มด้วยตนเอง
 
 #### ขั้นตอนที่ 1: เปิด MetaMask
+
 - คลิกที่ชื่อเครือข่ายด้านบน
 - เลือก **"Add Network"** หรือ **"เพิ่มเครือข่าย"**
 - คลิก **"Add a network manually"**
@@ -76,6 +80,7 @@ https://explorer.axionax.org
 ```
 
 #### ขั้นตอนที่ 3: บันทึก
+
 - คลิก **"Save"** หรือ **"บันทึก"**
 - เครือข่าย axionax Testnet จะปรากฏในรายการ
 
@@ -84,6 +89,7 @@ https://explorer.axionax.org
 ## 💰 ขอเหรียญทดสอบจาก Faucet
 
 ### ก่อนเริ่ม
+
 - ต้องมี MetaMask ที่เชื่อมต่อกับ axionax Testnet แล้ว
 - ต้องมี Twitter/Discord account (สำหรับ anti-spam)
 
@@ -122,11 +128,13 @@ curl -X POST https://faucet.axionax.org/api/request \
 ```
 
 ### ข้อจำกัด
+
 - **จำนวนต่อครั้ง**: 10 AXX
 - **ความถี่**: 1 ครั้งต่อ 24 ชั่วโมง ต่อ address
 - **Maximum**: 100 AXX ต่อวัน (ทั้งระบบ)
 
 ### ถ้าต้องการเหรียญมากขึ้น
+
 - เข้า Discord: https://discord.gg/axionax
 - ติดต่อทีม Community Manager
 - อธิบายว่าจะใช้ทำอะไร (development, testing, etc.)
@@ -136,17 +144,20 @@ curl -X POST https://faucet.axionax.org/api/request \
 ## 🔍 ใช้งาน Block Explorer
 
 ### เข้าใช้งาน
+
 - URL: https://explorer.axionax.org
 - ไม่ต้อง login หรือเชื่อมต่อ wallet
 
 ### ฟีเจอร์หลัก
 
 #### 1. ดูข้อมูล Blocks
+
 - ไปที่ **Blocks** tab
 - ดู block number, timestamp, transactions
 - คลิกที่ block number เพื่อดูรายละเอียด
 
 #### 2. ค้นหา Transactions
+
 ```
 ค้นหาได้ด้วย:
 - Transaction Hash (0x...)
@@ -155,12 +166,14 @@ curl -X POST https://faucet.axionax.org/api/request \
 ```
 
 #### 3. ตรวจสอบ Address
+
 - ใส่ address ของคุณในช่องค้นหา
 - ดูยอดเงิน (Balance)
 - ดูประวัติ transactions
 - ดู token holdings
 
 #### 4. ดูข้อมูล Smart Contracts
+
 - ไปที่ **Contracts** tab
 - ดู verified contracts
 - อ่าน source code
@@ -169,6 +182,7 @@ curl -X POST https://faucet.axionax.org/api/request \
 ### ตัวอย่างการใช้งาน
 
 **ตรวจสอบ transaction ของคุณ:**
+
 1. Copy transaction hash จาก MetaMask
 2. ไปที่ https://explorer.axionax.org
 3. Paste hash ในช่องค้นหา
@@ -180,6 +194,7 @@ curl -X POST https://faucet.axionax.org/api/request \
 ## 📦 Deploy Smart Contract
 
 ### เตรียมตัว
+
 ```bash
 # ติดตั้ง Hardhat
 npm install --save-dev hardhat
@@ -192,11 +207,13 @@ foundryup
 ### สร้าง Project
 
 #### ด้วย Hardhat
+
 ```bash
 npx hardhat init
 ```
 
 #### ด้วย Foundry
+
 ```bash
 forge init my-project
 cd my-project
@@ -205,22 +222,24 @@ cd my-project
 ### ตั้งค่า Network
 
 **hardhat.config.js:**
+
 ```javascript
-require("@nomicfoundation/hardhat-toolbox");
+require('@nomicfoundation/hardhat-toolbox');
 
 module.exports = {
-  solidity: "0.8.20",
+  solidity: '0.8.20',
   networks: {
     axionax: {
-      url: "https://rpc.axionax.org",
+      url: 'https://rpc.axionax.org',
       chainId: 86137,
-      accounts: [process.env.PRIVATE_KEY]
-    }
-  }
+      accounts: [process.env.PRIVATE_KEY],
+    },
+  },
 };
 ```
 
 **foundry.toml:**
+
 ```toml
 [profile.default]
 src = "src"
@@ -234,12 +253,14 @@ axionax = "https://rpc.axionax.org"
 ### Deploy Contract
 
 #### ด้วย Hardhat
+
 ```bash
 # เขียน deploy script ใน scripts/deploy.js
 npx hardhat run scripts/deploy.js --network axionax
 ```
 
 #### ด้วย Foundry
+
 ```bash
 forge create --rpc-url axionax \
   --private-key $PRIVATE_KEY \
@@ -247,6 +268,7 @@ forge create --rpc-url axionax \
 ```
 
 ### Verify Contract
+
 ```bash
 # Hardhat
 npx hardhat verify --network axionax \
@@ -272,6 +294,7 @@ forge verify-contract \
 **อาการ**: "Could not connect to the network"
 
 **แก้ไข**:
+
 ```bash
 # ทดสอบ RPC connection
 curl -X POST https://rpc.axionax.org \
@@ -284,6 +307,7 @@ curl -X POST https://rpc.axionax.org \
 ```
 
 **วิธีแก้**:
+
 - ตรวจสอบ internet connection
 - ลบและเพิ่มเครือข่ายใหม่
 - ลอง RPC URL สำรอง
@@ -295,11 +319,13 @@ curl -X POST https://rpc.axionax.org \
 **อาการ**: "Request failed" หรือไม่มียอดเพิ่ม
 
 **เช็คเคส**:
+
 - รอแล้ว 24 ชั่วโมงหรือยัง?
 - Address ถูกต้องหรือไม่?
 - Network เลือกถูกหรือไม่?
 
 **วิธีแก้**:
+
 1. ตรวจสอบ address ว่าถูกต้อง
 2. เช็ค error message ใน console
 3. ลองใหม่หลัง 5 นาที
@@ -310,6 +336,7 @@ curl -X POST https://rpc.axionax.org \
 **อาการ**: Transaction pending นานเกิน 5 นาที
 
 **วิธีแก้**:
+
 ```javascript
 // เช็ค transaction status
 curl -X POST https://rpc.axionax.org \
@@ -323,23 +350,27 @@ curl -X POST https://rpc.axionax.org \
 ```
 
 **ถ้า null**:
+
 - Transaction ยังไม่ถูก mine
 - ลองเพิ่ม gas price
 - Speed up transaction ใน MetaMask
 
 **ถ้ามี receipt**:
+
 - Transaction เสร็จแล้ว
 - Refresh MetaMask
 
 #### 4. Contract Deploy ล้มเหลว
 
 **สาเหตุที่พบบ่อย**:
+
 - Gas ไม่พอ → เพิ่ม gas limit
 - Bytecode ใหญ่เกินไป → optimize contract
 - Constructor arguments ผิด → ตรวจสอบ args
 - Nonce ผิด → reset MetaMask account
 
 **วิธีแก้**:
+
 ```bash
 # ทดสอบ estimate gas ก่อน
 cast estimate \
@@ -353,6 +384,7 @@ cast estimate \
 **สาเหตุ**: ส่ง native AXX ไปในขณะ deploy
 
 **ป้องกัน**:
+
 - ตรวจสอบว่า `value: 0` ใน transaction
 - ไม่ต้องส่งเงินตอน deploy contract ธรรมดา
 - ส่งเงินได้ถ้า constructor เป็น `payable`
@@ -362,13 +394,16 @@ cast estimate \
 ## 📞 ช่องทางติดต่อ
 
 ### หาความช่วยเหลือ
+
 - **Discord**: https://discord.gg/axionax (ช่อง #testnet-support)
 - **GitHub Issues**: https://github.com/axionaxprotocol/axionax-web-universe/issues
 - **Twitter**: https://twitter.com/axionax (@axionax)
 - **Email**: support@axionax.org
 
 ### รายงานปัญหา
+
 ก่อนรายงานปัญหา กรุณาเตรียมข้อมูลเหล่านี้:
+
 - Transaction hash (ถ้ามี)
 - Address ของคุณ
 - รายละเอียดปัญหา
@@ -410,4 +445,4 @@ cast estimate \
 
 **สนุกกับการพัฒนาบน axionax Testnet! 🚀**
 
-*Last Updated: December 5, 2025 | v1.8.0-testnet*
+_Last Updated: December 5, 2025 | v1.8.0-testnet_

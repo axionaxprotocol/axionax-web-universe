@@ -41,8 +41,16 @@ const isValidAddress = (addr: string): boolean => {
 // Fetch faucet wallet balance
 const fetchFaucetInfo = async (): Promise<FaucetInfo> => {
   const response = await fetch('/api/faucet/balance');
-  if (!response.ok) throw new Error('Failed to fetch faucet info');
-  return (await response.json()) as FaucetInfo;
+  const data = (await response.json().catch(() => ({}))) as FaucetInfo & {
+    error?: string;
+  };
+  if (!response.ok)
+    throw new Error(
+      data.error ||
+        (data as { message?: string }).message ||
+        'Failed to fetch faucet info'
+    );
+  return data;
 };
 
 // Request tokens from faucet
@@ -133,11 +141,15 @@ function FaucetContent(): React.JSX.Element {
               <h1 className="text-3xl md:text-4xl font-bold text-content">
                 Testnet Faucet
               </h1>
+              <span className="px-2.5 py-1 bg-tech-success/20 text-tech-success text-xs rounded-full border border-tech-success/30 font-medium">
+                Testnet
+              </span>
               <MockBadge show={faucetInfo?.isMock ?? false} label="Balance" />
             </div>
             <p className="text-muted text-lg">
-              Get free testnet <span className="text-tech-cyan font-semibold">AXX</span>{' '}
-              tokens for development and testing
+              Get free testnet{' '}
+              <span className="text-tech-cyan font-semibold">AXX</span> tokens
+              for development and testing
             </p>
           </div>
 
@@ -156,9 +168,12 @@ function FaucetContent(): React.JSX.Element {
                 </p>
               </div>
               <div className="text-right">
-                <p className="text-muted text-xs font-semibold uppercase tracking-wider mb-1">Per Request</p>
+                <p className="text-muted text-xs font-semibold uppercase tracking-wider mb-1">
+                  Per Request
+                </p>
                 <p className="text-2xl font-bold text-content font-mono">
-                  {FAUCET_AMOUNT} <span className="text-lg text-muted">AXX</span>
+                  {FAUCET_AMOUNT}{' '}
+                  <span className="text-lg text-muted">AXX</span>
                 </p>
               </div>
             </div>
@@ -177,7 +192,9 @@ function FaucetContent(): React.JSX.Element {
                   <div className="p-4 rounded-lg bg-tech-warning/10 border border-tech-warning/20 mb-4">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-tech-warning font-medium">No wallet yet?</p>
+                        <p className="text-tech-warning font-medium">
+                          No wallet yet?
+                        </p>
                         <p className="text-sm text-muted">
                           Create a new wallet for free!
                         </p>
@@ -241,7 +258,9 @@ function FaucetContent(): React.JSX.Element {
                     data-testid="faucet-message"
                   >
                     <div className="flex flex-wrap items-center gap-2">
-                      <span className="font-medium">✅ {lastSuccess.message}</span>
+                      <span className="font-medium">
+                        ✅ {lastSuccess.message}
+                      </span>
                       <MockBadge
                         show={lastSuccess.isMock ?? false}
                         label="Claim"
@@ -311,7 +330,9 @@ function FaucetContent(): React.JSX.Element {
 
           <div className="card-panel">
             <div className="p-6 border-b border-white/10">
-              <h2 className="text-lg font-semibold text-content">Faucet Information</h2>
+              <h2 className="text-lg font-semibold text-content">
+                Faucet Information
+              </h2>
             </div>
             <div className="p-6">
               <div className="space-y-4 text-sm">
@@ -319,28 +340,37 @@ function FaucetContent(): React.JSX.Element {
                   <div className="text-tech-warning mt-0.5">💰</div>
                   <div>
                     <strong className="text-content">Amount:</strong>{' '}
-                    <span className="text-muted">{FAUCET_AMOUNT} AXXt per request (for validator testing)</span>
+                    <span className="text-muted">
+                      {FAUCET_AMOUNT} AXXt per request (for validator testing)
+                    </span>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <div className="text-tech-cyan mt-0.5">⏰</div>
                   <div>
                     <strong className="text-content">Cooldown:</strong>{' '}
-                    <span className="text-muted">24 hours between requests per address</span>
+                    <span className="text-muted">
+                      24 hours between requests per address
+                    </span>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <div className="text-content mt-0.5">🔗</div>
                   <div>
                     <strong className="text-content">Network:</strong>{' '}
-                    <span className="text-muted">Axionax Testnet (Chain ID: 86137)</span>
+                    <span className="text-muted">
+                      Axionax Testnet (Chain ID: 86137)
+                    </span>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <div className="text-tech-success mt-0.5">✨</div>
                   <div>
                     <strong className="text-content">Mode:</strong>{' '}
-                    <span className="text-muted">Simulation - Claims are recorded and will be allocated when Mainnet launches</span>
+                    <span className="text-muted">
+                      Simulation - Claims are recorded and will be allocated
+                      when Mainnet launches
+                    </span>
                   </div>
                 </div>
               </div>

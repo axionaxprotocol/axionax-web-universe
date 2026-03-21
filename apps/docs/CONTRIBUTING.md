@@ -31,6 +31,7 @@ git remote add upstream https://github.com/axionaxprotocol/axionax-core.git
 ### 2. Set Up Development Environment
 
 **Prerequisites:**
+
 - Go 1.21+ or Rust 1.75+
 - Python 3.10+
 - Git
@@ -57,6 +58,7 @@ git checkout -b feature/your-feature-name
 ```
 
 **Branch Naming Convention:**
+
 - `feature/` - New features
 - `fix/` - Bug fixes
 - `docs/` - Documentation changes
@@ -79,9 +81,11 @@ git checkout -b feature/your-feature-name
 ### 2. Code Style
 
 **Go Code:**
-> *Note: The Go implementation is now considered legacy. New contributions should focus on the Rust/Python/TypeScript architecture.*
- 
+
+> _Note: The Go implementation is now considered legacy. New contributions should focus on the Rust/Python/TypeScript architecture._
+
 **Rust Code:**
+
 ```bash
 # Format code
 cargo fmt
@@ -91,6 +95,7 @@ cargo clippy
 ```
 
 **Python Code:**
+
 ```bash
 # We recommend using tools like `black` for formatting and `flake8` or `pylint` for linting.
 # pip install black flake8
@@ -99,6 +104,7 @@ flake8 .
 ```
 
 **Commit Message Format:**
+
 ```
 <type>(<scope>): <subject>
 
@@ -108,6 +114,7 @@ flake8 .
 ```
 
 **Types:**
+
 - `feat`: New feature
 - `fix`: Bug fix
 - `docs`: Documentation
@@ -117,6 +124,7 @@ flake8 .
 - `chore`: Maintenance
 
 **Example:**
+
 ```
 feat(asr): implement Top-K selection with VRF
 
@@ -189,23 +197,28 @@ git push origin feature/your-feature-name
 
 ```markdown
 ## Description
+
 Brief description of changes
 
 ## Related Issue
+
 Closes #123
 
 ## Type of Change
+
 - [ ] Bug fix
 - [ ] New feature
 - [ ] Breaking change
 - [ ] Documentation update
 
 ## Testing
+
 - [ ] Unit tests pass
 - [ ] Integration tests pass
 - [ ] Manual testing performed
 
 ## Checklist
+
 - [ ] Code follows style guidelines
 - [ ] Self-review completed
 - [ ] Comments added for complex logic
@@ -223,6 +236,7 @@ Closes #123
 - Once approved, PR will be merged
 
 **Review Criteria:**
+
 - ✅ Code quality and style
 - ✅ Test coverage
 - ✅ Documentation completeness
@@ -263,6 +277,7 @@ Clear description of the bug
 
 **To Reproduce**
 Steps to reproduce:
+
 1. Step one
 2. Step two
 3. See error
@@ -274,6 +289,7 @@ What should happen
 What actually happens
 
 **Environment:**
+
 - OS: [e.g., Ubuntu 22.04]
 - Version: [e.g., v1.5.0]
 - Go/Rust version: [e.g., 1.21]
@@ -326,9 +342,9 @@ Mockups, diagrams, links, etc.
 func TestASRTopKSelection(t *testing.T) {
     workers := generateMockWorkers(100)
     asr := NewASR(64) // K = 64
-    
+
     selected := asr.SelectTopK(workers)
-    
+
     assert.Equal(t, 64, len(selected))
     // Additional assertions...
 }
@@ -381,6 +397,7 @@ type ASR struct {
 ## 🏆 Recognition
 
 Contributors are recognized in:
+
 - Release notes
 - GitHub contributors page
 - Community hall of fame
@@ -397,6 +414,7 @@ We pledge to make participation in our project a harassment-free experience for 
 ### Our Standards
 
 **Positive Behavior:**
+
 - Using welcoming and inclusive language
 - Being respectful of differing viewpoints
 - Gracefully accepting constructive criticism
@@ -404,6 +422,7 @@ We pledge to make participation in our project a harassment-free experience for 
 - Showing empathy towards other members
 
 **Unacceptable Behavior:**
+
 - Trolling, insulting/derogatory comments, personal attacks
 - Public or private harassment
 - Publishing others' private information

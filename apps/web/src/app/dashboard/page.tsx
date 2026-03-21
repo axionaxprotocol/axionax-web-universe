@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Loader2 } from 'lucide-react';
 import { useWeb3 } from '@/contexts/Web3Context';
 
 interface NodeInfo {
@@ -264,7 +263,10 @@ export default function NodeDashboardPage() {
                       Total Rewards
                     </div>
                     <div className="text-lg font-mono tabular-nums text-muted">
-                      — <span className="text-muted text-sm font-normal">(Testnet)</span>
+                      —{' '}
+                      <span className="text-muted text-sm font-normal">
+                        (Testnet)
+                      </span>
                     </div>
                   </div>
                   <div className="rounded-lg border border-white/10 bg-white/[0.02] p-4">

@@ -7,8 +7,9 @@
 ## Overview
 
 The Node module integrates three core components into a complete blockchain node:
+
 - **Network Layer**: P2P communication with libp2p
-- **State Management**: Persistent storage with RocksDB  
+- **State Management**: Persistent storage with RocksDB
 - **RPC Server**: JSON-RPC 2.0 API
 
 ## Architecture
@@ -59,6 +60,7 @@ pub struct NodeConfig {
 ```
 
 **Presets**:
+
 - `NodeConfig::dev()` - Development (chain 31337, localhost)
 - `NodeConfig::testnet()` - Testnet (chain 86137)
 - `NodeConfig::mainnet()` - Mainnet (chain 86150)
@@ -88,17 +90,17 @@ async fn main() -> anyhow::Result<()> {
     let mut config = NodeConfig::dev();
     config.state_path = "/tmp/axionax-node".to_string();
     config.rpc_addr = "127.0.0.1:8545".parse()?;
-    
+
     let mut node = axionaxNode::new(config).await?;
-    
+
     // Start all components
     node.start().await?;
-    
+
     // Node is now running!
     // - Network layer accepting connections
     // - State database open for queries
     // - RPC server listening on port 8545
-    
+
     Ok(())
 }
 ```
@@ -221,6 +223,7 @@ Block → BlockMessage (hex encoding) → NetworkManager.publish()
 The node module handles type conversions between internal blockchain types and network protocol messages:
 
 **Hashes**:
+
 - Blockchain: `[u8; 32]`
 - Network: `String` (hex-encoded)
 
@@ -231,6 +234,7 @@ fn hash_to_hex(hash: &[u8; 32]) -> String
 ```
 
 **Blocks**:
+
 ```rust
 // Block → BlockMessage
 BlockMessage {
@@ -254,6 +258,7 @@ Block {
 ```
 
 **Transactions**:
+
 ```rust
 // Transaction → TransactionMessage
 TransactionMessage {
@@ -275,11 +280,13 @@ Transaction {
 See [`core/node/examples/full_node.rs`](../core/node/examples/full_node.rs) for a complete example.
 
 **Run**:
+
 ```bash
 cargo run --example full_node -p node
 ```
 
 **Features**:
+
 - Creates and starts a complete node
 - Stores genesis block and 2 additional blocks
 - Publishes blocks and transactions to network
@@ -296,6 +303,7 @@ cargo test -p node
 ```
 
 **Tests**:
+
 1. `test_node_creation` - Node initialization
 2. `test_node_stats` - Statistics tracking
 3. `test_node_state_access` - State database access
@@ -317,6 +325,7 @@ curl -X POST http://127.0.0.1:8545 \
 ### Network Configuration
 
 From `NetworkConfig`:
+
 - `chain_id`: Network identifier
 - `bootstrap_nodes`: Initial peers
 - `max_peers`: Connection limit
@@ -346,16 +355,19 @@ From `NetworkConfig`:
 ### Resource Usage
 
 **Memory**:
+
 - Base: ~50 MB (node + libraries)
 - RocksDB cache: ~64 MB (default)
 - Network buffers: ~10 MB
 
 **Disk**:
+
 - ~1 KB per block (average)
 - ~500 bytes per transaction
 - RocksDB compression enabled
 
 **CPU**:
+
 - Idle: <1%
 - Syncing: 10-20% (single core)
 - RPC serving: 5-10% (under load)
@@ -421,7 +433,7 @@ RPC errors are handled automatically and returned as JSON-RPC error responses:
 
 ### RPC Enhancements
 
-- [ ] Additional eth_* methods
+- [ ] Additional eth\_\* methods
 - [ ] WebSocket subscriptions
 - [ ] Rate limiting
 - [ ] Authentication
@@ -440,6 +452,7 @@ RPC errors are handled automatically and returned as JSON-RPC error responses:
 **Problem**: `Address already in use (os error 98)`
 
 **Solution**:
+
 ```rust
 let mut config = NodeConfig::dev();
 config.rpc_addr = "127.0.0.1:8546".parse()?; // Use different port
@@ -450,6 +463,7 @@ config.rpc_addr = "127.0.0.1:8546".parse()?; // Use different port
 **Problem**: `IO error: lock file already in use`
 
 **Solution**: Ensure previous node instance is stopped:
+
 ```rust
 node.shutdown().await?;
 ```
@@ -459,6 +473,7 @@ node.shutdown().await?;
 **Problem**: No peers connecting
 
 **Solution**:
+
 - Check network configuration
 - Verify bootstrap nodes
 - Check firewall settings
@@ -469,6 +484,7 @@ node.shutdown().await?;
 **Problem**: Node using excessive RAM
 
 **Solution**:
+
 - Reduce RocksDB cache size (future config)
 - Limit max peers
 - Enable database compaction
@@ -494,6 +510,7 @@ node.shutdown().await?;
 ## Summary
 
 The Node module successfully integrates:
+
 - ✅ Network Layer (libp2p + gossipsub)
 - ✅ State Management (RocksDB)
 - ✅ RPC Server (JSON-RPC 2.0)

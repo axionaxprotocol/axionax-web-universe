@@ -18,12 +18,14 @@ This document summarizes the comprehensive code refactoring performed across the
 ## 📊 Metrics
 
 ### Before Refactoring
+
 - **Longest Function**: 200+ lines (`add_transaction` in mempool.rs)
 - **Magic Numbers**: 15+ scattered across validation logic
 - **Error Types**: Generic `Error` in TypeScript SDK
 - **Nested Conditionals**: 4+ levels in network bootstrap logic
 
 ### After Refactoring
+
 - **Longest Function**: 50 lines (extracted into 4-5 helper methods)
 - **Magic Numbers**: 0 (all extracted to `constants` module)
 - **Error Types**: 4 custom error classes with specific context
@@ -34,6 +36,7 @@ This document summarizes the comprehensive code refactoring performed across the
 ### 1. Blockchain Core - Mempool (`core/blockchain/src/mempool.rs`)
 
 #### Changes:
+
 - **Extracted Methods** from `add_transaction()`:
   - `validate_pool_capacity()` - Check pool size limits
   - `validate_account_capacity()` - Check per-account limits
@@ -42,12 +45,14 @@ This document summarizes the comprehensive code refactoring performed across the
   - `update_pool_stats()` - Update pool statistics
 
 #### Benefits:
+
 - Reduced main method from 80 lines to 30 lines
 - Each extracted method has single responsibility
 - Easier to test individual validation steps
 - Improved error handling clarity
 
 #### Example:
+
 ```rust
 // Before: 80-line monolithic method
 pub async fn add_transaction(&self, tx: Transaction) -> Result<()> {
@@ -57,14 +62,14 @@ pub async fn add_transaction(&self, tx: Transaction) -> Result<()> {
 // After: Clean, focused method with extracted helpers
 pub async fn add_transaction(&self, tx: Transaction) -> Result<()> {
     debug!("Adding transaction {:?} to pool", &tx.hash[..8]);
-    
+
     self.validator.validate_transaction(&tx)?;
     self.validate_pool_capacity(&tx_to_account, &mut stats)?;
     self.validate_account_capacity(queue, &mut stats)?;
     self.validate_nonce_sequence(&tx, queue, &mut stats)?;
     self.insert_transaction_to_queue(&tx, queue);
     self.update_pool_stats(&accounts, &tx_to_account, &mut stats);
-    
+
     Ok(())
 }
 ```
@@ -72,7 +77,9 @@ pub async fn add_transaction(&self, tx: Transaction) -> Result<()> {
 ### 2. Blockchain Core - Validation (`core/blockchain/src/validation.rs`)
 
 #### Changes:
+
 - **Created Constants Module**:
+
   ```rust
   pub mod constants {
       pub const MIN_TRANSACTION_GAS: u64 = 21_000;
@@ -87,6 +94,7 @@ pub async fn add_transaction(&self, tx: Transaction) -> Result<()> {
 - **Enhanced documentation** with usage examples and module overview
 
 #### Benefits:
+
 - Single source of truth for validation parameters
 - Easy to update protocol parameters
 - Better code readability
@@ -95,17 +103,20 @@ pub async fn add_transaction(&self, tx: Transaction) -> Result<()> {
 ### 3. Network Layer (`core/network/src/manager.rs`)
 
 #### Changes:
+
 - **Extracted Methods** from `connect_bootstrap_nodes()`:
   - `connect_to_bootstrap_node()` - Connect to single node
   - `extract_peer_id_from_multiaddr()` - Parse peer ID
 
 #### Benefits:
+
 - Reduced nested match statements from 4 levels to 2
 - Improved error handling granularity
 - Each method testable independently
 - Clearer separation of concerns
 
 #### Example:
+
 ```rust
 // Before: Deeply nested match statements
 async fn connect_bootstrap_nodes(&mut self) -> Result<()> {
@@ -138,12 +149,14 @@ async fn connect_bootstrap_nodes(&mut self) -> Result<()> {
 ### 4. TypeScript SDK (`axionax-sdk-ts/src/index.ts`)
 
 #### Changes:
+
 - **Created Custom Error Classes**:
+
   ```typescript
-  export class AxionaxError extends Error { }
-  export class SignerRequiredError extends AxionaxError { }
-  export class InvalidJobIdError extends AxionaxError { }
-  export class NetworkError extends AxionaxError { }
+  export class AxionaxError extends Error {}
+  export class SignerRequiredError extends AxionaxError {}
+  export class InvalidJobIdError extends AxionaxError {}
+  export class NetworkError extends AxionaxError {}
   ```
 
 - **Extracted Helper Methods**:
@@ -155,12 +168,14 @@ async fn connect_bootstrap_nodes(&mut self) -> Result<()> {
 - **Added Type Definition**: `NetworkStats` interface for return type
 
 #### Benefits:
+
 - Type-safe error handling with specific error classes
 - Better IDE autocomplete and error suggestions
 - Clearer error messages for SDK users
 - Improved testability of initialization logic
 
 #### Example:
+
 ```typescript
 // Before: Generic errors
 async submitJob(specs: JobSpecs, sla: SLA): Promise<Job> {
@@ -187,16 +202,19 @@ private requireSigner(operation: string): ethers.Signer {
 ## 📈 Impact Analysis
 
 ### Code Quality Improvements
+
 - **Cyclomatic Complexity**: Reduced from 15+ to <8 in refactored methods
 - **Lines per Method**: Average reduced from 60 to 25
 - **Code Duplication**: Eliminated 200+ lines of duplicated validation logic
 
 ### Maintainability
+
 - **Parameter Changes**: Now require updates in only 1 place (constants module)
 - **Error Handling**: 4 specific error types vs generic errors
 - **Testing**: Each extracted method can be unit tested independently
 
 ### Developer Experience
+
 - **IDE Support**: Better autocomplete with typed errors
 - **Debugging**: Clearer stack traces with specific error types
 - **Documentation**: Enhanced with usage examples and architecture notes
@@ -204,6 +222,7 @@ private requireSigner(operation: string): ethers.Signer {
 ## 🧪 Testing Strategy
 
 ### Unit Tests
+
 All extracted methods should have dedicated unit tests:
 
 ```rust
@@ -211,17 +230,19 @@ All extracted methods should have dedicated unit tests:
 mod tests {
     #[test]
     fn test_validate_pool_capacity() { }
-    
+
     #[test]
     fn test_validate_nonce_sequence() { }
-    
+
     #[test]
     fn test_insert_transaction_to_queue() { }
 }
 ```
 
 ### Integration Tests
+
 Existing integration tests continue to pass, validating that:
+
 - External behavior remains unchanged
 - Refactoring is purely internal
 - No breaking changes introduced
@@ -231,6 +252,7 @@ Existing integration tests continue to pass, validating that:
 ### For Core Developers
 
 **Constants Usage**:
+
 ```rust
 // Before
 if address.len() != 42 { }
@@ -243,23 +265,24 @@ if address.len() != ETH_ADDRESS_LENGTH { }
 ### For SDK Users
 
 **Error Handling**:
+
 ```typescript
 // Before
 try {
-    await client.submitJob(specs, sla);
+  await client.submitJob(specs, sla);
 } catch (error) {
-    console.error(error.message); // Generic error
+  console.error(error.message); // Generic error
 }
 
 // After
 try {
-    await client.submitJob(specs, sla);
+  await client.submitJob(specs, sla);
 } catch (error) {
-    if (error instanceof SignerRequiredError) {
-        // Handle signer-specific error
-    } else if (error instanceof NetworkError) {
-        // Handle network error
-    }
+  if (error instanceof SignerRequiredError) {
+    // Handle signer-specific error
+  } else if (error instanceof NetworkError) {
+    // Handle network error
+  }
 }
 ```
 

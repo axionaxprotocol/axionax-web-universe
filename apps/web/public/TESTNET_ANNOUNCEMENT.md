@@ -18,13 +18,13 @@ The testnet is now open for developers, validators, and community members to exp
 
 ### Endpoints
 
-| Service | URL | Purpose |
-|---------|-----|---------|
-| **RPC Node** | https://rpc.axionax.org | JSON-RPC endpoint for transactions |
-| **WebSocket** | wss://rpc.axionax.org/ws | Real-time event subscriptions |
+| Service            | URL                          | Purpose                             |
+| ------------------ | ---------------------------- | ----------------------------------- |
+| **RPC Node**       | https://rpc.axionax.org      | JSON-RPC endpoint for transactions  |
+| **WebSocket**      | wss://rpc.axionax.org/ws     | Real-time event subscriptions       |
 | **Block Explorer** | https://explorer.axionax.org | View blocks, transactions, accounts |
-| **Testnet Faucet** | https://faucet.axionax.org | Request test AXXt tokens |
-| **Website** | https://axionax.org | Documentation and resources |
+| **Testnet Faucet** | https://faucet.axionax.org   | Request test AXXt tokens            |
+| **Website**        | https://axionax.org          | Documentation and resources         |
 
 ### Network Parameters
 
@@ -46,7 +46,7 @@ Visit our faucet to receive test AXXt tokens:
 3. Complete the verification
 4. Receive 100 AXXt (once per 24 hours)
 
-*Note: Testnet tokens have no real value and are for testing purposes only.*
+_Note: Testnet tokens have no real value and are for testing purposes only._
 
 ---
 
@@ -55,17 +55,19 @@ Visit our faucet to receive test AXXt tokens:
 ### Quick Start
 
 **1. Install SDK**
+
 ```bash
 npm install @axionax/sdk
 ```
 
 **2. Connect to Testnet**
+
 ```typescript
 import { AxionaxClient } from '@axionax/sdk';
 
 const client = new AxionaxClient({
   rpcUrl: 'https://rpc.axionax.org',
-  chainId: 86137
+  chainId: 86137,
 });
 
 // Get latest block
@@ -74,6 +76,7 @@ console.log('Latest block:', block.height);
 ```
 
 **3. Send Transaction**
+
 ```typescript
 import { Wallet } from '@axionax/sdk';
 
@@ -101,6 +104,7 @@ console.log('Transaction hash:', tx.hash);
 Join the testnet as a validator and help secure the network:
 
 ### Requirements
+
 - Ubuntu 20.04+ VPS
 - 4GB RAM, 2 CPU cores
 - 100GB SSD
@@ -110,6 +114,7 @@ Join the testnet as a validator and help secure the network:
 ### Setup Steps
 
 **1. Install Axionax Node**
+
 ```bash
 git clone https://github.com/axionaxprotocol/axionax-core.git
 cd axionax-core
@@ -117,22 +122,26 @@ cargo build --release
 ```
 
 **2. Initialize Node**
+
 ```bash
 ./target/release/axionax-node init --chain-id axionax-testnet-1
 ```
 
 **3. Download Genesis**
+
 ```bash
 wget https://raw.githubusercontent.com/axionaxprotocol/axionax-deploy/main/genesis.json
 cp genesis.json ~/.axionax/config/
 ```
 
 **4. Start Node**
+
 ```bash
 ./target/release/axionax-node start
 ```
 
 **5. Create Validator**
+
 ```bash
 ./target/release/axionax-node tx staking create-validator \
   --amount=10000000000000000000000axx \
@@ -172,35 +181,41 @@ cp genesis.json ~/.axionax/config/
 ### Testnet Incentives
 
 Early builders and testers may be eligible for:
+
 - Early access to mainnet
 - Mainnet token allocation
 - Featured in showcase
 - Technical support priority
 
-*Details to be announced*
+_Details to be announced_
 
 ---
 
 ## 🌟 Key Features
 
 ### Proof of Probabilistic Checking (PoPC)
+
 Novel consensus mechanism that combines:
+
 - Fast block finality
 - High throughput
 - Energy efficiency
 - Security through randomness
 
 ### Auto-Selection with Randomness (ASR)
+
 - VRF-based validator selection
 - Fair and unpredictable
 - Resistant to manipulation
 
 ### DeAI Security
+
 - ML-powered fraud detection
 - Anomaly detection
 - Automated threat response
 
 ### EVM Compatible
+
 - Deploy Solidity contracts
 - Use existing Ethereum tools
 - Familiar developer experience
@@ -210,24 +225,28 @@ Novel consensus mechanism that combines:
 ## 📊 Testnet Phases
 
 ### Phase 1: Genesis Launch (Current)
+
 - 4 genesis validators
 - Basic RPC functionality
 - Explorer and faucet online
 - Developer SDK available
 
 ### Phase 2: Community Validators (Week 2)
+
 - Open validator registration
 - Up to 100 validators
 - Enhanced monitoring
 - Performance optimizations
 
 ### Phase 3: Stress Testing (Week 4)
+
 - Load testing campaigns
 - Bug bounty program
 - Performance benchmarks
 - Security audits
 
 ### Phase 4: Pre-Mainnet (Week 8)
+
 - Final feature freeze
 - Mainnet preparation
 - Token migration planning
@@ -262,30 +281,34 @@ Found a bug? We want to hear about it!
 ### Bug Bounty
 
 Security researchers: We offer rewards for valid vulnerabilities.
+
 - **Critical**: Up to 10,000 AXX (mainnet tokens)
 - **High**: Up to 5,000 AXX
 - **Medium**: Up to 1,000 AXX
 - **Low**: Up to 100 AXX
 
-*Terms and conditions apply*
+_Terms and conditions apply_
 
 ---
 
 ## 📞 Get Support
 
 ### Community
+
 - **Discord**: https://discord.gg/axionax
 - **Telegram**: https://t.me/axionax
 - **Twitter**: @AxionaxProtocol
 - **Forum**: https://forum.axionax.org
 
 ### Resources
+
 - **Documentation**: https://docs.axionax.org
 - **Blog**: https://blog.axionax.org
 - **GitHub**: https://github.com/axionaxprotocol
 - **Status Page**: https://status.axionax.org
 
 ### Team
+
 - **General**: hello@axionax.org
 - **Technical**: tech@axionax.org
 - **Business**: partnerships@axionax.org
@@ -295,27 +318,31 @@ Security researchers: We offer rewards for valid vulnerabilities.
 ## 🗓️ Upcoming Events
 
 ### Week 1: Launch Week
+
 - **Nov 6**: Developer workshop (Discord)
 - **Nov 8**: AMA with core team
 - **Nov 10**: Validator onboarding session
 
 ### Week 2: Building Week
+
 - **Nov 13**: Smart contract workshop
 - **Nov 15**: Hackathon kickoff
 - **Nov 17**: Office hours with devs
 
 ### Week 4: Competition Week
+
 - **Nov 27**: Testnet competition begins
 - **Dec 1**: Bug bounty program launches
 - **Dec 4**: Results announcement
 
-*All times in UTC. Check Discord for updates.*
+_All times in UTC. Check Discord for updates._
 
 ---
 
 ## 🙏 Thank You
 
 Special thanks to:
+
 - Our early contributors and testers
 - The validator community
 - Open-source projects we build upon
@@ -328,6 +355,7 @@ Special thanks to:
 Axionax is building the future of decentralized compute. Join us in creating a more efficient, secure, and accessible blockchain infrastructure.
 
 **Get Started Today:**
+
 1. ✅ Get testnet tokens: https://faucet.axionax.org
 2. ✅ Install SDK: `npm install @axionax/sdk`
 3. ✅ Join Discord: https://discord.gg/axionax
@@ -338,4 +366,4 @@ Axionax is building the future of decentralized compute. Join us in creating a m
 
 **Happy testing! 🎉**
 
-*Follow our progress: [Twitter](https://twitter.com/AxionaxProtocol) | [Discord](https://discord.gg/axionax) | [GitHub](https://github.com/axionaxprotocol)*
+_Follow our progress: [Twitter](https://twitter.com/AxionaxProtocol) | [Discord](https://discord.gg/axionax) | [GitHub](https://github.com/axionaxprotocol)_

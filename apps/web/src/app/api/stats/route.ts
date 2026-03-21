@@ -86,14 +86,17 @@ export async function GET() {
     const validatorsOnline = (euHealth ? 1 : 0) + (auHealth ? 1 : 0);
 
     const isMock = validatorsOnline === 0;
-    const stats: StatsResponse & { isMock?: boolean; nodes?: { eu: boolean; au: boolean } } = {
+    const stats: StatsResponse & {
+      isMock?: boolean;
+      nodes?: { eu: boolean; au: boolean };
+    } = {
       blockNumber,
       services: {
         healthy: validatorsOnline > 0 ? 9 : 0,
         total: 9,
       },
       uptime: {
-        hours: 48,
+        hours: 0, // Real uptime TBD from health endpoint; show — on UI for testnet
       },
       deployment: 100,
       validators: {

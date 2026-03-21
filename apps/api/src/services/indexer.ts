@@ -1,22 +1,29 @@
 /**
  * Blockchain Indexer Service
- * 
+ *
  * Indexes all testnet transactions, events, and state changes
  * for genesis block generation.
  */
 
-import { createPublicClient, http, type Block as ViemBlock, type Transaction as ViemTransaction, parseAbiItem, type Log } from 'viem';
+import {
+  createPublicClient,
+  http,
+  type Block as ViemBlock,
+  type Transaction as ViemTransaction,
+  parseAbiItem,
+  type Log,
+} from 'viem';
 import { db } from '../db/index.js';
-import { 
-  blocks, 
-  transactions, 
-  addresses, 
+import {
+  blocks,
+  transactions,
+  addresses,
   tokenTransfers,
   indexerState,
   type NewBlock,
   type NewTransaction,
   type NewAddress,
-  type NewTokenTransfer
+  type NewTokenTransfer,
 } from '../db/schema.js';
 import { eq, sql } from 'drizzle-orm';
 
@@ -53,7 +60,9 @@ const client = createPublicClient({
 });
 
 // ERC20 Transfer event signature (reserved for token transfer indexing)
-const _TRANSFER_EVENT = parseAbiItem('event Transfer(address indexed from, address indexed to, uint256 value)');
+const _TRANSFER_EVENT = parseAbiItem(
+  'event Transfer(address indexed from, address indexed to, uint256 value)',
+);
 
 // Known contract addresses (will be populated from config)
 const KNOWN_CONTRACTS = {
@@ -159,14 +168,35 @@ async function processTransaction(tx: ViemTransaction, block: ViemBlock): Promis
   await db.insert(transactions).values(newTx).onConflictDoNothing();
 
   // Update address records
-  await updateAddressRecord(tx.from, Number(block.number), new Date(Number(block.timestamp) * 1000), 'sent', tx.value);
-  
+  await updateAddressRecord(
+    tx.from,
+    Number(block.number),
+    new Date(Number(block.timestamp) * 1000),
+    'sent',
+    tx.value,
+  );
+
   if (tx.to) {
-    await updateAddressRecord(tx.to, Number(block.number), new Date(Number(block.timestamp) * 1000), 'received', tx.value);
+    await updateAddressRecord(
+      tx.to,
+      Number(block.number),
+      new Date(Number(block.timestamp) * 1000),
+      'received',
+      tx.value,
+    );
   }
 }
 
-function classifyTransaction(tx: ViemTransaction): 'transfer' | 'token_transfer' | 'contract_deploy' | 'contract_call' | 'staking' | 'governance' | 'other' {
+function classifyTransaction(
+  tx: ViemTransaction,
+):
+  | 'transfer'
+  | 'token_transfer'
+  | 'contract_deploy'
+  | 'contract_call'
+  | 'staking'
+  | 'governance'
+  | 'other' {
   // Contract deployment (no 'to' address)
   if (!tx.to) {
     return 'contract_deploy';
@@ -174,15 +204,15 @@ function classifyTransaction(tx: ViemTransaction): 'transfer' | 'token_transfer'
 
   // Check for known contract interactions
   const toLower = tx.to.toLowerCase();
-  
+
   if (toLower === KNOWN_CONTRACTS.staking?.toLowerCase()) {
     return 'staking';
   }
-  
+
   if (toLower === KNOWN_CONTRACTS.governance?.toLowerCase()) {
     return 'governance';
   }
-  
+
   if (toLower === KNOWN_CONTRACTS.axxToken?.toLowerCase()) {
     return 'token_transfer';
   }
@@ -201,13 +231,16 @@ function classifyTransaction(tx: ViemTransaction): 'transfer' | 'token_transfer'
 // ============================================
 
 async function updateAddressRecord(
-  address: string, 
-  blockNumber: number, 
+  address: string,
+  blockNumber: number,
   timestamp: Date,
   direction: 'sent' | 'received',
-  value: bigint
+  value: bigint,
 ): Promise<void> {
-  const existing = await db.select().from(addresses).where(eq(addresses.address, address.toLowerCase()));
+  const existing = await db
+    .select()
+    .from(addresses)
+    .where(eq(addresses.address, address.toLowerCase()));
 
   if (existing.length === 0) {
     // Create new address record
@@ -236,7 +269,8 @@ async function updateAddressRecord(
     };
 
     if (direction === 'sent') {
-      await db.update(addresses)
+      await db
+        .update(addresses)
         .set({
           ...updates,
           sentCount: sql`${addresses.sentCount} + 1`,
@@ -244,7 +278,8 @@ async function updateAddressRecord(
         })
         .where(eq(addresses.address, address.toLowerCase()));
     } else {
-      await db.update(addresses)
+      await db
+        .update(addresses)
         .set({
           ...updates,
           receivedCount: sql`${addresses.receivedCount} + 1`,
@@ -280,7 +315,7 @@ async function processLog(log: Log): Promise<void> {
   if (log.topics[0] === '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef') {
     await processTransferEvent(log);
   }
-  
+
   // Add more event handlers as needed (staking, governance, etc.)
 }
 
@@ -330,14 +365,14 @@ export async function startIndexer(): Promise<void> {
   try {
     while (isRunning) {
       await indexNewBlocks();
-      await new Promise(resolve => setTimeout(resolve, config.pollInterval));
+      await new Promise((resolve) => setTimeout(resolve, config.pollInterval));
     }
   } catch (error) {
     console.error('Indexer error:', error);
-    await updateIndexerState({ 
-      isRunning: false, 
+    await updateIndexerState({
+      isRunning: false,
       status: 'error',
-      errorMessage: error instanceof Error ? error.message : 'Unknown error'
+      errorMessage: error instanceof Error ? error.message : 'Unknown error',
     });
   }
 }
@@ -355,7 +390,7 @@ async function indexNewBlocks(): Promise<void> {
 
   // Get latest block from chain
   const latestBlock = await client.getBlockNumber();
-  
+
   if (BigInt(lastIndexed) >= latestBlock) {
     // Already up to date
     return;
@@ -386,7 +421,7 @@ async function indexNewBlocks(): Promise<void> {
 
 export async function getIndexerStats() {
   const state = await getIndexerState();
-  
+
   const [blockCount] = await db.select({ count: sql<number>`count(*)` }).from(blocks);
   const [txCount] = await db.select({ count: sql<number>`count(*)` }).from(transactions);
   const [addressCount] = await db.select({ count: sql<number>`count(*)` }).from(addresses);
@@ -407,7 +442,8 @@ export async function getIndexerStats() {
 }
 
 export async function getTopAddresses(limit = 100) {
-  return db.select()
+  return db
+    .select()
     .from(addresses)
     .orderBy(sql`${addresses.transactionCount} DESC`)
     .limit(limit);

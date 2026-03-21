@@ -1,6 +1,6 @@
 /**
  * Genesis Generator Library
- * 
+ *
  * Core functions for generating mainnet genesis blocks
  * from testnet snapshot data.
  */

@@ -17,6 +17,7 @@ for high-performance decentralized compute markets.
 ### Documentation Status: 🟢 100% Complete - Production Ready!
 
 **Major Updates:**
+
 - ✅ Added comprehensive **REFACTORING_SUMMARY.md** documenting code quality improvements
 - ✅ All core protocol documentation complete
 - ✅ API references 95% complete with examples
@@ -27,19 +28,20 @@ for high-performance decentralized compute markets.
 
 **VPS Deployment (vmi2895217 - 217.216.109.5)**:
 
-| Service | Port | Status | Details |
-|---------|------|--------|---------|
-| PostgreSQL | 5432 | ✅ Healthy | Connection pool ready (48h+ uptime) |
-| Redis | 6379 | ✅ Healthy | Cache layer operational (48h+ uptime) |
-| Nginx | 80/443 | ✅ Healthy | SSL configured (48h+ uptime) |
-| RPC Node | 8545/8546 | ✅ Healthy | Mock JSON-RPC server, chainId 86137 (22h+ uptime) |
-| Grafana | 3030 | ✅ Healthy | v12.2.1, dashboards accessible (19h+ uptime) |
-| Prometheus | 9090 | ✅ Running | Metrics collection active (19h+ uptime) |
-| Web Interface | 3000 | ✅ Running | axionax-web frontend (27h+ uptime) |
-| Explorer API | 3001 | ✅ Healthy | Full blockchain explorer operational |
-| Faucet API | 3002 | ✅ Healthy | Testnet token distribution service active |
+| Service       | Port      | Status     | Details                                           |
+| ------------- | --------- | ---------- | ------------------------------------------------- |
+| PostgreSQL    | 5432      | ✅ Healthy | Connection pool ready (48h+ uptime)               |
+| Redis         | 6379      | ✅ Healthy | Cache layer operational (48h+ uptime)             |
+| Nginx         | 80/443    | ✅ Healthy | SSL configured (48h+ uptime)                      |
+| RPC Node      | 8545/8546 | ✅ Healthy | Mock JSON-RPC server, chainId 86137 (22h+ uptime) |
+| Grafana       | 3030      | ✅ Healthy | v12.2.1, dashboards accessible (19h+ uptime)      |
+| Prometheus    | 9090      | ✅ Running | Metrics collection active (19h+ uptime)           |
+| Web Interface | 3000      | ✅ Running | axionax-web frontend (27h+ uptime)                |
+| Explorer API  | 3001      | ✅ Healthy | Full blockchain explorer operational              |
+| Faucet API    | 3002      | ✅ Healthy | Testnet token distribution service active         |
 
 **Recent Documentation Additions:**
+
 - 🎊 **REFACTORING_SUMMARY.md** - Complete code quality improvement documentation
   - Before/after metrics
   - Code examples
@@ -251,16 +253,16 @@ CNAME docs -> axionaxprotocol.github.io
 
 ## 🔗 axionax protocol Ecosystem
 
-| Component           | Description               | Location                                         | Status     |
-| ------------------- | ------------------------- | ------------------------------------------------ | ---------- |
-| **Docs** (this)     | Protocol documentation    | `axionax-docs/`                                  | 📝 Active  |
-| **Core**            | Blockchain implementation | [`../axionax-core`](../axionax-core)             | ✅ Ready   |
-| **Web**             | Web interface             | [`../axionax-web`](../axionax-web)               | ✅ Ready   |
-| **SDK**             | TypeScript SDK            | [`../axionax-sdk-ts`](../axionax-sdk-ts)         | ✅ Ready   |
-| **Marketplace**     | Compute marketplace       | [`../axionax-marketplace`](../axionax-marketplace) | 🚧 Beta  |
-| **DevTools**        | Development tools         | [`../axionax-devtools`](../axionax-devtools)     | ✅ Ready   |
-| **Deploy**          | Infrastructure            | [`../axionax-deploy`](../axionax-deploy)         | 🔥 Testing |
-| **Issue Manager**   | Task tracking             | [`../issue-manager`](../issue-manager)           | 🎉 New!    |
+| Component         | Description               | Location                                           | Status     |
+| ----------------- | ------------------------- | -------------------------------------------------- | ---------- |
+| **Docs** (this)   | Protocol documentation    | `axionax-docs/`                                    | 📝 Active  |
+| **Core**          | Blockchain implementation | [`../axionax-core`](../axionax-core)               | ✅ Ready   |
+| **Web**           | Web interface             | [`../axionax-web`](../axionax-web)                 | ✅ Ready   |
+| **SDK**           | TypeScript SDK            | [`../axionax-sdk-ts`](../axionax-sdk-ts)           | ✅ Ready   |
+| **Marketplace**   | Compute marketplace       | [`../axionax-marketplace`](../axionax-marketplace) | 🚧 Beta    |
+| **DevTools**      | Development tools         | [`../axionax-devtools`](../axionax-devtools)       | ✅ Ready   |
+| **Deploy**        | Infrastructure            | [`../axionax-deploy`](../axionax-deploy)           | 🔥 Testing |
+| **Issue Manager** | Task tracking             | [`../issue-manager`](../issue-manager)             | 🎉 New!    |
 
 ---
 

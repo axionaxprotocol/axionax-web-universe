@@ -1,9 +1,11 @@
 # Axionax Marketplace - Copilot Instructions
+
 # Target Model: Claude 4.5 Sonnet
 
 **Context:** Decentralized Compute Marketplace (React, TypeScript, Web3 Integration).
 
 ## 💰 ECONOMIC & SECURITY RULES
+
 1.  **Transaction Safety:**
     - Double-check token decimals (18 decimals for AXX). Use `BigInt` or `ethers.parseUnits` strictly. NEVER use JavaScript `number`.
     - Validate wallet connection state before initiating any transaction.

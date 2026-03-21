@@ -13,6 +13,7 @@
 ## ⚡ Quick Reference
 
 ### Testnet (Current - In Use)
+
 ```
 Token Symbol: AXXt
 Token Name: Axionax Testnet Token
@@ -24,6 +25,7 @@ Value: No real value (testing only)
 ```
 
 ### Mainnet (Planned - Future)
+
 ```
 Token Symbol: AXX
 Token Name: Axionax Token
@@ -38,26 +40,28 @@ Value: Real economic value
 
 ## 📊 Key Differences
 
-| Aspect | Testnet | Mainnet |
-|--------|---------|---------|
-| Symbol | **AXXt** | **AXX** |
-| Name | Axionax Testnet Token | Axionax Token |
-| Supply | 1B | 1T |
-| Purpose | Testing | Production |
-| Vesting | ❌ | ✅ |
-| Governance | Simple | Full DAO |
-| Value | None | Real |
+| Aspect     | Testnet               | Mainnet       |
+| ---------- | --------------------- | ------------- |
+| Symbol     | **AXXt**              | **AXX**       |
+| Name       | Axionax Testnet Token | Axionax Token |
+| Supply     | 1B                    | 1T            |
+| Purpose    | Testing               | Production    |
+| Vesting    | ❌                    | ✅            |
+| Governance | Simple                | Full DAO      |
+| Value      | None                  | Real          |
 
 ---
 
 ## 📖 Documentation
 
 ### For Users
+
 - **Setup**: [ADD_TOKEN_TO_METAMASK.md](./ADD_TOKEN_TO_METAMASK.md)
 - **Testnet Info**: [TOKENOMICS_TESTNET.md](./TOKENOMICS_TESTNET.md)
 - **Comparison**: [TOKEN_COMPARISON.md](./TOKEN_COMPARISON.md)
 
 ### For Developers
+
 - **Mainnet Spec**: [TOKENOMICS.md](./TOKENOMICS.md)
 - **Smart Contract**: `packages/contracts/contracts/AXXToken.sol`
 - **Integration**: [DEVELOPER_GUIDE.md](./DEVELOPER_GUIDE.md)
@@ -76,12 +80,14 @@ Value: Real economic value
 ## 🎯 Next Steps
 
 ### For Testers
+
 1. ✅ Get testnet tokens from faucet
 2. ✅ Test features and report bugs
 3. ✅ Participate in community
 4. 🔔 Stay updated for mainnet launch
 
 ### For Developers
+
 1. ✅ Integrate with testnet
 2. ✅ Prepare for mainnet (use env variables)
 3. ✅ Review mainnet tokenomics

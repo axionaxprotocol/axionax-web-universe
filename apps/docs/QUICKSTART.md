@@ -17,6 +17,7 @@ Welcome to axionax! This guide will help you get started with running a node, va
 ### Step 1: Prerequisites
 
 Ensure you have:
+
 - **Docker Desktop** installed and running
 - **Go 1.21+** (for building from source)
 - **16GB RAM** available
@@ -44,6 +45,7 @@ docker compose ps
 ```
 
 You should see:
+
 - ✅ hardhat (Anvil) - http://localhost:8545
 - ✅ blockscout - http://localhost:4001
 - ✅ faucet - http://localhost:8080
@@ -76,6 +78,7 @@ Choose your path:
 Validators secure the network by performing PoPC validation.
 
 **Requirements:**
+
 - Minimum 10,000 AXX stake
 - Reliable uptime
 - Fast verification capabilities
@@ -83,12 +86,14 @@ Validators secure the network by performing PoPC validation.
 **Steps:**
 
 1. **Generate keys:**
+
 ```bash
 ./build/axionax-core keys generate --type validator
 # Your address: 0xYourValidatorAddress
 ```
 
 2. **Get testnet AXX:**
+
 ```bash
 # Using curl
 curl -H "Authorization: Basic YWRtaW46cGFzc3dvcmQ=" \
@@ -98,21 +103,25 @@ curl -H "Authorization: Basic YWRtaW46cGFzc3dvcmQ=" \
 ```
 
 3. **Stake AXX:**
+
 ```bash
 ./build/axionax-core stake deposit 10000 --address 0xYourValidatorAddress
 ```
 
 4. **Start validating:**
+
 ```bash
 ./build/axionax-core validator start
 ```
 
 5. **Check status:**
+
 ```bash
 ./build/axionax-core validator status
 ```
 
 **Expected output:**
+
 ```
 📊 Validator Status:
   Status: Active
@@ -126,6 +135,7 @@ curl -H "Authorization: Basic YWRtaW46cGFzc3dvcmQ=" \
 Workers provide compute power and earn rewards.
 
 **Requirements:**
+
 - Capable hardware (GPU recommended)
 - Stable internet connection
 - Minimum stake for registration
@@ -133,6 +143,7 @@ Workers provide compute power and earn rewards.
 **Steps:**
 
 1. **Create hardware spec:**
+
 ```bash
 cat > worker-specs.json <<EOF
 {
@@ -153,6 +164,7 @@ EOF
 ```
 
 2. **Generate worker keys:**
+
 ```bash
 ./build/axionax-core keys generate --type worker
 ```
@@ -160,21 +172,25 @@ EOF
 3. **Get testnet AXX from faucet** (same as validator)
 
 4. **Register as worker:**
+
 ```bash
 ./build/axionax-core worker register --specs worker-specs.json
 ```
 
 5. **Start worker:**
+
 ```bash
 ./build/axionax-core worker start
 ```
 
 6. **Monitor status:**
+
 ```bash
 ./build/axionax-core worker status
 ```
 
 **Expected output:**
+
 ```
 📊 Worker Status:
   Status: Active
@@ -190,6 +206,7 @@ Submit compute jobs to the network.
 **Steps:**
 
 1. **Create job specification:**
+
 ```json
 {
   "specs": {
@@ -208,6 +225,7 @@ Submit compute jobs to the network.
 ```
 
 2. **Submit via RPC:**
+
 ```bash
 curl -X POST http://localhost:8545 \
   -H "Content-Type: application/json" \
@@ -220,6 +238,7 @@ curl -X POST http://localhost:8545 \
 ```
 
 3. **Monitor job:**
+
 ```bash
 curl -X POST http://localhost:8545 \
   -H "Content-Type: application/json" \
@@ -321,6 +340,7 @@ curl -X POST http://localhost:8545 \
 **Problem:** Cannot connect to RPC endpoint
 
 **Solution:**
+
 ```bash
 # Check if testnet is running
 cd axionax_v1.5_Testnet_in_a_Box
@@ -341,6 +361,7 @@ docker compose restart
 **Problem:** Not enough AXX for transactions
 
 **Solution:** Request more from faucet:
+
 ```bash
 curl -H "Authorization: Basic YWRtaW46cGFzc3dvcmQ=" \
   "http://localhost:8081/request?address=0xYourAddress"
@@ -351,6 +372,7 @@ curl -H "Authorization: Basic YWRtaW46cGFzc3dvcmQ=" \
 **Problem:** Docker containers not starting
 
 **Solution:**
+
 ```bash
 # Clean up
 docker compose down -v

@@ -102,12 +102,14 @@ export default function Hero(): React.JSX.Element {
 
           {/* Main Heading - single line on md+ for cleaner look */}
           <h1 className="mb-6 animate-fade-in-up animation-delay-200 text-balance lg:whitespace-nowrap">
-            <span className="text-starlight drop-shadow-lg">Welcome to the </span>
+            <span className="text-starlight drop-shadow-lg">
+              Welcome to the{' '}
+            </span>
             <span
               className="bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent relative inline-block"
-              style={{ 
+              style={{
                 textShadow: '0 0 60px rgba(255,215,0,0.4)',
-                filter: 'drop-shadow(0 0 2px rgba(255,215,0,0.2))'
+                filter: 'drop-shadow(0 0 2px rgba(255,215,0,0.2))',
               }}
             >
               Golden Era
@@ -209,7 +211,7 @@ export default function Hero(): React.JSX.Element {
               <div className="flex justify-between">
                 <span className="text-starlight/60">RPC URL:</span>
                 <span className="text-horizon-blue font-mono text-xs">
-                    https://rpc.axionax.org
+                  https://rpc.axionax.org
                 </span>
               </div>
               <div className="flex justify-between">

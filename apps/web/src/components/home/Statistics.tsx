@@ -116,7 +116,7 @@ export default function Statistics(): React.JSX.Element {
           />
         </svg>
       ),
-      subtitle: 'EU + AU regions (29h uptime)',
+      subtitle: 'EU + AU regions',
     },
     {
       label: 'Services Operational',
@@ -142,9 +142,11 @@ export default function Statistics(): React.JSX.Element {
       label: 'Infrastructure Uptime',
       value: isLoading
         ? '...'
-        : stats.uptime >= 24
-          ? `${Math.floor(stats.uptime / 24)}d+`
-          : `${stats.uptime}h+`,
+        : stats.uptime > 0
+          ? stats.uptime >= 24
+            ? `${Math.floor(stats.uptime / 24)}d+`
+            : `${stats.uptime}h+`
+          : '—',
       icon: (
         <svg
           className="w-8 h-8"
@@ -160,7 +162,7 @@ export default function Statistics(): React.JSX.Element {
           />
         </svg>
       ),
-      subtitle: 'Explorer API uptime',
+      subtitle: stats.uptime > 0 ? 'Explorer API uptime' : 'Testnet',
     },
     {
       label: 'Testnet Deployment',
@@ -286,14 +288,15 @@ export default function Statistics(): React.JSX.Element {
                 <span className="text-sm font-medium text-content">
                   🇪🇺 Validator EU
                 </span>
-                <span className={`px-2 py-0.5 text-xs rounded border ${stats.nodes?.eu ? 'bg-tech-success/10 text-tech-success border-tech-success/20' : 'bg-tech-error/10 text-tech-error border-tech-error/20'}`}>
+                <span
+                  className={`px-2 py-0.5 text-xs rounded border ${stats.nodes?.eu ? 'bg-tech-success/10 text-tech-success border-tech-success/20' : 'bg-tech-error/10 text-tech-error border-tech-error/20'}`}
+                >
                   {stats.nodes?.eu ? 'Online' : 'Offline'}
                 </span>
               </div>
               <div className="text-xs text-muted space-y-1 font-mono">
                 <div>IP: 217.76.***.***</div>
-                <div>Uptime: 29h+</div>
-                <div>Container: axionax-validator-eu</div>
+                <div>RPC: 8545</div>
               </div>
             </div>
             <div className="p-4 bg-white/5 rounded-lg border border-white/10">
@@ -301,14 +304,15 @@ export default function Statistics(): React.JSX.Element {
                 <span className="text-sm font-medium text-content">
                   🇦🇺 Validator AU
                 </span>
-                <span className={`px-2 py-0.5 text-xs rounded border ${stats.nodes?.au ? 'bg-tech-success/10 text-tech-success border-tech-success/20' : 'bg-tech-error/10 text-tech-error border-tech-error/20'}`}>
+                <span
+                  className={`px-2 py-0.5 text-xs rounded border ${stats.nodes?.au ? 'bg-tech-success/10 text-tech-success border-tech-success/20' : 'bg-tech-error/10 text-tech-error border-tech-error/20'}`}
+                >
                   {stats.nodes?.au ? 'Online' : 'Offline'}
                 </span>
               </div>
               <div className="text-xs text-muted space-y-1 font-mono">
                 <div>IP: 46.250.***.***</div>
-                <div>Uptime: 29h+</div>
-                <div>Container: axionax-validator-au</div>
+                <div>RPC: 8545</div>
               </div>
             </div>
           </div>

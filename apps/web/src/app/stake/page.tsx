@@ -45,8 +45,8 @@ function StakeContent(): React.JSX.Element {
               2. Join as validator or worker
             </h2>
             <p className="text-muted text-sm mb-4">
-              Register your node and stake the required AXX via the Join
-              Network flow.
+              Register your node and stake the required AXX via the Join Network
+              flow.
             </p>
             <Link
               href="/join"

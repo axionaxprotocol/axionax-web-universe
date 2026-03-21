@@ -111,7 +111,6 @@ axionax-core/
 
 - **`core/consensus/`**: PoPC consensus implementation
   - Challenge generation, proof verification, confidence calculation
-  
 - **`core/blockchain/`**: Blockchain data structures and logic
   - Block, Transaction, State management
 
@@ -206,10 +205,8 @@ make benchmark       # Run performance benchmarks
 
 - **Rust**: Defined in `Cargo.toml`
   - Key crates: tokio, serde, libp2p, sha3
-  
 - **Python**: Defined in `deai/requirements.txt`
   - Key packages: numpy, scikit-learn, pyo3
-  
 - **TypeScript**: Defined in `sdk/package.json`
   - Key packages: ethers, web3
 
@@ -252,17 +249,20 @@ make benchmark       # Run performance benchmarks
 ## Version History
 
 ### v1.6 (Current) - Multi-Language Architecture
+
 - **Release**: Q4 2025
 - **Focus**: Rust core, Python ML, TypeScript SDK
 - **Performance**: 3x faster, 2.67x less memory
 - **Status**: ✅ Core complete, ready for network layer
 
 ### v1.5 (Legacy) - Go Implementation
+
 - **Release**: Q3 2025
 - **Focus**: Pure Go implementation
 - **Status**: Archived in `legacy/go-v1.5/`
 
 ### v1.7 (Next) - Network Layer
+
 - **Target**: Q1 2026
 - **Focus**: libp2p, RocksDB, JSON-RPC
 - **Status**: 📅 Planned
@@ -293,12 +293,12 @@ make benchmark       # Run performance benchmarks
 
 **Rust v1.6 vs Go v1.5:**
 
-| Operation | Go v1.5 | Rust v1.6 | Improvement |
-|-----------|---------|-----------|-------------|
-| VRF operations | 8,500 ops/sec | 22,817 ops/sec | **2.68x** |
-| Block validation | 1,200 blocks/sec | 3,500 blocks/sec | **2.92x** |
-| TX verification | 15,000 tx/sec | 45,000 tx/sec | **3.0x** |
-| Memory (idle) | 120 MB | 45 MB | **2.67x less** |
+| Operation        | Go v1.5          | Rust v1.6        | Improvement    |
+| ---------------- | ---------------- | ---------------- | -------------- |
+| VRF operations   | 8,500 ops/sec    | 22,817 ops/sec   | **2.68x**      |
+| Block validation | 1,200 blocks/sec | 3,500 blocks/sec | **2.92x**      |
+| TX verification  | 15,000 tx/sec    | 45,000 tx/sec    | **3.0x**       |
+| Memory (idle)    | 120 MB           | 45 MB            | **2.67x less** |
 
 **Python Integration (PyO3):** < 10% overhead
 
@@ -335,6 +335,7 @@ Settlement & Rewards
 ## Technology Stack
 
 ### Rust Core (80%)
+
 - **Consensus**: PoPC implementation
 - **Blockchain**: Block, transaction, state management
 - **Cryptography**: VRF, signatures, hashing (sha3)
@@ -343,12 +344,14 @@ Settlement & Rewards
 - **RPC**: JSON-RPC server with WebSocket support
 
 ### Python DeAI (10%)
+
 - **ASR**: Machine learning worker selection
 - **Fraud Detection**: Anomaly detection
 - **Anti-Collusion**: Pattern recognition
 - **Integration**: PyO3 bindings to Rust
 
 ### TypeScript SDK (10%)
+
 - **Client Library**: dApp integration
 - **Job Management**: Submit and monitor jobs
 - **Worker Interface**: Worker registration and status
@@ -369,26 +372,31 @@ Verify at: https://axionax.org/networks
 ## Quick Links
 
 ### Getting Started
+
 - [Main README](../README.md) - Project overview
 - [Getting Started](./GETTING_STARTED.md) - Setup guide
 - [Quick Start](./QUICKSTART.md) - Quick start guide
 
 ### Architecture
+
 - [Architecture Overview](./ARCHITECTURE.md) - System design
 - [New Architecture v1.6](./NEW_ARCHITECTURE.md) - Multi-language design
 - [Project Completion](./PROJECT_COMPLETION.md) - v1.6 summary
 
 ### Development
+
 - [Build Guide](./BUILD.md) - Building the project
 - [Testing Guide](./TESTING_GUIDE.md) - Testing strategies
 - [Contributing](./CONTRIBUTING.md) - Contribution guidelines
 
 ### Integration
+
 - [Integration Guide](./INTEGRATION_README.md) - Integration overview
 - [Migration Guide](./INTEGRATION_MIGRATION_GUIDE.md) - Go to Rust migration
 - [Testnet Integration](./TESTNET_INTEGRATION.md) - Testnet setup
 
 ### Protocol
+
 - [Tokenomics](./TOKENOMICS.md) - Token economics
 - [Governance](./GOVERNANCE.md) - DAO governance
 - [Security](./SECURITY.md) - Security policy
@@ -397,6 +405,7 @@ Verify at: https://axionax.org/networks
 ## Contributing
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md) for:
+
 - Code style guidelines (Rust, Python, TypeScript)
 - PR process
 - Testing requirements

@@ -6,7 +6,8 @@ import { drizzle } from 'drizzle-orm/postgres-js';
 import postgres from 'postgres';
 import * as schema from './schema.js';
 
-const connectionString = process.env.DATABASE_URL || 'postgresql://axionax:axionax@localhost:5432/axionax_testnet';
+const connectionString =
+  process.env.DATABASE_URL || 'postgresql://axionax:axionax@localhost:5432/axionax_testnet';
 
 // Create postgres connection
 const client = postgres(connectionString, {

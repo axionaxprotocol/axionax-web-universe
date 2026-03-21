@@ -1,7 +1,7 @@
 # AXX Token - Testnet Configuration
 
 > ℹ️ **This document describes the CURRENT TESTNET implementation**
-> 
+>
 > For mainnet tokenomics specification, see [TOKENOMICS.md](./TOKENOMICS.md)
 
 ## Overview
@@ -20,16 +20,16 @@ The testnet uses a simplified token model designed for testing and development p
 
 ## Key Differences from Mainnet
 
-| Feature | Testnet | Mainnet (Planned) |
-|---------|---------|-------------------|
-| **Token Symbol** | **AXXt** | **AXX** |
-| **Token Name** | Axionax Testnet Token | Axionax Token |
-| **Total Supply** | 1 Billion | 1 Trillion |
-| **Initial Mint** | 100M (10%) | Distributed per allocation |
-| **Vesting** | ❌ Not implemented | ✅ Full vesting schedules |
-| **Allocation** | Simple (single mint) | Complex (7 categories) |
-| **Governance** | Simplified | Full DAO governance |
-| **Staking Rewards** | Basic | 2.25% APY with metrics |
+| Feature             | Testnet               | Mainnet (Planned)          |
+| ------------------- | --------------------- | -------------------------- |
+| **Token Symbol**    | **AXXt**              | **AXX**                    |
+| **Token Name**      | Axionax Testnet Token | Axionax Token              |
+| **Total Supply**    | 1 Billion             | 1 Trillion                 |
+| **Initial Mint**    | 100M (10%)            | Distributed per allocation |
+| **Vesting**         | ❌ Not implemented    | ✅ Full vesting schedules  |
+| **Allocation**      | Simple (single mint)  | Complex (7 categories)     |
+| **Governance**      | Simplified            | Full DAO governance        |
+| **Staking Rewards** | Basic                 | 2.25% APY with metrics     |
 
 ## Testnet Token Features
 
@@ -79,6 +79,7 @@ The testnet uses a simplified token model designed for testing and development p
 ### Contract Address
 
 **Testnet (Chain ID: 86137)**
+
 ```
 AXX Token: Check deployment docs or explorer
 Staking: Check deployment docs
@@ -105,6 +106,7 @@ constructor(address initialOwner) {
 ### 1. Faucet (Recommended)
 
 Visit the official faucet to claim test tokens:
+
 - **URL**: https://faucet.axionax.org
 - **Amount**: 10 AXXt per request
 - **Cooldown**: 24 hours
@@ -123,6 +125,7 @@ Tokens will be automatically distributed to test accounts.
 ### 3. Request from Team
 
 For larger amounts (testing, development):
+
 - Discord: #testnet-tokens
 - Email: testnet@axionax.org
 
@@ -143,21 +146,25 @@ Additional tokens can be minted as needed (up to yearly cap).
 ## Use Cases on Testnet
 
 ### 1. Testing Transactions
+
 - Send/receive tokens
 - Test gas fees
 - Practice wallet management
 
 ### 2. Smart Contract Development
+
 - Deploy and test contracts
 - Interact with AXX token
 - Test token integrations
 
 ### 3. Staking Testing
+
 - Stake tokens to become validator
 - Test staking rewards
 - Practice unstaking
 
 ### 4. DApp Development
+
 - Integrate token in your dApp
 - Test token approvals
 - Practice MetaMask integration
@@ -189,16 +196,19 @@ Additional tokens can be minted as needed (up to yearly cap).
 ### 🔄 Testnet Lifecycle
 
 **Current Phase**: Active Testing
+
 - Network is stable
 - Tokens available via faucet
 - Smart contracts deployed
 
 **Planned Upgrades**:
+
 - Periodic contract upgrades
 - Feature additions
 - Bug fixes
 
 **Before Mainnet**:
+
 - Final security audits
 - Community testing
 - Migration planning
@@ -230,6 +240,7 @@ function remainingMintableThisYear() external view returns (uint256)
 Add testnet AXX token to your wallet:
 
 **Token Details:**
+
 ```
 Token Address: [Check deployment docs]
 Token Symbol: AXXt
@@ -239,6 +250,7 @@ Network: Axionax Testnet (86137)
 ```
 
 **Quick Add:**
+
 1. Connect to Axionax Testnet
 2. Click wallet dropdown
 3. Click "Add AXX Token" button
@@ -251,16 +263,19 @@ See [ADD_TOKEN_TO_METAMASK.md](./ADD_TOKEN_TO_METAMASK.md) for details.
 ### What Happens to Testnet Tokens?
 
 **Testnet tokens will NOT transfer to mainnet:**
+
 - Testnet and mainnet are separate networks
 - Different token contracts
 - No bridge between them
 
 **Possible Migration Plans:**
+
 1. **Airdrop** - Testnet participants may receive mainnet tokens
 2. **Contribution Rewards** - Active testers rewarded
 3. **Bug Bounty** - Finding bugs earns mainnet allocation
 
 **Stay Updated:**
+
 - Follow announcements in Discord
 - Check official blog
 - Monitor GitHub releases
@@ -292,21 +307,25 @@ See [ADD_TOKEN_TO_METAMASK.md](./ADD_TOKEN_TO_METAMASK.md) for details.
 ## Testnet Roadmap
 
 ### Phase 1: Current ✅
+
 - Basic token functionality
 - Faucet distribution
 - Simple staking
 
 ### Phase 2: In Progress 🚧
+
 - Governance testing
 - Compute job payments
 - Worker staking
 
 ### Phase 3: Planned 📋
+
 - Full tokenomics testing
 - Vesting contract testing
 - Migration preparation
 
 ### Phase 4: Pre-Mainnet 🎯
+
 - Security audits
 - Community review
 - Final testing
@@ -314,16 +333,19 @@ See [ADD_TOKEN_TO_METAMASK.md](./ADD_TOKEN_TO_METAMASK.md) for details.
 ## Resources
 
 ### Documentation
+
 - [TOKENOMICS.md](./TOKENOMICS.md) - Mainnet specification
 - [ADD_TOKEN_TO_METAMASK.md](./ADD_TOKEN_TO_METAMASK.md) - Setup guide
 - [DEVELOPER_GUIDE.md](./DEVELOPER_GUIDE.md) - Development docs
 
 ### Network Information
+
 - [CHAIN_ID_CONFIGURATION.md](./CHAIN_ID_CONFIGURATION.md) - Network config
 - [TESTNET_INTEGRATION.md](./TESTNET_INTEGRATION.md) - Integration guide
 - [RPC_NODE_DEPLOYMENT.md](./RPC_NODE_DEPLOYMENT.md) - Node setup
 
 ### Community
+
 - **Discord**: [Axionax Community](https://discord.gg/axionax)
 - **GitHub**: [axionax-web-universe](https://github.com/axionaxprotocol/axionax-web-universe)
 - **Website**: https://axionax.org
@@ -331,24 +353,31 @@ See [ADD_TOKEN_TO_METAMASK.md](./ADD_TOKEN_TO_METAMASK.md) for details.
 ## FAQ
 
 ### Q: Can I trade testnet AXX?
+
 **A:** No, testnet tokens have no value and cannot be traded.
 
 ### Q: Will my testnet balance transfer to mainnet?
+
 **A:** No, testnet and mainnet are separate. Check migration plans for potential rewards.
 
 ### Q: How do I get more testnet tokens?
+
 **A:** Use the faucet (24h cooldown) or request from team for development.
 
 ### Q: Why is supply different from mainnet docs?
+
 **A:** Testnet uses simplified model (1B) for testing. Mainnet will use full model (1T).
 
 ### Q: Can I become a validator with testnet tokens?
+
 **A:** Yes! Stake AXX to test validator functionality.
 
 ### Q: What if I find a bug?
+
 **A:** Report it on GitHub Issues or Discord. May be eligible for bug bounty.
 
 ### Q: When will mainnet launch?
+
 **A:** TBA. Follow announcements in Discord and official channels.
 
 ---

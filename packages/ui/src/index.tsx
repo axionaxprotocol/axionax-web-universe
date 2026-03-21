@@ -1,13 +1,13 @@
 /**
  * @axionax/ui - Shared UI Components
- * 
+ *
  * This package provides reusable React components for the Axionax ecosystem.
  * Components use Tailwind CSS for styling.
- * 
+ *
  * @example
  * ```tsx
  * import { Button, Card, Modal, Toast } from '@axionax/ui';
- * 
+ *
  * <Button variant="primary">Click me</Button>
  * <Card>Content here</Card>
  * ```

@@ -8,12 +8,12 @@
 
 ## 🌐 Live Services
 
-| Service | URL | Status |
-|---------|-----|--------|
-| **Website** | https://axionax.org | ✅ Online |
-| **Block Explorer** | https://axionax.org/explorer | ✅ Active |
-| **Faucet** | https://axionax.org/faucet | 🔧 Coming Soon |
-| **Documentation** | https://axionax.org/docs | ✅ Active |
+| Service            | URL                          | Status         |
+| ------------------ | ---------------------------- | -------------- |
+| **Website**        | https://axionax.org          | ✅ Online      |
+| **Block Explorer** | https://axionax.org/explorer | ✅ Active      |
+| **Faucet**         | https://axionax.org/faucet   | 🔧 Coming Soon |
+| **Documentation**  | https://axionax.org/docs     | ✅ Active      |
 
 ---
 
@@ -37,10 +37,10 @@ AU Validator:      http://46.250.244.4:8545
 
 ### Validators
 
-| Region | IP Address | Status | Uptime |
-|--------|------------|--------|--------|
-| 🇪🇺 Europe | 217.76.61.116 | ✅ Online | 2d+ |
-| 🇦🇺 Australia | 46.250.244.4 | ✅ Online | 2d+ |
+| Region       | IP Address    | Status    | Uptime |
+| ------------ | ------------- | --------- | ------ |
+| 🇪🇺 Europe    | 217.76.61.116 | ✅ Online | 2d+    |
+| 🇦🇺 Australia | 46.250.244.4  | ✅ Online | 2d+    |
 
 ---
 
@@ -73,6 +73,7 @@ Block Explorer: https://axionax.org/explorer
 Visit: https://axionax.org/faucet
 
 **Requirements**:
+
 - Valid Ethereum address
 - One request per 24 hours
 - 10 AXX per request
@@ -97,6 +98,7 @@ Visit: https://axionax.org/faucet
 ### Live Metrics Dashboard
 
 Visit homepage to see:
+
 - Current block height (updates every 5s)
 - Active validators (2/2)
 - Network uptime
@@ -188,6 +190,7 @@ curl -X POST https://axionax.org/rpc/ \
 ### Reporting Bugs
 
 Please include:
+
 - Network: Testnet
 - Browser: Chrome/Firefox/etc.
 - Wallet: MetaMask version

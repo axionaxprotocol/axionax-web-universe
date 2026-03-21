@@ -2,9 +2,9 @@
 
 Guide for setting up axionax web hosting from scratch — two options:
 
-| Option | Best for | Summary |
-|--------|----------|---------|
-| **1. Build on server** | Fresh start, empty VPS | Clone repo on VPS → build → run with PM2 → configure Nginx |
+| Option                           | Best for                 | Summary                                                           |
+| -------------------------------- | ------------------------ | ----------------------------------------------------------------- |
+| **1. Build on server**           | Fresh start, empty VPS   | Clone repo on VPS → build → run with PM2 → configure Nginx        |
 | **2. Build locally then upload** | Frequent updates from PC | Run `deploy-vps.ps1` from Windows → upload files to VPS → restart |
 
 ---
@@ -213,14 +213,14 @@ free -m
 
 ## Troubleshooting
 
-| Symptom | Check | Fix |
-|---------|-------|-----|
-| PM2 stopped / crash loop | `pm2 logs axionax-web --err` | Fix error → `pm2 restart axionax-web` |
-| `Cannot find module server.js` | Wrong path (outputFileTracingRoot) | Must run `apps/web/server.js` not `server.js` — see Step 3 |
-| Site not loading | Process on port 3000? | `cd .../standalone && PORT=3000 pm2 start apps/web/server.js --name axionax-web` |
-| Works via IP but not domain | Nginx pointing to 127.0.0.1:3000? | Verify `proxy_pass http://web_frontend;` and upstream |
-| CSS/JS missing (blank page) | Static not copied | `mkdir -p .../standalone/apps/web/.next && cp -r .../apps/web/.next/static .../standalone/apps/web/.next/` |
-| Old content after deploy | Old process still running | `pm2 restart axionax-web` or kill and start fresh |
+| Symptom                        | Check                              | Fix                                                                                                        |
+| ------------------------------ | ---------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| PM2 stopped / crash loop       | `pm2 logs axionax-web --err`       | Fix error → `pm2 restart axionax-web`                                                                      |
+| `Cannot find module server.js` | Wrong path (outputFileTracingRoot) | Must run `apps/web/server.js` not `server.js` — see Step 3                                                 |
+| Site not loading               | Process on port 3000?              | `cd .../standalone && PORT=3000 pm2 start apps/web/server.js --name axionax-web`                           |
+| Works via IP but not domain    | Nginx pointing to 127.0.0.1:3000?  | Verify `proxy_pass http://web_frontend;` and upstream                                                      |
+| CSS/JS missing (blank page)    | Static not copied                  | `mkdir -p .../standalone/apps/web/.next && cp -r .../apps/web/.next/static .../standalone/apps/web/.next/` |
+| Old content after deploy       | Old process still running          | `pm2 restart axionax-web` or kill and start fresh                                                          |
 
 ---
 

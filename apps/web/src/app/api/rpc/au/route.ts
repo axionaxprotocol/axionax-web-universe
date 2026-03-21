@@ -9,7 +9,11 @@ export async function POST(request: NextRequest) {
       body = await request.json();
     } catch {
       return NextResponse.json(
-        { jsonrpc: '2.0', error: { code: -32700, message: 'Parse error' }, id: null },
+        {
+          jsonrpc: '2.0',
+          error: { code: -32700, message: 'Parse error' },
+          id: null,
+        },
         { status: 400 }
       );
     }

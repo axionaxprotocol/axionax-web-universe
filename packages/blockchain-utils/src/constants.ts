@@ -1,14 +1,16 @@
 /**
- * Constants for Axionax blockchain
+ * Constants for Axionax blockchain.
+ * Synced with axionax-core-universe (core/.env.example, core/DEPLOYMENT_GUIDE.md).
+ * @see https://github.com/axionaxprotocol/axionax-core-universe
  */
 
 // ============================================
-// Chain IDs
+// Chain IDs (must match core-universe)
 // ============================================
 
 export const CHAIN_IDS = {
   TESTNET: 86137,
-  MAINNET: 86138, // Planned
+  MAINNET: 86150, // Reserved; core: 86137 testnet, 86150 mainnet
 } as const;
 
 // ============================================
@@ -61,11 +63,11 @@ export const MAINNET_SUPPLY = {
 } as const;
 
 // ============================================
-// Staking Constants
+// Staking Constants (match core DEPLOYMENT_GUIDE: min_validator_stake 10,000)
 // ============================================
 
 export const STAKING_CONSTANTS = {
-  MIN_VALIDATOR_STAKE: BigInt('100000000000000000000000'), // 100,000 AXX
+  MIN_VALIDATOR_STAKE: BigInt('10000000000000000000000'), // 10,000 AXX (core: 10,000 tokens)
   MIN_DELEGATION: BigInt('100000000000000000000'), // 100 AXX
   UNBONDING_PERIOD: 14 * 24 * 60 * 60, // 14 days in seconds
   MAX_VALIDATORS: 100,
@@ -89,11 +91,7 @@ export const GOVERNANCE_CONSTANTS = {
 // ============================================
 
 export const RPC_URLS = {
-  TESTNET: [
-    'https://rpc.axionax.org',
-    'http://217.76.61.116:8545',
-    'http://46.250.244.4:8545',
-  ],
+  TESTNET: ['https://rpc.axionax.org', 'http://217.76.61.116:8545', 'http://46.250.244.4:8545'],
   MAINNET: [
     // Will be populated at mainnet launch
   ],
@@ -124,17 +122,34 @@ export const API_URLS = {
 export const EVENT_SIGNATURES = {
   // ERC20 Transfer
   TRANSFER: '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef',
-  
+
   // ERC20 Approval
   APPROVAL: '0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925',
-  
+
   // Staking
   STAKED: '0x9e71bc8eea02a63969f509818f2dafb9254532904319f9dbda79b67bd34a5f3d',
   UNSTAKED: '0x0f5bb82176feb1b5e747e28471aa92156a04d9f3ab9f45f28e2d704232b93f75',
-  
+
   // Governance
   PROPOSAL_CREATED: '0x7d84a6263ae0d98d3329bd7b46bb4e8d6f98cd35a7adb45c274c8b7fd5ebd5e0',
   VOTE_CAST: '0xb8e138887d0aa13bab447e82de9d5c1777041ecd21ca36ba824ff1e6c07ddda4',
+} as const;
+
+// ============================================
+// Chain / Node Params (from core-universe DEPLOYMENT_GUIDE)
+// ============================================
+
+export const CHAIN_PARAMS = {
+  RPC_PORT: 8545,
+  BLOCK_TIME_SECS: 5,
+  GAS_LIMIT: 30_000_000,
+  MIN_GAS_PRICE_WEI: BigInt('1000000000'), // 1 Gwei
+} as const;
+
+/** PoPC consensus (core: sample_size 1000, min_confidence 0.999) */
+export const POPC_PARAMS = {
+  SAMPLE_SIZE: 1000,
+  MIN_CONFIDENCE: 0.999,
 } as const;
 
 // ============================================
