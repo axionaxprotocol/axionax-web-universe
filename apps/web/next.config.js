@@ -32,6 +32,17 @@ const nextConfig = {
     // This ensures standalone output includes correct node_modules symlinks
     outputFileTracingRoot: path.join(__dirname, '../../'),
   },
+
+  // Pitch Deck: same shell as other tabs (/pitch); old static URL still works
+  async redirects() {
+    return [
+      {
+        source: '/pitch-deck.html',
+        destination: '/pitch',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;

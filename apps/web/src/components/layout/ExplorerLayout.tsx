@@ -8,7 +8,7 @@ import { AXIONAX_TESTNET } from '@/lib/web3';
 
 const mainNav = [
   { name: 'Home', href: '/' },
-  { name: 'Pitch Deck', href: '/pitch-deck.html' },
+  { name: 'Pitch Deck', href: '/pitch' },
   { name: 'Workers', href: '/marketplace' },
   { name: 'Explorer', href: '/explorer' },
   { name: 'Faucet', href: '/faucet' },
@@ -16,6 +16,7 @@ const mainNav = [
   { name: 'Wallet', href: '/wallet' },
   { name: 'Dashboard', href: '/dashboard' },
   { name: 'Join Network', href: '/join' },
+  { name: 'Infrastructure', href: '/infrastructure' },
   { name: 'Airdrop', href: '/airdrop' },
   { name: 'Docs', href: '/docs' },
 ];

@@ -9,6 +9,7 @@ export default function Footer(): React.JSX.Element {
       { name: 'Faucet', href: '/faucet' },
       { name: 'Wallet', href: '/wallet' },
       { name: 'Validators', href: '/validators' },
+      { name: 'Infrastructure', href: '/infrastructure' },
       { name: 'Marketplace', href: '/marketplace' },
     ],
     developers: [
@@ -25,7 +26,7 @@ export default function Footer(): React.JSX.Element {
     ],
     company: [
       { name: 'Home', href: '/' },
-      { name: 'Pitch Deck', href: '/pitch-deck.html' },
+      { name: 'Pitch Deck', href: '/pitch' },
       { name: 'Join Network', href: '/join' },
       { name: 'Dashboard', href: '/dashboard' },
     ],
