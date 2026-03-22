@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { ButtonHTMLAttributes } from 'react';
 
@@ -22,9 +23,9 @@ export default function Button({
 
   const variantClasses = {
     primary:
-      'btn-primary hover:shadow-xl hover:shadow-amber-500/40 active:shadow-lg',
+      'bg-axionax-primary text-axionax-on-surface hover:bg-opacity-90 shadow-lg shadow-axionax-primary/30 hover:shadow-axionax-primary/40',
     secondary: 'btn-secondary hover:shadow-lg',
-    outline: 'btn-outline hover:shadow-lg hover:shadow-amber-500/20',
+    outline: 'border border-axionax-primary text-axionax-primary hover:bg-axionax-primary/10',
     ghost: 'hover:bg-dark-800 text-dark-100 hover:text-white',
   };
 
