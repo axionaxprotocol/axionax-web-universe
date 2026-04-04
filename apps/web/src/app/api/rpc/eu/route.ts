@@ -1,8 +1,22 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-const RPC_EU_URL = process.env.RPC_EU_URL || 'http://217.76.61.116:8545';
+const RPC_EU_URL = process.env.RPC_EU_URL;
 
 export async function POST(request: NextRequest) {
+  if (!RPC_EU_URL) {
+    return NextResponse.json(
+      {
+        jsonrpc: '2.0',
+        error: {
+          code: -32000,
+          message: 'RPC_EU_URL is not configured',
+        },
+        id: null,
+      },
+      { status: 503 }
+    );
+  }
+
   try {
     let body: unknown;
     try {
@@ -47,6 +61,13 @@ export async function POST(request: NextRequest) {
 
 // Health check
 export async function GET() {
+  if (!RPC_EU_URL) {
+    return NextResponse.json(
+      { status: 'unconfigured', endpoint: 'EU Validator' },
+      { status: 503 }
+    );
+  }
+
   try {
     const response = await fetch(RPC_EU_URL, {
       method: 'POST',

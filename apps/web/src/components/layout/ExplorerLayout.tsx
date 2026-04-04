@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import ConnectButton from '@/components/wallet/ConnectButton';
 import VisitorCounter from '@/components/layout/VisitorCounter';
-import { AXIONAX_TESTNET } from '@/lib/web3';
+import { AXIONAX_NETWORK } from '@/lib/web3';
 
 const mainNav = [
   { name: 'Home', href: '/' },
@@ -50,11 +50,11 @@ export default function ExplorerLayout({
         method: 'wallet_addEthereumChain',
         params: [
           {
-            chainId: AXIONAX_TESTNET.chainId,
-            chainName: AXIONAX_TESTNET.chainName,
-            nativeCurrency: AXIONAX_TESTNET.nativeCurrency,
-            rpcUrls: AXIONAX_TESTNET.rpcUrls,
-            blockExplorerUrls: AXIONAX_TESTNET.blockExplorerUrls,
+            chainId: AXIONAX_NETWORK.chainId,
+            chainName: AXIONAX_NETWORK.chainName,
+            nativeCurrency: AXIONAX_NETWORK.nativeCurrency,
+            rpcUrls: AXIONAX_NETWORK.rpcUrls,
+            blockExplorerUrls: AXIONAX_NETWORK.blockExplorerUrls,
           },
         ],
       });

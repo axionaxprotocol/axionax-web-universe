@@ -48,7 +48,41 @@ export const AXIONAX_MAINNET_CONFIG = {
 // Default Configuration
 // ============================================
 
-export const DEFAULT_CONFIG = AXIONAX_TESTNET_CONFIG;
+function resolveConfiguredChainId(): number {
+  const envChainId =
+    process.env.AXIONAX_SDK_CHAIN_ID ??
+    process.env.AXIONAX_CHAIN_ID ??
+    process.env.NEXT_PUBLIC_CHAIN_ID;
+
+  if (envChainId) {
+    const parsed = Number(envChainId);
+    if (parsed === CHAIN_IDS.MAINNET || parsed === CHAIN_IDS.TESTNET) {
+      return parsed;
+    }
+  }
+
+  const envNetwork =
+    process.env.AXIONAX_SDK_NETWORK ??
+    process.env.AXIONAX_NETWORK ??
+    process.env.RPC_NETWORK;
+
+  if (envNetwork?.toLowerCase() === 'mainnet') {
+    return CHAIN_IDS.MAINNET;
+  }
+
+  return CHAIN_IDS.TESTNET;
+}
+
+export const DEFAULT_CHAIN_ID = resolveConfiguredChainId();
+
+export const DEFAULT_CONFIG =
+  DEFAULT_CHAIN_ID === CHAIN_IDS.MAINNET
+    ? AXIONAX_MAINNET_CONFIG
+    : AXIONAX_TESTNET_CONFIG;
+
+export const ACTIVE_NETWORK_CONFIG = DEFAULT_CONFIG;
+export const getDefaultNetworkConfig = () => DEFAULT_CONFIG;
+export const getDefaultConfig = () => DEFAULT_CONFIG;
 
 // ============================================
 // Contract Addresses

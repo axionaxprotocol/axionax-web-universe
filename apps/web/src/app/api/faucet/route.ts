@@ -1,8 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { CHAIN_IDS } from '@axionax/blockchain-utils';
 
 const FAUCET_API_URL = process.env.FAUCET_API_URL || 'http://localhost:3002';
 const VALID_ADDRESS = /^0x[a-fA-F0-9]{40}$/;
-const CHAIN_ID = 86137;
+const NETWORK = (
+  process.env.NEXT_PUBLIC_NETWORK ||
+  process.env.RPC_NETWORK ||
+  'testnet'
+)
+  .trim()
+  .toLowerCase();
+const CHAIN_ID = NETWORK === 'mainnet' ? CHAIN_IDS.MAINNET : CHAIN_IDS.TESTNET;
+const NETWORK_LABEL =
+  NETWORK === 'mainnet' ? 'Axionax Mainnet' : 'Axionax Testnet';
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
@@ -37,7 +47,7 @@ export async function GET(request: NextRequest) {
   return NextResponse.json({
     status: 'active',
     amount: '10',
-    network: 'Axionax Testnet',
+    network: NETWORK_LABEL,
     chainId: CHAIN_ID,
   });
 }
@@ -99,11 +109,13 @@ export async function POST(request: NextRequest) {
       { status: res.status >= 400 ? res.status : 500 }
     );
   } catch {
-    return NextResponse.json({
-      success: true,
-      message: 'Successfully sent.',
-      txHash: '0x' + '0'.repeat(64),
-      amount: '10',
-    });
+    return NextResponse.json(
+      {
+        success: false,
+        message:
+          'Faucet service temporarily unavailable. Please try again later.',
+      },
+      { status: 503 }
+    );
   }
 }

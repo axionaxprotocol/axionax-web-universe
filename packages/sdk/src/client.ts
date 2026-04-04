@@ -2,13 +2,13 @@
  * Axionax Client Implementation
  *
  * Main client for interacting with Axionax Protocol.
- * Currently uses mock implementations for testnet.
+ * Current implementation still uses mock contract interactions.
  */
 
 import { ethers } from 'ethers';
 import type { ClientConfig, AxionaxClient, EscrowTransaction, Job, Worker } from './types.js';
 import { EscrowStatus, JobStatus } from './types.js';
-import { AXIONAX_TESTNET_CONFIG } from './config.js';
+import { DEFAULT_CONFIG } from './config.js';
 
 // ============================================
 // Mock Data (TODO: Replace with real contracts)
@@ -213,9 +213,10 @@ class AxionaxClientImpl implements AxionaxClient {
  * Create a new Axionax client instance
  */
 export function createClient(config: Partial<ClientConfig> = {}): AxionaxClient {
+  const defaultRpcUrl = DEFAULT_CONFIG.rpcUrls[0];
   const fullConfig: ClientConfig = {
-    rpcUrl: config.rpcUrl || AXIONAX_TESTNET_CONFIG.rpcUrls[0],
-    chainId: config.chainId || AXIONAX_TESTNET_CONFIG.chainIdDecimal,
+    rpcUrl: config.rpcUrl || defaultRpcUrl,
+    chainId: config.chainId || DEFAULT_CONFIG.chainIdDecimal,
     ...config,
   };
 

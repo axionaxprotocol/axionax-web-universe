@@ -21,6 +21,22 @@ export interface WalletError extends Error {
   code: number;
 }
 
+type RuntimeNetwork = 'testnet' | 'mainnet';
+
+function getRuntimeNetwork(): RuntimeNetwork {
+  if (typeof process === 'undefined') return 'testnet';
+  const value =
+    process.env.NEXT_PUBLIC_NETWORK ??
+    process.env.NEXT_PUBLIC_AXIONAX_NETWORK ??
+    process.env.AXIONAX_NETWORK ??
+    'testnet';
+  return value.toLowerCase() === 'mainnet' ? 'mainnet' : 'testnet';
+}
+
+function getTargetChainId(): number {
+  return getRuntimeNetwork() === 'mainnet' ? CHAIN_IDS.MAINNET : CHAIN_IDS.TESTNET;
+}
+
 // Common error codes
 export const WALLET_ERROR_CODES = {
   USER_REJECTED: 4001,
@@ -178,11 +194,11 @@ export async function addChain(chainId: number): Promise<boolean> {
 }
 
 /**
- * Connect wallet and switch to Axionax Testnet
+ * Connect wallet and switch to configured Axionax network.
  */
 export async function connectToAxionax(): Promise<string[]> {
   const accounts = await connectWallet();
-  await switchChain(CHAIN_IDS.TESTNET);
+  await switchChain(getTargetChainId());
   return accounts;
 }
 

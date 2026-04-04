@@ -5,13 +5,13 @@ import {
   createClient,
   EscrowStatus,
   EscrowTransaction,
-  AXIONAX_TESTNET_CONFIG,
+  DEFAULT_CONFIG,
   type AxionaxClient,
 } from '@axionax/sdk';
 import { ethers } from 'ethers';
 import { RefreshCw, Loader2 } from 'lucide-react';
 
-const EXPLORER_BASE = AXIONAX_TESTNET_CONFIG.blockExplorerUrls[0] ?? '';
+const EXPLORER_BASE = DEFAULT_CONFIG.blockExplorerUrls[0] ?? '';
 
 /** Format escrow completed date (handles Date or ISO string from API). */
 function formatCompletedDate(updatedAt: Date | string | undefined): string {
@@ -39,10 +39,10 @@ export default function EscrowPanel({
     () =>
       propClient ||
       createClient({
-        ...AXIONAX_TESTNET_CONFIG,
-        rpcUrl: AXIONAX_TESTNET_CONFIG.rpcUrls[0],
-        rpcUrls: [...AXIONAX_TESTNET_CONFIG.rpcUrls],
-        chainId: AXIONAX_TESTNET_CONFIG.chainIdDecimal,
+        ...DEFAULT_CONFIG,
+        rpcUrl: DEFAULT_CONFIG.rpcUrls[0],
+        rpcUrls: [...DEFAULT_CONFIG.rpcUrls],
+        chainId: DEFAULT_CONFIG.chainIdDecimal,
       })
   );
   const [escrowState, setEscrowState] = useState<EscrowTransaction | null>(
@@ -68,10 +68,10 @@ export default function EscrowPanel({
           );
           const signer = await provider.getSigner();
           const newClient = createClient({
-            ...AXIONAX_TESTNET_CONFIG,
-            rpcUrl: AXIONAX_TESTNET_CONFIG.rpcUrls[0],
-            rpcUrls: [...AXIONAX_TESTNET_CONFIG.rpcUrls],
-            chainId: AXIONAX_TESTNET_CONFIG.chainIdDecimal,
+            ...DEFAULT_CONFIG,
+            rpcUrl: DEFAULT_CONFIG.rpcUrls[0],
+            rpcUrls: [...DEFAULT_CONFIG.rpcUrls],
+            chainId: DEFAULT_CONFIG.chainIdDecimal,
             provider,
             signer,
           });
