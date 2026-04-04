@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import ConnectButton from '@/components/wallet/ConnectButton';
-import { AXIONAX_TESTNET } from '@/lib/web3';
+import { AXIONAX_NETWORK } from '@/lib/web3';
 
 // Navbar component - Main navigation bar with cosmic black hole theme
 export default function Navbar(): React.JSX.Element {
@@ -30,11 +30,11 @@ export default function Navbar(): React.JSX.Element {
         method: 'wallet_addEthereumChain',
         params: [
           {
-            chainId: AXIONAX_TESTNET.chainId,
-            chainName: AXIONAX_TESTNET.chainName,
-            nativeCurrency: AXIONAX_TESTNET.nativeCurrency,
-            rpcUrls: AXIONAX_TESTNET.rpcUrls,
-            blockExplorerUrls: AXIONAX_TESTNET.blockExplorerUrls,
+            chainId: AXIONAX_NETWORK.chainId,
+            chainName: AXIONAX_NETWORK.chainName,
+            nativeCurrency: AXIONAX_NETWORK.nativeCurrency,
+            rpcUrls: AXIONAX_NETWORK.rpcUrls,
+            blockExplorerUrls: AXIONAX_NETWORK.blockExplorerUrls,
           },
         ],
       });

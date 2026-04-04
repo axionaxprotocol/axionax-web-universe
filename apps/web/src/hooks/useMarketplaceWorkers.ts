@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { createClient, AXIONAX_TESTNET_CONFIG } from '@axionax/sdk';
+import { createClient, getDefaultNetworkConfig } from '@axionax/sdk';
 
 /** Display model for marketplace worker (from SDK or fallback mock) */
 export interface MarketplaceWorker {
@@ -87,6 +87,8 @@ function mapSdkWorkerToMarketplace(w: {
   };
 }
 
+const NETWORK_CONFIG = getDefaultNetworkConfig();
+
 export interface UseMarketplaceWorkersResult {
   workers: MarketplaceWorker[];
   loading: boolean;
@@ -111,10 +113,10 @@ export function useMarketplaceWorkers(): UseMarketplaceWorkersResult {
     setError(null);
     try {
       const client = createClient({
-        ...AXIONAX_TESTNET_CONFIG,
-        rpcUrl: AXIONAX_TESTNET_CONFIG.rpcUrls[0],
-        rpcUrls: [...AXIONAX_TESTNET_CONFIG.rpcUrls],
-        chainId: AXIONAX_TESTNET_CONFIG.chainIdDecimal,
+        ...NETWORK_CONFIG,
+        rpcUrl: NETWORK_CONFIG.rpcUrls[0],
+        rpcUrls: [...NETWORK_CONFIG.rpcUrls],
+        chainId: NETWORK_CONFIG.chainIdDecimal,
       });
       const list = await client.getWorkers();
       const mapped = list.map(mapSdkWorkerToMarketplace);
@@ -130,7 +132,7 @@ export function useMarketplaceWorkers(): UseMarketplaceWorkersResult {
   }, []);
 
   useEffect(() => {
-    fetchWorkers();
+    void fetchWorkers();
   }, [fetchWorkers]);
 
   return { workers, loading, error, refetch: fetchWorkers, fromSource };

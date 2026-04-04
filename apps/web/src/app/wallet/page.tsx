@@ -9,7 +9,7 @@ import {
   type GeneratedWallet,
   type ImportedWallet,
 } from '@/lib/wallet-generator';
-import { getBalance, AXIONAX_TESTNET } from '@/lib/web3';
+import { getBalance, AXIONAX_NETWORK_CONFIG } from '@/lib/web3';
 
 type TabType = 'create' | 'import-mnemonic' | 'import-key';
 
@@ -685,28 +685,28 @@ export default function WalletPage() {
               <div>
                 <div className="text-muted">Network Name</div>
                 <div className="text-content font-medium">
-                  {AXIONAX_TESTNET.chainName}
+                  {AXIONAX_NETWORK_CONFIG.chainName}
                 </div>
               </div>
               <div>
                 <div className="text-muted">Chain ID</div>
                 <div className="text-content font-medium">
-                  {AXIONAX_TESTNET.chainIdDecimal}
+                  {AXIONAX_NETWORK_CONFIG.chainIdDecimal}
                 </div>
               </div>
               <div>
                 <div className="text-muted">Currency</div>
                 <div className="text-content font-medium">
-                  {AXIONAX_TESTNET.nativeCurrency.symbol}
+                  {AXIONAX_NETWORK_CONFIG.nativeCurrency.symbol}
                 </div>
               </div>
               <div>
                 <div className="text-muted">RPC URL</div>
                 <div
                   className="text-tech-cyan font-medium text-xs truncate cursor-pointer hover:underline"
-                  title={AXIONAX_TESTNET.rpcUrls[0]}
+                  title={AXIONAX_NETWORK_CONFIG.rpcUrls[0]}
                 >
-                  {AXIONAX_TESTNET.rpcUrls[0].replace('https://', '')}
+                  {AXIONAX_NETWORK_CONFIG.rpcUrls[0].replace('https://', '')}
                 </div>
               </div>
             </div>

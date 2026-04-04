@@ -24,6 +24,7 @@ import {
   onAccountsChanged,
   onChainChanged,
   axionaxTestnet,
+  axionaxMainnet,
   getMetaMaskNetworkParams,
   CHAIN_IDS,
   RPC_URLS,
@@ -63,6 +64,7 @@ export {
   formatUnits,
 };
 export { axionaxTestnet as AXIONAX_TESTNET_CONFIG };
+export { axionaxMainnet as AXIONAX_MAINNET_CONFIG };
 
 export const AXIONAX_TESTNET = {
   chainId: '0x' + CHAIN_IDS.TESTNET.toString(16),
@@ -72,6 +74,34 @@ export const AXIONAX_TESTNET = {
   rpcUrls: RPC_URLS.TESTNET,
   blockExplorerUrls: [EXPLORER_URLS.TESTNET],
 };
+
+export const AXIONAX_MAINNET = {
+  chainId: '0x' + CHAIN_IDS.MAINNET.toString(16),
+  chainIdDecimal: CHAIN_IDS.MAINNET,
+  chainName: axionaxMainnet.name,
+  nativeCurrency: axionaxMainnet.nativeCurrency,
+  rpcUrls:
+    RPC_URLS.MAINNET.length > 0
+      ? RPC_URLS.MAINNET
+      : ['https://mainnet.rpc.axionax.org'],
+  blockExplorerUrls: [EXPLORER_URLS.MAINNET],
+};
+
+export function getActiveNetworkConfig() {
+  const raw = process.env.NEXT_PUBLIC_NETWORK?.toLowerCase();
+  const chainIdFromEnv = Number.parseInt(
+    process.env.NEXT_PUBLIC_CHAIN_ID ?? '',
+    10
+  );
+  if (raw === 'mainnet' || chainIdFromEnv === CHAIN_IDS.MAINNET) {
+    return AXIONAX_MAINNET;
+  }
+  return AXIONAX_TESTNET;
+}
+
+export const ACTIVE_NETWORK_CONFIG = getActiveNetworkConfig();
+export const AXIONAX_NETWORK = ACTIVE_NETWORK_CONFIG;
+export const AXIONAX_NETWORK_CONFIG = ACTIVE_NETWORK_CONFIG;
 
 // Legacy error type
 export interface MetaMaskError extends Error {

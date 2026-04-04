@@ -92,9 +92,7 @@ export const GOVERNANCE_CONSTANTS = {
 
 export const RPC_URLS = {
   TESTNET: ['https://rpc.axionax.org', 'http://217.76.61.116:8545', 'http://46.250.244.4:8545'],
-  MAINNET: [
-    // Will be populated at mainnet launch
-  ],
+  MAINNET: ['https://mainnet.rpc.axionax.org'],
 } as const;
 
 // ============================================
@@ -136,20 +134,28 @@ export const EVENT_SIGNATURES = {
 } as const;
 
 // ============================================
-// Chain / Node Params (from core-universe DEPLOYMENT_GUIDE)
+// Chain / Node Params (from core-universe .env.example + DEPLOYMENT_GUIDE)
 // ============================================
 
 export const CHAIN_PARAMS = {
   RPC_PORT: 8545,
+  WS_PORT: 8546,
+  P2P_PORT: 30303,
+  RATE_LIMIT_RPS: 100,
+  MAX_PEERS: 50,
   BLOCK_TIME_SECS: 5,
+  MAX_BLOCK_SIZE_BYTES: 1_048_576,
   GAS_LIMIT: 30_000_000,
+  TX_POOL_SIZE: 10_000,
+  CACHE_SIZE_MB: 2048,
   MIN_GAS_PRICE_WEI: BigInt('1000000000'), // 1 Gwei
 } as const;
 
-/** PoPC consensus (core: sample_size 1000, min_confidence 0.999) */
+/** PoPC consensus (core: sample_size 1000, min_confidence 0.999, fraud_window_blocks 720) */
 export const POPC_PARAMS = {
   SAMPLE_SIZE: 1000,
   MIN_CONFIDENCE: 0.999,
+  FRAUD_WINDOW_BLOCKS: 720,
 } as const;
 
 // ============================================

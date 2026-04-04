@@ -45,7 +45,11 @@ export { EscrowStatus, JobStatus } from './types.js';
 export {
   AXIONAX_TESTNET_CONFIG,
   AXIONAX_MAINNET_CONFIG,
+  DEFAULT_CHAIN_ID,
   DEFAULT_CONFIG,
+  ACTIVE_NETWORK_CONFIG,
+  getDefaultNetworkConfig,
+  getDefaultConfig,
   CONTRACTS,
 } from './config.js';
 

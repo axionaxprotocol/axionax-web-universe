@@ -1,8 +1,22 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-const RPC_AU_URL = process.env.RPC_AU_URL || 'http://46.250.244.4:8545';
+const RPC_AU_URL = process.env.RPC_AU_URL;
 
 export async function POST(request: NextRequest) {
+  if (!RPC_AU_URL) {
+    return NextResponse.json(
+      {
+        jsonrpc: '2.0',
+        error: {
+          code: -32000,
+          message: 'RPC_AU_URL is not configured',
+        },
+        id: null,
+      },
+      { status: 503 }
+    );
+  }
+
   try {
     let body: unknown;
     try {
@@ -47,6 +61,13 @@ export async function POST(request: NextRequest) {
 
 // Health check
 export async function GET() {
+  if (!RPC_AU_URL) {
+    return NextResponse.json(
+      { status: 'unconfigured', endpoint: 'AU Validator' },
+      { status: 503 }
+    );
+  }
+
   try {
     const response = await fetch(RPC_AU_URL, {
       method: 'POST',

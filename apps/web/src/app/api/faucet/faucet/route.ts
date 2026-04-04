@@ -2,11 +2,27 @@ import { NextRequest, NextResponse } from 'next/server';
 
 const FAUCET_API_URL = process.env.FAUCET_API_URL || 'http://localhost:3002';
 const VALID_ADDRESS = /^0x[a-fA-F0-9]{40}$/;
+const NETWORK = (
+  process.env.NEXT_PUBLIC_NETWORK ||
+  process.env.RPC_NETWORK ||
+  'testnet'
+).toLowerCase();
+const IS_MAINNET = NETWORK === 'mainnet';
 
 const isRealFaucet = (): boolean =>
   !!FAUCET_API_URL && !FAUCET_API_URL.includes('localhost');
 
 export async function POST(request: NextRequest) {
+  if (IS_MAINNET) {
+    return NextResponse.json(
+      {
+        success: false,
+        message: 'Faucet is disabled on mainnet.',
+      },
+      { status: 403 }
+    );
+  }
+
   let body: { address?: string };
   try {
     body = await request.json();
@@ -66,23 +82,14 @@ export async function POST(request: NextRequest) {
       { status: res.status >= 400 ? res.status : 500 }
     );
   } catch {
-    if (isRealFaucet()) {
-      return NextResponse.json(
-        {
-          success: false,
-          message:
-            'Faucet service temporarily unavailable. Please try again later.',
-        },
-        { status: 503 }
-      );
-    }
-    return NextResponse.json({
-      success: true,
-      message:
-        'Successfully sent testnet tokens. (Mock – faucet service offline)',
-      txHash: '0x' + Array(64).fill('0').join(''),
-      amount: '10000',
-      isMock: true,
-    });
+    return NextResponse.json(
+      {
+        success: false,
+        message: isRealFaucet()
+          ? 'Faucet service temporarily unavailable. Please try again later.'
+          : 'Faucet backend is not configured.',
+      },
+      { status: 503 }
+    );
   }
 }

@@ -2,7 +2,12 @@
 
 import React, { useState } from 'react';
 import { useWeb3 } from '@/contexts/Web3Context';
-import { formatAddress, isMetaMaskInstalled, addAXXToken } from '@/lib/web3';
+import {
+  formatAddress,
+  isMetaMaskInstalled,
+  addAXXToken,
+  AXIONAX_NETWORK_CONFIG,
+} from '@/lib/web3';
 import Button from '@/components/ui/Button';
 
 export default function ConnectButton(): React.JSX.Element {
@@ -166,7 +171,9 @@ export default function ConnectButton(): React.JSX.Element {
               <span
                 className={`text-sm font-medium ${isCorrectNetwork ? 'text-green-400' : 'text-amber-400'}`}
               >
-                {isCorrectNetwork ? 'axionax Testnet' : 'Wrong Network'}
+                {isCorrectNetwork
+                  ? AXIONAX_NETWORK_CONFIG.chainName
+                  : 'Wrong Network'}
               </span>
             </div>
 
@@ -180,7 +187,8 @@ export default function ConnectButton(): React.JSX.Element {
             {!isCorrectNetwork && (
               <div className="p-3 bg-amber-500/10 border border-amber-500/30 rounded-lg">
                 <div className="text-xs text-amber-400">
-                  ⚠️ Please switch to axionax Testnet (Chain ID: 86137)
+                  ⚠️ Please switch to {AXIONAX_NETWORK_CONFIG.chainName} (Chain
+                  ID: {AXIONAX_NETWORK_CONFIG.chainIdDecimal})
                 </div>
               </div>
             )}

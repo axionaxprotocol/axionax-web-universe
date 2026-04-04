@@ -12,7 +12,7 @@ import {
   getCurrentAccount,
   getBalance,
   getCurrentChainId,
-  AXIONAX_TESTNET,
+  AXIONAX_NETWORK,
 } from '@/lib/web3';
 
 interface Web3ContextType {
@@ -28,6 +28,16 @@ interface Web3ContextType {
 
 const Web3Context = createContext<Web3ContextType | undefined>(undefined);
 
+function normalizeChainId(chainId: number | string | null): string | null {
+  if (chainId === null) return null;
+  if (typeof chainId === 'string') {
+    return chainId.startsWith('0x')
+      ? chainId.toLowerCase()
+      : `0x${Number(chainId).toString(16)}`;
+  }
+  return `0x${chainId.toString(16)}`;
+}
+
 export function Web3Provider({
   children,
 }: {
@@ -39,7 +49,7 @@ export function Web3Provider({
   const [isConnecting, setIsConnecting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const isCorrectNetwork = chainId === AXIONAX_TESTNET.chainId;
+  const isCorrectNetwork = normalizeChainId(chainId) === AXIONAX_NETWORK.chainId;
 
   // Load account and balance
   const loadAccountData = useCallback(async (address: string) => {
@@ -59,7 +69,7 @@ export function Web3Provider({
         await loadAccountData(accounts[0]);
 
         const currentChainId = await getCurrentChainId();
-        setChainId(currentChainId?.toString() ?? null);
+        setChainId(normalizeChainId(currentChainId));
       }
     } catch (err: unknown) {
       console.error('Connection error:', err);
@@ -87,7 +97,7 @@ export function Web3Provider({
         await loadAccountData(currentAccount);
 
         const currentChainId = await getCurrentChainId();
-        setChainId(currentChainId?.toString() ?? null);
+        setChainId(normalizeChainId(currentChainId));
       }
     };
 
@@ -118,7 +128,7 @@ export function Web3Provider({
     };
 
     const handleChainChanged = (newChainId: string): void => {
-      setChainId(newChainId);
+      setChainId(normalizeChainId(newChainId));
       // Reload balance when chain changes
       if (account) {
         void loadAccountData(account);
