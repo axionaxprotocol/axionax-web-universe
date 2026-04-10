@@ -15,7 +15,11 @@ const nextConfig = {
   reactStrictMode: true,
 
   // Transpile workspace packages
-  transpilePackages: ['@axionax/sdk', '@axionax/ui'],
+  transpilePackages: [
+    '@axionax/blockchain-utils',
+    '@axionax/sdk',
+    '@axionax/ui',
+  ],
 
   // Disable image optimization for simpler deployment
   images: {

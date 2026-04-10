@@ -6,9 +6,17 @@
  */
 
 import { ethers } from 'ethers';
-import type { ClientConfig, AxionaxClient, EscrowTransaction, Job, Worker } from './types.js';
-import { EscrowStatus, JobStatus } from './types.js';
-import { DEFAULT_CONFIG } from './config.js';
+import type {
+  ClientConfig,
+  AxionaxClient,
+  EscrowTransaction,
+  Job,
+  Worker,
+  RpcNodeEndpoint,
+} from './types';
+import { EscrowStatus, JobStatus } from './types';
+import { DEFAULT_CONFIG } from './config';
+import { withRpcFallback } from './rpc-fallback';
 
 // ============================================
 // Mock Data (TODO: Replace with real contracts)
@@ -174,20 +182,16 @@ class AxionaxClientImpl implements AxionaxClient {
       }
     }
 
-    // Fallback to RPC call
+    const nodes = resolveRpcNodes(this.config);
     try {
-      const response = await fetch(this.config.rpcUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          jsonrpc: '2.0',
-          method: 'eth_getBalance',
-          params: [address, 'latest'],
-          id: 1,
-        }),
-      });
-      const data = await response.json();
-      return BigInt(data.result || '0x0');
+      const { result, node } = await withRpcFallback<string>(
+        nodes,
+        'eth_getBalance',
+        [address, 'latest'],
+        { timeoutMs: 5_000 }
+      );
+      this.config.rpcUrl = node.url;
+      return BigInt(result || '0x0');
     } catch {
       return BigInt(0);
     }
@@ -206,6 +210,24 @@ class AxionaxClientImpl implements AxionaxClient {
 }
 
 // ============================================
+// Helpers
+// ============================================
+
+function resolveRpcNodes(config: Partial<ClientConfig>): readonly RpcNodeEndpoint[] {
+  if (config.rpcNodes?.length) {
+    return config.rpcNodes;
+  }
+  const urls = config.rpcUrls?.length
+    ? config.rpcUrls
+    : ([config.rpcUrl].filter(Boolean) as string[]);
+  return urls.map((url, i) => ({
+    id: `rpc-${i}`,
+    label: `RPC ${i + 1}`,
+    url,
+  }));
+}
+
+// ============================================
 // Factory Function
 // ============================================
 
@@ -213,11 +235,28 @@ class AxionaxClientImpl implements AxionaxClient {
  * Create a new Axionax client instance
  */
 export function createClient(config: Partial<ClientConfig> = {}): AxionaxClient {
-  const defaultRpcUrl = DEFAULT_CONFIG.rpcUrls[0];
+  const def = DEFAULT_CONFIG;
+  const defaultRpcUrls = [...def.rpcUrls];
+  const defaultNodes: readonly RpcNodeEndpoint[] =
+    'rpcNodes' in def && def.rpcNodes?.length
+      ? [...def.rpcNodes]
+      : defaultRpcUrls.map((url, i) => ({
+          id: `rpc-${i}`,
+          label: `RPC ${i + 1}`,
+          url,
+        }));
+
+  const rpcNodes = config.rpcNodes?.length ? [...config.rpcNodes] : defaultNodes;
+  const rpcUrls = config.rpcUrls?.length
+    ? [...config.rpcUrls]
+    : rpcNodes.map((n) => n.url);
+
   const fullConfig: ClientConfig = {
-    rpcUrl: config.rpcUrl || defaultRpcUrl,
-    chainId: config.chainId || DEFAULT_CONFIG.chainIdDecimal,
     ...config,
+    rpcUrl: config.rpcUrl ?? rpcUrls[0] ?? defaultRpcUrls[0] ?? '',
+    chainId: config.chainId ?? def.chainIdDecimal,
+    rpcUrls,
+    rpcNodes,
   };
 
   return new AxionaxClientImpl(fullConfig);

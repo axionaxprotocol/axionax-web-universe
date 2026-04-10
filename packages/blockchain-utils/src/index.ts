@@ -5,16 +5,16 @@
  */
 
 // Types
-export * from './types.js';
+export * from './types';
 
 // Constants
-export * from './constants.js';
+export * from './constants';
 
 // Utilities
-export * from './helpers.js';
+export * from './helpers';
 
 // Chain definitions
-export * from './chains.js';
+export * from './chains';
 
 // Wallet utilities
-export * from './wallet.js';
+export * from './wallet';

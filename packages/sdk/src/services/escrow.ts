@@ -3,8 +3,8 @@
  * Handles escrow creation and status queries.
  */
 
-import type { EscrowTransaction } from '../types.js';
-import { EscrowStatus } from '../types.js';
+import type { EscrowTransaction } from '../types';
+import { EscrowStatus } from '../types';
 
 export interface EscrowServiceResult {
   jobId: string;

@@ -112,7 +112,7 @@ test.describe('Web Application E2E Tests', () => {
       if (!Number.isNaN(a) && !Number.isNaN(b)) {
         expect(b).toBeGreaterThanOrEqual(a);
       }
-    }, 40000);
+    }, { timeout: 40000 });
   });
 
   test.describe('Transaction Flow', () => {
@@ -196,7 +196,7 @@ test.describe('Web Application E2E Tests', () => {
         const text = await message.textContent();
         expect(text).toMatch(/success|sent|wait|limit/i);
       }
-    }, 10000);
+    }, { timeout: 10000 });
   });
 
   test.describe('Performance', () => {

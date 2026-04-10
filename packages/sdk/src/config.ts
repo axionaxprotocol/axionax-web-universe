@@ -9,6 +9,53 @@ import {
   AXX_TOKEN,
   AXXT_TOKEN,
 } from '@axionax/blockchain-utils';
+import type { RpcNodeEndpoint } from './types';
+
+// ============================================
+// Multi-RPC: mock placeholders (swap for real infra in production)
+// ============================================
+
+export const MOCK_RPC_NODES: readonly RpcNodeEndpoint[] = [
+  {
+    id: 'gcp',
+    label: 'GCP Node',
+    url: 'https://gcp-rpc.mock.axionax.network',
+  },
+  {
+    id: 'hetzner',
+    label: 'Hetzner Node',
+    url: 'https://hetzner-rpc.mock.axionax.network',
+  },
+  {
+    id: 'local',
+    label: 'Local Node',
+    url: 'http://127.0.0.1:8545',
+  },
+] as const;
+
+// ============================================
+// Testnet: labeled endpoints (aligned with @axionax/blockchain-utils RPC_URLS.TESTNET)
+// ============================================
+
+const T = RPC_URLS.TESTNET;
+
+export const AXIONAX_TESTNET_RPC_NODES: readonly RpcNodeEndpoint[] = [
+  {
+    id: 'gcp',
+    label: 'GCP Node',
+    url: T[0] ?? 'https://rpc.axionax.org',
+  },
+  {
+    id: 'hetzner_eu',
+    label: 'Hetzner EU',
+    url: T[1] ?? 'http://217.76.61.116:8545',
+  },
+  {
+    id: 'australia',
+    label: 'Australia Node',
+    url: T[2] ?? 'http://46.250.244.4:8545',
+  },
+] as const;
 
 // ============================================
 // Testnet Configuration
@@ -23,7 +70,12 @@ export const AXIONAX_TESTNET_CONFIG = {
     symbol: AXXT_TOKEN.symbol,
     decimals: AXXT_TOKEN.decimals,
   },
-  rpcUrls: RPC_URLS.TESTNET,
+  /** Ordered RPC URLs for fallback (same order as rpcNodes). */
+  rpcUrls: [...AXIONAX_TESTNET_RPC_NODES.map((n) => n.url)] as readonly string[],
+  /** Labeled nodes for UI + getHealthyRpc. */
+  rpcNodes: AXIONAX_TESTNET_RPC_NODES,
+  /** Example mock-only endpoints (tests / docs). */
+  mockRpcNodes: MOCK_RPC_NODES,
   blockExplorerUrls: [EXPLORER_URLS.TESTNET],
 } as const;
 

@@ -3,7 +3,7 @@
  */
 
 import { defineChain } from 'viem';
-import { CHAIN_IDS, RPC_URLS, EXPLORER_URLS, AXXT_TOKEN, AXX_TOKEN } from './constants.js';
+import { CHAIN_IDS, RPC_URLS, EXPLORER_URLS, AXXT_TOKEN, AXX_TOKEN } from './constants';
 
 // ============================================
 // Axionax Testnet

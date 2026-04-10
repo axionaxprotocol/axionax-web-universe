@@ -2,7 +2,7 @@
  * Helper utilities for Axionax blockchain operations
  */
 
-import { FORMATTING, TIME } from './constants.js';
+import { FORMATTING, TIME } from './constants';
 
 // ============================================
 // Address Utilities

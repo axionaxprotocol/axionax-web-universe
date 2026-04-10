@@ -3,8 +3,8 @@
  * Compatible with MetaMask and other EIP-1193 providers
  */
 
-import { CHAIN_IDS } from './constants.js';
-import { getMetaMaskNetworkParams } from './chains.js';
+import { CHAIN_IDS } from './constants';
+import { getMetaMaskNetworkParams } from './chains';
 
 // ============================================
 // Type Definitions

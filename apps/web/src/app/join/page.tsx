@@ -99,7 +99,7 @@ export default function JoinNetworkPage() {
     location: '',
     acceptedTerms: false,
   });
-  const [submitted, setSubmitted] = useState(false);
+  const [, setSubmitted] = useState(false);
   const [copied, setCopied] = useState<string | null>(null);
 
   const handleNodeSelect = (type: NodeType) => {

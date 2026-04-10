@@ -12,7 +12,7 @@
     "start": "node dist/index.js",
     "test": "vitest run",
     "test:watch": "vitest",
-    "lint": "eslint src --ext .ts",
+    "lint": "pnpm --dir ../.. exec eslint apps/api/src --ext .ts",
     "type-check": "tsc --noEmit",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "tsx src/db/migrate.ts",
@@ -31,7 +31,7 @@
   "devDependencies": {
     "@types/node": "^22.19.8",
     "drizzle-kit": "^0.30.6",
-    "eslint": "^9.39.2",
+    "eslint": "^8.57.0",
     "tsup": "^8.5.1",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3",

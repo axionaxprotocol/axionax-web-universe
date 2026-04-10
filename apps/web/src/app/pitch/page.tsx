@@ -8,12 +8,11 @@ export const metadata = {
 
 export default function PitchPage(): React.JSX.Element {
   return (
-    <div className="min-h-[calc(100vh-8rem)] w-full -mx-4 sm:-mx-6 lg:-mx-8">
+    <div className="-mx-4 sm:-mx-6 lg:-mx-8 -my-6 h-[calc(100vh-112px)] relative">
       <iframe
         src="/embed/pitch-deck.html"
         title="Axionax Protocol - 2026 Master Pitch Deck"
-        className="w-full min-h-[calc(100vh-8rem)] border-0 block"
-        style={{ minHeight: 'calc(100vh - 8rem)' }}
+        className="w-full h-full border-0 absolute inset-0"
       />
     </div>
   );

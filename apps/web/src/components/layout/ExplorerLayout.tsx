@@ -69,30 +69,32 @@ export default function ExplorerLayout({
         isLight ? 'bg-[#F8FAFC] text-slate-900' : 'bg-[#0a0a0f] text-starlight'
       }`}
     >
-      {/* Top bar – io.net style */}
+      {/* Top bar – Clean & Minimal */}
       <header
-        className={`sticky top-0 z-30 flex items-center justify-between h-14 px-4 sm:px-6 lg:px-8 border-b border-amber-500/20 backdrop-blur ${
-          isLight ? 'bg-[#F8FAFC]/95' : 'bg-[#0a0a0f]/95'
+        className={`sticky top-0 z-40 flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8 border-b backdrop-blur-xl transition-all duration-300 ${
+          isLight
+            ? 'bg-white/80 border-slate-200 shadow-sm'
+            : 'bg-black/40 border-white/[0.08] shadow-sm'
         }`}
       >
-        <Link href="/" className="flex items-center gap-2.5 shrink-0">
+        <Link href="/" className="flex items-center gap-3 shrink-0 group">
           <img
             src="/assets/img/axionax-logo-new.png"
             alt="Axionax"
-            className="w-8 h-8 rounded-full object-cover"
+            className="w-8 h-8 rounded-full object-cover border border-white/10"
           />
-          <span className="font-bold text-lg bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent">
+          <span className="font-semibold text-lg tracking-tight text-white group-hover:text-tech-cyan transition-colors duration-300">
             Axionax
           </span>
         </Link>
 
-        <div className="hidden lg:flex items-center gap-6">
+        <div className="hidden lg:flex items-center gap-8">
           <Link
             href="/docs"
-            className={`text-sm transition-colors hover:text-amber-500 ${
+            className={`text-sm font-medium transition-colors ${
               isLight
-                ? 'text-slate-600'
-                : 'text-starlight/70 hover:text-amber-400'
+                ? 'text-slate-600 hover:text-slate-900'
+                : 'text-white/60 hover:text-white'
             }`}
           >
             Docs
@@ -100,29 +102,31 @@ export default function ExplorerLayout({
           <button
             type="button"
             onClick={addNetwork}
-            className={`text-sm transition-colors hover:text-amber-500 ${
+            className={`text-sm font-medium transition-colors ${
               isLight
-                ? 'text-slate-600'
-                : 'text-starlight/70 hover:text-amber-400'
+                ? 'text-slate-600 hover:text-slate-900'
+                : 'text-white/60 hover:text-white'
             }`}
           >
             Add Network
           </button>
-          <ConnectButton />
+          <div className="pl-4 border-l border-white/10">
+            <ConnectButton />
+          </div>
         </div>
 
         <button
           type="button"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className={`lg:hidden p-2 rounded-lg transition-colors hover:bg-amber-500/10 hover:text-amber-500 ${
+          className={`lg:hidden p-2 rounded-md transition-colors ${
             isLight
-              ? 'text-slate-600'
-              : 'text-starlight/70 hover:text-amber-400'
+              ? 'text-slate-600 hover:bg-slate-100'
+              : 'text-white/60 hover:text-white hover:bg-white/5'
           }`}
           aria-label="Menu"
         >
           <svg
-            className="w-6 h-6"
+            className="w-5 h-5"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -130,7 +134,7 @@ export default function ExplorerLayout({
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
-              strokeWidth={2}
+              strokeWidth={1.5}
               d="M4 6h16M4 12h16M4 18h16"
             />
           </svg>
@@ -139,8 +143,10 @@ export default function ExplorerLayout({
 
       {/* Horizontal nav */}
       <nav
-        className={`sticky top-14 z-20 flex items-center gap-1 px-4 sm:px-6 lg:px-8 py-2 border-b border-amber-500/15 overflow-x-auto ${
-          isLight ? 'bg-[#F1F5F9]/95' : 'bg-[#0d0d12]/90'
+        className={`sticky top-16 z-30 flex items-center gap-6 px-4 sm:px-6 lg:px-8 h-12 border-b backdrop-blur-md transition-all duration-300 overflow-x-auto ${
+          isLight 
+            ? 'bg-[#F8FAFC]/80 border-slate-200' 
+            : 'bg-[#05050A]/80 border-white/[0.04]'
         }`}
       >
         {mainNav.map((item) => {
@@ -151,15 +157,24 @@ export default function ExplorerLayout({
             <Link
               key={item.href}
               href={item.href}
-              className={`shrink-0 px-3 py-2 rounded-md text-sm font-medium transition-colors whitespace-nowrap ${
+              className={`relative flex items-center h-full text-[13px] font-medium transition-colors whitespace-nowrap ${
                 isActive
-                  ? 'bg-amber-500/20 text-amber-600'
+                  ? isLight
+                    ? 'text-blue-600'
+                    : 'text-white'
                   : isLight
-                    ? 'text-slate-600 hover:text-amber-600 hover:bg-amber-500/10'
-                    : 'text-starlight/60 hover:text-amber-300 hover:bg-amber-500/10'
+                    ? 'text-slate-500 hover:text-slate-900'
+                    : 'text-white/50 hover:text-white/80'
               }`}
             >
               {item.name}
+              {isActive && (
+                <span
+                  className={`absolute bottom-0 left-0 right-0 h-[1px] transition-all duration-300 ${
+                    isLight ? 'bg-blue-600' : 'bg-white'
+                  }`}
+                />
+              )}
             </Link>
           );
         })}
@@ -169,13 +184,13 @@ export default function ExplorerLayout({
       {mobileMenuOpen && (
         <>
           <div
-            className="fixed inset-0 z-40 bg-black/60 lg:hidden"
+            className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm lg:hidden"
             onClick={() => setMobileMenuOpen(false)}
             aria-hidden
           />
           <div
-            className={`fixed top-14 left-0 right-0 z-50 lg:hidden border-b border-amber-500/20 p-4 max-h-[70vh] overflow-y-auto ${
-              isLight ? 'bg-[#F1F5F9]' : 'bg-[#0d0d12]'
+            className={`fixed top-16 left-0 right-0 z-50 lg:hidden border-b border-tech-cyan/20 p-4 max-h-[70vh] overflow-y-auto shadow-2xl ${
+              isLight ? 'bg-white' : 'bg-[#0d0b14]/95 backdrop-blur-xl'
             }`}
           >
             <div className="flex flex-col gap-1">
@@ -184,20 +199,26 @@ export default function ExplorerLayout({
                   key={item.href}
                   href={item.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`px-4 py-3 rounded-lg hover:bg-amber-500/10 ${
-                    isLight ? 'text-slate-900' : 'text-starlight'
+                  className={`px-4 py-3 rounded-lg font-medium transition-all ${
+                    pathname === item.href
+                      ? isLight
+                        ? 'bg-blue-50 text-blue-600'
+                        : 'bg-tech-cyan/10 text-tech-cyan border border-tech-cyan/20'
+                      : isLight 
+                        ? 'text-slate-600 hover:bg-slate-50' 
+                        : 'text-starlight hover:bg-white/5 hover:text-tech-cyan'
                   }`}
                 >
                   {item.name}
                 </Link>
               ))}
-              <div className="border-t border-amber-500/20 mt-3 pt-3 flex flex-wrap gap-2">
+              <div className="border-t border-tech-cyan/20 mt-3 pt-3 flex flex-wrap gap-2">
                 <Link
                   href="/docs"
-                  className={`px-4 py-2 text-sm hover:text-amber-500 ${
+                  className={`px-4 py-2 text-sm hover:text-tech-cyan ${
                     isLight
                       ? 'text-slate-700'
-                      : 'text-starlight/80 hover:text-amber-400'
+                      : 'text-starlight/80 hover:text-tech-cyan'
                   }`}
                   onClick={() => setMobileMenuOpen(false)}
                 >
@@ -206,10 +227,10 @@ export default function ExplorerLayout({
                 <button
                   type="button"
                   onClick={addNetwork}
-                  className={`px-4 py-2 text-sm hover:text-amber-500 ${
+                  className={`px-4 py-2 text-sm hover:text-tech-cyan ${
                     isLight
                       ? 'text-slate-700'
-                      : 'text-starlight/80 hover:text-amber-400'
+                      : 'text-starlight/80 hover:text-tech-cyan'
                   }`}
                 >
                   Add Network

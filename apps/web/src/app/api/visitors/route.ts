@@ -1,10 +1,5 @@
 import { NextResponse } from 'next/server';
-import {
-  existsSync,
-  mkdirSync,
-  readFileSync,
-  writeFileSync,
-} from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 
 /** Persisted JSON; override on VPS e.g. VISITOR_DATA_DIR=/var/lib/axionax-web */

@@ -11,7 +11,12 @@
     <style>
         * { box-sizing: border-box; }
         body {
-            background-color: #030712;
+            background-color: #000000;
+            background-image:
+              linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            background-position: center top;
             display: grid;
             gap: 40px;
             grid-template-columns: 1fr;
@@ -19,98 +24,121 @@
             padding: 40px 0;
             place-items: center;
             font-family: 'Noto Sans Thai', 'Inter', sans-serif;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
         }
         .slide-container {
             align-items: center;
-            background-color: #0B0F19;
-            border-radius: 12px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+            background-color: #0A0A0A;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
             display: flex;
             flex-direction: column;
             height: 720px;
             justify-content: flex-start;
             overflow: hidden;
-            padding: 50px 60px;
+            padding: 60px 80px;
             position: relative;
             width: 1280px;
-        }
-        .slide-container::before,
-        .slide-container::after {
-            content: '';
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(120px);
-            z-index: 0;
-            pointer-events: none;
-        }
-        .slide-container::before {
-            width: 700px; height: 700px;
-            background: radial-gradient(circle, rgba(6, 182, 212, 0.12) 0%, rgba(6, 182, 212, 0) 70%);
-            top: -200px; left: -200px;
-        }
-        .slide-container::after {
-            width: 600px; height: 600px;
-            background: radial-gradient(circle, rgba(245, 158, 11, 0.08) 0%, rgba(245, 158, 11, 0) 70%);
-            bottom: -200px; right: -100px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
         }
         .slide-container > * { position: relative; z-index: 1; width: 100%; }
         h1, h2, h3, h4 {
-            color: #F9FAFB;
+            color: #FFFFFF;
             font-family: 'Space Grotesk', 'Noto Sans Thai', sans-serif;
             margin: 0;
+            font-weight: 600;
+            letter-spacing: -0.02em;
         }
-        h1 { font-size: 72px; font-weight: 700; letter-spacing: -1px; text-align: center; }
-        h1 span { color: #06b6d4; }
-        .slide-title { font-size: 36px; font-weight: 700; margin-bottom: 30px; border-bottom: 2px solid #1F2937; padding-bottom: 15px; }
-        h3 { font-size: 24px; margin-bottom: 12px; color: #38bdf8; }
+        h1 { font-size: 72px; text-align: center; }
+        h1 span { color: #3b82f6; }
+        .slide-title { 
+            font-size: 32px; 
+            margin-bottom: 40px; 
+            padding-bottom: 20px; 
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.9);
+        }
+        h3 { font-size: 24px; margin-bottom: 12px; color: rgba(255, 255, 255, 0.9); }
         p, li, td, th {
-            color: #D1D5DB;
+            color: rgba(255, 255, 255, 0.5);
             font-size: 16px;
             line-height: 1.6;
         }
-        .highlight { color: #f59e0b; font-weight: 600; }
-        .highlight-green { color: #10b981; font-weight: 600; }
+        .highlight { color: #3b82f6; font-weight: 500; }
+        .highlight-green { color: #10b981; font-weight: 500; }
         .content-area { flex-grow: 1; display: flex; flex-direction: column; justify-content: center; }
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
         .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
         .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
         .card {
-            background-color: #111827;
-            border: 1px solid #1F2937;
+            background-color: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 12px;
             padding: 30px;
+            transition: all 0.3s ease;
         }
-        .card .icon { font-size: 40px; margin-bottom: 20px; color: #06b6d4; }
+        .card:hover { 
+            border-color: rgba(255, 255, 255, 0.1);
+            background-color: rgba(255, 255, 255, 0.04);
+            transform: translateY(-2px);
+        }
+        .card .icon { font-size: 32px; margin-bottom: 24px; color: #3b82f6; }
         ul.custom-list { list-style: none; padding: 0; margin: 0; }
-        ul.custom-list li { position: relative; padding-left: 25px; margin-bottom: 12px; }
-        ul.custom-list li::before { content: '▹'; color: #06b6d4; position: absolute; left: 0; font-size: 20px; line-height: 1; }
+        ul.custom-list li { position: relative; padding-left: 24px; margin-bottom: 16px; }
+        ul.custom-list li::before { 
+            content: ''; 
+            position: absolute; 
+            left: 0; 
+            top: 10px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: #3b82f6; 
+        }
         table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #1F2937; }
-        th { color: #F9FAFB; font-family: 'Space Grotesk', sans-serif; background-color: #111827; }
-        .hw-showcase { display: flex; align-items: center; gap: 40px; background: #111827; padding: 30px; border-radius: 12px; border: 1px solid #1F2937; margin-bottom: 20px;}
-        .hw-img { width: 250px; height: 250px; background: #030712; border-radius: 8px; display: flex; align-items: center; justify-content: center; border: 1px solid #374151; font-size: 50px; color: #4B5563;}
+        th, td { padding: 16px 20px; text-align: left; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        th { color: rgba(255, 255, 255, 0.4); font-family: 'Inter', sans-serif; font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+        .hw-showcase { display: flex; align-items: center; gap: 40px; background: rgba(255, 255, 255, 0.02); padding: 30px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.05); margin-bottom: 20px;}
+        .hw-img { width: 220px; height: 220px; background: #000000; border-radius: 8px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255, 255, 255, 0.05); font-size: 48px; color: rgba(255, 255, 255, 0.2);}
         .hw-details { flex: 1; }
-        .hw-tag { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 14px; font-weight: bold; margin-bottom: 15px; }
-        .tag-t5 { background: rgba(16, 185, 129, 0.2); color: #10b981; border: 1px solid #10b981; }
-        .tag-t4 { background: rgba(59, 130, 246, 0.2); color: #3b82f6; border: 1px solid #3b82f6; }
-        .tag-t4p { background: rgba(245, 158, 11, 0.2); color: #f59e0b; border: 1px solid #f59e0b; }
-        .tag-tx { background: rgba(168, 85, 247, 0.2); color: #a855f7; border: 1px solid #a855f7; }
-        .timeline { display: flex; justify-content: space-between; position: relative; margin-top: 50px;}
-        .timeline::before { content: ''; position: absolute; top: 20px; left: 0; width: 100%; height: 2px; background: #1F2937; z-index: 0; }
+        .hw-tag { display: inline-block; padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 16px; }
+        .tag-t5 { background: rgba(16, 185, 129, 0.1); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.2); }
+        .tag-t4 { background: rgba(59, 130, 246, 0.1); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.2); }
+        .tag-t4p { background: rgba(245, 158, 11, 0.1); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.2); }
+        .tag-tx { background: rgba(168, 85, 247, 0.1); color: #a855f7; border: 1px solid rgba(168, 85, 247, 0.2); }
+        .timeline { display: flex; justify-content: space-between; position: relative; margin-top: 60px;}
+        .timeline::before { content: ''; position: absolute; top: 12px; left: 5%; width: 90%; height: 1px; background: rgba(255, 255, 255, 0.1); z-index: 0; }
         .tl-item { width: 22%; position: relative; z-index: 1; text-align: center; }
-        .tl-dot { width: 20px; height: 20px; background: #06b6d4; border-radius: 50%; margin: 10px auto 20px auto; border: 4px solid #0B0F19; box-shadow: 0 0 10px rgba(6, 182, 212, 0.5);}
-        .tl-item h4 { color: #F9FAFB; margin-bottom: 10px; }
+        .tl-dot { width: 12px; height: 12px; background: #3b82f6; border-radius: 50%; margin: 6px auto 24px auto; box-shadow: 0 0 0 6px #0A0A0A; }
+        .tl-item h4 { color: rgba(255, 255, 255, 0.9); margin-bottom: 8px; font-size: 18px; }
+        
+        /* Minimalist Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #000000;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
     </style>
 </head>
 <body>
     <div class="slide-container" style="justify-content: center; text-align: center;">
-        <i class="fa-solid fa-network-wired" style="font-size: 80px; color: #06b6d4; margin-bottom: 30px;"></i>
+        <i class="fa-solid fa-network-wired" style="font-size: 80px; color: #3b82f6; margin-bottom: 30px;"></i>
         <h1>Axionax <span>Protocol</span></h1>
-        <p style="font-size: 24px; color: #9CA3AF; max-width: 800px; margin: 20px auto;">
+        <p style="font-size: 24px; color: rgba(255, 255, 255, 0.5); max-width: 800px; margin: 20px auto;">
             The Decentralized Operating System for the Next Civilization.<br>
             สร้างโครงข่ายประสาทเทียมระดับโลก ที่มนุษยชาติทุกคนเป็นเจ้าของร่วมกัน
         </p>
-        <div style="margin-top: 40px; padding: 10px 20px; background: rgba(6, 182, 212, 0.1); border: 1px solid #06b6d4; border-radius: 30px; display: inline-block; color: #06b6d4; font-weight: bold;">
+        <div style="margin-top: 40px; padding: 10px 20px; background: rgba(59, 130, 246, 0.1); border: 1px solid #3b82f6; border-radius: 30px; display: inline-block; color: #3b82f6; font-weight: 600;">
             Master Pitch Deck | Series Seed 2026
         </div>
     </div>
@@ -119,7 +147,7 @@
         <h2 class="slide-title">The Vision: 400 ExaTOPS Global Superbrain</h2>
         <div class="content-area grid-2" style="align-items: center;">
             <div>
-                <h3 style="font-size: 48px; color: #F9FAFB; line-height: 1.2;">10,000,000 <span style="color: #06b6d4;">Nodes</span></h3>
+                <h3 style="font-size: 48px; color: #FFFFFF; line-height: 1.2;">10,000,000 <span style="color: #3b82f6;">Nodes</span></h3>
                 <p style="font-size: 20px; margin-bottom: 30px;">
                     หากเรามีโหนด 10 ล้านตัว (เฉลี่ย 40 TOPS/โหนด)<br>
                     พลังประมวลผลรวมจะเท่ากับ <span class="highlight">400 ExaTOPS</span><br>
@@ -133,7 +161,7 @@
                 </ul>
             </div>
             <div class="card" style="text-align: center; padding: 50px;">
-                <i class="fa-solid fa-earth-americas" style="font-size: 100px; color: #38bdf8; margin-bottom: 30px; filter: drop-shadow(0 0 20px rgba(56, 189, 248, 0.5));"></i>
+                <i class="fa-solid fa-earth-americas" style="font-size: 100px; color: #3b82f6; margin-bottom: 30px;"></i>
                 <h3 style="color: white;">Global Superbrain</h3>
                 <p>ใหญ่กว่าโครงสร้างพื้นฐานของประเทศมหาอำนาจ แต่กระจายศูนย์และปลอดภัย 100%</p>
             </div>
@@ -156,7 +184,7 @@
             <div class="card">
                 <div class="icon" style="color: #f59e0b;"><i class="fa-solid fa-shield-halved"></i></div>
                 <h3>The Trust Crisis in AI</h3>
-                <p>องค์กรไม่กล้าส่งข้อมูลความลับขึ้น Cloud ของ Big Tech โลกกำลังต้องการ <span class="highlight">Verifiable AI</span> (AI ที่ตรวจสอบความถูกต้องได้) ซึ่งสถาปัตยกรรมกระจายศูนย์ของเราตอบโจทย์นี้ได้ 100%</p>
+                <p>องค์กรไม่กล้าส่งข้อมูลความลับขึ้น Cloud ของ Big Tech โลกกำลังต้องการ <span class="highlight" style="color:#f59e0b;">Verifiable AI</span> (AI ที่ตรวจสอบความถูกต้องได้) ซึ่งสถาปัตยกรรมกระจายศูนย์ของเราตอบโจทย์นี้ได้ 100%</p>
             </div>
         </div>
     </div>
@@ -169,7 +197,7 @@
                 <div class="card" style="padding: 20px; text-align: center; border-top: 4px solid #10b981;">
                     <i class="fa-solid fa-laptop-code icon" style="color: #10b981; font-size: 30px;"></i>
                     <h4 style="margin-bottom: 10px;">Tier 5<br>Edge Worker</h4>
-                    <p style="font-size: 13px;">โหนดตามบ้าน (Consumer)<br>รัน AI Agents ที่ปลายทาง (Latency < 10ms)</p>
+                    <p style="font-size: 13px;">โหนดตามบ้าน (Consumer)<br>รัน AI Agents ที่ปลายทาง (Latency &lt; 10ms)</p>
                 </div>
                 <div class="card" style="padding: 20px; text-align: center; border-top: 4px solid #3b82f6;">
                     <i class="fa-solid fa-server icon" style="color: #3b82f6; font-size: 30px;"></i>
@@ -199,8 +227,8 @@
         <h2 class="slide-title">The "Monolith Tower" Hardware Standard</h2>
         <div class="content-area grid-2" style="align-items: center;">
             <div class="card" style="text-align: center; padding: 50px;">
-                <h1 style="color: white; font-size: 60px; margin-bottom: 10px;">15 x 15 x 8.5 <span style="font-size: 30px; color:#9CA3AF;">cm</span></h1>
-                <h3 style="color: #06b6d4;">The Magic Dimensions</h3>
+                <h1 style="color: white; font-size: 60px; margin-bottom: 10px;">15 x 15 x 8.5 <span style="font-size: 30px; color:rgba(255,255,255,0.4);">cm</span></h1>
+                <h3 style="color: #3b82f6;">The Magic Dimensions</h3>
                 <p style="margin-top: 20px;">
                     เคสอลูมิเนียมเรียบหรูที่ออกแบบมาเพื่อแก้ปัญหาความร้อนและรองรับฮาร์ดแวร์ระดับท็อป (Universal Design)
                 </p>
@@ -232,7 +260,7 @@
                 <div class="hw-details">
                     <span class="hw-tag tag-t4">Tier 4: Balanced Worker</span>
                     <h3 style="color: white; margin-bottom: 5px;">Monolith Vanguard</h3>
-                    <p style="color: #3b82f6; font-weight: bold;">Hardware: BMAX B11 Power (Intel Core Ultra 7 155H)</p>
+                    <p style="color: #3b82f6; font-weight: 500;">Hardware: BMAX B11 Power (Intel Core Ultra 7 155H)</p>
                     <p>จุดสมดุลของเทคโนโลยี มี <strong style="color:white;">Intel AI Boost NPU (11 TOPS)</strong> ในตัว ประหยัดไฟกว่า CPU ทั่วไป และรองรับงานกราฟิก 3D เบาๆ ด้วย Intel Arc สำหรับผู้ใช้โฮมออฟฟิศที่ต้องการขุดเหรียญและทำงาน</p>
                 </div>
             </div>
@@ -242,21 +270,21 @@
     <div class="slide-container">
         <h2 class="slide-title">Premium & Custom Nodes</h2>
         <div class="content-area">
-            <div class="hw-showcase" style="border-color: #f59e0b;">
+            <div class="hw-showcase" style="border-top: 4px solid #f59e0b;">
                 <div class="hw-img" style="color: #f59e0b;"><i class="fa-solid fa-fire-flame-curved"></i></div>
                 <div class="hw-details">
                     <span class="hw-tag tag-t4p">Tier 4 Premium: The Flagship</span>
                     <h3 style="color: white; margin-bottom: 5px;">Monolith Fusion</h3>
-                    <p class="highlight">Hardware: TOPC TR9 (AMD Ryzen AI 7 Pro 360)</p>
-                    <p>ที่สุดของขุมพลังในขนาด 15x15x8.5cm! มาพร้อมชิป <strong style="color:white;">XDNA 2 NPU (50 TOPS)</strong> ซึ่งเป็น NPU บน PC ที่แรงที่สุดในโลก ณ ตอนนี้ (แรงกว่า Hailo) ผสานกับ GPU Radeon 880M เกิดมาเพื่อรัน LLM และเรนเดอร์กราฟิกขั้นสุด</p>
+                    <p class="highlight" style="color:#f59e0b;">Hardware: TOPC TR9 (AMD Ryzen AI 7 Pro 360)</p>
+                    <p>ที่สุดของขุมพลังในขนาด 15x15x8.5cm! มาพร้อมชิป <strong style="color:white;">XDNA 2 NPU (50 TOPS)</strong> ซึ่งเป็น NPU บน PC ที่แรงที่สุดในโลก ณ ตอนนี้ ผสานกับ GPU Radeon 880M เกิดมาเพื่อรัน LLM และเรนเดอร์กราฟิกขั้นสุด</p>
                 </div>
             </div>
-            <div class="hw-showcase" style="border-color: #a855f7;">
+            <div class="hw-showcase" style="border-top: 4px solid #a855f7;">
                 <div class="hw-img" style="color: #a855f7;"><i class="fa-brands fa-apple"></i></div>
                 <div class="hw-details">
                     <span class="hw-tag tag-tx">Custom Hybrid Node (R&D)</span>
                     <h3 style="color: white; margin-bottom: 5px;">The Silicon Archon</h3>
-                    <p style="color: #a855f7; font-weight: bold;">Hardware: Mac Mini M1 + External Hailo-10H (Thunderbolt 3)</p>
+                    <p style="color: #a855f7; font-weight: 500;">Hardware: Mac Mini M1 + External Hailo-10H (Thunderbolt 3)</p>
                     <p>โหนดสาย "Geek" ที่ใช้ระบบ Asahi Linux ดึงพลังประหยัดไฟของ Apple Silicon M1 (Unified Memory) มาจัดการระบบ ผสานกับแบนด์วิดท์มหาศาลของ Thunderbolt เพื่อส่งข้อมูลให้ Hailo คำนวณ AI (Efficiency Champion)</p>
                 </div>
             </div>
@@ -279,21 +307,21 @@
                 <tbody>
                     <tr>
                         <td><span class="highlight" style="color:#f59e0b">T3</span></td>
-                        <td><strong>Arbiter Pro</strong></td>
+                        <td><strong style="color:white;">Arbiter Pro</strong></td>
                         <td>2U Short-Depth Rack</td>
                         <td>AMD EPYC + NVMe Array (Caching)</td>
                         <td>ติดตั้งตึกสำนักงาน/ISP, คุม Data Sovereignty</td>
                     </tr>
                     <tr>
                         <td><span class="highlight" style="color:#ef4444">T2</span></td>
-                        <td><strong>Hyperion Cluster</strong></td>
+                        <td><strong style="color:white;">Hyperion Cluster</strong></td>
                         <td>42U / Immersion Tank</td>
                         <td>Liquid-cooled NVIDIA/AMD GPU Arrays</td>
                         <td>AI Factory สำหรับเทรน LLM ระดับภูมิภาค</td>
                     </tr>
                     <tr>
                         <td><span class="highlight" style="color:#a855f7">T1</span></td>
-                        <td><strong>The Apex</strong></td>
+                        <td><strong style="color:white;">The Apex</strong></td>
                         <td>Monolith Vault (Custom)</td>
                         <td>Photonic Chips + Quantum Security</td>
                         <td>Global Root, ป้องกันภัยพิบัติ, อัปสเตตโลก</td>
@@ -310,7 +338,7 @@
         <h2 class="slide-title">The Secret Sauce: Consensus & Security</h2>
         <div class="content-area grid-2">
             <div class="card">
-                <div class="icon" style="color: #06b6d4;"><i class="fa-solid fa-link"></i></div>
+                <div class="icon" style="color: #3b82f6;"><i class="fa-solid fa-link"></i></div>
                 <h3 style="color: white;">PoPC (Proof of Probabilistic Checking)</h3>
                 <p>กลไกฉันทามติแบบใหม่ (Consensus Mechanism) ของ Axionax ที่ออกแบบมาเพื่อ AI โดยเฉพาะ</p>
                 <ul class="custom-list" style="margin-top: 15px;">
@@ -347,8 +375,8 @@
                 <p>เก็บค่าบริการรายเดือน (SaaS) จากลูกค้าองค์กรที่ต้องการใช้เครือข่ายเพื่อประมวลผลข้อมูลความลับผ่านระบบ ZK-Rollups (Off-cloud Private AI)</p>
             </div>
         </div>
-        <div class="card" style="margin-top: 20px; padding: 20px 30px; display: flex; align-items: center; gap: 30px; background: rgba(6, 182, 212, 0.1); border-color: #06b6d4;">
-            <i class="fa-brands fa-ethereum" style="font-size: 40px; color: #06b6d4;"></i>
+        <div class="card" style="margin-top: 20px; padding: 20px 30px; display: flex; align-items: center; gap: 30px; background: rgba(59, 130, 246, 0.1); border-color: #3b82f6;">
+            <i class="fa-brands fa-ethereum" style="font-size: 40px; color: #3b82f6;"></i>
             <div>
                 <h4 style="font-size: 20px; margin-bottom: 5px; color: white;">AXX Token Utility (Deflationary Model)</h4>
                 <p style="margin: 0; font-size: 14px;">ใช้จ่ายเป็น Gas Fee บนเชน, สื่อกลางชำระค่าเช่า AI Compute, และใช้ Staking สำหรับ Node Validators (มีการเผาเหรียญเมื่อระบบถูกใช้งาน)</p>
@@ -362,22 +390,22 @@
             <div class="timeline">
                 <div class="tl-item">
                     <div class="tl-dot"></div>
-                    <h4>Q1-Q2 2026<br><span style="color:#06b6d4; font-size: 16px;">The Incarnation</span></h4>
+                    <h4>Q1-Q2 2026<br><span style="color:#3b82f6; font-size: 16px; font-weight: 500;">The Incarnation</span></h4>
                     <p style="font-size: 14px;">เปิดตัว Public Testnet<br>เปิดพรีออเดอร์ Monolith Scout+ และ Fusion ล็อตแรก</p>
                 </div>
                 <div class="tl-item">
                     <div class="tl-dot"></div>
-                    <h4>Q3-Q4 2026<br><span style="color:#06b6d4; font-size: 16px;">Genesis</span></h4>
+                    <h4>Q3-Q4 2026<br><span style="color:#3b82f6; font-size: 16px; font-weight: 500;">Genesis</span></h4>
                     <p style="font-size: 14px;">Mainnet Launch<br>AXX Token Listing<br>เปิดใช้งาน AI Compute Marketplace เต็มรูปแบบ</p>
                 </div>
                 <div class="tl-item">
                     <div class="tl-dot"></div>
-                    <h4>2027<br><span style="color:#06b6d4; font-size: 16px;">Evolution</span></h4>
+                    <h4>2027<br><span style="color:#3b82f6; font-size: 16px; font-weight: 500;">Evolution</span></h4>
                     <p style="font-size: 14px;">เจาะตลาด B2B<br>ขยายเครือข่าย Tier 3 (Arbiter Pro) ร่วมกับ Enterprise Partners</p>
                 </div>
                 <div class="tl-item">
                     <div class="tl-dot"></div>
-                    <h4>2028+<br><span style="color:#06b6d4; font-size: 16px;">Ascension</span></h4>
+                    <h4>2028+<br><span style="color:#3b82f6; font-size: 16px; font-weight: 500;">Ascension</span></h4>
                     <p style="font-size: 14px;">เชื่อมต่อโครงข่ายสู่ Tier 1 และ Space Nodes<br>บรรลุเป้าหมาย Earth Digital Twin</p>
                 </div>
             </div>
@@ -386,10 +414,10 @@
 
     <div class="slide-container" style="justify-content: center; text-align: center;">
         <h1 style="font-size: 90px;">Join the <span>Grid</span></h1>
-        <p style="font-size: 24px; color: #D1D5DB; margin-top: 20px; margin-bottom: 40px;">
+        <p style="font-size: 24px; color: rgba(255, 255, 255, 0.5); margin-top: 20px; margin-bottom: 40px;">
             Empowering the Future, One Node at a Time.
         </p>
-        <div style="font-family: 'Space Grotesk', sans-serif; font-size: 24px; color: #06b6d4; letter-spacing: 2px;">
+        <div style="font-family: 'Space Grotesk', sans-serif; font-size: 24px; color: #3b82f6; letter-spacing: 2px; font-weight: 600;">
             invest@axionax.network &nbsp;&nbsp;|&nbsp;&nbsp; axionax.network
         </div>
     </div>

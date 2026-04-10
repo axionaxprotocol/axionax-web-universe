@@ -32,6 +32,26 @@ cd axionax-web-universe
 pnpm install
 ```
 
+### Troubleshooting: `pnpm lint` / `eslint` / `vitest` not found
+
+Root **`package.json` no longer pins `eslint` via `pnpm.overrides`**. The monorepo stays on **ESLint 8** so **`next lint` (Next.js 14)** and **`eslint-config-next`** stay compatible.
+
+**`eslint`**, **`@typescript-eslint/*` v7**, and **`eslint-config-prettier`** are root **`devDependencies`**. `.npmrc` hoists `eslint` / `@eslint/*`.
+
+Workspace **`lint` scripts use `pnpm --dir ../.. exec eslint <path-from-repo-root>`** so ESLint resolves from the repo root `node_modules` (avoids broken `apps/*/node_modules/eslint` shims on Windows).
+
+After pulling these changes, run **`pnpm install`** once from the repo root (TTY required if pnpm wants to rebuild `node_modules`).
+
+If you still see `Cannot find module '.../node_modules/eslint/...'` (or tsup/vitest), wipe and reinstall. From the repo root:
+
+```bash
+# Windows PowerShell: remove node_modules then reinstall
+Remove-Item -Recurse -Force node_modules, apps\web\node_modules, packages\*\node_modules -ErrorAction SilentlyContinue
+pnpm install
+```
+
+`@axionax/sdk` and `@axionax/blockchain-utils` resolve **`src/`** in this monorepo (see each package `package.json` `exports`) so Next.js does not depend on a pre-built `dist/` for local dev. CI can still run `pnpm --filter @axionax/sdk build` to emit `dist/` for release.
+
 ### 2. Development Modes
 
 #### 🌐 Web Only (Connect to Live Testnet)

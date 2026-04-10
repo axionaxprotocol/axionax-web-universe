@@ -10,6 +10,9 @@
 // ============================================
 export type {
   // From types.ts
+  RpcNodeEndpoint,
+  RpcHealthResult,
+  RpcCallResult,
   ClientConfig,
   AxionaxClient,
   EscrowTransaction,
@@ -32,12 +35,12 @@ export type {
   StakingPosition,
   Proposal,
   ProposalStatus,
-} from './types.js';
+} from './types';
 
 // ============================================
 // Enums
 // ============================================
-export { EscrowStatus, JobStatus } from './types.js';
+export { EscrowStatus, JobStatus } from './types';
 
 // ============================================
 // Configuration
@@ -51,17 +54,26 @@ export {
   getDefaultNetworkConfig,
   getDefaultConfig,
   CONTRACTS,
-} from './config.js';
+  MOCK_RPC_NODES,
+  AXIONAX_TESTNET_RPC_NODES,
+} from './config';
 
 // ============================================
 // Services
 // ============================================
-export { EscrowService, escrowService, type EscrowServiceResult } from './services/escrow.js';
+export { EscrowService, escrowService, type EscrowServiceResult } from './services/escrow';
 
 // ============================================
 // Client
 // ============================================
-export { createClient, AxionaxClientImpl } from './client.js';
+export { createClient, AxionaxClientImpl } from './client';
+
+export {
+  jsonRpcCall,
+  pingRpc,
+  getHealthyRpc,
+  withRpcFallback,
+} from './rpc-fallback';
 
 // ============================================
 // Re-exports from blockchain-utils
@@ -130,10 +142,10 @@ export {
 // For backward compatibility with Technology.tsx
 export const axionax = {
   createClient: async () => {
-    const { createClient } = await import('./client.js');
+    const { createClient } = await import('./client');
     return createClient();
   },
 };
 
-// Wallet class for backward compatibility
-export { Wallet as WalletType } from './types.js';
+// Wallet class for backward compatibility (type-only; isolatedModules)
+export type { Wallet as WalletType } from './types';

@@ -4,7 +4,6 @@ import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import Card, { CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
 import MockBadge from '@/components/ui/MockBadge';
 import { AXIONAX_NETWORK_CONFIG } from '@/lib/web3';
 

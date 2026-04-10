@@ -2,7 +2,7 @@
  * Tests for @axionax/sdk
  */
 import { describe, it, expect, beforeEach } from 'vitest';
-import { createClient, EscrowStatus, JobStatus, AXIONAX_TESTNET_CONFIG } from '../src/index.js';
+import { createClient, EscrowStatus, JobStatus, AXIONAX_TESTNET_CONFIG } from '../src/index';
 
 describe('SDK Configuration', () => {
   it('should have correct testnet chain ID', () => {
@@ -16,6 +16,11 @@ describe('SDK Configuration', () => {
 
   it('should have RPC URLs configured', () => {
     expect(AXIONAX_TESTNET_CONFIG.rpcUrls.length).toBeGreaterThan(0);
+  });
+
+  it('should expose rpcNodes for multi-RPC fallback', () => {
+    expect(AXIONAX_TESTNET_CONFIG.rpcNodes.length).toBe(3);
+    expect(AXIONAX_TESTNET_CONFIG.mockRpcNodes.length).toBe(3);
   });
 
   it('should have native currency configured', () => {

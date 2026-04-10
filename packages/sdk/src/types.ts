@@ -82,13 +82,41 @@ export interface Worker {
 }
 
 // ============================================
+// Multi-RPC
+// ============================================
+
+export interface RpcNodeEndpoint {
+  readonly id: string;
+  readonly label: string;
+  readonly url: string;
+}
+
+export interface RpcHealthResult {
+  readonly node: RpcNodeEndpoint;
+  /** Index in the input array (0 = first / preferred). */
+  readonly index: number;
+  readonly latencyMs: number;
+  readonly healthy: true;
+}
+
+export interface RpcCallResult<T> {
+  readonly result: T;
+  readonly node: RpcNodeEndpoint;
+  readonly index: number;
+}
+
+// ============================================
 // Client Types
 // ============================================
 
 export interface ClientConfig {
+  /** Primary RPC (first in list or last successful); kept for backward compatibility. */
   rpcUrl: string;
   chainId: number;
-  rpcUrls?: string[];
+  /** Ordered fallback list (same order as rpcNodes URLs). */
+  rpcUrls?: readonly string[];
+  /** Labeled endpoints for health UI and fallback. */
+  rpcNodes?: readonly RpcNodeEndpoint[];
   chainIdDecimal?: number;
   provider?: unknown;
   signer?: unknown;

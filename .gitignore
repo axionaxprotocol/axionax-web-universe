@@ -13,6 +13,7 @@ typechain-types
 # Frameworks
 .next
 .docusaurus
+*.tsbuildinfo
 
 # Site visitor counter (generated on server)
 apps/web/data/site-visitors.json

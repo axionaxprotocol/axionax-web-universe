@@ -128,7 +128,7 @@ async function checkValidatorStatus(
       status: 'online',
       latency: Date.now() - start,
     };
-  } catch (error) {
+  } catch {
     return {
       blockHeight: 0,
       status: 'offline',
@@ -265,7 +265,7 @@ export async function getTransactions(
             });
           }
         }
-      } catch (e) {
+      } catch {
         // Skip blocks that fail to fetch
       }
 
@@ -404,7 +404,7 @@ export async function search(query: string): Promise<{
           }),
         },
       };
-    } catch (e) {
+    } catch {
       // Address doesn't exist or error
     }
   }
