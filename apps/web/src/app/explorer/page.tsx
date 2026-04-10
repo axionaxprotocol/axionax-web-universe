@@ -4,7 +4,14 @@ import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { RPC_URLS } from '@axionax/blockchain-utils';
 import { getHealthyRpc, AXIONAX_TESTNET_RPC_NODES } from '@axionax/sdk';
-import { Search, Cuboid, ArrowRightLeft, Clock, Zap, Database } from 'lucide-react';
+import {
+  Search,
+  Cuboid,
+  ArrowRightLeft,
+  Clock,
+  Zap,
+  Database,
+} from 'lucide-react';
 
 interface Block {
   number: number;
@@ -31,9 +38,6 @@ interface AddressInfo {
   balance: string;
   nonce: number;
 }
-
-// Prefer same-origin RPC proxy to avoid CORS/TLS mismatches on public pages.
-const RPC_URL = '/api/rpc/eu';
 
 const fetchBlocks = async (): Promise<BlocksResponse> => {
   const response = await fetch('/api/blocks?page=1&pageSize=10');
