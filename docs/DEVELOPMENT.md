@@ -11,6 +11,8 @@
 
 Validator node setup, persistence, Docker/volume config, and chain data live in **axionax-core-universe**. This repo only connects to validators via RPC (e.g. 217.76.61.116, 46.250.244.4).
 
+**Solo maintainer (dual repo):** when you change chain parameters in core, mirror them here and log the pair — see [SOLO_CORE_WEB_SYNC.md](SOLO_CORE_WEB_SYNC.md) and [CORE_WEB_COMPAT.md](CORE_WEB_COMPAT.md).
+
 ---
 
 ## 🚀 Quick Start

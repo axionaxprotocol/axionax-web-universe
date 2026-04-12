@@ -15,3 +15,5 @@ https://github.com/axionaxprotocol/axionax-core-universe
 | `core/DEPLOYMENT_GUIDE.md` — `[blockchain] block_time_secs = 5`, `max_block_size = 1048576`; `[security] min_gas_price = "1000000000"`      | `CHAIN_PARAMS.BLOCK_TIME_SECS`, `MAX_BLOCK_SIZE_BYTES`, `MIN_GAS_PRICE_WEI` |
 
 When updating constants, check the latest values in core-universe and adjust this package so backend and frontend stay aligned.
+
+**Solo maintainer:** use the short workflow and pairing record in [`docs/SOLO_CORE_WEB_SYNC.md`](../../docs/SOLO_CORE_WEB_SYNC.md) and [`docs/CORE_WEB_COMPAT.md`](../../docs/CORE_WEB_COMPAT.md).

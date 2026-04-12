@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased]
+
+### Added
+
+- Solo-maintainer workflow for dual-repo sync with core: [docs/SOLO_CORE_WEB_SYNC.md](docs/SOLO_CORE_WEB_SYNC.md), compatibility log [docs/CORE_WEB_COMPAT.md](docs/CORE_WEB_COMPAT.md), and links from README, DEVELOPMENT, and PARAMETERS_SYNC.
+
+---
+
 ## [1.9.0-testnet] - 2025-12-13
 
 ### 🎉 Major Release - SDK & Architecture Improvements

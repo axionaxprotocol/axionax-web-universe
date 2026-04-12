@@ -29,6 +29,8 @@
 
 📄 **Project Summary:** [MASTER_SUMMARY.md](MASTER_SUMMARY.md) · **White Paper:** [WHITEPAPER.md](WHITEPAPER.md) · **Hosting:** [docs/HOSTING.md](docs/HOSTING.md)
 
+**Dual repo (solo):** keep chain constants aligned with [axionax-core-universe](https://github.com/axionaxprotocol/axionax-core-universe) — workflow [docs/SOLO_CORE_WEB_SYNC.md](docs/SOLO_CORE_WEB_SYNC.md), pairing log [docs/CORE_WEB_COMPAT.md](docs/CORE_WEB_COMPAT.md), field map [packages/blockchain-utils/PARAMETERS_SYNC.md](packages/blockchain-utils/PARAMETERS_SYNC.md).
+
 ### 🎯 What's Inside?
 
 ```
@@ -50,6 +52,8 @@ axionax-web-universe/
 ├── 📄 docs/              # Project docs (deploy, dev, architecture, audits)
 │   ├── DEPLOY.md
 │   ├── DEVELOPMENT.md
+│   ├── SOLO_CORE_WEB_SYNC.md  # Solo: sync web ↔ core
+│   ├── CORE_WEB_COMPAT.md     # Last paired core/web refs
 │   ├── QUICK_START.md
 │   ├── SYSTEM_ARCHITECTURE.md
 │   └── audits/           # Audit reports
