@@ -200,23 +200,23 @@ export default function ValidatorStatus(): React.JSX.Element {
 
   return (
     <section
-      className="section bg-dark-900/50"
+      className="py-20 bg-[#0A0A0F] border-y border-white/5"
       data-testid="network-status"
       aria-label={onlineCount > 0 ? 'Connected' : 'Checking'}
     >
       <div className="container-custom">
         <div className="text-center mb-12">
           <div className="flex flex-wrap items-center justify-center gap-3 mb-4">
-            <h2 className="text-3xl md:text-4xl font-bold">
-              <span className="gradient-text">Validator Network</span>
+            <h2 className="text-3xl md:text-4xl font-bold text-white">
+              Validator Network
             </h2>
             <MockBadge show={!isChecking && allOffline} label="Unavailable" />
           </div>
-          <p className="text-dark-300 text-lg">
+          <p className="text-gray-400 text-lg">
             Real-time status of axionax validators running PoPC consensus
           </p>
           <p
-            className="mt-3 text-sm font-mono text-tech-cyan/90 bg-dark-900/60 border border-tech-cyan/20 rounded-lg px-4 py-2 inline-block max-w-2xl"
+            className="mt-3 text-sm font-mono text-blue-400 bg-black/30 border border-blue-500/20 rounded-lg px-4 py-2 inline-block max-w-2xl"
             data-testid="sdk-rpc-status"
             aria-live="polite"
           >
@@ -302,11 +302,11 @@ export default function ValidatorStatus(): React.JSX.Element {
         </div>
 
         <div className="text-center mt-12">
-          <p className="text-white/30 text-[11px] uppercase tracking-[0.2em] font-medium flex items-center justify-center gap-3">
+          <p className="text-gray-500 text-[11px] uppercase tracking-[0.2em] font-medium flex items-center justify-center gap-3">
             <span className="w-1.5 h-1.5 rounded-full bg-green-500/50 inline-block"></span>
             Secured by PoPC Consensus
-            <span className="text-white/10 mx-2">|</span> 
-            Chain ID: <span className="text-white/50 font-mono ml-1">86137</span>
+            <span className="text-gray-600 mx-2">|</span> 
+            Chain ID: <span className="text-gray-400 font-mono ml-1">86137</span>
           </p>
         </div>
       </div>

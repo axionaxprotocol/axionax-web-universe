@@ -39,38 +39,32 @@ export default function Technology(): React.JSX.Element {
   ];
 
   return (
-    <section className="section bg-dark-900/50">
+    <section className="py-20">
       <div className="container-custom">
-        <div className="text-center mb-16">
-          <h2 className="gradient-text mb-4">Technology Stack</h2>
-          <p className="text-dark-400 text-lg max-w-2xl mx-auto">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            Technology Stack
+          </h2>
+          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
             Built with industry-leading technologies for maximum performance and
             security
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {techStack.map((tech, categoryIndex) => (
-            <div
-              key={tech.category}
-              className="animate-fade-in-up"
-              style={
-                {
-                  animationDelay: `${categoryIndex * 100}ms`,
-                } as React.CSSProperties
-              }
-            >
-              <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
-                <span className="w-1 h-6 bg-gradient-primary rounded-full" />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {techStack.map((tech) => (
+            <div key={tech.category}>
+              <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                <span className="w-1 h-5 bg-blue-500 rounded-full" />
                 {tech.category}
               </h3>
-              <div className="space-y-4">
+              <div className="space-y-3">
                 {tech.items.map((item) => (
                   <div key={item.name} className="group">
                     <div className="flex items-center gap-2 mb-1">
                       <Badge variant="info">{item.name}</Badge>
                     </div>
-                    <p className="text-sm text-dark-500 group-hover:text-dark-400 transition-colors">
+                    <p className="text-sm text-gray-400 group-hover:text-gray-300 transition-colors">
                       {item.description}
                     </p>
                   </div>
@@ -81,16 +75,16 @@ export default function Technology(): React.JSX.Element {
         </div>
 
         {/* Code Example */}
-        <div className="mt-16 card-hover">
-          <h3 className="text-xl font-bold text-white mb-4">
+        <div className="mt-12 p-6 rounded-xl border border-white/10 bg-black/30">
+          <h3 className="text-lg font-semibold text-white mb-4">
             Quick Start Example
           </h3>
-          <pre className="code-block">
-            <code className="text-green-400">{`// Initialize axionax SDK
+          <pre className="p-4 rounded-lg bg-black/50 border border-white/5 overflow-x-auto">
+            <code className="text-green-400 text-sm">{`// Initialize axionax SDK
 import { axionax, Wallet } from '@axionax/sdk';
 
 const axion = new axionax({
-        rpcUrl: 'https://rpc.axionax.org',
+  rpcUrl: 'https://rpc.axionax.org',
   networkId: 'testnet-v1',
 });
 
