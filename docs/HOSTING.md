@@ -13,7 +13,7 @@ Guide for setting up axionax web hosting from scratch — two options:
 
 ### Step 1 — Prepare VPS
 
-SSH into server (e.g. `ssh root@217.216.109.5`) and run:
+SSH into your VPS and run:
 
 ```bash
 # Update system (Ubuntu/Debian)
@@ -57,11 +57,7 @@ cp -r apps/web/public apps/web/.next/standalone/apps/web/ 2>/dev/null || true
 
 **Shortcut — run single script:** (from your machine, send to run on server)
 
-```bash
-ssh root@217.216.109.5 'bash -s' < scripts/vps-setup-from-git.sh
-```
-
-Script will install Node/pnpm if missing, clone, build, and run app temporarily (next step recommends PM2 instead of nohup)
+Build and prepare manually as shown above, then proceed to PM2 setup below.
 
 ---
 
@@ -179,13 +175,7 @@ More details (defaults, restart, troubleshooting): [DEPLOY.md](DEPLOY.md)
 
 ## VPS health check
 
-Run script from your machine:
-
-```bash
-ssh root@217.216.109.5 'bash -s' < scripts/vps-standalone-check.sh
-```
-
-Script checks: Node/PM2/Nginx, server.js + static files, PM2 process, port 3000, HTTP response, disk/memory
+Run manual checks below to verify the deployment.
 
 ### Manual checks
 
@@ -229,7 +219,7 @@ free -m
 Run from your machine:
 
 ```bash
-ssh root@217.216.109.5 'bash -s' < scripts/vps-update-and-restart.sh
+ssh root@YOUR_VPS_IP 'bash -s' < scripts/vps-update-and-restart.sh
 ```
 
 Script: `git pull` → build packages → build web → copy static → restart PM2 → verify HTTP 200

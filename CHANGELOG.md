@@ -13,6 +13,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Solo-maintainer workflow for dual-repo sync with core: [docs/SOLO_CORE_WEB_SYNC.md](docs/SOLO_CORE_WEB_SYNC.md), compatibility log [docs/CORE_WEB_COMPAT.md](docs/CORE_WEB_COMPAT.md), and links from README, DEVELOPMENT, and PARAMETERS_SYNC.
 
+### Removed
+
+- **Cleanup:** Removed `apps/mobile/` skeleton Expo app (not functional, no business logic).
+- **Cleanup:** Removed 24 redundant deploy/VPS scripts from `scripts/` and `apps/web/scripts/`.
+- **Cleanup:** Removed stale design docs (`DESIGN-IMPROVEMENT-PLAN.md`, `DESIGN-IMPROVEMENT.md`).
+- **Cleanup:** Removed `DEPLOYMENT_SUCCESS.md` containing VPS IP (security).
+- **Cleanup:** Removed `DOCUMENTATION_CONSISTENCY_REPORT.md` and outdated `AUDIT_REPORT_v1.md`.
+- **Cleanup:** Removed `.idx/dev.nix` and `generate_favicon.py` one-time utilities.
+- **Cleanup:** Added `playwright-report/`, `test-results/`, `.idx/` to `.gitignore`.
+
+### Changed
+
+- Updated `README.md`, `README_TH.md`, `MASTER_SUMMARY.md` to reflect current repo structure (removed mobile app references, updated dates, updated scripts list).
+
 ---
 
 ## [1.9.0-testnet] - 2025-12-13

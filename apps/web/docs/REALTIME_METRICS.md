@@ -13,7 +13,7 @@ Add the following `location` blocks inside your active HTTPS server in Nginx (th
 ```
 # Explorer API (port 3001 on the VPS)
 location /api/ {
-  proxy_pass http://217.216.109.5:3001/;
+  proxy_pass http://YOUR_VPS_IP:3001/;
   proxy_http_version 1.1;
   proxy_set_header Upgrade $http_upgrade;
   proxy_set_header Connection 'upgrade';

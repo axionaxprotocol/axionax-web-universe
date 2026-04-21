@@ -42,7 +42,7 @@ Phase 2: Production Services (Dec 2025)
 
 #### Infrastructure Deployment (100% Complete) ✅
 
-- ✅ **VPS Setup** (vmi2895217 @ 217.216.109.5)
+- ✅ **VPS Setup** (vmi2895217)
   - 8GB RAM (87% free), 4 vCPU, 72GB disk
   - Uptime: 30+ days, Load average: <0.2
   - Location: Europe (Contabo VPS)
@@ -88,7 +88,7 @@ Phase 2: Production Services (Dec 2025)
 #### Current Status (December 5, 2025)
 
 - **Services Up**: 8/9 (Mock RPC needs rebuild with proper Node.js implementation)
-- **Website**: Live at http://217.216.109.5:3000
+- **Website**: Live at https://axionax.org
 - **Explorer API**: Working with `/health`, `/api/stats`, `/api/blocks/latest`
 - **Faucet API**: Working with `/health`, `/api/info`, `/api/request`
 - **Next Priority**: Rebuild Mock RPC with full Ethereum JSON-RPC 2.0 support

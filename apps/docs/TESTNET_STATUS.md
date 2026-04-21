@@ -291,17 +291,16 @@ See [VPS_VALIDATOR_SETUP.md](./VPS_VALIDATOR_SETUP.md) for detailed instructions
 
 ### Live Services
 
-- Website: http://217.216.109.5:3000
-- Explorer API: http://217.216.109.5:3001
-- Faucet API: http://217.216.109.5:3002
-- Prometheus: http://217.216.109.5:9090
-- RPC: http://217.216.109.5:8545 (⚠️ needs rebuild)
+- Website: https://axionax.org
+- Explorer API: https://axionax.org/api
+- Faucet: https://axionax.org/faucet
+- RPC: https://axionax.org/rpc/
 
 ### Developer Tools
 
-- Add Network to MetaMask: Chain ID 86137, RPC http://217.216.109.5:8545
-- Get Testnet Tokens: http://217.216.109.5:3000/faucet
-- View Blocks: http://217.216.109.5:3000/explorer
+- Add Network to MetaMask: Chain ID 86137, RPC https://axionax.org/rpc/
+- Get Testnet Tokens: https://axionax.org/faucet
+- View Blocks: https://axionax.org/explorer
 
 ---
 

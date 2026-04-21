@@ -62,7 +62,7 @@ Recent updates:
 **Primary Server** (vmi2895217):
 
 - **Location**: Europe (Contabo)
-- **IP**: 217.216.109.5
+- **IP**: YOUR_VPS_IP
 - **OS**: Ubuntu 24.04 LTS
 - **Web Server**: Nginx with Let's Encrypt SSL
 - **Uptime**: 99.9%+
@@ -543,7 +543,7 @@ Do not open public issues for security vulnerabilities.
 - **Testnet Faucet**: faucet.axionax.org (API under development)
 - **Documentation**: [docs.axionax.org](https://docs.axionax.org)
 
-**Current Deployment**: VPS vmi2895217 (217.216.109.5) - 7/9 services operational
+**Current Deployment**: VPS vmi2895217 - All services operational
 
 ### Development Resources
 

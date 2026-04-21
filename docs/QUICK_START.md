@@ -163,8 +163,7 @@ axionax-web-universe/
 │   ├── docs/             # Documentation site
 │   ├── api/              # Backend API (Hono + PostgreSQL)
 │   ├── faucet-api/       # Faucet backend
-│   ├── genesis-generator/# Genesis block generator CLI
-│   └── mobile/           # Mobile app (React Native)
+│   └── genesis-generator/# Genesis block generator CLI
 │
 ├── 📦 packages/
 │   ├── sdk/              # TypeScript SDK

@@ -142,7 +142,7 @@ export default function InfrastructurePage(): React.JSX.Element {
               </div>
               <div>
                 <div className="text-muted text-sm mb-1">IP Address</div>
-                <div className="text-content font-mono">217.216.109.5</div>
+                <div className="text-content font-mono">YOUR_VPS_IP</div>
               </div>
               <div>
                 <div className="text-muted text-sm mb-1">Specifications</div>

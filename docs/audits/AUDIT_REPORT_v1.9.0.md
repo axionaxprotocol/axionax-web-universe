@@ -12,7 +12,7 @@ Following the remediation of findings from the v1.0 audit, the axionax protocol 
 **Deployment Status:**
 
 - **Web Interface:** https://axionax.org (Active)
-- **Infrastructure Node:** 217.216.109.5 (Active)
+- **Infrastructure Node:** VPS (Active)
 - **Version:** v1.9.0-testnet
 
 ## 2. Findings Resolution Status

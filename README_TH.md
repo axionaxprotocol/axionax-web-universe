@@ -141,8 +141,8 @@ pnpm build
 ### 🔄 กำลังดำเนินการ (In Progress)
 
 - [ ] Marketplace v1.0 (ระบบ Escrow)
-- [ ] พัฒนา Mobile App
 - [ ] เพิ่มฟีเจอร์ Advanced SDK
+- [ ] Oracle AI integration
 
 ---
 

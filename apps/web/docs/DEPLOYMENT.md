@@ -19,7 +19,7 @@ Build ใช้ **Next.js standalone output** (โฟลเดอร์เดี
 
 | Secret               | บังคับ    | ตัวอย่าง                  | หมายเหตุ                                                           |
 | -------------------- | --------- | ------------------------- | ------------------------------------------------------------------ |
-| `SSH_HOST`           | ✅        | `217.216.109.5`           | IP หรือ hostname ของ VPS                                           |
+| `SSH_HOST`           | ✅        | `YOUR_VPS_IP`             | IP หรือ hostname ของ VPS                                           |
 | `SSH_USER`           | ✅        | `root` หรือ `deploy`      | User สำหรับ SSH                                                    |
 | `SSH_PRIVATE_KEY`    | ✅        | เนื้อหา private key (PEM) | ใช้คู่กับ public key ที่ใส่ใน server                               |
 | `REMOTE_PATH`        | ✅        | `/var/www/axionax-web`    | path บน server ที่จะ rsync เนื้อหา standalone ไปไว้                |

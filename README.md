@@ -41,7 +41,6 @@ axionax-web-universe/
 │   ├── api/              # Backend API (Hono + PostgreSQL)
 │   ├── genesis-generator/# Genesis Block Generator CLI
 │   ├── faucet-api/       # Faucet API
-│   ├── mobile/           # Mobile app
 │   └── docs/             # Static docs (Jekyll, not pnpm package)
 │
 ├── 📦 packages/
@@ -59,8 +58,8 @@ axionax-web-universe/
 │   └── audits/           # Audit reports
 │
 ├── 🔧 scripts/           # Build, deploy, VPS, DB scripts
-│   ├── deploy.sh
-│   ├── vps-setup-from-git.sh
+│   ├── deploy-vps.ps1    # Windows VPS deploy
+│   ├── update-infra-v1.9.0.sh
 │   └── ...
 │
 ├── deploy-vps.ps1        # VPS deploy (Windows, run from root)
@@ -672,15 +671,15 @@ All packages and apps in this monorepo are licensed under MIT, allowing free use
 ### 🔄 In Progress
 
 - [ ] Marketplace v1.0 (escrow system)
-- [ ] Mobile app development
 - [ ] Advanced SDK features
+- [ ] Oracle AI integration
 - [ ] Interactive tutorials
 
 ### 🚀 Upcoming (Q1 2026)
 
 - [ ] SDK v2.0 (enhanced features)
-- [ ] Mobile wallet integration
 - [ ] GraphQL API
+- [ ] Enhanced explorer features
 - [ ] Community dashboard
 
 ---
@@ -706,7 +705,7 @@ All packages and apps in this monorepo are licensed under MIT, allowing free use
 
 **Built with ❤️ by the axionax Protocol Team**
 
-_Part of the [axionax Universe](https://github.com/axionaxprotocol) • Last Updated: November 22, 2025_
+_Part of the [axionax Universe](https://github.com/axionaxprotocol) • Last Updated: April 2026_
 
 [![GitHub Stars](https://img.shields.io/github/stars/axionaxprotocol/axionax-web-universe?style=social)](https://github.com/axionaxprotocol/axionax-web-universe)
 [![GitHub Forks](https://img.shields.io/github/forks/axionaxprotocol/axionax-web-universe?style=social)](https://github.com/axionaxprotocol/axionax-web-universe/fork)

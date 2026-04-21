@@ -23,7 +23,7 @@
 
 ### Infrastructure
 
-- **VPS**: vmi2895217 @ 217.216.109.5
+- **VPS**: vmi2895217
 - **OS**: Ubuntu 22.04 LTS
 - **RAM**: 8GB
 - **CPU**: 4 vCores
@@ -60,7 +60,7 @@
     ┌──────────────────────────┐
     │ Monitoring Stack         │
     │ - Grafana :3030         │
-    │ - Prometheus :9090      │
+    │ - Primary: `ssh root@vmi2895217`      │
     └──────────────────────────┘
 ```
 
@@ -590,7 +590,7 @@ docker exec postgres psql -U axionax -d axionax_db -c \
 
 ### Grafana Dashboards
 
-Access: http://217.216.109.5:3030
+Access: http://YOUR_VPS_IP:3030
 
 **Login**:
 
@@ -606,7 +606,7 @@ Access: http://217.216.109.5:3030
 
 ### Prometheus Metrics
 
-Access: http://217.216.109.5:9090
+Access: http://YOUR_VPS_IP:9090
 
 **Key Metrics**:
 

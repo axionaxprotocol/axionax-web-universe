@@ -43,7 +43,7 @@ cp .env.example .env
 Example `.env`:
 
 ```env
-NEXT_PUBLIC_RPC_URL=http://217.216.109.5:8545
+NEXT_PUBLIC_RPC_URL=https://axionax.org/rpc/
 NEXT_PUBLIC_CHAIN_ID=86137
 NEXT_PUBLIC_NETWORK_NAME=axionax-testnet-1
 ```
@@ -122,10 +122,10 @@ Access at [http://localhost:3000](http://localhost:3000)
 
 ### Current Testnet Infrastructure
 
-The axionax testnet is currently deployed on VPS vmi2895217:
+The axionax testnet is currently live:
 
-- **RPC HTTP**: http://217.216.109.5:8545
-- **RPC WebSocket**: ws://217.216.109.5:8546
+- **RPC HTTP**: https://axionax.org/rpc/
+- **RPC WebSocket**: wss://axionax.org/rpc/
 - **Chain ID**: 86137
 - **Network Name**: axionax-testnet-1
 
@@ -137,10 +137,10 @@ Add axionax testnet to MetaMask:
 2. Networks → Add Network → Add Manually
 3. Enter details:
    - **Network Name**: AxionAX Testnet
-   - **RPC URL**: http://217.216.109.5:8545
+   - **RPC URL**: https://axionax.org/rpc/
    - **Chain ID**: 86137
    - **Currency Symbol**: AXXt
-   - **Block Explorer**: http://217.216.109.5:3001 (when available)
+   - **Block Explorer**: https://axionax.org/explorer
 
 ---
 
@@ -235,7 +235,7 @@ PORT=3001 npm run dev
 1. Check RPC URL in `.env`
 2. Verify RPC node is running:
    ```bash
-   curl http://217.216.109.5:8545/health
+   curl https://axionax.org/rpc/ -X POST -H "Content-Type: application/json" -d '{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":1}'
    ```
 3. Check firewall/network settings
 
@@ -266,13 +266,12 @@ docker-compose logs web
 
 | Service       | Status       | Endpoint                  |
 | ------------- | ------------ | ------------------------- |
-| Web Interface | ✅ Running   | http://217.216.109.5:3000 |
-| RPC HTTP      | ✅ Healthy   | http://217.216.109.5:8545 |
-| RPC WebSocket | ✅ Healthy   | ws://217.216.109.5:8546   |
-| Explorer API  | 🔧 Debugging | http://217.216.109.5:3001 |
-| Faucet API    | 🔧 Debugging | http://217.216.109.5:3002 |
+| Web Interface | ✅ Running   | https://axionax.org       |
+| RPC HTTP      | ✅ Healthy   | https://axionax.org/rpc/  |
+| Explorer API  | ✅ Healthy   | https://axionax.org/api   |
+| Faucet API    | ✅ Healthy   | https://axionax.org/faucet|
 
-**Overall**: 7/9 services operational (78%)
+**Overall**: All services operational
 
 ---
 

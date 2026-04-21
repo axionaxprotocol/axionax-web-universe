@@ -34,7 +34,7 @@ graph TD
     end
 
     subgraph "Blockchain / Network"
-        InfraNode[Infra Node (217.216.109.5)]
+        InfraNode[Infra Node (VPS)]
         RPC[Validator Nodes]
         Contract[Smart Contracts]
     end
@@ -138,7 +138,7 @@ Website manages blockchain connection directly, not via SDK.
 
 ## 6. Network Infrastructure
 
-- **Infrastructure Node (`217.216.109.5`)**:
+- **Infrastructure Node (VPS)**:
   - **Role**: Gateway for services
   - **Services**: Webservice, RPC Gateway, Faucet API, Explorer API, etc.
   - Primary connection point for frontend (e.g. `apps/web` fetches metrics)

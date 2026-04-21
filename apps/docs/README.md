@@ -26,7 +26,7 @@ for high-performance decentralized compute markets.
 
 **Infrastructure Status: 🟢 9/9 Services Operational (100%)**
 
-**VPS Deployment (vmi2895217 - 217.216.109.5)**:
+**VPS Deployment (vmi2895217)**:
 
 | Service       | Port      | Status     | Details                                           |
 | ------------- | --------- | ---------- | ------------------------------------------------- |

@@ -4,7 +4,7 @@
 | ----------- | --------------------------------------------------- |
 | **Status**  | Series Seed Preparation                             |
 | **Version** | 2.1                                                 |
-| **Updated** | February 2026                                       |
+| **Updated** | April 2026                                        |
 | **Source**  | Compiled from source code and project documentation |
 
 ---
@@ -123,7 +123,7 @@ Dedicated AI models on Sentinel nodes for security verification:
 - **Web Portal:** Dashboard, Explorer, Faucet
 - **Marketplace:** Compute power trading (Escrow supported)
 - **Sales Page:** Monolith hardware sales (Infrastructure Page)
-- **API Service:** Indexer and backend for Mobile App
+- **API Service:** Blockchain indexer and backend API
 
 ---
 

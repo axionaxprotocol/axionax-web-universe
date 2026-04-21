@@ -3,7 +3,7 @@
 Real-time status of all axionax Protocol testnet services.
 
 **Last Updated**: December 5, 2025 18:00 CET  
-**VPS**: vmi2895217 (217.216.109.5)  
+**VPS**: vmi2895217  
 **Overall Health**: 🟢 100% Operational (9/9 services)
 
 ---
@@ -24,8 +24,8 @@ Real-time status of all axionax Protocol testnet services.
 
 | Service        | Port | Status     | Uptime | Version | Dashboard Access             |
 | -------------- | ---- | ---------- | ------ | ------- | ---------------------------- |
-| **Grafana**    | 3030 | 🟢 Healthy | 15h+   | 12.2.1  | http://217.216.109.5:3030 ✅ |
-| **Prometheus** | 9090 | 🟢 Healthy | 15h+   | latest  | http://217.216.109.5:9090 ✅ |
+| **Grafana**    | 3030 | 🟢 Healthy | 15h+   | 12.2.1  | http://YOUR_VPS_IP:3030 ✅ |
+| **Prometheus** | 9090 | 🟢 Healthy | 15h+   | latest  | http://YOUR_VPS_IP:9090 ✅ |
 
 ### Application Layer (2/2 ✅)
 
@@ -38,7 +38,7 @@ Real-time status of all axionax Protocol testnet services.
 
 | Service           | Port | Status     | Uptime | Framework  | Public Access                |
 | ----------------- | ---- | ---------- | ------ | ---------- | ---------------------------- |
-| **Web Interface** | 3000 | 🟢 Healthy | 23h+   | Next.js 15 | http://217.216.109.5:3000 ✅ |
+| **Web Interface** | 3000 | 🟢 Healthy | 23h+   | Next.js 15 | https://axionax.org ✅ |
 
 ---
 
@@ -127,7 +127,7 @@ Real-time status of all axionax Protocol testnet services.
 **Sample Request**:
 
 ```bash
-curl http://217.216.109.5:8545/health
+curl https://axionax.org/rpc/ -X POST -H "Content-Type: application/json" -d '{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":1}'
 # Response: {"status":"healthy","network":"axionax-testnet-1","chainId":"86137"}
 ```
 
@@ -146,7 +146,7 @@ curl http://217.216.109.5:8545/health
 - Default credentials: admin/admin
 - Dashboards: System metrics, Docker stats, service health
 - Data source: Prometheus (configured)
-- Access: http://217.216.109.5:3030
+- Access: http://YOUR_VPS_IP:3030
 
 **Prometheus** (Port 9090):
 
@@ -154,7 +154,7 @@ curl http://217.216.109.5:8545/health
 - Targets: All 9 services
 - Retention: 15 days
 - Storage: Local TSDB
-- Access: http://217.216.109.5:9090
+- Access: http://YOUR_VPS_IP:9090
 
 ---
 
@@ -257,7 +257,7 @@ docker exec axionax-faucet-api env | grep -i rpc
 
 **Infrastructure Issues**:
 
-- Primary: `ssh root@217.216.109.5`
+- Primary: `ssh root@YOUR_VPS_IP`
 - Scripts: `/root/axionax-web/docker-compose.yml`
 
 **Quick Commands**:

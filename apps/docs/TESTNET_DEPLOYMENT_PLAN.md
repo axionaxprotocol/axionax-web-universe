@@ -2,7 +2,7 @@
 
 **Date**: December 5, 2025  
 **Status**: Phase 1 Complete (100%) + Phase 2 Active ✅  
-**VPS**: vmi2895217 (217.216.109.5)  
+**VPS**: vmi2895217 (VPS)  
 **Protocol**: v1.8.0-testnet
 
 ---
@@ -411,7 +411,7 @@ Current infrastructure is 78% deployed (7/9 services operational) with MetaMask 
 1. **Debug Explorer API** (Priority 1)
 
    ```bash
-   ssh root@217.216.109.5
+   ssh root@YOUR_VPS_IP
    docker logs axionax-explorer-api
    # Check RPC configuration
    # Verify database connectivity
@@ -426,7 +426,7 @@ Current infrastructure is 78% deployed (7/9 services operational) with MetaMask 
    ```
 
 3. **Test MetaMask Integration** (Priority 2)
-   - Open http://217.216.109.5:3000
+   - Open https://axionax.org
    - Click "Connect Wallet"
    - Verify network auto-configuration
    - Test balance display

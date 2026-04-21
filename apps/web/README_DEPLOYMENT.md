@@ -17,10 +17,10 @@
 
 ## 📋 VPS Configuration
 
-- **IP Address**: `217.216.109.5`
+- **IP Address**: `YOUR_VPS_IP`
 - **SSH User**: `root`
 - **Deploy Path**: `/opt/axionax-web`
-- **Website URL**: `http://217.216.109.5`
+- **Website URL**: `http://YOUR_VPS_IP`
 - **HTTPS URL**: `https://axionax.org` (if SSL configured)
 
 ## 🛠️ Management Commands
@@ -46,19 +46,19 @@ This provides:
 
 ```powershell
 # SSH to VPS
-ssh root@217.216.109.5
+ssh root@YOUR_VPS_IP
 
 # View logs
-ssh root@217.216.109.5 "cd /opt/axionax-web && docker-compose logs -f"
+ssh root@YOUR_VPS_IP "cd /opt/axionax-web && docker-compose logs -f"
 
 # Check status
-ssh root@217.216.109.5 "cd /opt/axionax-web && docker-compose ps"
+ssh root@YOUR_VPS_IP "cd /opt/axionax-web && docker-compose ps"
 
 # Restart services
-ssh root@217.216.109.5 "cd /opt/axionax-web && docker-compose restart"
+ssh root@YOUR_VPS_IP "cd /opt/axionax-web && docker-compose restart"
 
 # Pull latest and rebuild
-ssh root@217.216.109.5 "cd /opt/axionax-web && git pull && docker-compose up -d --build"
+ssh root@YOUR_VPS_IP "cd /opt/axionax-web && git pull && docker-compose up -d --build"
 ```
 
 ## 📦 Deployment Process
@@ -109,7 +109,7 @@ This skips all tests and immediately:
 
 ```powershell
 # Test SSH connection
-ssh root@217.216.109.5
+ssh root@YOUR_VPS_IP
 
 # If connection fails:
 # 1. Check if VPS is online
@@ -121,13 +121,13 @@ ssh root@217.216.109.5
 
 ```powershell
 # Check if containers are running
-ssh root@217.216.109.5 "docker-compose ps"
+ssh root@YOUR_VPS_IP "docker-compose ps"
 
 # View error logs
-ssh root@217.216.109.5 "cd /opt/axionax-web && docker-compose logs --tail=100"
+ssh root@YOUR_VPS_IP "cd /opt/axionax-web && docker-compose logs --tail=100"
 
 # Restart containers
-ssh root@217.216.109.5 "cd /opt/axionax-web && docker-compose restart"
+ssh root@YOUR_VPS_IP "cd /opt/axionax-web && docker-compose restart"
 ```
 
 ### Build Failures
@@ -164,17 +164,17 @@ git push origin main --force
 
 ```powershell
 # HTTP request test
-Invoke-WebRequest -Uri "http://217.216.109.5" -UseBasicParsing
+Invoke-WebRequest -Uri "http://YOUR_VPS_IP" -UseBasicParsing
 
 # Or use curl
-curl http://217.216.109.5
+curl http://YOUR_VPS_IP
 ```
 
 ### View Container Stats
 
 ```bash
 # SSH to VPS
-ssh root@217.216.109.5
+ssh root@YOUR_VPS_IP
 
 # View resource usage
 docker stats
@@ -188,10 +188,10 @@ docker-compose top
 
 ```bash
 # On VPS
-ssh root@217.216.109.5 "df -h"
+ssh root@YOUR_VPS_IP "df -h"
 
 # Check Docker disk usage
-ssh root@217.216.109.5 "docker system df"
+ssh root@YOUR_VPS_IP "docker system df"
 ```
 
 ## 🔐 Security
@@ -200,7 +200,7 @@ ssh root@217.216.109.5 "docker system df"
 
 ```bash
 # Using Certbot
-ssh root@217.216.109.5
+ssh root@YOUR_VPS_IP
 certbot --nginx -d axionax.org -d www.axionax.org
 
 # Renew certificate
@@ -226,7 +226,7 @@ npm audit fix --force
 
 ```bash
 # SSH to VPS
-ssh root@217.216.109.5
+ssh root@YOUR_VPS_IP
 cd /opt/axionax-web
 
 # View git log
@@ -261,7 +261,7 @@ docker-compose up -d --build
 4. **Monitor logs after deployment**
 
    ```powershell
-   ssh root@217.216.109.5 "cd /opt/axionax-web && docker-compose logs -f"
+   ssh root@YOUR_VPS_IP "cd /opt/axionax-web && docker-compose logs -f"
    ```
 
 5. **Keep backup of working version**
@@ -276,13 +276,13 @@ docker-compose up -d --build
 
 ```bash
 # SSH and force restart everything
-ssh root@217.216.109.5 "cd /opt/axionax-web && docker-compose down && docker-compose up -d --build"
+ssh root@YOUR_VPS_IP "cd /opt/axionax-web && docker-compose down && docker-compose up -d --build"
 ```
 
 ### Nuclear Option (full rebuild)
 
 ```bash
-ssh root@217.216.109.5
+ssh root@YOUR_VPS_IP
 cd /opt/axionax-web
 docker-compose down -v  # Remove volumes
 docker system prune -af # Clean everything

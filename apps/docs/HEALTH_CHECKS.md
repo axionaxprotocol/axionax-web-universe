@@ -56,7 +56,7 @@ cd /opt/axionax-deploy
 
 Timestamp: Wed Nov 12 16:10:12 CET 2025
 Hostname:  vmi2895217
-IP:        217.216.109.5
+IP:        YOUR_VPS_IP
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   QUICK SUMMARY
