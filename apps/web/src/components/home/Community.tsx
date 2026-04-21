@@ -5,11 +5,26 @@ import Input from '@/components/ui/Input';
 // Community component - Display social links and community stats
 export default function Community(): React.JSX.Element {
   const communityStats = [
-    { label: 'Discord Members', value: '5,000+', icon: '💬' },
-    { label: 'Twitter Followers', value: '12,000+', icon: '🐦' },
-    { label: 'GitHub Stars', value: '850+', icon: '⭐' },
-    { label: 'Active Developers', value: '200+', icon: '👨‍💻' },
+    { label: 'Discord Members', value: '5,000+', icon: 'chat' },
+    { label: 'Twitter Followers', value: '12,000+', icon: 'twitter' },
+    { label: 'GitHub Stars', value: '850+', icon: 'star' },
+    { label: 'Active Developers', value: '200+', icon: 'users' },
   ];
+
+  const getStatIcon = (icon: string) => {
+    switch (icon) {
+      case 'chat':
+        return <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>;
+      case 'twitter':
+        return <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" /></svg>;
+      case 'star':
+        return <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" /></svg>;
+      case 'users':
+        return <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>;
+      default:
+        return null;
+    }
+  };
 
   const socialLinks = [
     {
@@ -79,66 +94,60 @@ export default function Community(): React.JSX.Element {
   ];
 
   return (
-    <section className="section bg-gradient-to-b from-transparent via-amber-950/5 to-transparent">
+    <section className="py-20">
       <div className="container-custom">
-        <div className="text-center mb-16">
-          <h2 className="bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent mb-4">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
             Join Our Community
           </h2>
-          <p className="text-starlight/60 text-lg max-w-2xl mx-auto">
+          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
             Be part of a growing ecosystem of developers, validators, and
             enthusiasts building the future of decentralized compute
           </p>
         </div>
 
         {/* Community Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-5 mb-12">
           {communityStats.map((stat, index) => (
             <div
               key={stat.label}
-              className="p-6 rounded-2xl bg-gradient-to-b from-amber-950/20 to-transparent border border-amber-500/20 hover:border-amber-500/40 transition-all duration-300 text-center animate-fade-in-up"
-              style={
-                { animationDelay: `${index * 100}ms` } as React.CSSProperties
-              }
+              className="p-6 rounded-xl border border-white/10 bg-white/5 hover:border-blue-500/30 transition-all duration-200 text-center"
             >
-              <div className="text-4xl mb-2">{stat.icon}</div>
-              <div className="text-2xl font-bold bg-gradient-to-r from-amber-400 to-yellow-500 bg-clip-text text-transparent mb-1">
+              <div className="text-blue-400 mb-3 flex justify-center">{getStatIcon(stat.icon)}</div>
+              <div className="text-2xl font-bold text-white mb-1">
                 {stat.value}
               </div>
-              <div className="text-sm text-starlight/60">{stat.label}</div>
+              <div className="text-sm text-gray-400">{stat.label}</div>
             </div>
           ))}
         </div>
 
         {/* Social Links */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-12">
           {socialLinks.map((social, index) => (
             <a
               key={social.name}
               href={social.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-6 rounded-2xl bg-gradient-to-b from-amber-950/10 to-transparent border border-amber-500/20 hover:border-amber-500/40 transition-all duration-300 flex flex-col items-center text-center animate-fade-in-up group"
-              style={
-                { animationDelay: `${index * 100}ms` } as React.CSSProperties
-              }
+              className="p-6 rounded-xl border border-white/10 bg-white/5 hover:border-blue-500/30 hover:bg-white/10 transition-all duration-200 flex flex-col items-center text-center group"
             >
-              <div className="w-12 h-12 bg-gradient-to-br from-amber-500/20 to-yellow-600/10 rounded-full flex items-center justify-center text-amber-400 mb-4 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-amber-500/20 transition-all">
+              <div className="w-12 h-12 bg-blue-500/10 rounded-full flex items-center justify-center text-blue-400 mb-4 group-hover:bg-blue-500/20 transition-colors">
                 {social.icon}
               </div>
-              <h3 className="font-bold text-starlight group-hover:text-amber-300 transition-colors mb-2">
+              <h3 className="font-semibold text-white group-hover:text-blue-400 transition-colors mb-2">
                 {social.name}
               </h3>
-              <p className="text-sm text-starlight/60">{social.description}</p>
+              <p className="text-sm text-gray-400">{social.description}</p>
             </a>
           ))}
         </div>
 
         {/* Newsletter Signup */}
-        <div className="card-hover max-w-2xl mx-auto">
+        <div className="max-w-2xl mx-auto p-6 rounded-xl border border-white/10 bg-white/5">
           <div className="text-center mb-6">
-            <h3 className="text-2xl font-bold text-white mb-2">Stay Updated</h3>
-            <p className="text-dark-400">
+            <h3 className="text-xl font-semibold text-white mb-2">Stay Updated</h3>
+            <p className="text-gray-400">
               Subscribe to our newsletter for the latest updates, announcements,
               and development progress
             </p>
@@ -169,7 +178,7 @@ export default function Community(): React.JSX.Element {
             </Button>
           </form>
 
-          <p className="text-xs text-dark-500 text-center mt-4">
+          <p className="text-xs text-gray-500 text-center mt-4">
             We respect your privacy. Unsubscribe at any time.
           </p>
         </div>

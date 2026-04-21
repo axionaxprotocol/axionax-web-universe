@@ -64,7 +64,8 @@
     "version": "changeset version",
     "release": "pnpm build && changeset publish",
     "preinstall": "npx only-allow pnpm",
-    "prepare": "husky install || true"
+    "prepare": "husky install || true",
+    "git:check-secrets": "node scripts/check-forbidden-env-in-git.mjs commit"
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.8",

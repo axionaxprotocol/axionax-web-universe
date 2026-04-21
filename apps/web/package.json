@@ -16,6 +16,7 @@
   "dependencies": {
     "@axionax/blockchain-utils": "workspace:*",
     "@axionax/sdk": "workspace:*",
+    "@axionax/ui": "workspace:*",
     "@tanstack/react-query": "^5.90.20",
     "ethers": "^6.16.0",
     "lucide-react": "^0.563.0",

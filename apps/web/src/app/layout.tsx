@@ -4,6 +4,7 @@ import './globals.css';
 import { Web3Provider } from '@/contexts/Web3Context';
 import { QueryProvider } from '@/providers/QueryProvider';
 import ExplorerLayout from '@/components/layout/ExplorerLayout';
+import { OracleChatMount } from '@/components/oracle/OracleChatMount';
 
 // Body & UI – neutral, readable (Phase 1: tech typography)
 const inter = Inter({
@@ -66,6 +67,7 @@ export default function RootLayout({
             <ExplorerLayout>{children}</ExplorerLayout>
           </Web3Provider>
         </QueryProvider>
+        <OracleChatMount />
       </body>
     </html>
   );
