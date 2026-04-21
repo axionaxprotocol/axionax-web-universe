@@ -4,12 +4,16 @@
   "main": "./src/index.tsx",
   "types": "./src/index.tsx",
   "exports": {
-    ".": "./src/index.tsx"
+    ".": "./src/index.tsx",
+    "./OracleChat": "./src/OracleChat.tsx"
   },
   "license": "MIT",
   "scripts": {
     "build": "echo 'No build output'",
     "lint": "pnpm --dir ../.. exec eslint packages/ui/src --ext .ts,.tsx"
+  },
+  "dependencies": {
+    "@axionax/sdk": "workspace:*"
   },
   "peerDependencies": {
     "react": "^18.3.0",

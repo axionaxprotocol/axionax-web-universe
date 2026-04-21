@@ -62,6 +62,14 @@ export {
 // Services
 // ============================================
 export { EscrowService, escrowService, type EscrowServiceResult } from './services/escrow';
+export {
+  OracleService,
+  OracleError,
+  oracleService,
+  askOracle,
+  isOracleConfigured,
+  type OracleServiceConfig,
+} from './services/oracle';
 
 // ============================================
 // Client

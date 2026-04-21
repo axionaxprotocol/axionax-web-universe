@@ -10,6 +10,7 @@
     "lint": "pnpm --dir ../.. exec eslint apps/marketplace --ext ts,tsx --report-unused-disable-directives"
   },
   "dependencies": {
+    "@axionax/ui": "workspace:*",
     "@axionax/sdk": "workspace:*",
     "ethers": "^6.16.0",
     "react": "^18.3.1",

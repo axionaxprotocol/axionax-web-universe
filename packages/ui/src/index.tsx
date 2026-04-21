@@ -29,3 +29,6 @@ export * from './Form';
 
 // Display Components
 export * from './Display';
+
+// Axionax Oracle (Vertex AI Search assistant)
+export { OracleChat } from './OracleChat';

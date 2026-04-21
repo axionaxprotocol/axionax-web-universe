@@ -7,6 +7,7 @@ module.exports = {
   content: [
     './src/app/**/*.{js,ts,jsx,tsx}',
     './src/components/**/*.{js,ts,jsx,tsx}',
+    '../../packages/ui/src/OracleChat.tsx',
   ],
   theme: {
     extend: {
