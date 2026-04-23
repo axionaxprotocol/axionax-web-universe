@@ -3,11 +3,12 @@
     Deploy web frontend (Next.js standalone) to VPS
 .DESCRIPTION
     Build @axionax/web from monorepo root (standalone), then upload to VPS.
-    Default: root@217.216.109.5, /var/www/axionax. On server run: node server.js (or PM2).
+    VPS_IP is REQUIRED via -VPS_IP param or $env:VPS_IP.
+    Defaults: VPS_USER=root, REMOTE_PATH=/var/www/axionax.
 .EXAMPLE
-    .\deploy-vps.ps1
-    .\deploy-vps.ps1 -SkipBuild
     $env:VPS_IP="1.2.3.4"; .\deploy-vps.ps1
+    .\deploy-vps.ps1 -VPS_IP 1.2.3.4 -RestartCmd "pm2 restart axionax-web"
+    .\deploy-vps.ps1 -VPS_IP 1.2.3.4 -SkipBuild
 #>
 
 param(
@@ -19,7 +20,11 @@ param(
 )
 
 if (-not $VPS_IP) { $VPS_IP = $env:VPS_IP }
-if (-not $VPS_IP) { $VPS_IP = "217.216.109.5" }
+if (-not $VPS_IP) {
+    Write-Host "ERROR: VPS_IP is required. Pass via -VPS_IP or set `$env:VPS_IP." -ForegroundColor Red
+    Write-Host "Example: `$env:VPS_IP='1.2.3.4'; .\deploy-vps.ps1" -ForegroundColor Gray
+    exit 1
+}
 if (-not $VPS_USER) { $VPS_USER = $env:VPS_USER }
 if (-not $VPS_USER) { $VPS_USER = "root" }
 if (-not $REMOTE_PATH) { $REMOTE_PATH = $env:VPS_WEB_PATH }
