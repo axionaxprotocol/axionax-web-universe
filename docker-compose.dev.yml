@@ -90,7 +90,8 @@ services:
     container_name: axionax-web-dev
     restart: unless-stopped
     depends_on:
-      - axionax-node
+      - postgres
+      - redis
     ports:
       - '3000:3000'
     environment:
@@ -114,7 +115,8 @@ services:
     container_name: axionax-marketplace-dev
     restart: unless-stopped
     depends_on:
-      - axionax-node
+      - postgres
+      - redis
     ports:
       - '5173:5173'
     environment:
@@ -135,7 +137,6 @@ services:
     container_name: axionax-faucet-dev
     restart: unless-stopped
     depends_on:
-      - axionax-node
       - redis
     ports:
       - '3002:3002'
