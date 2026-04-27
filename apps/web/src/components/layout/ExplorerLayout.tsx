@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import ConnectButton from '@/components/wallet/ConnectButton';
 import VisitorCounter from '@/components/layout/VisitorCounter';
+import ThemeToggle from '@/components/ui/ThemeToggle';
+import { useTheme } from '@/contexts/ThemeContext';
 import { AXIONAX_NETWORK } from '@/lib/web3';
 
 const mainNav = [
@@ -29,7 +31,8 @@ export default function ExplorerLayout({
 }): React.JSX.Element {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const isLight = false;
+  const { theme } = useTheme();
+  const isLight = theme === 'light';
 
   const addNetwork = async () => {
     if (typeof window === 'undefined') return;
@@ -110,7 +113,8 @@ export default function ExplorerLayout({
           >
             Add Network
           </button>
-          <div className="pl-4 border-l border-white/10">
+          <div className="pl-4 border-l border-white/10 flex items-center gap-2">
+            <ThemeToggle />
             <ConnectButton />
           </div>
         </div>

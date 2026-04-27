@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter, Space_Grotesk, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import { Web3Provider } from '@/contexts/Web3Context';
+import { ThemeProvider } from '@/contexts/ThemeContext';
 import { QueryProvider } from '@/providers/QueryProvider';
 import ExplorerLayout from '@/components/layout/ExplorerLayout';
 import { OracleChatMount } from '@/components/oracle/OracleChatMount';
@@ -58,15 +59,17 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`dark ${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
+      className={`${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
       suppressHydrationWarning
     >
       <body className="font-sans antialiased text-base font-normal">
-        <QueryProvider>
-          <Web3Provider>
-            <ExplorerLayout>{children}</ExplorerLayout>
-          </Web3Provider>
-        </QueryProvider>
+        <ThemeProvider>
+          <QueryProvider>
+            <Web3Provider>
+              <ExplorerLayout>{children}</ExplorerLayout>
+            </Web3Provider>
+          </QueryProvider>
+        </ThemeProvider>
         <OracleChatMount />
       </body>
     </html>
